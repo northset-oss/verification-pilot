@@ -104,3 +104,7 @@ Node.js + the built-in test runner):
 | `.github/workflows/attest-bundle.yml` | Signs a bundle with GitHub artifact attestations | [docs/attestation.md](docs/attestation.md) |
 
 Run the test suite with `node --test`.
+
+Everything here — the tooling, the `mission.json` receipt format, and the bundle layout — is
+licensed under [Apache-2.0](LICENSE), so you can adopt, implement, or fork the format without
+asking us.
