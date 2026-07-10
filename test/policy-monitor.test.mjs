@@ -127,6 +127,34 @@ test('checkTargets handles found, missing, rate-limited, and changed files', asy
   assert.match(warning.reason, /403.*rate limit.*API rate limit exceeded/i);
 });
 
+test('checkTargets keeps a tracked file through a transient API failure', async () => {
+  const scripted = [
+    response(403, { message: 'API rate limit exceeded' }),
+    response(404),
+  ];
+  const report = await checkTargets({
+    targets: [{ repo: 'owner/repo', paths: ['limited.md', 'gone.md'] }],
+    state: {
+      version: '0',
+      files: {
+        'owner/repo:limited.md': 'kept-sha',
+        'owner/repo:gone.md': 'gone-sha',
+      },
+    },
+    fetchImpl: async () => scripted.shift(),
+  });
+
+  const limited = report.results.filter(({ key }) => key === 'owner/repo:limited.md');
+  assert.deepEqual(limited.map(({ status }) => status).sort(), ['unchanged', 'warning']);
+  assert.deepEqual(
+    report.results.find(({ key }) => key === 'owner/repo:gone.md'),
+    { key: 'owner/repo:gone.md', status: 'removed', previousSha: 'gone-sha' },
+  );
+  assert.equal(report.changed, true);
+  assert.equal(report.nextState.files['owner/repo:limited.md'], 'kept-sha');
+  assert.equal(Object.hasOwn(report.nextState.files, 'owner/repo:gone.md'), false);
+});
+
 test('checkTargets sends authorization only when a token is set', async () => {
   const seenHeaders = [];
   const fetchImpl = async (_url, options) => {

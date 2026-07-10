@@ -6,6 +6,7 @@
       "paths": [
         "CONTRIBUTING.md",
         ".github/CONTRIBUTING.md",
+        "docs/about/contributing/CONTRIBUTING.md",
         "AI_POLICY.md",
         "docs/AI_POLICY.md"
       ]
@@ -29,12 +30,24 @@
       ]
     },
     {
+      "repo": "electron/governance",
+      "paths": [
+        "policy/ai.md"
+      ]
+    },
+    {
       "repo": "antiwork/gumroad",
       "paths": [
         "CONTRIBUTING.md",
         ".github/CONTRIBUTING.md",
         "AI_POLICY.md",
         "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "antiwork/.github",
+      "paths": [
+        "profile/README.md"
       ]
     }
   ]
