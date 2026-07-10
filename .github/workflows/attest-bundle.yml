@@ -46,7 +46,10 @@ jobs:
           set -euo pipefail
           MISSION="$INPUT_MISSION_ID"
           if [ -z "$MISSION" ]; then
-            CHANGED="$(git diff --name-only HEAD~1 -- 'missions/**' | cut -d/ -f2 | sort -u)"
+            # Diff the same paths that trigger this workflow (missions/*/bundle/**) — a wider
+            # pathspec would count missions/index.json as a "mission" and trip the guard below
+            # on every normal bundle+index push.
+            CHANGED="$(git diff --name-only HEAD~1 -- ':(glob)missions/*/bundle/**' | cut -d/ -f2 | sort -u)"
             # Fail closed on multi-mission pushes: silently attesting only the first changed
             # mission would leave the others unsigned. Push one mission per commit, or
             # dispatch this workflow once per mission id.
