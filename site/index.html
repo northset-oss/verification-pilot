@@ -137,7 +137,7 @@
   </main>
   <script type="application/json" id="ledger-data">{
   "version": "0",
-  "generated_at": "2026-07-15T00:00:00Z",
+  "generated_at": "2026-07-10T00:00:00Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -146,57 +146,17 @@
         "R0"
       ],
       "grade": "B0",
-      "target_repo": "https://example.com/northset/oss-run-records",
+      "target_repo": "https://github.com/northset-oss/verification-pilot",
       "issue_or_task": null,
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "pending",
         "link": null
       },
-      "run_record_bundle_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "run_record_bundle_digest": null,
       "attestation_uri": null,
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": false
-    },
-    {
-      "mission_id": "M-004",
-      "variant": "V",
-      "claims_tier": [
-        "R1",
-        "R2"
-      ],
-      "grade": "B1",
-      "target_repo": "https://example.com/maintainer/project",
-      "issue_or_task": "https://example.com/maintainer/project/issues/42",
-      "consent_artifact": "https://example.com/maintainer/project/consent/42",
-      "maintainer_outcome": {
-        "status": "pending",
-        "link": null
-      },
-      "run_record_bundle_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-      "attestation_uri": "https://example.com/attestations/M-004",
-      "disclosure_label": "Verification-give mission with disclosed funding and review scope.",
-      "attested": true
-    },
-    {
-      "mission_id": "M-005",
-      "variant": "W",
-      "claims_tier": [
-        "R1",
-        "R2"
-      ],
-      "grade": "B+",
-      "target_repo": "https://fixtures.example/project/\u003cscript\u003ealert(1)\u003c/script\u003e?label=\"quoted\"",
-      "issue_or_task": "https://example.com/maintainer/worker-project/issues/17",
-      "consent_artifact": "https://example.com/maintainer/worker-project/consent/17",
-      "maintainer_outcome": {
-        "status": "merged",
-        "link": "https://example.com/maintainer/worker-project/pulls/18"
-      },
-      "run_record_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-      "attestation_uri": "https://example.com/attestations/M-005",
-      "disclosure_label": "Worker-side mission with a \u003cscript\u003ealert(\"ledger-xss\")\u003c/script\u003e marker.",
-      "attested": true
     }
   ]
 }</script>
@@ -242,7 +202,7 @@
         if (mission.attested) {
           attested.append(link(mission.attestation_uri, 'Yes'), document.createElement('br'));
           const hint = document.createElement('code');
-          hint.textContent = 'gh attestation verify <bundle> --owner northset-oss';
+          hint.textContent = 'gh attestation verify <bundle> --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml';
           attested.append(hint);
         } else {
           attested.textContent = 'No';

@@ -1,0 +1,608 @@
+=== cmd 1: node --test ===
+TAP version 13
+# Subtest: create produces the frozen layout, redactions, and a verifiable manifest
+ok 1 - create produces the frozen layout, redactions, and a verifiable manifest
+  ---
+  duration_ms: 609.149
+  ...
+# Subtest: verify reports tampered, missing, and extra files
+    # Subtest: tampered
+    ok 1 - tampered
+      ---
+      duration_ms: 212.946584
+      ...
+    # Subtest: missing
+    ok 2 - missing
+      ---
+      duration_ms: 125.629042
+      ...
+    # Subtest: extra
+    ok 3 - extra
+      ---
+      duration_ms: 74.087667
+      ...
+    1..3
+ok 2 - verify reports tampered, missing, and extra files
+  ---
+  duration_ms: 427.230459
+  ...
+# Subtest: same inputs and created_at produce a byte-identical manifest
+ok 3 - same inputs and created_at produce a byte-identical manifest
+  ---
+  duration_ms: 89.32375
+  ...
+# Subtest: CONSENT_FILE_REQUIRED applies to V but not own_repo_rehearsal
+ok 4 - CONSENT_FILE_REQUIRED applies to V but not own_repo_rehearsal
+  ---
+  duration_ms: 132.194459
+  ...
+# Subtest: --json returns machine-readable create and verify results
+ok 5 - --json returns machine-readable create and verify results
+  ---
+  duration_ms: 102.9525
+  ...
+# Subtest: run record validation rejects unknown top-level keys and malformed members
+ok 6 - run record validation rejects unknown top-level keys and malformed members
+  ---
+  duration_ms: 0.887458
+  ...
+# Subtest: run record validation enforces the timeout exit-code invariant
+ok 7 - run record validation enforces the timeout exit-code invariant
+  ---
+  duration_ms: 1.369125
+  ...
+# Subtest: CLI exits zero and stays quiet for valid receipts
+ok 8 - CLI exits zero and stays quiet for valid receipts
+  ---
+  duration_ms: 211.251708
+  ...
+# Subtest: CLI exits one with one human-readable line per violation
+ok 9 - CLI exits one with one human-readable line per violation
+  ---
+  duration_ms: 198.271751
+  ...
+# Subtest: --json emits parseable per-file results
+ok 10 - --json emits parseable per-file results
+  ---
+  duration_ms: 294.64975
+  ...
+# Subtest: buildDockerArgs encodes both-phase isolation without host environment or source paths
+ok 11 - buildDockerArgs encodes both-phase isolation without host environment or source paths
+  ---
+  duration_ms: 2.397583
+  ...
+# Subtest: config rejects unknown top-level keys
+ok 12 - config rejects unknown top-level keys
+  ---
+  duration_ms: 1.576625
+  ...
+# Subtest: happy path writes deterministic bundle-compatible outputs
+ok 13 - happy path writes deterministic bundle-compatible outputs
+  ---
+  duration_ms: 410.935667
+  ...
+# Subtest: empty RepoDigests falls back to the resolved image Id
+ok 14 - empty RepoDigests falls back to the resolved image Id
+  ---
+  duration_ms: 90.996042
+  ...
+# Subtest: missing RepoDigests and image Id fails closed before phase B
+ok 15 - missing RepoDigests and image Id fails closed before phase B
+  ---
+  duration_ms: 87.162334
+  ...
+# Subtest: failed image inspection fails closed before phase B
+ok 16 - failed image inspection fails closed before phase B
+  ---
+  duration_ms: 14.113708
+  ...
+# Subtest: stream output is truncated at the byte cap with a marker
+ok 17 - stream output is truncated at the byte cap with a marker
+  ---
+  duration_ms: 11.790334
+  ...
+# Subtest: a nonzero exit is recorded and later commands still run
+ok 18 - a nonzero exit is recorded and later commands still run
+  ---
+  duration_ms: 83.326416
+  ...
+# Subtest: timeout records null exit and timed_out, continues, and is accepted by bundle create
+ok 19 - timeout records null exit and timed_out, continues, and is accepted by bundle create
+  ---
+  duration_ms: 119.667958
+  ...
+# Subtest: phase A nonzero exit aborts phase B and cleanup removes every container and workspace
+ok 20 - phase A nonzero exit aborts phase B and cleanup removes every container and workspace
+  ---
+  duration_ms: 10.502166
+  ...
+# Subtest: workspace cap breach after a phase-B command stops later commands and cleans up
+ok 21 - workspace cap breach after a phase-B command stops later commands and cleans up
+  ---
+  duration_ms: 61.566
+  ...
+# Subtest: phase A workspace cap breach aborts before phase B
+ok 22 - phase A workspace cap breach aborts before phase B
+  ---
+  duration_ms: 6.753208
+  ...
+# Subtest: optional Docker integration
+ok 23 - optional Docker integration # SKIP
+  ---
+  duration_ms: 0.078583
+  ...
+# Subtest: build includes only valid missions in sorted deterministic projections
+ok 24 - build includes only valid missions in sorted deterministic projections
+  ---
+  duration_ms: 507.791126
+  ...
+# Subtest: build exits nonzero when the missions directory is unreadable
+ok 25 - build exits nonzero when the missions directory is unreadable
+  ---
+  duration_ms: 195.457958
+  ...
+# Subtest: render emits a self-contained claims surface with encoded mission data
+ok 26 - render emits a self-contained claims surface with encoded mission data
+  ---
+  duration_ms: 199.288042
+  ...
+# Subtest: all canonical examples pass validation
+    # Subtest: M-001_own_repo_rehearsal.json
+    ok 1 - M-001_own_repo_rehearsal.json
+      ---
+      duration_ms: 76.915792
+      ...
+    # Subtest: M-004_verification_give.json
+    ok 2 - M-004_verification_give.json
+      ---
+      duration_ms: 6.576
+      ...
+    # Subtest: M-005_worker_mission.json
+    ok 3 - M-005_worker_mission.json
+      ---
+      duration_ms: 1.331584
+      ...
+    1..3
+ok 27 - all canonical examples pass validation
+  ---
+  duration_ms: 95.821542
+  ...
+# Subtest: each policy fixture fails only its named rule
+    # Subtest: banned_phrases.json
+    ok 1 - banned_phrases.json
+      ---
+      duration_ms: 1.802333
+      ...
+    # Subtest: consent_required.json
+    ok 2 - consent_required.json
+      ---
+      duration_ms: 4.231166
+      ...
+    # Subtest: grade_outcome_consistency.json
+    ok 3 - grade_outcome_consistency.json
+      ---
+      duration_ms: 1.354166
+      ...
+    # Subtest: limitations_baseline.json
+    ok 4 - limitations_baseline.json
+      ---
+      duration_ms: 4.452708
+      ...
+    # Subtest: merge_contingent_forbidden.json
+    ok 5 - merge_contingent_forbidden.json
+      ---
+      duration_ms: 79.636458
+      ...
+    # Subtest: r3_own_repo_only.json
+    ok 6 - r3_own_repo_only.json
+      ---
+      duration_ms: 2.687875
+      ...
+    # Subtest: rehearsal_label.json
+    ok 7 - rehearsal_label.json
+      ---
+      duration_ms: 1.714208
+      ...
+    # Subtest: tier_language.json
+    ok 8 - tier_language.json
+      ---
+      duration_ms: 2.546333
+      ...
+    1..8
+ok 28 - each policy fixture fails only its named rule
+  ---
+  duration_ms: 101.924708
+  ...
+# Subtest: CONSENT_REQUIRED covers V, W, and F variants
+    # Subtest: V
+    ok 1 - V
+      ---
+      duration_ms: 2.468584
+      ...
+    # Subtest: W
+    ok 2 - W
+      ---
+      duration_ms: 2.55025
+      ...
+    # Subtest: F
+    ok 3 - F
+      ---
+      duration_ms: 3.63975
+      ...
+    1..3
+ok 29 - CONSENT_REQUIRED covers V, W, and F variants
+  ---
+  duration_ms: 10.75
+  ...
+# Subtest: URL fields reject non-http(s) schemes (ledger renders them as hrefs)
+    # Subtest: javascript:alert(1)
+    ok 1 - javascript:alert(1)
+      ---
+      duration_ms: 4.417625
+      ...
+    # Subtest: data:text/html,<script>x</script>
+    ok 2 - data:text/html,<script>x</script>
+      ---
+      duration_ms: 73.34225
+      ...
+    # Subtest: file:///etc/passwd
+    ok 3 - file:///etc/passwd
+      ---
+      duration_ms: 1.586
+      ...
+    1..3
+ok 30 - URL fields reject non-http(s) schemes (ledger renders them as hrefs)
+  ---
+  duration_ms: 80.167625
+  ...
+# Subtest: both GRADE_OUTCOME_CONSISTENCY branches are enforced
+    # Subtest: B+ requires an accepted outcome
+    ok 1 - B+ requires an accepted outcome
+      ---
+      duration_ms: 2.463916
+      ...
+    # Subtest: B0 requires own_repo_rehearsal
+    ok 2 - B0 requires own_repo_rehearsal
+      ---
+      duration_ms: 2.597917
+      ...
+    1..2
+ok 31 - both GRADE_OUTCOME_CONSISTENCY branches are enforced
+  ---
+  duration_ms: 5.4645
+  ...
+# Subtest: all banned phrases are matched case-insensitively
+    # Subtest: SETTLED ON-CHAIN
+    ok 1 - SETTLED ON-CHAIN
+      ---
+      duration_ms: 2.842125
+      ...
+    # Subtest: Proves Tests Pass
+    ok 2 - Proves Tests Pass
+      ---
+      duration_ms: 3.2075
+      ...
+    # Subtest: Production Ready
+    ok 3 - Production Ready
+      ---
+      duration_ms: 1.393958
+      ...
+    # Subtest: Customer
+    ok 4 - Customer
+      ---
+      duration_ms: 1.393666
+      ...
+    # Subtest: Marketplace
+    ok 5 - Marketplace
+      ---
+      duration_ms: 2.638042
+      ...
+    1..5
+ok 32 - all banned phrases are matched case-insensitively
+  ---
+  duration_ms: 12.126958
+  ...
+# Subtest: banned phrases cover every free-text field
+    # Subtest: $.disclosure_label
+    ok 1 - $.disclosure_label
+      ---
+      duration_ms: 2.750875
+      ...
+    # Subtest: $.funding_source
+    ok 2 - $.funding_source
+      ---
+      duration_ms: 3.327083
+      ...
+    # Subtest: $.external_counterparty
+    ok 3 - $.external_counterparty
+      ---
+      duration_ms: 2.021208
+      ...
+    # Subtest: $.repo_policy_snapshot.ai_policy_summary
+    ok 4 - $.repo_policy_snapshot.ai_policy_summary
+      ---
+      duration_ms: 74.300166
+      ...
+    # Subtest: $.worker_identity.runtime
+    ok 5 - $.worker_identity.runtime
+      ---
+      duration_ms: 1.4955
+      ...
+    # Subtest: $.worker_identity.human_operator
+    ok 6 - $.worker_identity.human_operator
+      ---
+      duration_ms: 1.106458
+      ...
+    # Subtest: $.environment.network_policy
+    ok 7 - $.environment.network_policy
+      ---
+      duration_ms: 2.818209
+      ...
+    # Subtest: $.commands_declared[0]
+    ok 8 - $.commands_declared[0]
+      ---
+      duration_ms: 1.48825
+      ...
+    # Subtest: $.limitations[2]
+    ok 9 - $.limitations[2]
+      ---
+      duration_ms: 1.537833
+      ...
+    1..9
+ok 33 - banned phrases cover every free-text field
+  ---
+  duration_ms: 92.390667
+  ...
+# Subtest: TIER_LANGUAGE rejects both restricted substrings below R3
+    # Subtest: on-chain evidence
+    ok 1 - on-chain evidence
+      ---
+      duration_ms: 2.206542
+      ...
+    # Subtest: settlement evidence
+    ok 2 - settlement evidence
+      ---
+      duration_ms: 2.519583
+      ...
+    1..2
+ok 34 - TIER_LANGUAGE rejects both restricted substrings below R3
+  ---
+  duration_ms: 5.067916
+  ...
+# Subtest: R3 allows tier language on own-repository rehearsals
+ok 35 - R3 allows tier language on own-repository rehearsals
+  ---
+  duration_ms: 1.742125
+  ...
+# Subtest: B+ accepts an approved outcome
+ok 36 - B+ accepts an approved outcome
+  ---
+  duration_ms: 3.64325
+  ...
+# Subtest: attributed maintainer outcomes require linked evidence
+    # Subtest: merged
+    ok 1 - merged
+      ---
+      duration_ms: 1.156667
+      ...
+    # Subtest: approved
+    ok 2 - approved
+      ---
+      duration_ms: 1.695666
+      ...
+    # Subtest: rejected
+    ok 3 - rejected
+      ---
+      duration_ms: 1.967375
+      ...
+    # Subtest: closed
+    ok 4 - closed
+      ---
+      duration_ms: 1.659917
+      ...
+    1..4
+ok 37 - attributed maintainer outcomes require linked evidence
+  ---
+  duration_ms: 6.987125
+  ...
+# Subtest: unattributed maintainer outcomes do not require linked evidence
+    # Subtest: silent
+    ok 1 - silent
+      ---
+      duration_ms: 74.694541
+      ...
+    # Subtest: pending
+    ok 2 - pending
+      ---
+      duration_ms: 2.0505
+      ...
+    1..2
+ok 38 - unattributed maintainer outcomes do not require linked evidence
+  ---
+  duration_ms: 77.045417
+  ...
+# Subtest: structural validation covers the exact v0 constraints
+    # Subtest: top-level object
+    ok 1 - top-level object
+      ---
+      duration_ms: 3.030375
+      ...
+    # Subtest: required properties
+    ok 2 - required properties
+      ---
+      duration_ms: 2.5565
+      ...
+    # Subtest: additional properties
+    ok 3 - additional properties
+      ---
+      duration_ms: 2.489209
+      ...
+    # Subtest: mission ID pattern
+    ok 4 - mission ID pattern
+      ---
+      duration_ms: 1.407167
+      ...
+    # Subtest: R4 is excluded
+    ok 5 - R4 is excluded
+      ---
+      duration_ms: 1.873375
+      ...
+    # Subtest: claim tiers are unique
+    ok 6 - claim tiers are unique
+      ---
+      duration_ms: 1.570125
+      ...
+    # Subtest: URLs are absolute
+    ok 7 - URLs are absolute
+      ---
+      duration_ms: 1.613792
+      ...
+    # Subtest: timestamps are real ISO-8601 date-times
+    ok 8 - timestamps are real ISO-8601 date-times
+      ---
+      duration_ms: 1.264459
+      ...
+    # Subtest: commit identifiers contain 40 hex characters
+    ok 9 - commit identifiers contain 40 hex characters
+      ---
+      duration_ms: 2.311
+      ...
+    # Subtest: nested members are required
+    ok 10 - nested members are required
+      ---
+      duration_ms: 1.4305
+      ...
+    1..10
+ok 39 - structural validation covers the exact v0 constraints
+  ---
+  duration_ms: 20.73575
+  ...
+# Subtest: schema declares draft 2020-12 and package stays dependency-free
+ok 40 - schema declares draft 2020-12 and package stays dependency-free
+  ---
+  duration_ms: 75.121208
+  ...
+# Subtest: V mission without consent_file fails closed before executor and writes no mission
+ok 41 - V mission without consent_file fails closed before executor and writes no mission
+  ---
+  duration_ms: 15.933292
+  ...
+# Subtest: invalid mission fails validation before executor
+ok 42 - invalid mission fails validation before executor
+  ---
+  duration_ms: 5.080459
+  ...
+# Subtest: declared command mismatch fails before executor and writes no mission
+ok 43 - declared command mismatch fails before executor and writes no mission
+  ---
+  duration_ms: 76.053166
+  ...
+# Subtest: executed command mismatch fails after executor and publishes no mission
+ok 44 - executed command mismatch fails after executor and publishes no mission
+  ---
+  duration_ms: 20.639584
+  ...
+# Subtest: own_repo_rehearsal with the required label proceeds without consent
+ok 45 - own_repo_rehearsal with the required label proceeds without consent
+  ---
+  duration_ms: 191.533958
+  ...
+# Subtest: happy path creates a real verifiable bundle and refreshes the ledger
+ok 46 - happy path creates a real verifiable bundle and refreshes the ledger
+  ---
+  duration_ms: 297.356625
+  ...
+# Subtest: W mission with consent proceeds and copies consent verbatim
+ok 47 - W mission with consent proceeds and copies consent verbatim
+  ---
+  duration_ms: 95.321792
+  ...
+# Subtest: executor failure removes the partial mission directory
+ok 48 - executor failure removes the partial mission directory
+  ---
+  duration_ms: 5.342959
+  ...
+# Subtest: ledger failure restores a mission replaced with --force
+ok 49 - ledger failure restores a mission replaced with --force
+  ---
+  duration_ms: 20.833542
+  ...
+# Subtest: same input and --now write identical mission.json bytes
+ok 50 - same input and --now write identical mission.json bytes
+  ---
+  duration_ms: 85.435583
+  ...
+# Subtest: CLI gate failure exits one with the rule and leaves no mission directory
+ok 51 - CLI gate failure exits one with the rule and leaves no mission directory
+  ---
+  duration_ms: 89.678209
+  ...
+# Subtest: mission input rejects unknown top-level keys before execution
+ok 52 - mission input rejects unknown top-level keys before execution
+  ---
+  duration_ms: 1.92475
+  ...
+# Subtest: diffPolicyState classifies unchanged, changed, new, and removed files
+ok 53 - diffPolicyState classifies unchanged, changed, new, and removed files
+  ---
+  duration_ms: 2.872959
+  ...
+# Subtest: checkTargets handles found, missing, rate-limited, and changed files
+ok 54 - checkTargets handles found, missing, rate-limited, and changed files
+  ---
+  duration_ms: 5.803291
+  ...
+# Subtest: checkTargets sends authorization only when a token is set
+ok 55 - checkTargets sends authorization only when a token is set
+  ---
+  duration_ms: 0.481625
+  ...
+# Subtest: CLI exits zero for an unchanged fixture snapshot
+ok 56 - CLI exits zero for an unchanged fixture snapshot
+  ---
+  duration_ms: 209.266917
+  ...
+# Subtest: CLI exits two when a blob SHA changes
+ok 57 - CLI exits two when a blob SHA changes
+  ---
+  duration_ms: 175.705834
+  ...
+# Subtest: CLI exits one when the targets config is unreadable
+ok 58 - CLI exits one when the targets config is unreadable
+  ---
+  duration_ms: 199.702584
+  ...
+# Subtest: --write persists state and the second CLI run sees no change
+ok 59 - --write persists state and the second CLI run sees no change
+  ---
+  duration_ms: 203.045708
+  ...
+# Subtest: CLI treats all-request warnings as a hard error and does not write state
+ok 60 - CLI treats all-request warnings as a hard error and does not write state
+  ---
+  duration_ms: 31.276083
+  ...
+# Subtest: redacts every required secret class and reports exact counts
+ok 61 - redacts every required secret class and reports exact counts
+  ---
+  duration_ms: 12.527625
+  ...
+# Subtest: over-redacts 0x-prefixed sha256-shaped values but preserves digest fields
+ok 62 - over-redacts 0x-prefixed sha256-shaped values but preserves digest fields
+  ---
+  duration_ms: 2.875417
+  ...
+# Subtest: redacts string values recursively without changing keys or scalar types
+ok 63 - redacts string values recursively without changing keys or scalar types
+  ---
+  duration_ms: 0.936625
+  ...
+1..63
+# tests 117
+# suites 0
+# pass 116
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 2356.986501
