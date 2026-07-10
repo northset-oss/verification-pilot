@@ -73,6 +73,21 @@ test('CONSENT_REQUIRED covers V, W, and F variants', async (t) => {
   }
 });
 
+test('URL fields reject non-http(s) schemes (ledger renders them as hrefs)', async (t) => {
+  for (const scheme of ['javascript:alert(1)', 'data:text/html,<script>x</script>', 'file:///etc/passwd']) {
+    await t.test(scheme, async () => {
+      const receipt = await baseReceipt();
+      receipt.variant = 'V';
+      receipt.grade = 'B1';
+      receipt.consent_artifact = 'https://example.com/consent';
+      receipt.target_repo = scheme;
+      const result = validateMission(receipt);
+      assert.equal(result.valid, false);
+      assert.ok(result.errors.some((error) => error.path === '$.target_repo'));
+    });
+  }
+});
+
 test('both GRADE_OUTCOME_CONSISTENCY branches are enforced', async (t) => {
   await t.test('B+ requires an accepted outcome', async () => {
     const receipt = await baseReceipt();

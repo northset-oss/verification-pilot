@@ -8,7 +8,8 @@
   },
   "bin": {
     "northset-bundle": "bin/bundle.mjs",
-    "northset-execute": "bin/execute.mjs"
+    "northset-execute": "bin/execute.mjs",
+    "northset-ledger": "bin/ledger.mjs"
   },
   "scripts": {
     "test": "node --test"

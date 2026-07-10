@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-001",
+  "variant": "own_repo_rehearsal",
+  "claims_tier": ["R0"],
+  "grade": "B0",
+  "disclosure_label": "Self-funded rehearsal. Not external validation.",
+  "funding_source": "Northset self-funded rehearsal",
+  "northset_role": "both_sides_disclosed",
+  "external_counterparty": null,
+  "target_repo": "https://example.com/northset/oss-run-records",
+  "issue_or_task": null,
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://example.com/northset/oss-run-records/policy",
+    "checked_at": "2026-07-01T14:00:00Z",
+    "ai_policy_summary": "Repository-owned rehearsal under the documented contribution policy."
+  },
+  "worker_identity": {
+    "runtime": "Codex CLI",
+    "human_operator": "Northset operator"
+  },
+  "base_commit": "1111111111111111111111111111111111111111",
+  "patch_commit": "2222222222222222222222222222222222222222",
+  "patch_diff_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "commands_declared": ["node --test"],
+  "environment": {
+    "container_image_digest": null,
+    "network_policy": "Network disabled during validation"
+  },
+  "run_record_bundle_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Self-reported rehearsal receipt"
+  ]
+}
