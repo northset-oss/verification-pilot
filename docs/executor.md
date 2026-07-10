@@ -64,10 +64,16 @@ uses `=== cmd N: <cmd> ===` section headers. Per-command streams longer than
 `output_bytes_per_stream` are cut at the byte limit and receive a `[TRUNCATED]` marker.
 Output is intentionally not redacted; the bundle step owns redaction.
 
-The run record reports the configured source image and the literal network policy
-`phaseA:bridge,phaseB:none`. Pin `image` to a `name@sha256:...` digest in the mission config
-for a tamper-evident environment record. The executor always attempts to remove phase
-containers and removes its temporary workspace in a `finally` block.
+After phase A makes the configured image available, the executor resolves it with
+`docker image inspect` before starting phase B. The run record keeps the exact configured
+string as `container_image_ref` and records the first repository content digest as
+`container_image_digest`. For a locally built image with no repository digest, it records the
+image's `sha256:...` ID instead. If neither value can be resolved, execution fails closed and
+no run record is written. The environment also reports the literal network policy
+`phaseA:bridge,phaseB:none`.
+
+The executor always attempts to remove phase containers and removes its temporary workspace
+in a `finally` block.
 
 ## Isolation ceiling and accepted residuals
 

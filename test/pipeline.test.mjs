@@ -44,7 +44,7 @@ function missionInput(mission, overrides = {}) {
     executor: {
       image: 'node:20-bookworm',
       install_commands: [],
-      commands: ['node --test'],
+      commands: [...mission.commands_declared],
       limits: {
         cpus: 1,
         memory_mb: 1024,
@@ -57,18 +57,31 @@ function missionInput(mission, overrides = {}) {
   };
 }
 
-function fakeExecutor(counter = { calls: 0 }, { failure = null, patchFile = null } = {}) {
+function fakeExecutor(
+  counter = { calls: 0 },
+  { failure = null, patchFile = null, executedCommands = null } = {},
+) {
   return async (config, { outDir, now }) => {
     counter.calls += 1;
     assert.equal(config.repo_dir, root);
     assert.equal(config.patch_file, patchFile);
     assert.equal(now, fixedNow);
     if (failure !== null) throw failure;
+    const runRecordFile = path.join(outDir, 'run_record.json');
+    const stdoutFile = path.join(outDir, 'stdout.txt');
+    const stderrFile = path.join(outDir, 'stderr.txt');
+    const runRecord = JSON.parse(await readFile(path.join(fixtures, 'run_record.json'), 'utf8'));
+    runRecord.commands = (executedCommands ?? config.commands).map((cmd) => ({
+      cmd,
+      exit_code: 0,
+      duration_ms: 25,
+    }));
     await Promise.all([
-      cp(path.join(fixtures, 'run_record.json'), path.join(outDir, 'run_record.json')),
-      cp(path.join(fixtures, 'stdout.txt'), path.join(outDir, 'stdout.txt')),
-      cp(path.join(fixtures, 'stderr.txt'), path.join(outDir, 'stderr.txt')),
+      writeFile(runRecordFile, `${JSON.stringify(runRecord, null, 2)}\n`),
+      cp(path.join(fixtures, 'stdout.txt'), stdoutFile),
+      cp(path.join(fixtures, 'stderr.txt'), stderrFile),
     ]);
+    return { runRecord, runRecordFile, stdoutFile, stderrFile };
   };
 }
 
@@ -114,6 +127,50 @@ test('invalid mission fails validation before executor', async (t) => {
   );
   assert.equal(counter.calls, 0);
   await assertMissing(path.join(missionsDir, invalidMission.mission_id));
+});
+
+test('declared command mismatch fails before executor and writes no mission', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample));
+  input.executor = { ...input.executor, commands: ['npm test'] };
+
+  await assert.rejects(
+    runPipeline(input, {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: fakeExecutor(counter),
+    }),
+    (error) => (
+      error instanceof PipelineError &&
+      error.message === 'mission commands_declared must equal executor.commands' &&
+      error.errors.some((item) => item.ruleId === 'COMMANDS_MISMATCH')
+    ),
+  );
+  assert.equal(counter.calls, 0);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+});
+
+test('executed command mismatch fails after executor and publishes no mission', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample));
+
+  await assert.rejects(
+    runPipeline(input, {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: fakeExecutor(counter, { executedCommands: ['npm test'] }),
+    }),
+    (error) => (
+      error instanceof PipelineError &&
+      error.errors.some((item) => item.ruleId === 'COMMANDS_EXECUTED_MISMATCH')
+    ),
+  );
+  assert.equal(counter.calls, 1);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
 });
 
 test('own_repo_rehearsal with the required label proceeds without consent', async (t) => {

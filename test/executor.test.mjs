@@ -28,6 +28,8 @@ const fixtures = path.join(root, 'test/fixtures/executor');
 const repoFixture = path.join(fixtures, 'repo');
 const bundleCli = path.join(root, 'bin/bundle.mjs');
 const fixedNow = '2026-07-09T12:00:00Z';
+const resolvedRepoDigest = `docker.io/library/node@sha256:${'a'.repeat(64)}`;
+const resolvedImageId = `sha256:${'b'.repeat(64)}`;
 
 function config(overrides = {}) {
   return {
@@ -95,7 +97,15 @@ function imageFromRunArgs(args) {
   return args[args.indexOf('/bin/sh') - 1];
 }
 
-function fakeDocker({ responses = {}, phaseA = {}, hanging = new Set() } = {}) {
+function fakeDocker({
+  responses = {},
+  phaseA = {},
+  hanging = new Set(),
+  repoDigests = [resolvedRepoDigest],
+  repoDigestsCode = 0,
+  imageId = resolvedImageId,
+  imageIdCode = 0,
+} = {}) {
   const calls = [];
   const children = [];
   const workspaceDirs = new Set();
@@ -134,6 +144,17 @@ function fakeDocker({ responses = {}, phaseA = {}, hanging = new Set() } = {}) {
       return child;
     }
 
+    if (args[0] === 'image') {
+      assert.deepEqual(args.slice(0, 3), ['image', 'inspect', config().image]);
+      if (args.at(-1) === '{{json .RepoDigests}}') {
+        finishChild(child, { stdout: `${JSON.stringify(repoDigests)}\n`, code: repoDigestsCode });
+      } else {
+        assert.equal(args.at(-1), '{{.Id}}');
+        finishChild(child, { stdout: `${imageId}\n`, code: imageIdCode });
+      }
+      return child;
+    }
+
     finishChild(child);
     return child;
   };
@@ -144,6 +165,10 @@ function runCalls(fake, phase) {
   return fake.calls.filter((args) => (
     args[0] === 'run' && args.includes('--network=none') === (phase === 'B')
   ));
+}
+
+function inspectCalls(fake) {
+  return fake.calls.filter((args) => args[0] === 'image' && args[1] === 'inspect');
 }
 
 function assertCleanupCalls(fake, expectedCount) {
@@ -294,9 +319,11 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.equal(result.runRecord.started_at, fixedNow);
   assert.equal(result.runRecord.finished_at, fixedNow);
   assert.deepEqual(result.runRecord.environment, {
-    container_image_digest: 'node:20-bookworm',
+    container_image_ref: 'node:20-bookworm',
+    container_image_digest: resolvedRepoDigest,
     network_policy: 'phaseA:bridge,phaseB:none',
   });
+  assert.match(result.runRecord.environment.container_image_digest, /sha256:/);
   assert.deepEqual(result.runRecord.commands.map(({ cmd, exit_code }) => ({ cmd, exit_code })), [
     { cmd: 'first-check', exit_code: 0 },
     { cmd: 'second-check', exit_code: 0 },
@@ -315,9 +342,71 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.match(bundle.stdout, /^bundle_digest sha256:[0-9a-f]{64}\n$/);
   assert.equal(runCalls(fake, 'A').length, 1);
   assert.equal(runCalls(fake, 'B').length, 2);
+  assert.deepEqual(inspectCalls(fake), [[
+    'image',
+    'inspect',
+    config().image,
+    '--format',
+    '{{json .RepoDigests}}',
+  ]]);
   for (const args of [...runCalls(fake, 'A'), ...runCalls(fake, 'B')]) {
     assert.equal(imageFromRunArgs(args), config().image);
   }
+  assertCleanupCalls(fake, 3);
+  await assertTemporaryRootsGone(fake);
+});
+
+test('empty RepoDigests falls back to the resolved image Id', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-image-id-');
+  const fake = fakeDocker({ repoDigests: [], imageId: resolvedImageId });
+  const result = await execute(config(), {
+    outDir: outputDirectory,
+    now: fixedNow,
+    spawnImpl: fake.spawnImpl,
+  });
+
+  assert.deepEqual(result.runRecord.environment, {
+    container_image_ref: 'node:20-bookworm',
+    container_image_digest: resolvedImageId,
+    network_policy: 'phaseA:bridge,phaseB:none',
+  });
+  assert.match(result.runRecord.environment.container_image_digest, /^sha256:/);
+  assert.deepEqual(inspectCalls(fake).map((args) => args.at(-1)), [
+    '{{json .RepoDigests}}',
+    '{{.Id}}',
+  ]);
+});
+
+test('missing RepoDigests and image Id fails closed before phase B', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-image-missing-');
+  const fake = fakeDocker({ repoDigests: [], imageId: '' });
+
+  await assert.rejects(
+    execute(config(), { outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl }),
+    (error) => error instanceof ExecutorError && error.message === 'cannot resolve image digest',
+  );
+
+  assert.equal(runCalls(fake, 'B').length, 0);
+  assert.equal(inspectCalls(fake).length, 2);
+  await assert.rejects(
+    access(path.join(outputDirectory, 'run_record.json')),
+    (error) => error.code === 'ENOENT',
+  );
+  assertCleanupCalls(fake, 3);
+  await assertTemporaryRootsGone(fake);
+});
+
+test('failed image inspection fails closed before phase B', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-image-inspect-failure-');
+  const fake = fakeDocker({ repoDigestsCode: 1 });
+
+  await assert.rejects(
+    execute(config(), { outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl }),
+    (error) => error instanceof ExecutorError && error.message === 'cannot resolve image digest',
+  );
+
+  assert.equal(runCalls(fake, 'B').length, 0);
+  assert.equal(inspectCalls(fake).length, 1);
   assertCleanupCalls(fake, 3);
   await assertTemporaryRootsGone(fake);
 });

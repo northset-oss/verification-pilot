@@ -15,6 +15,12 @@ contain `Self-funded rehearsal. Not external validation.` There is no bypass fla
 If the gate or any later stage fails, the pipeline removes its staged mission. With `--force`,
 an existing mission is saved and restored if replacement fails.
 
+Before execution, the pipeline requires `mission.commands_declared` to exactly equal
+`executor.commands`, including order. After execution, it checks the returned run record's
+command list against the same declaration before creating or publishing the bundle. Either
+mismatch fails closed: the pre-execution mismatch never invokes the executor, and neither
+mismatch leaves a partial published mission directory.
+
 ## Input
 
 The input JSON accepts exactly these top-level fields:
@@ -44,7 +50,8 @@ The input JSON accepts exactly these top-level fields:
 
 `patch_file`, `consent_file`, `issue_snapshot_file`, and `ci_links_file` may be `null` when
 their artifact is absent, subject to the consent rule above. The pipeline supplies `repo_dir`
-and `patch_file` to the executor configuration.
+and `patch_file` to the executor configuration. `executor.commands` must be an exact copy of
+`mission.commands_declared`.
 
 ## CLI
 
