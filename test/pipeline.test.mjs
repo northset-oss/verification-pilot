@@ -223,6 +223,47 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
   assert.equal(verification.stdout, `OK ${result.bundleDigest}\n`);
 });
 
+test('siteFile renders the public page atomically with the index refresh', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const siteFile = path.join(temporaryRoot, 'site/index.html');
+  const result = await runPipeline(missionInput(await example(rehearsalExample)), {
+    missionsDir,
+    siteFile,
+    now: fixedNow,
+    executeImpl: fakeExecutor(),
+  });
+
+  assert.equal(result.siteFile, siteFile);
+  const page = await readFile(siteFile, 'utf8');
+  assert.match(page, /"mission_id": "M-001"/);
+  const index = JSON.parse(await readFile(path.join(missionsDir, 'index.json'), 'utf8'));
+  assert.deepEqual(index.missions.map((mission) => mission.mission_id), ['M-001']);
+});
+
+test('site render failure rolls back the mission and leaves index and page untouched', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const siteFile = path.join(temporaryRoot, 'site/index.html');
+  const input = missionInput(await example(rehearsalExample));
+
+  await assert.rejects(
+    runPipeline(input, {
+      missionsDir,
+      siteFile,
+      now: fixedNow,
+      executeImpl: fakeExecutor(),
+      renderImpl: async () => {
+        throw new Error('fake render failed');
+      },
+    }),
+    /fake render failed/,
+  );
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+  await assertMissing(path.join(missionsDir, 'index.json'));
+  await assertMissing(siteFile);
+});
+
 test('W mission with consent proceeds and copies consent verbatim', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');

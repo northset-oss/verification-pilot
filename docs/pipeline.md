@@ -58,14 +58,31 @@ and `patch_file` to the executor configuration. `executor.commands` must be an e
 ```sh
 node bin/run-mission.mjs mission-input.json \
   --missions-dir missions \
+  --site site/index.html \
   --now 2026-07-09T12:00:00Z \
   --json
 ```
+
+`--site` is optional and renders the public ledger page from the refreshed index in the same
+run. The page is staged next to its target and both artifacts are moved into place only after
+both have been produced, so a render failure rolls the whole mission back and the committed
+`missions/index.json` and `site/index.html` never disagree. (CI independently re-renders the
+page from the index and fails on any drift.)
 
 `--now` is optional. When supplied, the same timestamp is passed to the executor, bundle, and
 ledger. `--force` replaces an existing mission directory only after a new bundle has been
 assembled successfully. Without it, an existing `<missions-dir>/<mission_id>` fails with
 `MISSION_EXISTS`.
+
+## Receipt quality for public missions
+
+`--now` exists for deterministic tests. A mission intended for the public ledger should carry
+real evidence values instead of placeholders:
+
+- run without `--now` so `started_at`/`finished_at` are the actual execution times;
+- set `base_commit` to the actual 40-hex commit the workspace copy was checked out at — the
+  Claims Boundary promises "on this declared code", so a published receipt should pin it;
+- set `patch_commit`/`patch_diff_hash` whenever a patch was applied.
 
 On success the command reports the mission directory, bundle digest, number of ledger entries,
 and `attestationPending: true`. Signing happens separately, in GitHub Actions: the

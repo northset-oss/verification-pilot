@@ -12,7 +12,7 @@ function cliError(message) {
   return new PipelineError(message, [{
     ruleId: 'CLI_USAGE',
     path: '$',
-    message: `${message}; usage: run-mission.mjs <mission-input.json> --missions-dir <dir> [--now <iso>] [--force] [--json]`,
+    message: `${message}; usage: run-mission.mjs <mission-input.json> --missions-dir <dir> [--site <index.html>] [--now <iso>] [--force] [--json]`,
   }]);
 }
 
@@ -31,10 +31,10 @@ function parseArguments(arguments_) {
       options[option] = true;
       continue;
     }
-    if (flag !== '--missions-dir' && flag !== '--now') {
+    if (flag !== '--missions-dir' && flag !== '--now' && flag !== '--site') {
       throw cliError(`unknown argument ${flag}`);
     }
-    const option = flag === '--missions-dir' ? 'missionsDir' : 'now';
+    const option = { '--missions-dir': 'missionsDir', '--now': 'now', '--site': 'siteFile' }[flag];
     if (Object.hasOwn(options, option)) throw cliError(`duplicate flag ${flag}`);
     const value = arguments_.shift();
     if (value === undefined || value.startsWith('--')) throw cliError(`${flag} requires a value`);
@@ -100,6 +100,7 @@ try {
     process.stdout.write(`mission_dir ${result.missionDir}\n`);
     process.stdout.write(`bundle_digest ${result.bundleDigest}\n`);
     process.stdout.write(`ledger_included ${result.ledgerIncluded}\n`);
+    if (result.siteFile !== undefined) process.stdout.write(`site_file ${result.siteFile}\n`);
     process.stdout.write(`attestation_pending ${result.attestationPending}\n`);
     process.stdout.write(`${NEXT_STEP}\n`);
   }
