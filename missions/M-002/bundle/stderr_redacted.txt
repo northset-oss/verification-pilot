@@ -1,0 +1,1 @@
+=== cmd 1: node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json ===
