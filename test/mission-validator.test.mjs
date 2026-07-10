@@ -40,14 +40,23 @@ test('all canonical examples pass validation', async (t) => {
 
 test('each policy fixture fails only its named rule', async (t) => {
   const expectedRules = new Map([
+    ['attestation_origin.json', 'ATTESTATION_ORIGIN'],
     ['banned_phrases.json', 'BANNED_PHRASES'],
     ['consent_required.json', 'CONSENT_REQUIRED'],
+    ['e2_variant.json', 'E2_VARIANT'],
+    ['external_counterparty.json', 'EXTERNAL_COUNTERPARTY'],
     ['grade_outcome_consistency.json', 'GRADE_OUTCOME_CONSISTENCY'],
+    ['grade_variant.json', 'GRADE_VARIANT'],
+    ['image_digest_format.json', 'STRUCTURE_PATTERN'],
     ['limitations_baseline.json', 'LIMITATIONS_BASELINE'],
     ['merge_contingent_forbidden.json', 'MERGE_CONTINGENT_FORBIDDEN'],
-    ['r3_own_repo_only.json', 'R3_OWN_REPO_ONLY'],
+    ['payment_timing.json', 'PAYMENT_TIMING'],
+    ['r1_evidence.json', 'R1_EVIDENCE'],
+    ['r2_outcome.json', 'R2_OUTCOME'],
     ['rehearsal_label.json', 'REHEARSAL_LABEL'],
+    ['side_alternation.json', 'SIDE_ALTERNATION'],
     ['tier_language.json', 'TIER_LANGUAGE'],
+    ['tier_variant.json', 'TIER_VARIANT'],
   ]);
   const names = (await readdir(invalidDirectory)).filter((name) => name.endsWith('.json')).sort();
   assert.deepEqual(names, [...expectedRules.keys()].sort());
@@ -105,11 +114,13 @@ test('both GRADE_OUTCOME_CONSISTENCY branches are enforced', async (t) => {
   });
 });
 
-test('all banned phrases are matched case-insensitively', async (t) => {
+test('all banned phrases are matched case-insensitively and across spelling variants', async (t) => {
   const phrases = [
-    'SETTLED ON-CHAIN',
     'Proves Tests Pass',
+    'Proves Code Quality',
     'Production Ready',
+    'Production-Ready',
+    'production_ready',
     'Customer',
     'Marketplace',
   ];
@@ -154,8 +165,14 @@ test('banned phrases cover every free-text field', async (t) => {
   }
 });
 
-test('TIER_LANGUAGE rejects both restricted substrings below R3', async (t) => {
-  for (const phrase of ['on-chain evidence', 'settlement evidence']) {
+test('TIER_LANGUAGE rejects settlement wording regardless of claimed tiers', async (t) => {
+  for (const phrase of [
+    'on-chain evidence',
+    'settlement evidence',
+    'SETTLED ON-CHAIN',
+    'settled_onchain',
+    'On Chain anchoring',
+  ]) {
     await t.test(phrase, async () => {
       const receipt = await baseReceipt();
       receipt.funding_source = phrase;
@@ -164,19 +181,33 @@ test('TIER_LANGUAGE rejects both restricted substrings below R3', async (t) => {
   }
 });
 
-test('R3 allows tier language on own-repository rehearsals', async () => {
+test('R3 is not a claimable tier in v0', async () => {
   const receipt = await baseReceipt();
   receipt.claims_tier = ['R3'];
-  receipt.funding_source = 'Settlement evidence fixture';
+
+  assert.ok(ruleIds(validateMission(receipt)).includes('STRUCTURE_ENUM'));
+});
+
+test('an empty claims_tier is a valid "no claim yet" receipt', async () => {
+  const receipt = await baseReceipt();
+  receipt.variant = 'V';
+  receipt.grade = null;
+  receipt.claims_tier = [];
+  receipt.external_counterparty = 'External maintainer';
+  receipt.consent_artifact = 'https://example.com/consent';
+  receipt.northset_role = 'verifier';
 
   assert.deepEqual(validateMission(receipt), { valid: true, errors: [] });
 });
 
-test('B+ accepts an approved outcome', async () => {
+test('B+ accepts an approved outcome on a coherent external receipt', async () => {
   const receipt = await baseReceipt();
   receipt.variant = 'V';
   receipt.grade = 'B+';
+  receipt.claims_tier = ['R2'];
+  receipt.external_counterparty = 'External maintainer';
   receipt.consent_artifact = 'https://example.com/consent';
+  receipt.northset_role = 'verifier';
   receipt.maintainer_outcome.status = 'approved';
   receipt.maintainer_outcome.link = 'https://example.com/maintainer/decision';
 

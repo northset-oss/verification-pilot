@@ -205,7 +205,7 @@ test('run record validation enforces the timeout exit-code invariant', () => {
   const base = {
     started_at: '2026-07-08T10:00:00Z',
     finished_at: '2026-07-08T10:00:01Z',
-    environment: { container_image_digest: 'node:20-bookworm', network_policy: 'phaseA:bridge,phaseB:none' },
+    environment: { container_image_digest: `node@sha256:${'e'.repeat(64)}`, network_policy: 'phaseA:bridge,phaseB:none' },
     commands: [],
     notes: null,
   };

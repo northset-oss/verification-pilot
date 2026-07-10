@@ -1,8 +1,8 @@
 {
   "mission_id": "M-004",
   "variant": "V",
-  "claims_tier": ["R1", "R2"],
-  "grade": "B1",
+  "claims_tier": [],
+  "grade": null,
   "disclosure_label": "Verification-give mission with disclosed funding and review scope.",
   "funding_source": "Northset verification-give budget",
   "northset_role": "verifier",
@@ -22,13 +22,16 @@
   "base_commit": "3333333333333333333333333333333333333333",
   "patch_commit": null,
   "patch_diff_hash": null,
-  "commands_declared": ["node --test", "node bin/validate-mission.mjs examples/M-004_verification_give.json"],
+  "commands_declared": [
+    "node --test",
+    "node bin/validate-mission.mjs examples/M-004_verification_give.json"
+  ],
   "environment": {
     "container_image_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
     "network_policy": "Network unavailable during declared command execution"
   },
   "run_record_bundle_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-  "attestation_uri": "https://example.com/attestations/M-004",
+  "attestation_uri": null,
   "maintainer_outcome": {
     "status": "pending",
     "link": null,

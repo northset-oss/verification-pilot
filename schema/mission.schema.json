@@ -32,9 +32,8 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["R0", "R1", "R2", "R3"]
+        "enum": ["R0", "R1", "R2"]
       },
-      "minItems": 1,
       "uniqueItems": true
     },
     "grade": {
@@ -142,7 +141,8 @@
           "required": ["container_image_digest", "network_policy"],
           "properties": {
             "container_image_digest": {
-              "type": ["string", "null"]
+              "type": ["string", "null"],
+              "pattern": "^(?:[^\\s@]+@)?sha256:[0-9a-fA-F]{64}$"
             },
             "network_policy": {
               "type": "string"

@@ -1,12 +1,14 @@
 {
-  "mission_id": "M-101",
-  "variant": "V",
-  "claims_tier": [],
-  "grade": null,
-  "disclosure_label": "Verification-give fixture",
+  "mission_id": "M-111",
+  "variant": "own_repo_rehearsal",
+  "claims_tier": [
+    "R0"
+  ],
+  "grade": "A",
+  "disclosure_label": "Self-funded rehearsal. Not external validation.",
   "funding_source": "Self-funded fixture",
-  "northset_role": "verifier",
-  "external_counterparty": "External maintainer",
+  "northset_role": "both_sides_disclosed",
+  "external_counterparty": null,
   "target_repo": "https://example.com/repository",
   "consent_artifact": null,
   "commands_declared": [],

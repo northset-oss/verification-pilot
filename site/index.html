@@ -186,8 +186,15 @@
         repo.append(link(mission.target_repo, mission.target_repo));
         row.append(repo);
 
-        row.append(textCell(mission.variant));
-        row.append(textCell(Array.isArray(mission.claims_tier) ? mission.claims_tier.join(', ') : ''));
+        const variantCell = textCell(mission.variant);
+        if (mission.variant === 'own_repo_rehearsal' && mission.disclosure_label) {
+          const label = document.createElement('small');
+          label.textContent = mission.disclosure_label;
+          variantCell.append(document.createElement('br'), label);
+        }
+        row.append(variantCell);
+        const tiers = Array.isArray(mission.claims_tier) ? mission.claims_tier : [];
+        row.append(textCell(tiers.length > 0 ? tiers.join(', ') : '—'));
 
         const outcome = document.createElement('td');
         const status = mission.maintainer_outcome.status;

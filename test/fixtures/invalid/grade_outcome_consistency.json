@@ -1,7 +1,7 @@
 {
   "mission_id": "M-105",
   "variant": "W",
-  "claims_tier": ["R1", "R2"],
+  "claims_tier": [],
   "grade": "B+",
   "disclosure_label": "Worker-side fixture",
   "funding_source": "Self-funded fixture",
@@ -19,5 +19,8 @@
     "maintainer_payment": "none",
     "merge_contingent": false
   },
-  "limitations": ["Does not prove code quality", "Does not prove security"]
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security"
+  ]
 }

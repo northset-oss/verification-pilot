@@ -1,8 +1,8 @@
 {
   "mission_id": "M-102",
   "variant": "V",
-  "claims_tier": ["R1"],
-  "grade": "B1",
+  "claims_tier": [],
+  "grade": null,
   "disclosure_label": "Verification mission fixture.",
   "funding_source": "Northset verification fixture",
   "northset_role": "verifier",
@@ -15,7 +15,9 @@
   "base_commit": null,
   "patch_commit": null,
   "patch_diff_hash": null,
-  "commands_declared": ["node --test"],
+  "commands_declared": [
+    "node --test"
+  ],
   "environment": null,
   "run_record_bundle_digest": null,
   "attestation_uri": null,

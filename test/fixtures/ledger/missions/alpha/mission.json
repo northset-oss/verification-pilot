@@ -1,7 +1,10 @@
 {
   "mission_id": "M-005",
   "variant": "W",
-  "claims_tier": ["R1", "R2"],
+  "claims_tier": [
+    "R1",
+    "R2"
+  ],
   "grade": "B+",
   "disclosure_label": "Worker-side mission with a <script>alert(\"ledger-xss\")</script> marker.",
   "funding_source": "Northset worker mission budget",
@@ -22,13 +25,15 @@
   "base_commit": "4444444444444444444444444444444444444444",
   "patch_commit": "5555555555555555555555555555555555555555",
   "patch_diff_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-  "commands_declared": ["node --test"],
+  "commands_declared": [
+    "node --test"
+  ],
   "environment": {
     "container_image_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     "network_policy": "Network limited to repository access during mission execution"
   },
   "run_record_bundle_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-  "attestation_uri": "https://example.com/attestations/M-005",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-005/run-record-M-005.tar.gz",
   "maintainer_outcome": {
     "status": "merged",
     "link": "https://example.com/maintainer/worker-project/pulls/18",
