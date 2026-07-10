@@ -18,6 +18,8 @@ The index is sorted by `mission_id` and contains only the public projection docu
 by the ledger format. `generated_at` is the exact `--now` value; when the optional flag
 is omitted it is `null`, and the builder never reads the wall clock.
 
+The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
+
 Render a self-contained page from an index:
 
 ```sh

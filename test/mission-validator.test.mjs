@@ -178,8 +178,41 @@ test('B+ accepts an approved outcome', async () => {
   receipt.grade = 'B+';
   receipt.consent_artifact = 'https://example.com/consent';
   receipt.maintainer_outcome.status = 'approved';
+  receipt.maintainer_outcome.link = 'https://example.com/maintainer/decision';
 
   assert.deepEqual(validateMission(receipt), { valid: true, errors: [] });
+});
+
+test('attributed maintainer outcomes require linked evidence', async (t) => {
+  for (const status of ['merged', 'approved', 'rejected', 'closed']) {
+    await t.test(status, async () => {
+      const receipt = await baseReceipt();
+      receipt.maintainer_outcome.status = status;
+      receipt.maintainer_outcome.link = null;
+
+      const missingEvidence = validateMission(receipt);
+      assert.equal(missingEvidence.valid, false);
+      assert.ok(missingEvidence.errors.some(
+        (error) => error.ruleId === 'OUTCOME_EVIDENCE_REQUIRED' &&
+          error.path === '$.maintainer_outcome.link',
+      ));
+
+      receipt.maintainer_outcome.link = 'https://example.com/maintainer/decision';
+      assert.deepEqual(validateMission(receipt), { valid: true, errors: [] });
+    });
+  }
+});
+
+test('unattributed maintainer outcomes do not require linked evidence', async (t) => {
+  for (const status of ['silent', 'pending']) {
+    await t.test(status, async () => {
+      const receipt = await baseReceipt();
+      receipt.maintainer_outcome.status = status;
+      receipt.maintainer_outcome.link = null;
+
+      assert.ok(!ruleIds(validateMission(receipt)).includes('OUTCOME_EVIDENCE_REQUIRED'));
+    });
+  }
 });
 
 test('structural validation covers the exact v0 constraints', async (t) => {
