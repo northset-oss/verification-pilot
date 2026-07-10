@@ -25,7 +25,7 @@
   ],
   "environment": null,
   "run_record_bundle_digest": null,
-  "attestation_uri": null,
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
   "maintainer_outcome": {
     "status": "pending",
     "link": null,
