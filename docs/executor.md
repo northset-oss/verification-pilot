@@ -35,7 +35,10 @@ The config file rejects unknown top-level keys and has this shape:
 
 The executor copies `repo_dir` to a temporary workspace before invoking Docker. If
 `patch_file` is set, it is copied into that workspace and applied there with `git apply`.
-The original repository and patch paths are never mounted in a container.
+The original repository and patch paths are never mounted in a container. Because the patch
+is applied *inside* the container, a config with a non-null `patch_file` needs an image that
+ships `git` — slim images (for example `node:20-bookworm-slim`) do not, and phase A will fail
+closed on them; use the full image variant for patched missions.
 
 Phase A uses Docker's default bridge network to run the install commands. Because both
 phases share the copied `/workspace` bind mount, project-local dependencies written there
