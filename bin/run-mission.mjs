@@ -12,7 +12,7 @@ function cliError(message) {
   return new PipelineError(message, [{
     ruleId: 'CLI_USAGE',
     path: '$',
-    message: `${message}; usage: run-mission.mjs <mission-input.json> --missions-dir <dir> [--site <index.html>] [--now <iso>] [--force] [--json]`,
+    message: `${message}; usage: run-mission.mjs <mission-input.json> --missions-dir <dir> [--site <index.html>] [--now <iso>] [--force] [--require-success] [--json]`,
   }]);
 }
 
@@ -25,8 +25,8 @@ function parseArguments(arguments_) {
   const options = {};
   while (arguments_.length > 0) {
     const flag = arguments_.shift();
-    if (flag === '--force' || flag === '--json') {
-      const option = flag === '--force' ? 'force' : 'json';
+    if (flag === '--force' || flag === '--json' || flag === '--require-success') {
+      const option = { '--force': 'force', '--json': 'json', '--require-success': 'requireSuccess' }[flag];
       if (Object.hasOwn(options, option)) throw cliError(`duplicate flag ${flag}`);
       options[option] = true;
       continue;

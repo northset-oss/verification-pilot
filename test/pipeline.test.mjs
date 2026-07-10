@@ -264,6 +264,63 @@ test('site render failure rolls back the mission and leaves index and page untou
   await assertMissing(siteFile);
 });
 
+test('requireSuccess rejects failed and timed-out commands and publishes nothing', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const input = missionInput(await example(rehearsalExample));
+  const failingExecutor = (record) => async (config, { outDir }) => {
+    const runRecord = JSON.parse(await readFile(path.join(fixtures, 'run_record.json'), 'utf8'));
+    runRecord.commands = [record(config.commands[0])];
+    const runRecordFile = path.join(outDir, 'run_record.json');
+    await Promise.all([
+      writeFile(runRecordFile, `${JSON.stringify(runRecord, null, 2)}\n`),
+      cp(path.join(fixtures, 'stdout.txt'), path.join(outDir, 'stdout.txt')),
+      cp(path.join(fixtures, 'stderr.txt'), path.join(outDir, 'stderr.txt')),
+    ]);
+    return {
+      runRecord,
+      runRecordFile,
+      stdoutFile: path.join(outDir, 'stdout.txt'),
+      stderrFile: path.join(outDir, 'stderr.txt'),
+    };
+  };
+
+  await t.test('nonzero exit', async () => {
+    await assert.rejects(
+      runPipeline(input, {
+        missionsDir,
+        now: fixedNow,
+        requireSuccess: true,
+        executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
+      }),
+      (error) => error.errors.some((item) => item.ruleId === 'COMMAND_FAILED'),
+    );
+    await assertMissing(path.join(missionsDir, input.mission.mission_id));
+  });
+
+  await t.test('timeout', async () => {
+    await assert.rejects(
+      runPipeline(input, {
+        missionsDir,
+        now: fixedNow,
+        requireSuccess: true,
+        executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: null, duration_ms: 10, timed_out: true })),
+      }),
+      (error) => error.errors.some((item) => item.ruleId === 'COMMAND_FAILED'),
+    );
+    await assertMissing(path.join(missionsDir, input.mission.mission_id));
+  });
+
+  await t.test('without the flag a failing record still publishes (honest failure receipt)', async () => {
+    const result = await runPipeline(input, {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
+    });
+    assert.equal(result.missionDir, path.join(missionsDir, 'M-001'));
+  });
+});
+
 test('W mission with consent proceeds and copies consent verbatim', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');

@@ -74,6 +74,11 @@ ledger. `--force` replaces an existing mission directory only after a new bundle
 assembled successfully. Without it, an existing `<missions-dir>/<mission_id>` fails with
 `MISSION_EXISTS`.
 
+`--require-success` makes the pipeline fail closed unless every declared command exited `0`
+without timing out. Without the flag, a run record that honestly says "this command failed" is
+still publishable — use the flag whenever the mission is meant to be a *successful* receipt,
+so a failed or timed-out run can never reach the ledger or attestation.
+
 ## Receipt quality for public missions
 
 `--now` exists for deterministic tests. A mission intended for the public ledger should carry
