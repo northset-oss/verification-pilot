@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-10T19:33:56.670Z",
+  "generated_at": "2026-07-10T19:35:04Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -54,10 +54,10 @@
         "status": "pending",
         "link": null
       },
-      "run_record_bundle_digest": null,
-      "attestation_uri": null,
+      "run_record_bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+      "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
-      "attested": false
+      "attested": true
     }
   ]
 }

@@ -28,8 +28,8 @@
     "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
     "network_policy": "phaseA:bridge,phaseB:none"
   },
-  "run_record_bundle_digest": null,
-  "attestation_uri": null,
+  "run_record_bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
   "maintainer_outcome": {
     "status": "pending",
     "link": null,
