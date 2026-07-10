@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Northset OSS Run Record mission receipt v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mission_id",
+    "variant",
+    "claims_tier",
+    "grade",
+    "disclosure_label",
+    "funding_source",
+    "northset_role",
+    "external_counterparty",
+    "target_repo",
+    "consent_artifact",
+    "commands_declared",
+    "maintainer_outcome",
+    "payment",
+    "limitations"
+  ],
+  "properties": {
+    "mission_id": {
+      "type": "string",
+      "pattern": "^M-(\\d{3}|E2[a-c])$"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["own_repo_rehearsal", "V", "W", "F"]
+    },
+    "claims_tier": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["R0", "R1", "R2", "R3"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "grade": {
+      "type": ["string", "null"],
+      "enum": ["B0", "B1", "B+", "A-", "A", null]
+    },
+    "disclosure_label": {
+      "type": "string"
+    },
+    "funding_source": {
+      "type": "string"
+    },
+    "northset_role": {
+      "type": "string",
+      "enum": [
+        "worker_runtime_operator",
+        "funder",
+        "verifier",
+        "both_sides_disclosed"
+      ]
+    },
+    "external_counterparty": {
+      "type": ["string", "null"]
+    },
+    "target_repo": {
+      "type": "string",
+      "format": "uri"
+    },
+    "issue_or_task": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "consent_artifact": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "repo_policy_snapshot": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url", "checked_at", "ai_policy_summary"],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "checked_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "ai_policy_summary": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "worker_identity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["runtime", "human_operator"],
+          "properties": {
+            "runtime": {
+              "type": "string"
+            },
+            "human_operator": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "base_commit": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-fA-F]{40}$"
+    },
+    "patch_commit": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-fA-F]{40}$"
+    },
+    "patch_diff_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-fA-F]{64}$"
+    },
+    "commands_declared": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "environment": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["container_image_digest", "network_policy"],
+          "properties": {
+            "container_image_digest": {
+              "type": ["string", "null"]
+            },
+            "network_policy": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "run_record_bundle_digest": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-fA-F]{64}$"
+    },
+    "attestation_uri": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "maintainer_outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "link", "decided_at"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["merged", "approved", "rejected", "silent", "closed", "pending"]
+        },
+        "link": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "decided_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maintainer_payment", "merge_contingent"],
+      "properties": {
+        "maintainer_payment": {
+          "type": "string",
+          "enum": ["none", "fixed_review_honorarium", "post_decision_donation"]
+        },
+        "merge_contingent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}

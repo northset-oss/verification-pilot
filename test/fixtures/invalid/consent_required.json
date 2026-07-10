@@ -1,0 +1,23 @@
+{
+  "mission_id": "M-101",
+  "variant": "V",
+  "claims_tier": ["R1"],
+  "grade": "B1",
+  "disclosure_label": "Verification-give fixture",
+  "funding_source": "Self-funded fixture",
+  "northset_role": "verifier",
+  "external_counterparty": "External maintainer",
+  "target_repo": "https://example.com/repository",
+  "consent_artifact": null,
+  "commands_declared": [],
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": ["Does not prove code quality", "Does not prove security"]
+}
