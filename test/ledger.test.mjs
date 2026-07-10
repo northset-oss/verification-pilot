@@ -162,5 +162,5 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.match(html, /overflow-x: auto/);
   assert.match(html, /prefers-color-scheme: dark/);
   assert.ok(html.includes("document.createElement('code')"));
-  assert.ok(html.includes('gh attestation verify <bundle> --owner northset-oss'));
+  assert.ok(html.includes('gh attestation verify <bundle> --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml'));
 });

@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 import { PipelineError, runPipeline } from '../lib/pipeline.mjs';
 
-const NEXT_STEP = 'Next: attest bundle in CI (attest-bundle workflow), then it is verifiable with: gh attestation verify <bundle> --owner northset-oss';
+const NEXT_STEP = 'Next: attest bundle in CI (attest-bundle workflow), then it is verifiable with: gh attestation verify <bundle> --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml';
 const rawArgs = process.argv.slice(2);
 const jsonMode = rawArgs.includes('--json');
 
