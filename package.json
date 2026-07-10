@@ -10,6 +10,7 @@
     "northset-bundle": "bin/bundle.mjs",
     "northset-execute": "bin/execute.mjs",
     "northset-ledger": "bin/ledger.mjs",
+    "northset-policy-monitor": "bin/policy-monitor.mjs",
     "northset-run-mission": "bin/run-mission.mjs"
   },
   "scripts": {

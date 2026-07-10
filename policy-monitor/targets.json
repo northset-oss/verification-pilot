@@ -1,0 +1,41 @@
+{
+  "version": "0",
+  "targets": [
+    {
+      "repo": "coder/coder",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "Homebrew/brew",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "electron/electron",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "antiwork/gumroad",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+name: Policy monitor
+
+on:
+  schedule:
+    - cron: '17 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check target policy SHAs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          report_file="$(mktemp)"
+          set +e
+          node bin/policy-monitor.mjs check \
+            --targets policy-monitor/targets.json \
+            --state policy-monitor/state.json \
+            --json > "$report_file"
+          status=$?
+          set -e
+
+          cat "$report_file"
+          {
+            echo "## Policy monitor"
+            node --input-type=module -e 'import { readFileSync } from "node:fs"; const report = JSON.parse(readFileSync(process.argv[1], "utf8")); const changes = report.results.filter(({ status }) => ["changed", "new", "removed"].includes(status)); console.log(changes.length ? changes.map(({ status, key }) => `- ${status}: \`${key}\``).join("\n") : "No policy SHA changes.");' "$report_file"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          exit "$status"
