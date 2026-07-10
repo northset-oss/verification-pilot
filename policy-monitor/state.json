@@ -3,6 +3,7 @@
   "files": {
     "coder/coder:CONTRIBUTING.md": "3c2ee6b88df5819091d96bd205ce70b34ef916c1",
     "coder/coder:docs/about/contributing/CONTRIBUTING.md": "2df7097b694ddc1c6e37d5d0b3b66ab6f9c939c1",
+    "coder/coder:docs/about/contributing/AI_CONTRIBUTING.md": "8771528f0c1ce881992df5755a3d16f0a8cd7727",
     "Homebrew/brew:CONTRIBUTING.md": "cb1a30a4f9686fa0d54a724d333f8edacc44832f",
     "electron/electron:CONTRIBUTING.md": "7199e7b0caebd5df80298f91e731e6bdd8857227",
     "electron/governance:policy/ai.md": "4021daa9dd961d4ecdc0d3bff121ab8a00a389e3",
