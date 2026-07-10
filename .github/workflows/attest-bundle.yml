@@ -1,0 +1,87 @@
+# Attest a mission run-record bundle so anyone can verify its provenance.
+#
+# This workflow NEVER runs untrusted PR code. It only packages a run-record bundle that the
+# sandboxed executor already produced, validates it, and attests the packaged tarball with
+# GitHub artifact attestations (Sigstore, public Rekor transparency log). Public repo only —
+# private-repo attestations require GitHub Enterprise and skip the public log.
+#
+# The attestation binds this bundle to THIS workflow, at THIS commit, in this repository. It is
+# provenance: it proves where the bundle came from and that it has not been altered. It does not
+# prove the checks passed, the code is safe, or the work is good. See policies/claims_boundary.md.
+
+name: attest-bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      mission_id:
+        description: "Mission ID to attest (e.g. M-001)"
+        required: true
+  push:
+    branches: [main]
+    paths: ["missions/**/bundle/**"]
+
+permissions:
+  id-token: write        # mint the OIDC token for a Sigstore signing certificate
+  attestations: write    # persist the attestation
+  contents: read         # checkout only
+
+jobs:
+  attest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # so a push event can diff HEAD~1 to find the changed mission
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Resolve the mission id
+        id: mission
+        env:
+          INPUT_MISSION_ID: ${{ github.event.inputs.mission_id }}
+        run: |
+          set -euo pipefail
+          MISSION="$INPUT_MISSION_ID"
+          if [ -z "$MISSION" ]; then
+            MISSION="$(git diff --name-only HEAD~1 -- 'missions/**' | cut -d/ -f2 | sort -u | head -1)"
+          fi
+          # Fail closed on anything that is not a clean mission id (no path traversal / injection).
+          case "$MISSION" in
+            M-[0-9][0-9][0-9]|M-E2[a-c]) ;;
+            *) echo "invalid or undeterminable mission id: '$MISSION'" >&2; exit 1 ;;
+          esac
+          test -d "missions/${MISSION}/bundle" || { echo "no bundle at missions/${MISSION}/bundle" >&2; exit 1; }
+          echo "id=${MISSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate the receipt and the bundle before attesting
+        run: |
+          set -euo pipefail
+          M="${{ steps.mission.outputs.id }}"
+          node bin/validate-mission.mjs "missions/${M}/mission.json"
+          node bin/bundle.mjs verify "missions/${M}"
+
+      - name: Package the bundle deterministically
+        id: pack
+        run: |
+          set -euo pipefail
+          M="${{ steps.mission.outputs.id }}"
+          OUT="run-record-${M}.tar.gz"
+          tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner \
+            -czf "${OUT}" -C "missions/${M}" bundle
+          sha256sum "${OUT}"
+          echo "bundle=${OUT}" >> "$GITHUB_OUTPUT"
+
+      - name: Attest bundle provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: ${{ steps.pack.outputs.bundle }}
+
+      - name: How to verify
+        run: |
+          echo "Anyone can verify this bundle's provenance with:"
+          echo "  gh attestation verify ${{ steps.pack.outputs.bundle }} \\"
+          echo "    --repo ${{ github.repository }} \\"
+          echo "    --signer-workflow ${{ github.repository }}/.github/workflows/attest-bundle.yml"

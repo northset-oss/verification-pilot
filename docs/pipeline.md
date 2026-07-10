@@ -68,9 +68,15 @@ assembled successfully. Without it, an existing `<missions-dir>/<mission_id>` fa
 `MISSION_EXISTS`.
 
 On success the command reports the mission directory, bundle digest, number of ledger entries,
-and `attestationPending: true`. The next step is to attest the bundle in the
-`attest-bundle` workflow and verify it with:
+and `attestationPending: true`. Signing happens separately, in GitHub Actions: the
+`.github/workflows/attest-bundle.yml` workflow packages the bundle and attests it (the pipeline
+itself never contacts GitHub or signs). Once that workflow has run, anyone can verify the
+bundle's provenance:
 
 ```sh
-gh attestation verify <bundle> --owner northset-oss
+gh attestation verify run-record-<MISSION>.tar.gz \
+  --repo northset-oss/verification-pilot \
+  --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml
 ```
+
+See [attestation.md](./attestation.md) for what the signature does and does not prove.
