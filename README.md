@@ -70,7 +70,7 @@ work. Anything automated we do is clearly labeled as automation; anything about 
 relationship with us comes from a person.
 
 **Opt in, opt out, or ask us anything.** Open an issue in this repository or email
-aeziz@northset.ai. Opting out takes effect as soon as we see it, and we'll remove your entries
+oss@northset.ai. Opting out takes effect as soon as we see it, and we'll remove your entries
 from the public ledger on request.
 
 ---
