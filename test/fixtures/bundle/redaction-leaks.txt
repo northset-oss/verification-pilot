@@ -1,0 +1,16 @@
+github=ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456
+jwt=abcdefgh.ijklmnop.qrstuvwx
+aws=AKIA1234567890ABCDEF
+-----BEGIN RSA PRIVATE KEY-----
+super-secret-private-key-body
+-----END RSA PRIVATE KEY-----
+Authorization: Basic dXNlcjpwYXNz
+Proxy header: Bearer bearer-secret-value
+userinfo=https://alice:hunter2@example.com/private
+queries=https://example.com/?token=one-secret&key=two-secret&secret=three-secret&password=four-secret
+0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+DEPLOY_PASSWORD=env-password-value
+email=person@example.org allowed=ops@northset.ai
+paths=/Users/alice/project/file.txt /home/bob/work/file.txt
+sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

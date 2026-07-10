@@ -1,0 +1,36 @@
+{
+  "mission_id": "M-102",
+  "variant": "V",
+  "claims_tier": ["R1"],
+  "grade": "B1",
+  "disclosure_label": "Verification mission fixture.",
+  "funding_source": "Northset verification fixture",
+  "northset_role": "verifier",
+  "external_counterparty": "Fixture maintainer",
+  "target_repo": "https://example.com/maintainer/bundle-fixture",
+  "issue_or_task": "https://example.com/maintainer/bundle-fixture/issues/1",
+  "consent_artifact": "https://example.com/maintainer/bundle-fixture/consent/1",
+  "repo_policy_snapshot": null,
+  "worker_identity": null,
+  "base_commit": null,
+  "patch_commit": null,
+  "patch_diff_hash": null,
+  "commands_declared": ["node --test"],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Consent file enforcement fixture"
+  ]
+}

@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=20"
   },
+  "bin": {
+    "northset-bundle": "bin/bundle.mjs"
+  },
   "scripts": {
     "test": "node --test"
   }

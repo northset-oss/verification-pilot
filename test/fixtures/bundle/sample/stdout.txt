@@ -1,0 +1,2 @@
+tests passed
+endpoint=https://service.example.test/callback?token=stdout-token-value
