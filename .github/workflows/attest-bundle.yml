@@ -24,7 +24,7 @@ on:
 permissions:
   id-token: write        # mint the OIDC token for a Sigstore signing certificate
   attestations: write    # persist the attestation
-  contents: read         # checkout only
+  contents: write        # checkout + publish the attested tarball as a release asset
 
 jobs:
   attest:
@@ -79,9 +79,27 @@ jobs:
         with:
           subject-path: ${{ steps.pack.outputs.bundle }}
 
+      - name: Publish the attested tarball as a downloadable release asset
+        # The attestation binds this exact tarball's digest. tar/gzip output is not byte-
+        # reproducible across machines, so a verifier cannot reconstruct it — they must download
+        # the exact bytes that were signed. We publish them here, in the same run, as a release
+        # asset so anyone can `gh attestation verify` the real artifact.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          M="${{ steps.mission.outputs.id }}"
+          TAG="run-record-${M}"
+          BUNDLE="${{ steps.pack.outputs.bundle }}"
+          gh release view "$TAG" -R "${{ github.repository }}" >/dev/null 2>&1 || \
+            gh release create "$TAG" -R "${{ github.repository }}" \
+              --title "Run record ${M}" \
+              --notes "Attested run-record bundle for mission ${M}. Verify with the command in the release asset name — see policies/claims_boundary.md and docs/attestation.md."
+          gh release upload "$TAG" "$BUNDLE" -R "${{ github.repository }}" --clobber
+
       - name: How to verify
         run: |
-          echo "Anyone can verify this bundle's provenance with:"
+          echo "Download the attested tarball from this repo's releases, then:"
           echo "  gh attestation verify ${{ steps.pack.outputs.bundle }} \\"
           echo "    --repo ${{ github.repository }} \\"
           echo "    --signer-workflow ${{ github.repository }}/.github/workflows/attest-bundle.yml"
