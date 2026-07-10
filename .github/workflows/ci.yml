@@ -1,0 +1,47 @@
+# Test suite + public-surface consistency checks. Runs no untrusted code — only this
+# repository's own tests (the Docker integration test runs a fixed command in alpine:3.20).
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run the test suite (including the real-Docker executor test)
+        env:
+          EXECUTOR_DOCKER_TEST: "1"
+        run: node --test
+
+      - name: Every committed mission receipt must pass the policy validator
+        run: |
+          set -euo pipefail
+          for mission in missions/*/mission.json; do
+            node bin/validate-mission.mjs "$mission"
+          done
+
+      - name: Every committed bundle must verify against its manifest
+        run: |
+          set -euo pipefail
+          for bundle in missions/*/bundle; do
+            node bin/bundle.mjs verify "$(dirname "$bundle")"
+          done
+
+      - name: The public ledger page must match missions/index.json
+        run: |
+          set -euo pipefail
+          node bin/ledger.mjs render --index missions/index.json --out "${RUNNER_TEMP}/index.html"
+          diff "${RUNNER_TEMP}/index.html" site/index.html
