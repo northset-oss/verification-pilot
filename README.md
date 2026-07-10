@@ -15,7 +15,8 @@ default, and it asks nothing of you in return.
 
 **When you want proof others can check, we sign it.** If you'd like a record anyone can
 independently verify — to show a downstream user the work was really run, say — we publish a
-signed run record to our public ledger, with your agreement. Signing uses a public transparency
+signed run record to our [public ledger](https://northset-oss.github.io/verification-pilot/),
+with your agreement. Signing uses a public transparency
 log, so a signed record is a public one: anyone can then confirm the bundle came from our
 attestation workflow at a specific commit and hasn't been altered, without trusting us:
 
@@ -74,6 +75,13 @@ oss@northset.ai. Opting out takes effect as soon as we see it, and we'll remove 
 from the public ledger on request.
 
 ---
+
+## The public ledger
+
+Records maintainers agree to publish appear at
+**<https://northset-oss.github.io/verification-pilot/>** — each one a signed, independently
+verifiable bundle. The first entry is our own-repo rehearsal ([`missions/M-001`](missions/M-001)),
+labeled as exactly that.
 
 ## Our promises
 
