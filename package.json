@@ -7,7 +7,8 @@
     "node": ">=20"
   },
   "bin": {
-    "northset-bundle": "bin/bundle.mjs"
+    "northset-bundle": "bin/bundle.mjs",
+    "northset-execute": "bin/execute.mjs"
   },
   "scripts": {
     "test": "node --test"

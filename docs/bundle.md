@@ -27,11 +27,15 @@ The input run record has this shape and rejects other top-level keys:
     "network_policy": "Network disabled"
   },
   "commands": [
-    { "cmd": "node --test", "exit_code": 0, "duration_ms": 1000 }
+    { "cmd": "node --test", "exit_code": 0, "duration_ms": 1000, "timed_out": false }
   ],
   "notes": null
 }
 ```
+
+`exit_code` is an integer for a completed command. A timed-out command instead has
+`"exit_code": null` and `"timed_out": true`; these two values are required together.
+`timed_out` is optional for completed commands and, when present, must be `false`.
 
 String values in that record and both captured streams are redacted. The output run
 record gains a `redactions` object whose counts cover all three artifacts. Redaction

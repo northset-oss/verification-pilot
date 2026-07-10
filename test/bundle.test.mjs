@@ -200,3 +200,37 @@ test('run record validation rejects unknown top-level keys and malformed members
     'RUN_RECORD_TYPE',
   ]);
 });
+
+test('run record validation enforces the timeout exit-code invariant', () => {
+  const base = {
+    started_at: '2026-07-08T10:00:00Z',
+    finished_at: '2026-07-08T10:00:01Z',
+    environment: { container_image_digest: 'node:20-bookworm', network_policy: 'phaseA:bridge,phaseB:none' },
+    commands: [],
+    notes: null,
+  };
+
+  const timeout = {
+    cmd: 'node --test',
+    exit_code: null,
+    duration_ms: 1000,
+    timed_out: true,
+  };
+  assert.deepEqual(validateRunRecord({ ...base, commands: [timeout] }), { valid: true, errors: [] });
+
+  const missingTimedOut = validateRunRecord({
+    ...base,
+    commands: [{ cmd: timeout.cmd, exit_code: null, duration_ms: timeout.duration_ms }],
+  });
+  assert.deepEqual(missingTimedOut.errors.map((error) => error.ruleId), [
+    'RUN_RECORD_TIMEOUT_INVARIANT',
+  ]);
+
+  const integerTimedOut = validateRunRecord({
+    ...base,
+    commands: [{ ...timeout, exit_code: 124 }],
+  });
+  assert.deepEqual(integerTimedOut.errors.map((error) => error.ruleId), [
+    'RUN_RECORD_TIMEOUT_INVARIANT',
+  ]);
+});
