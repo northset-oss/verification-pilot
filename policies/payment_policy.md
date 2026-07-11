@@ -6,9 +6,9 @@ budget.
 
 ## Right now: we are not moving money
 
-We're a small team finishing legal review before we pay anyone. Until that's done, we don't send
-payments, offer honoraria, or fund bounties. The rules below are what will apply once the review
-is complete — and we'll update this page before any money moves.
+During this pilot we are not moving money at all — we don't send payments, offer honoraria, or
+fund bounties. The rules below are what will apply if that changes, and we'll update this page
+before any money moves.
 
 ## The rules (when payment applies)
 

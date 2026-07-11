@@ -73,6 +73,9 @@ around it.
   it as their decision, never as our result or our endorsement.
 - When we run our own pipeline on our own repositories to rehearse it, we label that plainly as
   our own rehearsal, not outside validation, and we don't count it as either.
+- When Northset is itself the contributor to your project, a run record describes our own change
+  and the checks we ran on it — "contributor self-run," never the maintainer's verification. The
+  merge or rejection is yours, and is the only outcome we count.
 - We describe what ran. We don't describe what it proves about your code, because that's yours to
   conclude.
 

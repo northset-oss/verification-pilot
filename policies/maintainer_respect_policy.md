@@ -6,15 +6,30 @@ commitment we make and you can check us on. We say which is which.
 
 Your pull-request queue is already full, and a lot of what fills it now is machine-generated and
 only half-accountable. So our first commitment is the one an automated tool usually won't make
-about itself — **we will not add to that pile.** Nothing we do reaches your project until you've
-asked for it. A run record assists your review; it doesn't replace it. You are the judge.
+about itself — **we will not add to that pile.** A run record assists your review; it doesn't
+replace it. You are the judge.
+
+**Two things we do, kept separate.** Most of this policy is about the first: **verifying work
+already in your queue** — running checks on a pull request you point us at, or publishing a
+signed record about it. That is strictly consent-first: nothing happens until a maintainer
+welcomes it, exactly as described below. The second is ordinary open-source **contributing**:
+when your project has opened an issue to contribution (a `good first issue` / `help wanted`
+label, an assignment, or an explicit invitation), Northset may submit a fix under your normal
+rules — a named person opens the PR, AI assistance disclosed in your format, small and linked.
+Alongside our own PR we may publish a record of *our own work* — the checks we ran on our own
+change — clearly labeled "Contributor self-run. Not maintainer verification." That record makes
+no claim about your approval or your project's state, carries at most one plain link, and we
+remove it from our surfaces on request. Your merge or rejection is entirely yours, and it is the
+only thing we treat as the outcome.
 
 ## What you control
 
 Not a vague "you're in control" — the specific levers, all of them yours:
 
-- **Whether we start.** We take no action in your repository — no pull request, no comment, no
-  funding — until a maintainer has said it's welcome.
+- **Whether we verify.** We take no action to verify or publish a record about your
+  contributors' work — no run on your PRs, no published record about them — until a maintainer
+  has said it's welcome. (Our own contribution PRs follow your normal, public contribution
+  process, like any contributor.)
 - **How far it reaches.** You grant either a single run on one pull request, or a standing OK to
   run declared checks on PRs that carry your label. Never wider than what you granted.
 - **What we run.** We run the checks your project already declares, in an isolated container. We
@@ -67,5 +82,5 @@ Not a vague "you're in control" — the specific levers, all of them yours:
 ## Money
 
 10. No payment we make is ever tied to whether you merge or approve anything. Right now, during
-    this pilot, we aren't moving money at all while we finish legal review — see the
-    [Payment Policy](payment_policy.md) for the rules that will apply when we do.
+    this pilot, we aren't moving money at all — see the [Payment Policy](payment_policy.md) for
+    the rules that will apply when we do.

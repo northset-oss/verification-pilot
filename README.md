@@ -37,9 +37,9 @@ different from what happened. It is still not a verdict on whether the code is g
 ready — you stay the judge; the record just means you don't have to reconstruct "what does this
 branch actually do" by hand.
 
-**We add nothing to your queue.** This is the point, so we'll be plain: we verify work that's
-already in front of you, and we take no action in your repository until you welcome it. After
-that, every lever is yours:
+**Two things we do, kept separate.** Most of what's above is the first: **verifying work already
+in your queue** — running a PR's declared checks, or publishing a signed record about it. That is
+strictly consent-first, and every lever is yours:
 
 - Nothing runs until you say so — a label you apply, or a written OK. A disclosure inside a pull
   request isn't us assuming consent.
@@ -50,6 +50,15 @@ that, every lever is yours:
 - Say "stop" and we stop — we close anything open and don't come back unless you invite us.
 - We never comment uninvited, never post into a stranger's issues, and add no promotional
   content.
+
+**The second is ordinary contributing.** When your project opens an issue to contribution — a
+`good first issue` or `help wanted` label, an assignment, or an explicit invitation — Northset
+may submit a fix under your normal rules, like any contributor: a named person opens the PR, AI
+assistance disclosed in your format, small and linked. Alongside our own PR we may publish a
+record of *our own work* — the checks we ran on our own change — clearly labeled "Contributor
+self-run. Not maintainer verification." It says nothing about your approval or your project's
+state, carries at most one plain link, and we remove it from our surfaces on request. Your merge
+or rejection is entirely yours, and it's the only thing we treat as the outcome.
 
 If the honest answer is "not interested," that's a complete answer. We thank you and close, and
 we don't argue a rejection or criticize maintainers publicly.
