@@ -81,6 +81,22 @@ function finishChild(child, response = {}) {
   });
 }
 
+// git derivation runs through its own impl (not the docker fake); this stub stands in for a
+// non-git workspace (rev-parse fails), so source_commit resolves to null. It answers every git
+// call the same way.
+function nullGit() {
+  const child = new FakeChild();
+  finishChild(child, { code: 128 });
+  return child;
+}
+
+function assertDerivedProvenance(environment, { patchSha256 = null, installCommands = [] } = {}) {
+  assert.equal(environment.source_commit, null);
+  assert.match(environment.base_tree_digest, /^sha256:[0-9a-f]{64}$/);
+  assert.equal(environment.patch_sha256, patchSha256);
+  assert.deepEqual(environment.install_commands, installCommands);
+}
+
 function workspaceFromArgs(args) {
   const mountIndex = args.indexOf('--mount');
   if (mountIndex === -1) return null;
@@ -314,16 +330,16 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
     outDir: outputDirectory,
     now: fixedNow,
     spawnImpl: fake.spawnImpl,
+    gitImpl: nullGit,
   });
 
   assert.equal(result.runRecord.started_at, fixedNow);
   assert.equal(result.runRecord.finished_at, fixedNow);
-  assert.deepEqual(result.runRecord.environment, {
-    container_image_ref: 'node:20-bookworm',
-    container_image_digest: resolvedRepoDigest,
-    network_policy: 'phaseA:bridge,phaseB:none',
-  });
+  assert.equal(result.runRecord.environment.container_image_ref, 'node:20-bookworm');
+  assert.equal(result.runRecord.environment.container_image_digest, resolvedRepoDigest);
+  assert.equal(result.runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
   assert.match(result.runRecord.environment.container_image_digest, /sha256:/);
+  assertDerivedProvenance(result.runRecord.environment, { installCommands: ['install-fixture'] });
   assert.deepEqual(result.runRecord.commands.map(({ cmd, exit_code }) => ({ cmd, exit_code })), [
     { cmd: 'first-check', exit_code: 0 },
     { cmd: 'second-check', exit_code: 0 },
@@ -363,14 +379,14 @@ test('empty RepoDigests falls back to the resolved image Id', async (t) => {
     outDir: outputDirectory,
     now: fixedNow,
     spawnImpl: fake.spawnImpl,
+    gitImpl: nullGit,
   });
 
-  assert.deepEqual(result.runRecord.environment, {
-    container_image_ref: 'node:20-bookworm',
-    container_image_digest: resolvedImageId,
-    network_policy: 'phaseA:bridge,phaseB:none',
-  });
+  assert.equal(result.runRecord.environment.container_image_ref, 'node:20-bookworm');
+  assert.equal(result.runRecord.environment.container_image_digest, resolvedImageId);
+  assert.equal(result.runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
   assert.match(result.runRecord.environment.container_image_digest, /^sha256:/);
+  assertDerivedProvenance(result.runRecord.environment, { installCommands: ['install-fixture'] });
   assert.deepEqual(inspectCalls(fake).map((args) => args.at(-1)), [
     '{{json .RepoDigests}}',
     '{{.Id}}',

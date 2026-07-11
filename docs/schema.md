@@ -7,7 +7,7 @@
 | Field | Meaning |
 | --- | --- |
 | `mission_id` | Mission identifier: `M-` followed by three digits, or `M-E2a` through `M-E2c`. |
-| `variant` | `own_repo_rehearsal`, verification-give (`V`), worker-side (`W`), or funder-side (`F`). |
+| `variant` | `own_repo_rehearsal`, verification-give (`V`), worker-side (`W`), funder-side (`F`), or `author_contribution` (Northset contributes a fix to an external repo and documents its OWN work — external for tier/grade/side, but consent-exempt because the work is ours). |
 | `claims_tier` | Unique tiers from `R0`–`R2`; may be empty. A tier is an **achieved evidence level**, never an intention — an in-flight mission claims `[]` and adds tiers as their evidence lands. `R3` (deterministic settlement) is not claimable in v0 and will only return together with its required settlement-evidence fields; `R4` is roadmap-only and unrepresentable. |
 | `grade` | `B0`, `B1`, `B+`, `A-`, `A`, or `null` while pending. |
 | `disclosure_label` | Human-readable disclosure for the run. Rehearsals require the mandated rehearsal sentence. |
@@ -48,7 +48,9 @@ The validator refuses any receipt whose claims outrun its evidence:
 - `GRADE_VARIANT` / `GRADE_OUTCOME_CONSISTENCY` — `B0` only on rehearsals; `B1`/`B+`/`A-`/`A` only on external variants; `B1` requires a reached decision, `B+` requires merged or approved. Use a `null` grade while the outcome is pending.
 - `E2_VARIANT` — `M-E2a`–`M-E2c` ids are reserved for funded-bounty (`F`) receipts.
 - `PAYMENT_TIMING` — `post_decision_donation` is impossible while the outcome is `pending`.
-- `MERGE_CONTINGENT_FORBIDDEN`, `CONSENT_REQUIRED`, `REHEARSAL_LABEL`, `OUTCOME_EVIDENCE_REQUIRED`, `LIMITATIONS_BASELINE`, `BANNED_PHRASES`, `TIER_LANGUAGE` — as before; settlement/on-chain wording is rejected on every v0 receipt since no claimable tier permits it.
+- `CODE_BINDING` — **the integrity core.** A receipt cannot name code it did not run. The executor derives the actual `source_commit` (via `git rev-parse` on the copied checkout), the pre-patch `source_tree_digest`, and the applied `patch_sha256`, and records them in the run record. The pipeline then rejects any mission whose declared `base_commit` or `patch_diff_hash` disagrees with what actually ran — and rejects a declared `base_commit` the executor could not derive at all (unprovable). This is what makes a receipt evidence rather than a self-consistent story.
+- `CONSENT_REQUIRED` — only variants `V`/`W`/`F` (running checks on someone else's work) require a consent artifact. `author_contribution` is our own work and is consent-exempt; `CONTRIBUTOR_LABEL` requires it to state, as data, "Contributor self-run. Not maintainer verification." and `CONTRIBUTION_BASE_COMMIT` requires it to pin the upstream commit it built on.
+- `MERGE_CONTINGENT_FORBIDDEN`, `REHEARSAL_LABEL`, `OUTCOME_EVIDENCE_REQUIRED`, `LIMITATIONS_BASELINE`, `BANNED_PHRASES`, `TIER_LANGUAGE` — as before; settlement/on-chain wording is rejected on every v0 receipt since no claimable tier permits it.
 
 ## Validation
 

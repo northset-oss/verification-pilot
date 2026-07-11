@@ -28,6 +28,7 @@ test('all canonical examples pass validation', async (t) => {
     'M-001_own_repo_rehearsal.json',
     'M-004_verification_give.json',
     'M-005_worker_mission.json',
+    'M-006_author_contribution.json',
   ]);
 
   for (const name of names) {
@@ -42,7 +43,12 @@ test('each policy fixture fails only its named rule', async (t) => {
   const expectedRules = new Map([
     ['attestation_origin.json', 'ATTESTATION_ORIGIN'],
     ['banned_phrases.json', 'BANNED_PHRASES'],
+    ['code_identity.json', 'CODE_IDENTITY'],
     ['consent_required.json', 'CONSENT_REQUIRED'],
+    ['contribution_base_commit.json', 'CONTRIBUTION_BASE_COMMIT'],
+    ['contribution_patch.json', 'CONTRIBUTION_PATCH'],
+    ['contribution_role.json', 'CONTRIBUTION_ROLE'],
+    ['contributor_label.json', 'CONTRIBUTOR_LABEL'],
     ['e2_variant.json', 'E2_VARIANT'],
     ['external_counterparty.json', 'EXTERNAL_COUNTERPARTY'],
     ['grade_outcome_consistency.json', 'GRADE_OUTCOME_CONSISTENCY'],
@@ -186,6 +192,20 @@ test('R3 is not a claimable tier in v0', async () => {
   receipt.claims_tier = ['R3'];
 
   assert.ok(ruleIds(validateMission(receipt)).includes('STRUCTURE_ENUM'));
+});
+
+test('author_contribution needs NO maintainer consent (it is our own work)', async () => {
+  const contribution = await readJson(path.join(examplesDirectory, 'M-006_author_contribution.json'));
+  assert.equal(contribution.consent_artifact, null);
+  assert.deepEqual(validateMission(contribution), { valid: true, errors: [] });
+
+  // ...but it must state, as data, that it is a contributor self-run, not maintainer verification.
+  const stripped = { ...contribution, disclosure_label: 'Northset contributed this.' };
+  assert.ok(ruleIds(validateMission(stripped)).includes('CONTRIBUTOR_LABEL'));
+
+  // ...and it cannot masquerade as an own-repo rehearsal tier (R0 is own-repo only).
+  const r0 = { ...contribution, claims_tier: ['R0'] };
+  assert.ok(ruleIds(validateMission(r0)).includes('TIER_VARIANT'));
 });
 
 test('an empty claims_tier is a valid "no claim yet" receipt', async () => {

@@ -26,7 +26,7 @@
     },
     "variant": {
       "type": "string",
-      "enum": ["own_repo_rehearsal", "V", "W", "F"]
+      "enum": ["own_repo_rehearsal", "V", "W", "F", "author_contribution"]
     },
     "claims_tier": {
       "type": "array",

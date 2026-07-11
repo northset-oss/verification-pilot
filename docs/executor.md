@@ -67,6 +67,21 @@ uses `=== cmd N: <cmd> ===` section headers. Per-command streams longer than
 `output_bytes_per_stream` are cut at the byte limit and receive a `[TRUNCATED]` marker.
 Output is intentionally not redacted; the bundle step owns redaction.
 
+Before the patch touches the workspace, the executor records the starting code identity:
+`source_commit` (via `git rev-parse HEAD` on the copied checkout — but **only when that checkout
+is clean**: a dirty or untracked tree, a non-git tree, or a missing git binary all yield
+`null`, because HEAD lies about a modified worktree), a `base_tree_digest` over the pre-patch
+source (excluding `.git`; hashing symlink targets and mode bits), and `patch_sha256` of the
+applied patch (hashed from the same bytes that are staged and applied — one read, no TOCTOU).
+The `install_commands` are recorded too, because phase A runs them **with network** and they can
+change the tree before the declared checks run — they are disclosed, not hidden setup. The
+pipeline binds `source_commit`/`patch_sha256` against the receipt's declared
+`base_commit`/`patch_diff_hash` (both directions: a declared value must match, and an applied
+patch must be declared), so a receipt cannot name a commit or patch it did not execute.
+`base_tree_digest` is the pre-patch base anchor for re-runs — it is *not* a digest of the final
+executed state (the patch and the networked install both change the tree afterward; those are
+execution, disclosed via `patch_sha256`, `install_commands`, and `network_policy`).
+
 After phase A makes the configured image available, the executor resolves it with
 `docker image inspect` before starting phase B. The run record keeps the exact configured
 string as `container_image_ref` and records the first repository content digest as

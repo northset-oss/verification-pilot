@@ -31,5 +31,6 @@
   "environment": {
     "container_image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "network_policy": "Fixture network policy"
-  }
+  },
+  "base_commit": "5555555555555555555555555555555555555555"
 }

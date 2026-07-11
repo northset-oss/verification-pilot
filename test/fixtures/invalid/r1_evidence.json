@@ -24,5 +24,6 @@
   "limitations": [
     "Does not prove code quality",
     "Does not prove security"
-  ]
+  ],
+  "base_commit": "5555555555555555555555555555555555555555"
 }

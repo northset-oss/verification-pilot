@@ -1,0 +1,45 @@
+{
+  "mission_id": "M-133",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "verifier",
+  "external_counterparty": "Upstream project maintainer",
+  "target_repo": "https://github.com/example-org/example-project",
+  "issue_or_task": "https://github.com/example-org/example-project/issues/42",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/example-org/example-project/blob/main/CONTRIBUTING.md",
+    "checked_at": "2026-07-11T12:00:00Z",
+    "ai_policy_summary": "AI-assisted contributions welcome with disclosure and human review."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "1234567890123456789012345678901234567890",
+  "patch_commit": null,
+  "patch_diff_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "commands_declared": [
+    "npm test"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ]
+}

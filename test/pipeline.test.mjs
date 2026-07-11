@@ -34,8 +34,11 @@ async function example(file) {
 }
 
 function missionInput(mission, overrides = {}) {
+  const { mission: missionOverrides = {}, ...rest } = overrides;
   return {
-    mission,
+    // Illustrative missions declare no commit/patch by default; the code-binding assertion is
+    // exercised by dedicated tests that set base_commit + a matching fake source_commit.
+    mission: { ...mission, base_commit: null, patch_diff_hash: null, ...missionOverrides },
     repo_dir: root,
     patch_file: null,
     consent_file: null,
@@ -53,13 +56,13 @@ function missionInput(mission, overrides = {}) {
         output_bytes_per_stream: 1_000_000,
       },
     },
-    ...overrides,
+    ...rest,
   };
 }
 
 function fakeExecutor(
   counter = { calls: 0 },
-  { failure = null, patchFile = null, executedCommands = null } = {},
+  { failure = null, patchFile = null, executedCommands = null, sourceCommit = null, patchSha256 = null } = {},
 ) {
   return async (config, { outDir, now }) => {
     counter.calls += 1;
@@ -71,6 +74,7 @@ function fakeExecutor(
     const stdoutFile = path.join(outDir, 'stdout.txt');
     const stderrFile = path.join(outDir, 'stderr.txt');
     const runRecord = JSON.parse(await readFile(path.join(fixtures, 'run_record.json'), 'utf8'));
+    runRecord.environment = { ...runRecord.environment, source_commit: sourceCommit, patch_sha256: patchSha256 };
     runRecord.commands = (executedCommands ?? config.commands).map((cmd) => ({
       cmd,
       exit_code: 0,
@@ -318,6 +322,55 @@ test('requireSuccess rejects failed and timed-out commands and publishes nothing
       executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
     });
     assert.equal(result.missionDir, path.join(missionsDir, 'M-001'));
+  });
+});
+
+test('code binding: a declared base_commit must equal what the executor actually ran', async (t) => {
+  const realCommit = 'a'.repeat(40);
+
+  await t.test('match publishes', async (tt) => {
+    const temporaryRoot = await temporaryDirectory(tt);
+    const dir = path.join(temporaryRoot, 'missions');
+    const result = await runPipeline(
+      missionInput(await example(rehearsalExample), { mission: { base_commit: realCommit } }),
+      { missionsDir: dir, now: fixedNow, executeImpl: fakeExecutor(undefined, { sourceCommit: realCommit }) },
+    );
+    assert.equal(result.missionDir, path.join(dir, 'M-001'));
+  });
+
+  await t.test('mismatch fails closed and publishes nothing', async (tt) => {
+    const temporaryRoot = await temporaryDirectory(tt);
+    const dir = path.join(temporaryRoot, 'missions');
+    const input = missionInput(await example(rehearsalExample), { mission: { base_commit: realCommit } });
+    await assert.rejects(
+      runPipeline(input, { missionsDir: dir, now: fixedNow, executeImpl: fakeExecutor(undefined, { sourceCommit: 'b'.repeat(40) }) }),
+      (error) => error.errors.some((item) => item.ruleId === 'CODE_BINDING'),
+    );
+    await assertMissing(path.join(dir, input.mission.mission_id));
+  });
+
+  await t.test('declared commit the executor could not derive is unprovable → rejected', async (tt) => {
+    const temporaryRoot = await temporaryDirectory(tt);
+    const dir = path.join(temporaryRoot, 'missions');
+    const input = missionInput(await example(rehearsalExample), { mission: { base_commit: realCommit } });
+    await assert.rejects(
+      runPipeline(input, { missionsDir: dir, now: fixedNow, executeImpl: fakeExecutor(undefined, { sourceCommit: null }) }),
+      (error) => error.errors.some((item) => item.ruleId === 'CODE_BINDING'),
+    );
+    await assertMissing(path.join(dir, input.mission.mission_id));
+  });
+
+  await t.test('declared patch_diff_hash must equal the applied patch hash', async (tt) => {
+    const temporaryRoot = await temporaryDirectory(tt);
+    const dir = path.join(temporaryRoot, 'missions');
+    const input = missionInput(await example(rehearsalExample), {
+      mission: { patch_diff_hash: `sha256:${'c'.repeat(64)}` },
+    });
+    await assert.rejects(
+      runPipeline(input, { missionsDir: dir, now: fixedNow, executeImpl: fakeExecutor(undefined, { patchSha256: `sha256:${'d'.repeat(64)}` }) }),
+      (error) => error.errors.some((item) => item.ruleId === 'CODE_BINDING'),
+    );
+    await assertMissing(path.join(dir, input.mission.mission_id));
   });
 });
 
