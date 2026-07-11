@@ -40,6 +40,13 @@ jobs:
             node bin/bundle.mjs verify "$(dirname "$bundle")"
           done
 
+      - name: The signed bundle is the source of truth — no split-brain receipt
+        run: |
+          set -euo pipefail
+          for mission in missions/*/mission.json; do
+            node bin/verify-receipt-parity.mjs "$(dirname "$mission")"
+          done
+
       - name: The public ledger page must match missions/index.json
         run: |
           set -euo pipefail

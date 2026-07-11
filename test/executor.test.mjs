@@ -93,6 +93,7 @@ function nullGit() {
 function assertDerivedProvenance(environment, { patchSha256 = null, installCommands = [] } = {}) {
   assert.equal(environment.source_commit, null);
   assert.match(environment.base_tree_digest, /^sha256:[0-9a-f]{64}$/);
+  assert.match(environment.pre_check_tree_digest, /^sha256:[0-9a-f]{64}$/);
   assert.equal(environment.patch_sha256, patchSha256);
   assert.deepEqual(environment.install_commands, installCommands);
 }
