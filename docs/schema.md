@@ -48,8 +48,21 @@ The validator refuses any receipt whose claims outrun its evidence:
 - `GRADE_VARIANT` / `GRADE_OUTCOME_CONSISTENCY` — `B0` only on rehearsals; `B1`/`B+`/`A-`/`A` only on external variants; `B1` requires a reached decision, `B+` requires merged or approved. Use a `null` grade while the outcome is pending.
 - `E2_VARIANT` — `M-E2a`–`M-E2c` ids are reserved for funded-bounty (`F`) receipts.
 - `PAYMENT_TIMING` — `post_decision_donation` is impossible while the outcome is `pending`.
-- `CODE_BINDING` — **the integrity core.** A receipt cannot name code it did not run. The executor derives the actual `source_commit` (via `git rev-parse` on the copied checkout), the pre-patch `source_tree_digest`, and the applied `patch_sha256`, and records them in the run record. The pipeline then rejects any mission whose declared `base_commit` or `patch_diff_hash` disagrees with what actually ran — and rejects a declared `base_commit` the executor could not derive at all (unprovable). This is what makes a receipt evidence rather than a self-consistent story.
-- `CONSENT_REQUIRED` — only variants `V`/`W`/`F` (running checks on someone else's work) require a consent artifact. `author_contribution` is our own work and is consent-exempt; `CONTRIBUTOR_LABEL` requires it to state, as data, "Contributor self-run. Not maintainer verification." and `CONTRIBUTION_BASE_COMMIT` requires it to pin the upstream commit it built on.
+- `CODE_BINDING` / `CODE_IDENTITY` — **the integrity core.** For an honest, clean checkout a
+  receipt cannot name code it did not run. The executor derives the actual `source_commit` — but
+  only from a **clean** checkout (a dirty/untracked tree yields `null`, since a commit hash lies
+  about a modified worktree; git runs hardened, with hooks/fsmonitor/external-config disabled so
+  a copied repo cannot execute code on the host), the pre-patch `base_tree_digest`, and the
+  applied `patch_sha256`. The pipeline rejects any mission whose declared `base_commit`/
+  `patch_diff_hash` disagrees with what ran (both directions), and rejects a declared
+  `base_commit` it could not derive (unprovable). `CODE_IDENTITY` additionally requires R1/R2
+  receipts to name a `base_commit`. **Honest scope:** this catches accidental and naive
+  dirtiness; it is not adversary-proof against an operator who deliberately manipulates the
+  input `.git` (index `assume-unchanged`/`skip-worktree`, or `.gitignore`d files a clean
+  checkout would not contain). Within our own clean-clone flow that surface does not arise, and
+  `base_tree_digest` (which walks the whole tree) captures ignored files for re-runners; the
+  full trustless guarantee is the separate execution-in-the-signed-workflow build.
+- `CONSENT_REQUIRED` — only variants `V`/`W`/`F` (running checks on someone else's work) require a consent artifact. `author_contribution` is our own work and is consent-exempt; `CONTRIBUTOR_LABEL` requires it to state, as data, "Contributor self-run. Not maintainer verification.", `CONTRIBUTION_BASE_COMMIT` requires it to pin the upstream commit, and `CONTRIBUTION_ROLE`/`CONTRIBUTION_PATCH` require the worker role + a real bound patch so a consent-requiring V/W/F cannot relabel to dodge consent. (The exemption rests on operator discipline — the record never claims maintainer verification regardless — which is acceptable for our own single-operator contributions.)
 - `MERGE_CONTINGENT_FORBIDDEN`, `REHEARSAL_LABEL`, `OUTCOME_EVIDENCE_REQUIRED`, `LIMITATIONS_BASELINE`, `BANNED_PHRASES`, `TIER_LANGUAGE` — as before; settlement/on-chain wording is rejected on every v0 receipt since no claimable tier permits it.
 
 ## Validation

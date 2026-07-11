@@ -77,7 +77,10 @@ The `install_commands` are recorded too, because phase A runs them **with networ
 change the tree before the declared checks run — they are disclosed, not hidden setup. The
 pipeline binds `source_commit`/`patch_sha256` against the receipt's declared
 `base_commit`/`patch_diff_hash` (both directions: a declared value must match, and an applied
-patch must be declared), so a receipt cannot name a commit or patch it did not execute.
+patch must be declared), so for a clean checkout a receipt cannot name a commit or patch it did
+not execute. (A dirty tree yields no commit and is rejected; this catches accidental/naive
+dirtiness, not a deliberately index-manipulated `.git`, which our own clean-clone flow does not
+create — the trustless guarantee is the separate execution-in-the-signed-workflow build.)
 `base_tree_digest` is the pre-patch base anchor for re-runs — it is *not* a digest of the final
 executed state (the patch and the networked install both change the tree afterward; those are
 execution, disclosed via `patch_sha256`, `install_commands`, and `network_policy`).
