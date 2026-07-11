@@ -1,0 +1,46 @@
+{
+  "fetched_at": "2026-07-11T22:25:38Z",
+  "issue": {
+    "number": 1538,
+    "state": "open",
+    "title": "`BytecodeClasses.toString()` and `root()` throw `NullPointerException` when `input` is null while `classes()` provides a descriptive error",
+    "html_url": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
+    "assignee": null,
+    "labels": [
+      "enhancement",
+      "good first issue"
+    ],
+    "created_at": "2026-06-16T17:07:19Z",
+    "updated_at": "2026-07-10T21:53:13Z",
+    "body": "What happens: `BytecodeClasses.classes()` (line 84) guards against a null `input` field with `Objects.isNull(this.input)` and throws an `IllegalStateException` with a clear message. However, `toString()` (line 43) calls `this.input.toString()` and `root()` (line 53) returns `this.input` directly, both without any null check. Any caller that invokes `root()` or `toString()` on a `BytecodeClasses` instance constructed with a null path (e.g. when Maven does not configure the sources directory) will receive a bare `NullPointerException` with no diagnostic information, while the same situation inside `classes()` produces a helpful error message.\n\nWhat should happen: `toString()` and `root()` should either apply the same null guard as `classes()` or, consistent with the \"no null\" principle, the constructor should reject null with `Objects.requireNonNull` so the error is caught at construction time with a clear message."
+  },
+  "comments": [
+    {
+      "user": "morphqdd",
+      "created_at": "2026-06-16T17:07:20Z",
+      "body": "@yegor256, please take a look when you have a moment."
+    },
+    {
+      "user": "morphqdd",
+      "created_at": "2026-06-19T08:34:56Z",
+      "body": "@yegor256, ping"
+    },
+    {
+      "user": "yegor256",
+      "created_at": "2026-07-03T09:33:36Z",
+      "body": "@volodya-lombrozo WDYT?"
+    },
+    {
+      "user": "volodya-lombrozo",
+      "created_at": "2026-07-06T05:40:17Z",
+      "body": "Yes, why not to add it. Please, go ahead"
+    },
+    {
+      "user": "0crat",
+      "created_at": "2026-07-10T21:53:13Z",
+      "body": "@morphqdd Thanks for suggesting an enhancement! You've earned +12 points. If you find anything else in the repository that [doesn't look](https://www.yegor256.com/2018/02/06/where-to-find-more-bugs.html) as good as you might expect, [do not hesitate](https://www.yegor256.com/2014/04/13/bugs-are-welcome.html) to [report](https://www.yegor256.com/2018/04/24/right-way-to-report-bugs.html) bugs too. Your running score is [+708](https://www.eolang.org/zerocracy/objectionary-vitals.html); don't forget to check your [Zerocracy account](https://www.zerocracy.com/) too). "
+    }
+  ],
+  "timeline_cross_references": [],
+  "note": "Live recheck at fetch time: open, unassigned, good-first-issue labeled, zero cross-referenced PRs; maintainer approval comment 2026-07-06."
+}

@@ -1,0 +1,34 @@
+{
+  "started_at": "2026-07-11T23:07:52.808Z",
+  "finished_at": "2026-07-11T23:13:48.745Z",
+  "environment": {
+    "container_image_ref": "maven:3.9-eclipse-temurin-11",
+    "container_image_digest": "maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+    "base_tree_digest": "sha256:9f99438bd9c3ecdb635fe536a8e1e52d4dd751d00e59523aecfac45e13c40acc",
+    "pre_check_tree_digest": "sha256:5857c47ec81e3f319a0e26debe6969bc6096d0c96e46648db38f7efb2de85ad9",
+    "patch_sha256": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2",
+    "install_commands": [
+      "PATH=\"$JAVA_HOME/bin:$PATH\" mvn -Dmaven.repo.local=/workspace/.m2 clean install -ntp -Pqulice --errors --batch-mode",
+      "mvn -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+      "mvn -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest",
+      "exit_code": 0,
+      "duration_ms": 7050
+    },
+    {
+      "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+      "exit_code": 0,
+      "duration_ms": 34884
+    }
+  ],
+  "notes": null,
+  "redactions": {
+    "jwt": 1
+  }
+}

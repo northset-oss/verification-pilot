@@ -1,0 +1,6 @@
+{
+  "commands": [
+    "mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest",
+    "mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode"
+  ]
+}
