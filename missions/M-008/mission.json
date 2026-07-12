@@ -26,8 +26,8 @@
     "npm run test --workspace=@blockly/plugin-workspace-search"
   ],
   "environment": null,
-  "run_record_bundle_digest": null,
-  "attestation_uri": null,
+  "run_record_bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
   "maintainer_outcome": {
     "status": "pending",
     "link": null,
