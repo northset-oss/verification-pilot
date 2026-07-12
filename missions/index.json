@@ -139,10 +139,10 @@
         "status": "pending",
         "link": null
       },
-      "run_record_bundle_digest": null,
-      "attestation_uri": null,
+      "run_record_bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+      "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": false
+      "attested": true
     }
   ]
 }
