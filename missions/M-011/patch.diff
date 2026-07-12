@@ -1,0 +1,75 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 74bd4a5..da34780 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -37,6 +37,7 @@ This release marks our first release under the Prometheus umbrella.
+ - AggregatorRegistry renamed to ClusterRegistry, old name deprecated
+ - chore: update faceoff to 1.1
+ - perf: Stat aggregation uses similar strategy to collection. 60% faster aggregation
++- Make cluster metric aggregation independent of worker response order
+ 
+ ### Added
+ 
+diff --git a/lib/metricAggregators.js b/lib/metricAggregators.js
+index 8ea0528..6c2a1dd 100644
+--- a/lib/metricAggregators.js
++++ b/lib/metricAggregators.js
+@@ -51,6 +51,13 @@ function AggregatorFactory(aggregatorFn) {
+ // Export for users to define their own aggregation methods.
+ exports.AggregatorFactory = AggregatorFactory;
+ 
++function sumValues(values) {
++	return values
++		.slice()
++		.sort((a, b) => a.value - b.value)
++		.reduce((p, c) => p + c.value, 0);
++}
++
+ /**
+  * Functions that can be used to aggregate metrics from multiple registries.
+  */
+@@ -58,7 +65,7 @@ exports.aggregators = {
+ 	/**
+ 	 * @returns The sum of values.
+ 	 */
+-	sum: AggregatorFactory(v => v.reduce((p, c) => p + c.value, 0)),
++	sum: AggregatorFactory(sumValues),
+ 	/**
+ 	 * @returns The first value.
+ 	 */
+@@ -70,9 +77,7 @@ exports.aggregators = {
+ 	/**
+ 	 * @returns The arithmetic mean of the values.
+ 	 */
+-	average: AggregatorFactory(
+-		v => v.reduce((p, c) => p + c.value, 0) / v.length,
+-	),
++	average: AggregatorFactory(v => sumValues(v) / v.length),
+ 	/**
+ 	 * @returns The minimum of the values.
+ 	 */
+diff --git a/test/aggregatorsTest.js b/test/aggregatorsTest.js
+index 0010a65..f3f77ad 100644
+--- a/test/aggregatorsTest.js
++++ b/test/aggregatorsTest.js
+@@ -34,6 +34,20 @@ describe('aggregators', () => {
+ 				{ value: 6, labels: ['label1'] },
+ 			]);
+ 		});
++
++		it('sums values independently of their order', () => {
++			const workerMetrics = [0.1, 0.2, 0.3].map(value => ({
++				help: 'metric_help',
++				name: 'metric_name',
++				type: 'does not matter',
++				values: [{ labels: [], value }],
++			}));
++
++			const result = aggregators.sum(workerMetrics);
++			const reorderedResult = aggregators.sum(workerMetrics.slice().reverse());
++
++			expect(result.values[0].value).toBe(reorderedResult.values[0].value);
++		});
+ 	});
+ 
+ 	describe('first', () => {
