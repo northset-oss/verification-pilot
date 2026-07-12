@@ -1,0 +1,29 @@
+{
+  "started_at": "2026-07-12T01:49:17.299Z",
+  "finished_at": "2026-07-12T01:51:33.547Z",
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
+    "base_tree_digest": "sha256:18771448d478c7fed5eb0aaccb1c042c7158963548da6570b1709015999a3151",
+    "pre_check_tree_digest": "sha256:5b8448c2bb0103311cf804bdd186675189db3da4cccbe20b1c9ec1d4dbb3164d",
+    "patch_sha256": "sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922",
+    "install_commands": [
+      "npm_config_cache=/workspace/.npmcache npm ci --no-audit --no-fund --loglevel=error",
+      "npm run build --workspace=@blockly/plugin-workspace-search",
+      "npm run test --workspace=@blockly/plugin-workspace-search"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm run test --workspace=@blockly/plugin-workspace-search",
+      "exit_code": 0,
+      "duration_ms": 6501
+    }
+  ],
+  "notes": null,
+  "redactions": {
+    "email": 1
+  }
+}

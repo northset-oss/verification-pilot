@@ -1,0 +1,61 @@
+=== cmd 1: npm run test --workspace=@blockly/plugin-workspace-search ===
+
+> @[REDACTED:email] test
+> blockly-scripts test
+
+Building tests for @blockly/plugin-workspace-search
+assets by path [1m[32m../dist/src/*.ts[39m[22m 8.94 KiB
+  asset [1m[32m../dist/src/workspace_search.d.ts[39m[22m 8.57 KiB [1m[33m[compared for emit][39m[22m
+  asset [1m[32m../dist/src/css.d.ts[39m[22m 216 bytes [1m[33m[compared for emit][39m[22m
+  asset [1m[32m../dist/src/index.d.ts[39m[22m 159 bytes [1m[33m[compared for emit][39m[22m
+assets by path [1m[32m../dist/src/*.map[39m[22m 2.66 KiB
+  asset [1m[32m../dist/src/workspace_search.d.ts.map[39m[22m 2.36 KiB [1m[33m[compared for emit][39m[22m
+  asset [1m[32m../dist/src/css.d.ts.map[39m[22m 158 bytes [1m[33m[compared for emit][39m[22m
+  asset [1m[32m../dist/src/index.d.ts.map[39m[22m 141 bytes [1m[33m[compared for emit][39m[22m
+asset [1m[32mworkspace_search_test.mocha.js[39m[22m 7.46 MiB [1m[33m[compared for emit][39m[22m (name: workspace_search_test)
+runtime modules 937 bytes 4 modules
+modules by path [1m../../node_modules/[39m[22m 1.2 MiB 154 modules
+modules by path [1m./[39m[22m 38.8 KiB
+  [1m./test/workspace_search_test.mocha.js[39m[22m 16.8 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+  [1m./src/index.ts[39m[22m 124 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+  [1m./src/workspace_search.ts[39m[22m 18.9 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+  [1m./src/css.ts[39m[22m 3.08 KiB [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+optional modules 84 bytes [1m[33m[optional][39m[22m
+  [1mexternal "timers"[39m[22m 42 bytes [1m[33m[optional][39m[22m [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+  [1mexternal "timers/promises"[39m[22m 42 bytes [1m[33m[optional][39m[22m [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "assert"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "jsdom"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+[1mexternal "util"[39m[22m 42 bytes [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+webpack 5.107.2 compiled [1m[32msuccessfully[39m[22m in 2750 ms
+Running tests for @blockly/plugin-workspace-search
+
+
+  WorkspaceSearch
+    init()
+      ✔ CSS is injected at init()
+      ✔ DOM is intialized at init()
+    createBtn()
+      ✔ Buttons have type button
+    dispose()
+      ✔ DOM is disposed
+    searchAndHighlight()
+      ✔ Match all blocks
+      ✔ Match no blocks
+      ✔ Match all non-fields
+      ✔ Match all field and collapsed blocks
+      ✔ Preserve current, in results
+      ✔ Preserve current, not in results
+    next()
+      ✔ next() with unset current
+      ✔ next() wrap around
+    previous()
+      ✔ previous() with unset current
+      ✔ previous() wrap around
+    focus
+      ✔ close with match focuses found block
+      ✔ close with no match restores focus to workspace
+      ✔ close with match followed by non-match still focuses last found block
+
+
+  17 passing (554ms)
+

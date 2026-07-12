@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": null,
+  "generated_at": "2026-07-12T01:49:17.295Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -75,6 +75,23 @@
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
       "attested": true
+    },
+    {
+      "mission_id": "M-008",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/RaspberryPiFoundation/blockly-samples",
+      "issue_or_task": "https://github.com/RaspberryPiFoundation/blockly-samples/issues/2510",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "pending",
+        "link": null
+      },
+      "run_record_bundle_digest": null,
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false
     }
   ]
 }
