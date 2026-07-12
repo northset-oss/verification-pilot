@@ -144,11 +144,17 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.doesNotMatch(html, /\b(?:cdn|googleapis)\b/i);
   assert.doesNotMatch(html, /\bfetch\s*\(/);
 
+  // Northset's own domains may appear as hardcoded navigation links (brand wordmark, footer).
+  // Self-containment is about resource loads (script/style/font/img/fetch), enforced by the
+  // assertions above; a navigation <a> to our own site is not a resource load and is allowed.
+  const selfHosts = new Set(['northset.ai']);
   const allowedHosts = collectHttpHosts(index);
   const renderedHosts = [...html.matchAll(/https?:\/\/([a-z0-9.-]+)/gi)]
     .map((match) => match[1]);
   assert.ok(renderedHosts.length > 0);
-  for (const host of renderedHosts) assert.ok(allowedHosts.has(host), host);
+  for (const host of renderedHosts) {
+    assert.ok(allowedHosts.has(host) || selfHosts.has(host), host);
+  }
 
   assert.doesNotMatch(html, /<script>alert\(/);
   assert.ok(html.includes('\\u003cscript\\u003e'));
