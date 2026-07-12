@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-009",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "prettier/prettier maintainers",
+  "target_repo": "https://github.com/prettier/prettier",
+  "issue_or_task": "https://github.com/prettier/prettier/issues/19588",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/prettier/prettier/blob/main/CONTRIBUTING.md",
+    "checked_at": "2026-07-12T02:30:00Z",
+    "ai_policy_summary": "No CLA or DCO required (MIT; contributions via PR). No explicit AI-contribution policy found (no AGENTS.md, CLAUDE.md, .github/copilot-instructions.md, or GEMINI.md; CONTRIBUTING checked 2026-07-12). CONTRIBUTING requires updating Jest snapshots and adding a changelog_unreleased entry. CI gates: yarn test (Jest, multiple Node versions), yarn lint (ESLint, TypeScript typecheck, prettier self-check, changelog lint)."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+  "patch_commit": "296019b33e287334febc9882b204c9501725116d",
+  "patch_diff_hash": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714",
+  "commands_declared": [
+    "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The declared network-off check runs Prettier's full Markdown Jest suite (tests/format/markdown, 1476 tests including the new escaped-entity-semicolon regression fixture) on Node 22 via the repository's vendored Yarn, after a disclosed online phase-A install. It does not run the full repository test/lint matrix; upstream CI additionally runs multiple Node versions, ESLint, TypeScript typecheck, changelog lint, and production/browser tests."
+  ]
+}
