@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-012",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "nodejs/doc-kit maintainers",
+  "target_repo": "https://github.com/nodejs/doc-kit",
+  "issue_or_task": "https://github.com/nodejs/doc-kit/issues/897",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/nodejs/doc-kit/blob/main/CONTRIBUTING.md",
+    "checked_at": "2026-07-12T00:00:00Z",
+    "ai_policy_summary": "MIT license under the Node.js org. Commits require a DCO Signed-off-by trailer. Project uses changesets for versioning and node:test as the check gate; follow CONTRIBUTING for PR conventions."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
+  "patch_commit": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+  "patch_diff_hash": "sha256:524fa5413c71090d9b4d4ad8dfd20f877f163551943875f83db2fbde9903beb3",
+  "commands_declared": [
+    "node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs."
+  ]
+}

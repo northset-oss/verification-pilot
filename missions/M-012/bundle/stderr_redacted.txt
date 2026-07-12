@@ -1,0 +1,1 @@
+=== cmd 1: node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs ===

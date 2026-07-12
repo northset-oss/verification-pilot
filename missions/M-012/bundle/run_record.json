@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-07-12T22:06:14.381Z",
+  "finished_at": "2026-07-12T22:06:51.093Z",
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
+    "base_tree_digest": "sha256:af3744afc4523adffa6e3b847d98ded7183fcee5473ed3d354a45461c384b4f3",
+    "pre_check_tree_digest": "sha256:47da603a47a2ea649e18989bf035b964fcb293317539abcf24952a1c246403cd",
+    "patch_sha256": "sha256:524fa5413c71090d9b4d4ad8dfd20f877f163551943875f83db2fbde9903beb3",
+    "install_commands": [
+      "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm_config_cache=/workspace/.npmcache npm ci --no-audit --no-fund --loglevel=error"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs",
+      "exit_code": 0,
+      "duration_ms": 747
+    }
+  ],
+  "notes": null,
+  "redactions": {}
+}
