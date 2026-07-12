@@ -26,8 +26,8 @@
     "npm run test-unit"
   ],
   "environment": null,
-  "run_record_bundle_digest": null,
-  "attestation_uri": null,
+  "run_record_bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
   "maintainer_outcome": {
     "status": "pending",
     "link": null,
