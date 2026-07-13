@@ -1,12 +1,16 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { EventEmitter } from 'node:events';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import {
   access,
+  chmod,
   cp,
+  mkdir,
   mkdtemp,
   readFile,
   rm,
+  symlink,
   truncate,
   writeFile,
 } from 'node:fs/promises';
@@ -321,6 +325,10 @@ test('buildDockerArgs encodes both-phase isolation without host environment or s
       assert.ok(args.includes('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
       assert.ok(args.includes('HOME=/tmp'));
       assert.ok(args.includes('CI=true'));
+      assert.ok(args.includes('COREPACK_HOME=/workspace/.northset/corepack'));
+      assert.ok(args.includes('NPM_CONFIG_CACHE=/workspace/.northset/npm-cache'));
+      assert.ok(args.includes('XDG_CACHE_HOME=/workspace/.northset/cache'));
+      assert.ok(args.includes('XDG_DATA_HOME=/workspace/.northset/share'));
     }
   } finally {
     if (previousCanary === undefined) delete process.env.EXECUTOR_ARGV_CANARY;
@@ -388,6 +396,558 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   }
   assertCleanupCalls(fake, 3);
   await assertTemporaryRootsGone(fake);
+});
+
+test('approved patch refreshes the copied index before hardened application', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-patch-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-patch-repo-');
+  const patchFile = path.join(await temporaryDirectory(t, 'northset-executor-patch-file-'), 'change.patch');
+  const trackedFile = path.join(repoDirectory, 'tracked.txt');
+  await writeFile(trackedFile, 'before\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(trackedFile, 'after\n');
+  const diff = spawnSync('git', ['-C', repoDirectory, 'diff', '--binary', '--full-index'], {encoding: 'utf8'});
+  assert.equal(diff.status, 0, diff.stderr);
+  await writeFile(patchFile, diff.stdout);
+  await writeFile(trackedFile, 'before\n');
+
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  const result = await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: patchFile,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl});
+
+  assert.match(result.runRecord.environment.patch_sha256, /^sha256:[0-9a-f]{64}$/);
+});
+
+test('approved patch cannot traverse a source symlink outside the disposable workspace', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-patch-symlink-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-patch-symlink-repo-');
+  const externalDirectory = await temporaryDirectory(t, 'northset-executor-patch-symlink-target-');
+  const patchFile = path.join(await temporaryDirectory(t, 'northset-executor-patch-symlink-file-'), 'change.patch');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await symlink(externalDirectory, path.join(repoDirectory, 'link'), 'dir');
+  await writeFile(patchFile, [
+    'diff --git a/link/owned.txt b/link/owned.txt',
+    'new file mode 100644',
+    '--- /dev/null',
+    '+++ b/link/owned.txt',
+    '@@ -0,0 +1 @@',
+    '+hello',
+    '',
+  ].join('\n'));
+  let dockerRuns = 0;
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({
+      repo_dir: repoDirectory,
+      patch_file: patchFile,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl}),
+    /symlink/,
+  );
+
+  assert.equal(existsSync(path.join(externalDirectory, 'owned.txt')), false);
+  assert.equal(dockerRuns, 0);
+});
+
+test('approved patch cannot introduce a symlink into the disposable workspace', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-patch-new-symlink-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-patch-new-symlink-repo-');
+  const patchFile = path.join(await temporaryDirectory(t, 'northset-executor-patch-new-symlink-file-'), 'change.patch');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(patchFile, [
+    'diff --git a/link b/link',
+    'new file mode 120000',
+    '--- /dev/null',
+    '+++ b/link',
+    '@@ -0,0 +1 @@',
+    '+/tmp/external-target',
+    '\\ No newline at end of file',
+    '',
+  ].join('\n'));
+  let dockerRuns = 0;
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({
+      repo_dir: repoDirectory,
+      patch_file: patchFile,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl}),
+    /symlink/,
+  );
+
+  assert.equal(dockerRuns, 0);
+});
+
+test('approved patch cannot target a case-varied executor cache path', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-patch-cache-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-patch-cache-repo-');
+  const patchFile = path.join(await temporaryDirectory(t, 'northset-executor-patch-cache-file-'), 'change.patch');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(patchFile, [
+    'diff --git a/.Northset/poison.txt b/.Northset/poison.txt',
+    'new file mode 100644',
+    '--- /dev/null',
+    '+++ b/.Northset/poison.txt',
+    '@@ -0,0 +1 @@',
+    '+poison',
+    '',
+  ].join('\n'));
+  let dockerRuns = 0;
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({
+      repo_dir: repoDirectory,
+      patch_file: patchFile,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl}),
+    /unsafe path/,
+  );
+
+  assert.equal(dockerRuns, 0);
+});
+
+test('all copied Git metadata is removed before Docker starts', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-git-metadata-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-git-metadata-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+    ['remote', 'add', 'origin', 'https://credential-canary@example.invalid/private.git'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(path.join(repoDirectory, '.git', 'hooks', 'credential-canary'), 'host hook\n');
+  await mkdir(path.join(repoDirectory, '.git', 'worktrees', 'linked'), {recursive: true});
+  await writeFile(path.join(repoDirectory, '.git', 'worktrees', 'linked', 'gitdir'), '/host/path/linked/.git\n');
+  await mkdir(path.join(repoDirectory, 'nested', '.git'), {recursive: true});
+  await writeFile(path.join(repoDirectory, 'nested', '.git', 'config'), '[remote "origin"]\n\turl = https://nested.example.invalid/private.git\n');
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  const inspected = new Set();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') {
+      const workspace = workspaceFromArgs(args);
+      assert.equal(existsSync(path.join(workspace, '.git')), false, 'root .git reached Docker');
+      assert.equal(existsSync(path.join(workspace, 'nested', '.git')), false, 'nested .git reached Docker');
+      inspected.add(args.includes('--network=none') ? 'B' : 'A');
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl});
+
+  assert.deepEqual([...inspected].sort(), ['A', 'B']);
+});
+
+test('case-varied nested Git metadata is removed before Docker starts', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-case-git-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-case-git-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  await mkdir(path.join(repoDirectory, 'nested', '.Git'), {recursive: true});
+  await writeFile(path.join(repoDirectory, 'nested', '.Git', 'config'), 'credential canary\n');
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') {
+      assert.equal(
+        existsSync(path.join(workspaceFromArgs(args), 'nested', '.Git')),
+        false,
+        'case-varied nested Git metadata reached Docker',
+      );
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl, gitImpl: nullGit});
+});
+
+test('local core.worktree cannot make dirty Docker bytes claim a clean source commit', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-core-worktree-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-core-worktree-repo-');
+  const redirectedWorktree = await temporaryDirectory(t, 'northset-executor-core-worktree-clean-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'clean\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(path.join(redirectedWorktree, 'tracked.txt'), 'clean\n');
+  const redirected = spawnSync('git', ['-C', repoDirectory, 'config', 'core.worktree', redirectedWorktree], {encoding: 'utf8'});
+  assert.equal(redirected.status, 0, redirected.stderr);
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'dirty bytes Docker will run\n');
+
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  let dockerContent = null;
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run' && !args.includes('--network=none')) {
+      dockerContent = readFileSync(path.join(workspaceFromArgs(args), 'tracked.txt'), 'utf8');
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+  const result = await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl});
+
+  assert.equal(result.runRecord.environment.source_commit, null);
+  assert.equal(dockerContent, 'dirty bytes Docker will run\n');
+});
+
+test('hidden index flags cannot make dirty Docker bytes claim a clean source commit', async (t) => {
+  for (const flag of ['--assume-unchanged', '--skip-worktree']) {
+    const outputDirectory = await temporaryDirectory(t, `northset-executor-hidden-index-output-${flag.slice(2)}-`);
+    const repoDirectory = await temporaryDirectory(t, `northset-executor-hidden-index-repo-${flag.slice(2)}-`);
+    await writeFile(path.join(repoDirectory, 'tracked.txt'), 'clean\n');
+    for (const args of [
+      ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+      ['add', 'tracked.txt'], ['commit', '-m', 'fixture'], ['update-index', flag, 'tracked.txt'],
+    ]) {
+      const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+      assert.equal(result.status, 0, result.stderr);
+    }
+    await writeFile(path.join(repoDirectory, 'tracked.txt'), `dirty bytes hidden by ${flag}\n`);
+
+    const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+    let dockerContent = null;
+    const spawnImpl = (command, args, options) => {
+      if (args[0] === 'run' && !args.includes('--network=none')) {
+        dockerContent = readFileSync(path.join(workspaceFromArgs(args), 'tracked.txt'), 'utf8');
+      }
+      return fake.spawnImpl(command, args, options);
+    };
+    const result = await execute(config({
+      repo_dir: repoDirectory,
+      patch_file: null,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl});
+
+    assert.equal(result.runRecord.environment.source_commit, null, flag);
+    assert.equal(dockerContent, `dirty bytes hidden by ${flag}\n`);
+  }
+});
+
+test('Git replace refs cannot make alternate bytes claim the replaced source commit', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-replace-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-replace-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'clean\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'clean'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  const cleanCommit = spawnSync('git', ['-C', repoDirectory, 'rev-parse', 'HEAD'], {encoding: 'utf8'}).stdout.trim();
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'replacement bytes\n');
+  for (const args of [['add', 'tracked.txt'], ['commit', '-m', 'replacement']]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  const replacementCommit = spawnSync('git', ['-C', repoDirectory, 'rev-parse', 'HEAD'], {encoding: 'utf8'}).stdout.trim();
+  for (const args of [
+    ['reset', '--hard', cleanCommit],
+    ['replace', cleanCommit, replacementCommit],
+    ['reset', '--hard', 'HEAD'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  let dockerContent = null;
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run' && !args.includes('--network=none')) {
+      dockerContent = readFileSync(path.join(workspaceFromArgs(args), 'tracked.txt'), 'utf8');
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+  const result = await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl});
+
+  assert.equal(result.runRecord.environment.source_commit, null);
+  assert.equal(dockerContent, 'replacement bytes\n');
+});
+
+test('ignored untracked bytes disqualify the clean source commit claim', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-ignored-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-ignored-repo-');
+  await writeFile(path.join(repoDirectory, '.gitignore'), 'ignored.txt\n');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'tracked\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', '.gitignore', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await writeFile(path.join(repoDirectory, 'ignored.txt'), 'hidden bytes\n');
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  let ignoredVisible = false;
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run' && !args.includes('--network=none')) {
+      ignoredVisible = existsSync(path.join(workspaceFromArgs(args), 'ignored.txt'));
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+  const result = await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl});
+
+  assert.equal(result.runRecord.environment.source_commit, null);
+  assert.equal(ignoredVisible, true);
+});
+
+test('Git metadata recreated during phase A is removed before phase B', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-phase-a-git-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-phase-a-git-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+  let phaseBInspected = false;
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') {
+      const gitDirectory = path.join(workspaceFromArgs(args), '.git');
+      if (args.includes('--network=none')) {
+        assert.equal(existsSync(gitDirectory), false, 'phase-A-created .git reached phase B');
+        phaseBInspected = true;
+      } else {
+        mkdirSync(gitDirectory, {recursive: true});
+        writeFileSync(path.join(gitDirectory, 'config'), '[core]\n\tbare = false\n');
+      }
+    }
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await execute(config({
+    repo_dir: repoDirectory,
+    patch_file: null,
+    install_commands: [],
+    commands: ['first-check'],
+  }), {outDir: outputDirectory, now: fixedNow, spawnImpl, gitImpl: nullGit});
+
+  assert.equal(phaseBInspected, true);
+});
+
+test('a copied linked-worktree pointer is rejected before host Git or Docker runs', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-linked-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-linked-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  await writeFile(path.join(repoDirectory, '.git'), 'gitdir: /host/private/worktrees/source\n');
+  let gitCalls = 0;
+  let dockerRuns = 0;
+  const gitImpl = () => {
+    gitCalls += 1;
+    const child = new FakeChild();
+    finishChild(child, {code: 128});
+    return child;
+  };
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({
+      repo_dir: repoDirectory,
+      patch_file: null,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl, gitImpl}),
+    /self-contained directory/,
+  );
+
+  assert.equal(gitCalls, 0);
+  assert.equal(dockerRuns, 0);
+});
+
+test('Git metadata symlinks are rejected before cleanup can touch their targets', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-git-symlink-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-git-symlink-repo-');
+  const externalObjects = await temporaryDirectory(t, 'northset-executor-git-symlink-target-');
+  await mkdir(path.join(repoDirectory, '.git'), {recursive: true});
+  await mkdir(path.join(externalObjects, 'info'), {recursive: true});
+  const externalAlternates = path.join(externalObjects, 'info', 'alternates');
+  await writeFile(externalAlternates, '/host/private/objects\n');
+  await symlink(externalObjects, path.join(repoDirectory, '.git', 'objects'), 'dir');
+  let gitCalls = 0;
+  let dockerRuns = 0;
+  const gitImpl = () => {
+    gitCalls += 1;
+    const child = new FakeChild();
+    finishChild(child, {code: 128});
+    return child;
+  };
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({repo_dir: repoDirectory, patch_file: null}), {
+      outDir: outputDirectory, now: fixedNow, spawnImpl, gitImpl,
+    }),
+    /must not contain symlinks/,
+  );
+
+  await access(externalAlternates);
+  assert.equal(gitCalls, 0);
+  assert.equal(dockerRuns, 0);
+});
+
+test('a source-supplied .northset path is rejected before Docker starts', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-cache-root-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-cache-root-repo-');
+  const externalCache = await temporaryDirectory(t, 'northset-executor-cache-root-target-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  await symlink(externalCache, path.join(repoDirectory, '.northset'), 'dir');
+  let dockerRuns = 0;
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({repo_dir: repoDirectory, patch_file: null}), {
+      outDir: outputDirectory, now: fixedNow, spawnImpl, gitImpl: nullGit,
+    }),
+    /reserved \.northset/,
+  );
+
+  assert.equal(dockerRuns, 0);
+});
+
+test('a read-only source is normalized and its disposable copy is always removed', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-readonly-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-readonly-repo-');
+  const trackedFile = path.join(repoDirectory, 'tracked.txt');
+  await writeFile(trackedFile, 'fixture\n');
+  await chmod(trackedFile, 0o444);
+  await chmod(repoDirectory, 0o555);
+  const fake = fakeDocker({responses: {'first-check': {code: 0}}});
+
+  try {
+    await execute(config({
+      repo_dir: repoDirectory,
+      patch_file: null,
+      install_commands: [],
+      commands: ['first-check'],
+    }), {outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl, gitImpl: nullGit});
+  } finally {
+    await chmod(repoDirectory, 0o755).catch(() => {});
+    await chmod(trackedFile, 0o644).catch(() => {});
+  }
+
+  await assertTemporaryRootsGone(fake);
+});
+
+test('Git submodules are rejected before Docker because their interiors are outside the tracked manifest', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-submodule-output-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-submodule-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'fixture\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  const commit = spawnSync('git', ['-C', repoDirectory, 'rev-parse', 'HEAD'], {encoding: 'utf8'}).stdout.trim();
+  for (const args of [
+    ['update-index', '--add', '--cacheinfo', `160000,${commit},sub`],
+    ['commit', '-m', 'add submodule gitlink'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  await mkdir(path.join(repoDirectory, 'sub'));
+  await writeFile(path.join(repoDirectory, 'sub', 'tracked.txt'), 'submodule bytes\n');
+  let dockerRuns = 0;
+  const fake = fakeDocker();
+  const spawnImpl = (command, args, options) => {
+    if (args[0] === 'run') dockerRuns += 1;
+    return fake.spawnImpl(command, args, options);
+  };
+
+  await assert.rejects(
+    execute(config({repo_dir: repoDirectory, patch_file: null}), {
+      outDir: outputDirectory, now: fixedNow, spawnImpl,
+    }),
+    /submodules are not supported/,
+  );
+
+  assert.equal(dockerRuns, 0);
 });
 
 test('empty RepoDigests falls back to the resolved image Id', async (t) => {
