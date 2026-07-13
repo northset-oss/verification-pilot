@@ -14,7 +14,8 @@ contributor's machine, never over untrusted PR code). It:
 1. locates the mission's `bundle/` directory,
 2. re-validates the receipt (`validate-mission`) and the bundle's own digest manifest
    (`bundle verify`) before signing anything,
-3. packages the bundle into a deterministic tarball, and
+3. packages the bundle into a deterministic tarball whose filename and release tag include the
+   first 12 hexadecimal characters of the immutable bundle digest, and
 4. attests that tarball with `actions/attest-build-provenance`.
 
 Public-repository attestations are written to the public transparency log, so anyone can verify
@@ -25,7 +26,7 @@ them without any Northset infrastructure or trust.
 Download the bundle tarball referenced by a ledger entry, then run:
 
 ```sh
-gh attestation verify run-record-<MISSION>.tar.gz \
+gh attestation verify run-record-<MISSION>-<BUNDLE-DIGEST-PREFIX>.tar.gz \
   --repo northset-oss/verification-pilot \
   --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml
 ```

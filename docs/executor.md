@@ -13,6 +13,7 @@ The config file rejects unknown top-level keys and has this shape:
 
 ```json
 {
+  "profile": "node",
   "image": "node:20-bookworm",
   "repo_dir": "/absolute/path/to/checkout",
   "patch_file": null,
@@ -33,12 +34,18 @@ The config file rejects unknown top-level keys and has this shape:
 }
 ```
 
+`profile` is optional for backward compatibility and defaults to `node`. Supported public executor
+profiles are `node` (project-local dependencies remain under the bind-mounted workspace) and
+`python` (a workspace-local `.venv` is created during phase A). Unknown profiles fail closed. The
+private Northset production lane enables a profile only after its executor behavior has a smoke
+test; currently that lane is Node-only.
+
 The executor copies `repo_dir` to a temporary workspace before invoking Docker. If
-`patch_file` is set, it is copied into that workspace and applied there with `git apply`.
-The original repository and patch paths are never mounted in a container. Because the patch
-is applied *inside* the container, a config with a non-null `patch_file` needs an image that
-ships `git` — slim images (for example `node:20-bookworm-slim`) do not, and phase A will fail
-closed on them; use the full image variant for patched missions.
+`patch_file` is set, the host applies those exact hashed bytes with `git apply --index --binary`.
+The original repository and patch paths are never mounted in a container. The executor records a
+digest of every Git-tracked file after the patch, runs the networked install, then recomputes that
+digest and fails before checks if install or lifecycle scripts changed tracked source. Dependencies
+may be added only as untracked workspace content for the network-off check phase.
 
 Phase A uses Docker's default bridge network to run the install commands. Because both
 phases share the copied `/workspace` bind mount, project-local dependencies written there
@@ -84,6 +91,8 @@ create — the trustless guarantee is the separate execution-in-the-signed-workf
 `base_tree_digest` is the pre-patch base anchor for re-runs — it is *not* a digest of the final
 executed state (the patch and the networked install both change the tree afterward; those are
 execution, disclosed via `patch_sha256`, `install_commands`, and `network_policy`).
+`pre_check_tree_digest`, `post_check_tree_digest`, and `check_tree_changed` additionally disclose
+whether the declared check commands changed the workspace they received.
 
 After phase A makes the configured image available, the executor resolves it with
 `docker image inspect` before starting phase B. The run record keeps the exact configured

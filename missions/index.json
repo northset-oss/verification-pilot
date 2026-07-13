@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-13T00:00:00Z",
+  "generated_at": "2026-07-13T14:04:51Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -19,7 +19,8 @@
       "run_record_bundle_digest": null,
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
-      "attested": true
+      "attested": true,
+      "publication": null
     },
     {
       "mission_id": "M-002",
@@ -38,7 +39,8 @@
       "run_record_bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
-      "attested": true
+      "attested": true,
+      "publication": null
     },
     {
       "mission_id": "M-003",
@@ -57,7 +59,8 @@
       "run_record_bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
-      "attested": true
+      "attested": true,
+      "publication": null
     },
     {
       "mission_id": "M-007",
@@ -68,13 +71,34 @@
       "issue_or_task": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "open",
+        "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573"
       },
       "run_record_bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-007",
+        "state": "open",
+        "pr_number": 1573,
+        "pr_url": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
+        "pr_head_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+        "base_branch": "master",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": "2026-07-11T23:24:09Z",
+        "closed_at": null,
+        "updated_at": "2026-07-11T23:26:24Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+        "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-008",
@@ -85,13 +109,34 @@
       "issue_or_task": "https://github.com/RaspberryPiFoundation/blockly-samples/issues/2510",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "open",
+        "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748"
       },
       "run_record_bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-008",
+        "state": "open",
+        "pr_number": 2748,
+        "pr_url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748",
+        "pr_head_oid": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": "2026-07-12T02:18:47Z",
+        "closed_at": null,
+        "updated_at": "2026-07-12T02:18:54Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+        "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-009",
@@ -102,13 +147,34 @@
       "issue_or_task": "https://github.com/prettier/prettier/issues/19588",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "closed_unmerged",
+        "link": "https://github.com/prettier/prettier/pull/19611"
       },
       "run_record_bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-009",
+        "state": "closed_unmerged",
+        "pr_number": 19611,
+        "pr_url": "https://github.com/prettier/prettier/pull/19611",
+        "pr_head_oid": "296019b33e287334febc9882b204c9501725116d",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": "2026-07-12T10:15:36Z",
+        "closed_at": "2026-07-12T10:46:44Z",
+        "updated_at": "2026-07-12T10:46:44Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+        "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-011",
@@ -119,13 +185,34 @@
       "issue_or_task": "https://github.com/prometheus/client_js/issues/539",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "changes_requested",
+        "link": "https://github.com/prometheus/client_js/pull/771"
       },
       "run_record_bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-011",
+        "state": "open",
+        "pr_number": 771,
+        "pr_url": "https://github.com/prometheus/client_js/pull/771",
+        "pr_head_oid": "e345d993c4d2e1ad54e7367e38e07bcc283ccbca",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": "changes_requested",
+        "decision_url": "https://github.com/prometheus/client_js/pull/771",
+        "opened_at": "2026-07-12T20:04:24Z",
+        "closed_at": null,
+        "updated_at": "2026-07-13T01:05:31Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
+        "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-012",
@@ -136,13 +223,34 @@
       "issue_or_task": "https://github.com/nodejs/doc-kit/issues/897",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "changes_requested",
+        "link": "https://github.com/nodejs/doc-kit/pull/901"
       },
       "run_record_bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-012",
+        "state": "open",
+        "pr_number": 901,
+        "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
+        "pr_head_oid": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": "changes_requested",
+        "decision_url": "https://github.com/nodejs/doc-kit/pull/901",
+        "opened_at": "2026-07-12T22:22:09Z",
+        "closed_at": null,
+        "updated_at": "2026-07-13T09:42:13Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+        "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-014",
@@ -153,13 +261,34 @@
       "issue_or_task": "https://github.com/prometheus/client_js/issues/621",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "closed_unmerged",
+        "link": "https://github.com/prometheus/client_js/pull/773"
       },
       "run_record_bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-014",
+        "state": "closed_unmerged",
+        "pr_number": 773,
+        "pr_url": "https://github.com/prometheus/client_js/pull/773",
+        "pr_head_oid": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": "changes_requested",
+        "decision_url": "https://github.com/prometheus/client_js/pull/773",
+        "opened_at": "2026-07-13T00:31:54Z",
+        "closed_at": "2026-07-13T02:23:13Z",
+        "updated_at": "2026-07-13T02:23:33Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
+        "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
+        "release_asset_sha256": null
+      }
     },
     {
       "mission_id": "M-015",
@@ -170,13 +299,34 @@
       "issue_or_task": "https://github.com/prometheus/client_js/issues/582",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
-        "link": null
+        "status": "closed_unmerged",
+        "link": "https://github.com/prometheus/client_js/pull/774"
       },
       "run_record_bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
       "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
-      "attested": true
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-015",
+        "state": "closed_unmerged",
+        "pr_number": 774,
+        "pr_url": "https://github.com/prometheus/client_js/pull/774",
+        "pr_head_oid": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": "success",
+        "merge_commit_oid": null,
+        "review_decision": "review_required",
+        "decision_url": "https://github.com/prometheus/client_js/pull/774",
+        "opened_at": "2026-07-13T01:08:25Z",
+        "closed_at": "2026-07-13T01:27:05Z",
+        "updated_at": "2026-07-13T01:27:05Z",
+        "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+        "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+        "release_asset_sha256": null
+      }
     }
   ]
 }

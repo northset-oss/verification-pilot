@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-012",
+  "state": "open",
+  "pr_number": 901,
+  "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
+  "pr_head_oid": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": "changes_requested",
+  "decision_url": "https://github.com/nodejs/doc-kit/pull/901",
+  "opened_at": "2026-07-12T22:22:09Z",
+  "closed_at": null,
+  "updated_at": "2026-07-13T09:42:13Z",
+  "correction_note": null,
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+  "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+  "release_asset_sha256": null
+}

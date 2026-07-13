@@ -18,6 +18,12 @@ The index is sorted by `mission_id` and contains only the public projection docu
 by the ledger format. `generated_at` is the exact `--now` value; when the optional flag
 is omitted it is `null`, and the builder never reads the wall clock.
 
+An optional sibling `publication.json` is a mutable factual envelope for an immutable mission. It
+records the direct PR URL and head OID, base/head drift, CI state, merge commit,
+`prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
+and verified release-asset evidence. Ledger builds overlay
+that envelope without modifying `mission.json` or any file inside `bundle/`.
+
 The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
 
 Render a self-contained page from an index:

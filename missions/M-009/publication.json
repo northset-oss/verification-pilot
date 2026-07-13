@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-009",
+  "state": "closed_unmerged",
+  "pr_number": 19611,
+  "pr_url": "https://github.com/prettier/prettier/pull/19611",
+  "pr_head_oid": "296019b33e287334febc9882b204c9501725116d",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-12T10:15:36Z",
+  "closed_at": "2026-07-12T10:46:44Z",
+  "updated_at": "2026-07-12T10:46:44Z",
+  "correction_note": null,
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+  "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+  "release_asset_sha256": null
+}

@@ -33,6 +33,7 @@ const resolvedImageId = `sha256:${'b'.repeat(64)}`;
 
 function config(overrides = {}) {
   return {
+    profile: 'node',
     image: 'node:20-bookworm',
     repo_dir: repoFixture,
     patch_file: null,
@@ -48,6 +49,22 @@ function config(overrides = {}) {
     ...overrides,
   };
 }
+
+test('runtime profiles persist dependencies inside the workspace and unsupported profiles fail closed', () => {
+  const node = validateExecutorConfig(config());
+  const nodeArgs = buildDockerArgs('phaseA', node, {
+    workspaceDir: '/tmp/workspace', containerName: 'node-profile', patchContainerFile: null,
+  });
+  assert.ok(nodeArgs.includes('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
+
+  const python = validateExecutorConfig(config({profile: 'python', image: 'python:3.12-bookworm'}));
+  const pythonArgs = buildDockerArgs('phaseA', python, {
+    workspaceDir: '/tmp/workspace', containerName: 'python-profile', patchContainerFile: null,
+  });
+  assert.match(pythonArgs.at(-1), /python3 -m venv \/workspace\/\.venv/);
+  assert.ok(pythonArgs.includes('PATH=/workspace/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
+  assert.throws(() => validateExecutorConfig(config({profile: 'go'})), /profile/i);
+});
 
 class FakeChild extends EventEmitter {
   constructor() {
@@ -94,6 +111,8 @@ function assertDerivedProvenance(environment, { patchSha256 = null, installComma
   assert.equal(environment.source_commit, null);
   assert.match(environment.base_tree_digest, /^sha256:[0-9a-f]{64}$/);
   assert.match(environment.pre_check_tree_digest, /^sha256:[0-9a-f]{64}$/);
+  assert.match(environment.post_check_tree_digest, /^sha256:[0-9a-f]{64}$/);
+  assert.equal(typeof environment.check_tree_changed, 'boolean');
   assert.equal(environment.patch_sha256, patchSha256);
   assert.deepEqual(environment.install_commands, installCommands);
 }
@@ -284,8 +303,6 @@ test('buildDockerArgs encodes both-phase isolation without host environment or s
       phaseA.at(-1),
       [
         'set -e',
-        "git apply -- '/workspace/.executor.patch'",
-        "rm -f -- '/workspace/.executor.patch'",
         'install-fixture',
       ].join('\n'),
     );
@@ -502,6 +519,36 @@ test('phase A nonzero exit aborts phase B and cleanup removes every container an
   assert.equal(runCalls(fake, 'B').length, 0);
   assertCleanupCalls(fake, 3);
   await assertTemporaryRootsGone(fake);
+});
+
+test('phase A cannot mutate tracked source after the approved patch', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-tracked-source-');
+  const repoDirectory = await temporaryDirectory(t, 'northset-executor-git-repo-');
+  await writeFile(path.join(repoDirectory, 'tracked.txt'), 'approved\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', 'tracked.txt'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repoDirectory, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  let fake;
+  fake = fakeDocker({phaseA: {
+    code: 0,
+    beforeClose: async () => {
+      const [workspaceDir] = fake.workspaceDirs;
+      await writeFile(path.join(workspaceDir, 'tracked.txt'), 'mutated by install\n');
+    },
+  }});
+
+  await assert.rejects(
+    execute(config({repo_dir: repoDirectory}), {
+      outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl,
+    }),
+    (error) => error instanceof ExecutorError && /phase A modified tracked source/.test(error.message),
+  );
+  assert.equal(runCalls(fake, 'B').length, 0);
+  assertCleanupCalls(fake, 3);
 });
 
 test('workspace cap breach after a phase-B command stops later commands and cleans up', async (t) => {

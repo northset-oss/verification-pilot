@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-008",
+  "state": "open",
+  "pr_number": 2748,
+  "pr_url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748",
+  "pr_head_oid": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-12T02:18:47Z",
+  "closed_at": null,
+  "updated_at": "2026-07-12T02:18:54Z",
+  "correction_note": null,
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+  "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+  "release_asset_sha256": null
+}

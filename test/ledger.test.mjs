@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+
+import { buildLedger, publicationOutcome } from '../lib/ledger.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const cli = path.join(root, 'bin/ledger.mjs');
@@ -81,6 +83,7 @@ test('build includes only valid missions in sorted deterministic projections', a
     'issue_or_task',
     'maintainer_outcome',
     'mission_id',
+    'publication',
     'run_record_bundle_digest',
     'target_repo',
     'variant',
@@ -93,6 +96,37 @@ test('build includes only valid missions in sorted deterministic projections', a
   const secondBuild = run(buildArgs(secondPath));
   assert.equal(secondBuild.status, 0, secondBuild.stderr);
   assert.deepEqual(await readFile(secondPath), await readFile(firstPath));
+});
+
+test('publication envelopes overlay immutable mission records with factual PR state and direct links', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const copiedMissions = path.join(temporaryRoot, 'missions');
+  await cp(missionsDirectory, copiedMissions, {recursive: true});
+  await writeFile(path.join(copiedMissions, 'zeta', 'publication.json'), `${JSON.stringify({
+    schema_version: 1,
+    mission_id: 'M-004',
+    pr_url: 'https://github.com/example/project/pull/44',
+    pr_head_oid: 'a'.repeat(40),
+    state: 'closed_unmerged',
+    review_decision: 'changes_requested',
+    decision_url: 'https://github.com/example/project/pull/44#pullrequestreview-1',
+    opened_at: '2026-07-10T00:00:00Z',
+    closed_at: '2026-07-11T00:00:00Z',
+    updated_at: '2026-07-11T00:00:00Z',
+    correction_note: null,
+  }, null, 2)}\n`);
+  const out = path.join(temporaryRoot, 'index.json');
+  const result = await buildLedger({missionsDir: copiedMissions, out, now: generatedAt});
+  const mission = result.index.missions.find((entry) => entry.mission_id === 'M-004');
+  assert.equal(mission.publication.pr_url, 'https://github.com/example/project/pull/44');
+  assert.equal(mission.publication.state, 'closed_unmerged');
+  assert.equal(mission.maintainer_outcome.status, 'closed_unmerged');
+});
+
+test('an open PR with changes requested is not described as awaiting maintainer review', () => {
+  assert.equal(publicationOutcome({state: 'open', review_decision: 'changes_requested'}), 'changes_requested');
+  assert.equal(publicationOutcome({state: 'open', review_decision: null}), 'open');
+  assert.equal(publicationOutcome({state: 'closed_unmerged', review_decision: 'changes_requested'}), 'closed_unmerged');
 });
 
 test('build exits nonzero when the missions directory is unreadable', async (t) => {

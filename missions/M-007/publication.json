@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-007",
+  "state": "open",
+  "pr_number": 1573,
+  "pr_url": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
+  "pr_head_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+  "base_branch": "master",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-11T23:24:09Z",
+  "closed_at": null,
+  "updated_at": "2026-07-11T23:26:24Z",
+  "correction_note": null,
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+  "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+  "release_asset_sha256": null
+}

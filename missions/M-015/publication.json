@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-015",
+  "state": "closed_unmerged",
+  "pr_number": 774,
+  "pr_url": "https://github.com/prometheus/client_js/pull/774",
+  "pr_head_oid": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": "review_required",
+  "decision_url": "https://github.com/prometheus/client_js/pull/774",
+  "opened_at": "2026-07-13T01:08:25Z",
+  "closed_at": "2026-07-13T01:27:05Z",
+  "updated_at": "2026-07-13T01:27:05Z",
+  "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+  "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+  "release_asset_sha256": null
+}

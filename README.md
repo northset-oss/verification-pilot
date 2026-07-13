@@ -21,7 +21,7 @@ log, so a signed record is a public one: anyone can then confirm the bundle came
 attestation workflow at a specific commit and hasn't been altered, without trusting us:
 
 ```
-gh attestation verify run-record-<id>.tar.gz \
+gh attestation verify run-record-<id>-<bundle-digest-prefix>.tar.gz \
   --repo northset-oss/verification-pilot \
   --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml
 ```
@@ -87,10 +87,11 @@ from the public ledger on request.
 
 ## The public ledger
 
-Records maintainers agree to publish appear at
-**<https://northset-oss.github.io/verification-pilot/>** — each one a signed, independently
-verifiable bundle. The first entry is our own-repo rehearsal ([`missions/M-001`](missions/M-001)),
-labeled as exactly that.
+Public records appear at **<https://northset-oss.github.io/verification-pilot/>**. Verification work
+for a maintainer is consent-first; contributor self-run records cover only Northset's own submitted
+changes and do not represent maintainer approval. Immutable run bundles are kept separate from the
+mutable `publication.json` envelope that tracks a PR's live status. The first entry is our own-repo
+rehearsal ([`missions/M-001`](missions/M-001)), labeled as exactly that.
 
 ## Our promises
 

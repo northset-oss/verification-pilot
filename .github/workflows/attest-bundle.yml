@@ -30,11 +30,11 @@ jobs:
   attest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 2   # so a push event can diff HEAD~1 to find the changed mission
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
@@ -62,10 +62,10 @@ jobs:
             MISSION="$CHANGED"
           fi
           # Fail closed on anything that is not a clean mission id (no path traversal / injection).
-          case "$MISSION" in
-            M-[0-9][0-9][0-9]|M-E2[a-c]) ;;
-            *) echo "invalid or undeterminable mission id: '$MISSION'" >&2; exit 1 ;;
-          esac
+          if ! [[ "$MISSION" =~ ^M-[0-9]{3,}$ || "$MISSION" =~ ^M-E2[a-c]$ ]]; then
+            echo "invalid or undeterminable mission id: '$MISSION'" >&2
+            exit 1
+          fi
           test -d "missions/${MISSION}/bundle" || { echo "no bundle at missions/${MISSION}/bundle" >&2; exit 1; }
           echo "id=${MISSION}" >> "$GITHUB_OUTPUT"
 
@@ -81,14 +81,19 @@ jobs:
         run: |
           set -euo pipefail
           M="${{ steps.mission.outputs.id }}"
-          OUT="run-record-${M}.tar.gz"
+          BUNDLE_DIGEST="$(jq -r '.bundle_digest | sub("^sha256:"; "")' "missions/${M}/bundle/bundle.manifest.json")"
+          SHORT_DIGEST="${BUNDLE_DIGEST%${BUNDLE_DIGEST#????????????}}"
+          OUT="run-record-${M}-${SHORT_DIGEST}.tar.gz"
+          TAG="run-record-${M}-${SHORT_DIGEST}"
           tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner \
             -czf "${OUT}" -C "missions/${M}" bundle
           sha256sum "${OUT}"
           echo "bundle=${OUT}" >> "$GITHUB_OUTPUT"
+          echo "bundle_digest=sha256:${BUNDLE_DIGEST}" >> "$GITHUB_OUTPUT"
+          echo "release_tag=${TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Attest bundle provenance
-        uses: actions/attest-build-provenance@v4
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
         with:
           subject-path: ${{ steps.pack.outputs.bundle }}
 
@@ -102,13 +107,13 @@ jobs:
         run: |
           set -euo pipefail
           M="${{ steps.mission.outputs.id }}"
-          TAG="run-record-${M}"
+          TAG="${{ steps.pack.outputs.release_tag }}"
           BUNDLE="${{ steps.pack.outputs.bundle }}"
           gh release view "$TAG" -R "${{ github.repository }}" >/dev/null 2>&1 || \
             gh release create "$TAG" -R "${{ github.repository }}" \
               --title "Run record ${M}" \
               --notes "Attested run-record bundle for mission ${M}. Verify with the command in the release asset name — see policies/claims_boundary.md and docs/attestation.md."
-          gh release upload "$TAG" "$BUNDLE" -R "${{ github.repository }}" --clobber
+          gh release upload "$TAG" "$BUNDLE" -R "${{ github.repository }}"
 
       - name: How to verify
         run: |
