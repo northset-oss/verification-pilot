@@ -22,8 +22,8 @@
     "npm run compile-typescript && npm run test-unit"
   ],
   "environment": null,
-  "run_record_bundle_digest": null,
-  "attestation_uri": null,
+  "run_record_bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
   "maintainer_outcome": {
     "status": "pending",
     "link": null,
