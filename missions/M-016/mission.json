@@ -1,0 +1,45 @@
+{
+  "mission_id": "M-016",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "renovatebot maintainers",
+  "target_repo": "https://github.com/renovatebot/renovate",
+  "issue_or_task": "https://github.com/renovatebot/renovate/issues/44500",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/renovatebot/renovate/blob/77da69117e70421ae034f2723f8007dd6829f142/.github/contributing.md",
+    "checked_at": "2026-07-13T16:55:56Z",
+    "ai_policy_summary": "AI-assisted contributions are permitted when disclosed in the pull request; the repository also requires green checks, coverage, CLA completion, and no force-push after pull request creation."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "77da69117e70421ae034f2723f8007dd6829f142",
+  "patch_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
+  "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb",
+  "commands_declared": [
+    "node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ]
+}
