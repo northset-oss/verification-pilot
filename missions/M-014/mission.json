@@ -1,0 +1,42 @@
+{
+  "mission_id": "M-014",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "prometheus maintainers",
+  "target_repo": "https://github.com/prometheus/client_js",
+  "issue_or_task": "https://github.com/prometheus/client_js/issues/621",
+  "consent_artifact": null,
+  "repo_policy_snapshot": null,
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+  "patch_commit": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+  "patch_diff_hash": "sha256:48a2c9ae72581cf4767ec4bc01ed2b1468ebf12aef9973f6e4ecf49c4803b666",
+  "commands_declared": [
+    "npm run test-unit"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+    "The declared network-off check runs `npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+  ]
+}
