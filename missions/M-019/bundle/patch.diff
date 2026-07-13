@@ -1,0 +1,52 @@
+diff --git a/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts b/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts
+index b9fae90ee909e57d24a4024359a63cd5c1868689..fa77615b20ce065106f8613c645602ed7769d038 100644
+--- a/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts
++++ b/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts
+@@ -1185,12 +1185,10 @@ encoder.dateEncodingStrategy = .formatted(formatter)`);
+ 			return 0
+ 	}`);
+ 
+-                if (this._options.swift5Support) {
+-                    this.ensureBlankLine();
+-                    this.emitMultiline(`    public func hash(into hasher: inout Hasher) {
++                this.ensureBlankLine();
++                this.emitMultiline(`    public func hash(into hasher: inout Hasher) {
+ 			// No-op
+ 	}`);
+-                }
+             }
+ 
+             this.ensureBlankLine();
+diff --git a/test/unit/swift-json-null-hashable.test.ts b/test/unit/swift-json-null-hashable.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..78c9cf92881410f9f37597320457f79031db9b25
+--- /dev/null
++++ b/test/unit/swift-json-null-hashable.test.ts
+@@ -0,0 +1,27 @@
++import {
++    InputData,
++    JSONSchemaInput,
++    quicktype,
++} from "../../packages/quicktype-core/src/index.js";
++import { expect, test } from "vitest";
++
++const schema = JSON.stringify({
++    type: "object",
++    properties: {
++        value: {},
++    },
++    required: ["value"],
++});
++
++test("emits hash(into:) for JSONNull by default", async () => {
++    const schemaInput = new JSONSchemaInput(undefined);
++    await schemaInput.addSource({ name: "TopLevel", schema });
++
++    const inputData = new InputData();
++    inputData.addInput(schemaInput);
++
++    const result = await quicktype({ inputData, lang: "swift" });
++    const output = result.lines.join("\n");
++
++    expect(output).toContain("public func hash(into hasher: inout Hasher)");
++});
