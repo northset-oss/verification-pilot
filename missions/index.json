@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-13T18:19:31.145Z",
+  "generated_at": "2026-07-13T18:20:21.322Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -337,8 +337,8 @@
       "issue_or_task": "https://github.com/renovatebot/renovate/issues/44500",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "prepared",
-        "link": null
+        "status": "open",
+        "link": "https://github.com/renovatebot/renovate/pull/44538"
       },
       "run_record_bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
@@ -347,23 +347,23 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-016",
-        "state": "prepared",
-        "pr_number": null,
-        "pr_url": null,
-        "pr_head_oid": null,
+        "state": "open",
+        "pr_number": 44538,
+        "pr_url": "https://github.com/renovatebot/renovate/pull/44538",
+        "pr_head_oid": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
         "base_branch": "main",
         "head_drift": false,
         "ci_state": null,
         "merge_commit_oid": null,
-        "review_decision": null,
-        "decision_url": null,
-        "opened_at": null,
+        "review_decision": "review_required",
+        "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
+        "opened_at": "2026-07-13T18:20:19Z",
         "closed_at": null,
-        "updated_at": "2026-07-13T18:19:31.144Z",
+        "updated_at": "2026-07-13T18:20:19Z",
         "correction_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287"
       }
     }
   ]
