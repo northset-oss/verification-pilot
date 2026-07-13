@@ -10,7 +10,7 @@
   "ci_state": "success",
   "merge_commit_oid": null,
   "review_decision": "changes_requested",
-  "decision_url": "https://github.com/prometheus/client_js/pull/771",
+  "decision_url": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4681169445",
   "opened_at": "2026-07-12T20:04:24Z",
   "closed_at": null,
   "updated_at": "2026-07-13T01:05:31Z",

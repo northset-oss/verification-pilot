@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-13T18:20:21.322Z",
+  "generated_at": "2026-07-13T18:33:07Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -110,7 +110,7 @@
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "open",
-        "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748"
+        "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315"
       },
       "run_record_bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
@@ -127,11 +127,11 @@
         "head_drift": false,
         "ci_state": "success",
         "merge_commit_oid": null,
-        "review_decision": null,
-        "decision_url": null,
+        "review_decision": "approved",
+        "decision_url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315",
         "opened_at": "2026-07-12T02:18:47Z",
         "closed_at": null,
-        "updated_at": "2026-07-12T02:18:54Z",
+        "updated_at": "2026-07-13T14:56:00Z",
         "correction_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
         "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
@@ -166,7 +166,7 @@
         "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": null,
-        "decision_url": null,
+        "decision_url": "https://github.com/prettier/prettier/pull/19611",
         "opened_at": "2026-07-12T10:15:36Z",
         "closed_at": "2026-07-12T10:46:44Z",
         "updated_at": "2026-07-12T10:46:44Z",
@@ -186,7 +186,7 @@
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "changes_requested",
-        "link": "https://github.com/prometheus/client_js/pull/771"
+        "link": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4681169445"
       },
       "run_record_bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
@@ -204,7 +204,7 @@
         "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "changes_requested",
-        "decision_url": "https://github.com/prometheus/client_js/pull/771",
+        "decision_url": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4681169445",
         "opened_at": "2026-07-12T20:04:24Z",
         "closed_at": null,
         "updated_at": "2026-07-13T01:05:31Z",
@@ -224,7 +224,7 @@
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "changes_requested",
-        "link": "https://github.com/nodejs/doc-kit/pull/901"
+        "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567"
       },
       "run_record_bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
@@ -242,7 +242,7 @@
         "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "changes_requested",
-        "decision_url": "https://github.com/nodejs/doc-kit/pull/901",
+        "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
         "updated_at": "2026-07-13T09:42:13Z",
@@ -262,7 +262,7 @@
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "closed_unmerged",
-        "link": "https://github.com/prometheus/client_js/pull/773"
+        "link": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322"
       },
       "run_record_bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
@@ -280,7 +280,7 @@
         "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "changes_requested",
-        "decision_url": "https://github.com/prometheus/client_js/pull/773",
+        "decision_url": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322",
         "opened_at": "2026-07-13T00:31:54Z",
         "closed_at": "2026-07-13T02:23:13Z",
         "updated_at": "2026-07-13T02:23:33Z",
@@ -300,7 +300,7 @@
       "consent_artifact": null,
       "maintainer_outcome": {
         "status": "closed_unmerged",
-        "link": "https://github.com/prometheus/client_js/pull/774"
+        "link": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372"
       },
       "run_record_bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
@@ -318,7 +318,7 @@
         "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "review_required",
-        "decision_url": "https://github.com/prometheus/client_js/pull/774",
+        "decision_url": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",
         "opened_at": "2026-07-13T01:08:25Z",
         "closed_at": "2026-07-13T01:27:05Z",
         "updated_at": "2026-07-13T01:27:05Z",
@@ -353,13 +353,13 @@
         "pr_head_oid": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
         "base_branch": "main",
         "head_drift": false,
-        "ci_state": null,
+        "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "review_required",
         "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
         "opened_at": "2026-07-13T18:20:19Z",
         "closed_at": null,
-        "updated_at": "2026-07-13T18:20:19Z",
+        "updated_at": "2026-07-13T18:21:42Z",
         "correction_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",

@@ -10,7 +10,7 @@
   "ci_state": "success",
   "merge_commit_oid": null,
   "review_decision": null,
-  "decision_url": null,
+  "decision_url": "https://github.com/prettier/prettier/pull/19611",
   "opened_at": "2026-07-12T10:15:36Z",
   "closed_at": "2026-07-12T10:46:44Z",
   "updated_at": "2026-07-12T10:46:44Z",
