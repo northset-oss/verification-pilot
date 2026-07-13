@@ -1,0 +1,36 @@
+=== cmd 1: npm run compile-typescript && npm run test-unit ===
+PASS test/histogramTest.js
+PASS test/summaryTest.js
+PASS test/registerTest.js
+PASS test/utilTest.js
+PASS test/gaugeTest.js
+PASS test/exemplarsTest.js
+PASS test/counterTest.js
+PASS test/pushgatewayWithPathTest.js
+PASS test/defaultMetricsTest.js
+PASS test/pushgatewayTest.js
+PASS test/aggregatorsTest.js
+PASS test/metrics/heapSpacesSizeAndUsedTest.js
+PASS test/metrics/eventLoopLagTest.js
+PASS test/timeWindowQuantilesTest.js
+PASS test/clusterTest.js
+PASS test/metrics/maxFileDescriptorsTest.js
+PASS test/bucketGeneratorsTest.js
+PASS test/metrics/versionTest.js
+PASS test/metrics/heapSizeAndUsedTest.js
+PASS test/workerTest.js
+PASS test/metrics/processRequestsTest.js
+PASS test/metrics/gcTest.js
+PASS test/metrics/processHandlesTest.js
+PASS test/browserCompatibilityTest.js
+PASS test/metrics/processStartTimeTest.js
+PASS test/metrics/processOpenFileDescriptorsTest.js
+PASS test/validationTest.js
+PASS test/metrics/processResourcesTest.js
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+
+Test Suites: 28 passed, 28 total
+Tests:       542 passed, 542 total
+Snapshots:   34 passed, 34 total
+Time:        3.89 s
+Ran all test suites.
