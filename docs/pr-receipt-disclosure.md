@@ -11,9 +11,12 @@ For every non-prepared `author_contribution` not listed in
 
 1. `publication.json:pr_disclosure` is present and schema-valid.
 2. The exact canonical `receipts/M-XXX/` endpoint returns HTTP `200`.
-3. That canonical URL occurs exactly once in the live PR body.
+3. The exact state-specific marked block occurs in the live PR body and its canonical URL occurs
+   exactly once.
 4. The body contains no legacy `#M-XXX` URL and no second Northset ledger link.
 5. No configured Northset actor has posted that receipt URL as a PR comment.
+6. The private-run invitation occurs exactly once for `merged` publications and never for `open`
+   or `closed_unmerged` publications.
 
 The GitHub Actions job is read-only and has no `issues: write` or `pull-requests: write`
 permission. It observes live public PR state; it never edits or comments. GitHub credentials are
@@ -59,7 +62,9 @@ node bin/pr-receipt-disclosure.mjs sync \
 `--apply` requires both the exact confirmation URL and a GitHub token from `GITHUB_TOKEN`,
 `GH_TOKEN`, or the authenticated `gh` session. Before editing, it verifies that the receipt is
 live, the publication points to the same PR, no conflicting ledger link is present, and no
-prohibited receipt comment exists. It then inserts or replaces this idempotent marked block:
+prohibited receipt comment exists. It then inserts or replaces an idempotent marked block. While
+the PR is open (and if it closes without merging), the block remains deliberately
+non-promotional:
 
 ```md
 <!-- northset-receipt:M-021:start -->
@@ -67,6 +72,20 @@ prohibited receipt comment exists. It then inserts or replaces this idempotent m
 
 [Northset proof-of-pass receipt M-021](https://northset-oss.github.io/verification-pilot/receipts/M-021/)
 Contributor self-run; not maintainer verification.
+<!-- northset-receipt:M-021:end -->
+```
+
+After the publication state is recorded as `merged`, the synchronizer replaces only that marked
+block with:
+
+```md
+<!-- northset-receipt:M-021:start -->
+### Verification
+
+[Northset proof-of-pass receipt M-021](https://northset-oss.github.io/verification-pilot/receipts/M-021/)
+This record covers Northset’s own contribution; it is not maintainer verification.
+Maintainers can request a separate, private run for a PR already in their queue at oss@northset.ai.
+For repositories already onboarded with Northset, adding `northset-verify` to a PR requests a run on that PR.
 <!-- northset-receipt:M-021:end -->
 ```
 
@@ -84,6 +103,8 @@ default gate intentionally rejects it until a human-authorized, reviewable excep
 5. Run the guarded `sync --apply` command with explicit human authorization.
 6. Commit the resulting `pr_disclosure` observation.
 7. Require `ci / pr-disclosure` before merging the ledger publication.
+8. When the recorded PR state changes, run the guarded synchronizer again. A merge adds the
+   one-time invitation inside the existing body block; closure without merge keeps it absent.
 
 The explicit historical list is the cutover. Do not broaden it to make a failing future receipt
 pass; correct the live PR disclosure instead.

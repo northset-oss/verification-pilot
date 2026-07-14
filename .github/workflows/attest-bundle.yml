@@ -66,5 +66,11 @@ jobs:
           TAG: ${{ steps.handoff.outputs.release_tag }}
         run: |
           set -euo pipefail
-          gh release view "$TAG" -R "$REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" -R "$REPOSITORY" --title "Run record ${MISSION}" --notes "Attested run-record bundle for ${MISSION}. Signed provenance records artifact origin; it does not witness execution or imply maintainer approval."
+          notes="$(cat <<EOF
+          Attested run-record bundle for ${MISSION}. Signed provenance records artifact origin; it does not witness execution or imply maintainer approval.
+
+          Maintain an open-source project? Request a private run for a PR already in your queue at oss@northset.ai. Nothing is published without your approval.
+          EOF
+          )"
+          gh release view "$TAG" -R "$REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" -R "$REPOSITORY" --title "Run record ${MISSION}" --notes "$notes"
           gh release upload "$TAG" "handoff/$BUNDLE" -R "$REPOSITORY"
