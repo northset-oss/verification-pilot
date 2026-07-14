@@ -196,7 +196,8 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.match(html, /<link rel="icon" href="data:,">/);
   assert.match(html, /<a class="northset-brand" href="https:\/\/northset\.ai"/);
   assert.match(html, /<svg class="northset-wordmark" role="img" aria-label="NORTHSET"/);
-  assert.match(html, /<p class="northset-domain"><a href="https:\/\/northset\.ai">NORTHSET\.ai<\/a><\/p>/);
+  assert.match(html, /<p class="northset-domain"><a href="https:\/\/northset\.ai">northset\.ai<\/a><\/p>/);
+  assert.doesNotMatch(html, /<p class="eyebrow">PUBLIC LEDGER<\/p>/);
   assert.match(html, /\.northset-wordmark \{[^}]*width:min\(100%,32rem\);/);
   assert.match(html, /\.northset-domain \{[^}]*font-size:clamp\(1\.15rem,3vw,1\.5rem\);/);
   assert.match(html, /Proof-of-Pass Receipts/);
