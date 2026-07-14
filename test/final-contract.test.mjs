@@ -171,14 +171,15 @@ test('ledger cross-checks head_drift against the immutable recorded patch commit
 test('all committed missions have complete publication envelopes and freshness metadata', async () => {
   for (const missionId of ['M-001', 'M-002', 'M-003', 'M-007', 'M-008', 'M-009', 'M-011', 'M-012', 'M-014', 'M-015', 'M-016', 'M-019', 'M-020', 'M-021']) {
     const publication = JSON.parse(await readFile(path.join(root, 'missions', missionId, 'publication.json'), 'utf8'));
-    assert.deepEqual(Object.keys(publication).sort(), publicationFields, missionId);
-    if (missionId === 'M-021') {
-      assert.equal(publication.state, 'prepared');
+    const expectedFields = [...publicationFields, ...(publication.pr_disclosure ? ['pr_disclosure'] : [])].sort();
+    assert.deepEqual(Object.keys(publication).sort(), expectedFields, missionId);
+    if (publication.state === 'prepared' && publication.attestation_uri === null) {
       assert.equal(publication.attestation_uri, null);
       assert.equal(publication.release_asset_sha256, null);
       assert.equal(publication.attestation_verified_at, null);
     } else {
-      assert.equal(publication.attestation_verified_at, '2026-07-14T14:21:48Z', missionId);
+      if (missionId === 'M-021') assert.match(publication.attestation_verified_at, /^2026-07-14T[0-9:]+\.[0-9]{3}Z$/, missionId);
+      else assert.equal(publication.attestation_verified_at, '2026-07-14T14:21:48Z', missionId);
       assert.match(publication.release_asset_sha256, /^sha256:[0-9a-f]{64}$/, missionId);
     }
     validatePublication(publication, missionId);
@@ -195,7 +196,7 @@ test('generated open ledger exposes exact state counts, freshness, provenance, d
   await renderLedger({ indexPath, out: siteFile, now: generatedAt });
   const html = await readFile(siteFile, 'utf8');
   assert.match(html, new RegExp(`Generated at\\s*${generatedAt}`));
-  for (const [number, label] of [['11', 'External receipts'], ['3', 'Merged upstream'], ['3', 'Closed unmerged'], ['1', 'Open approved'], ['1', 'Open changes requested'], ['2', 'Open awaiting review']]) {
+  for (const [number, label] of [['11', 'External receipts'], ['3', 'Merged upstream'], ['3', 'Closed unmerged'], ['1', 'Open approved'], ['1', 'Open changes requested'], ['3', 'Open awaiting review']]) {
     assert.match(html, new RegExp(`<strong>${number}</strong> ${label}`));
   }
   assert.match(html, /External status.*mutable.*unattested/is);

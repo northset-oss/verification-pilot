@@ -635,7 +635,7 @@ test('render creates a permanent printable receipt for every committed mission a
     .filter((receipt) => receipt.variant === 'own_repo_rehearsal')
     .map((receipt) => receipt.mission_id);
   for (const missionId of rehearsalIds) assert.doesNotMatch(externalGallery, new RegExp(`>${missionId}<`));
-  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 4);
+  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 5);
   assert.equal((externalGallery.match(/data-review-decision="changes_requested"/g) ?? []).length, 2);
   assert.equal((externalGallery.match(/data-publication-state="merged"/g) ?? []).length, 3);
   assert.equal((externalGallery.match(/data-publication-state="closed_unmerged"/g) ?? []).length, 3);
@@ -651,7 +651,10 @@ test('render creates a permanent printable receipt for every committed mission a
     .sort();
   for (const missionId of missionIds) {
     const page = await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'index.html'), 'utf8');
-    const preparedPending = missionId === 'M-021';
+    const publication = JSON.parse(await readFile(
+      path.join(committedMissionsDirectory, missionId, 'publication.json'), 'utf8',
+    ));
+    const preparedPending = publication.state === 'prepared' && publication.attestation_uri === null;
     assert.match(page, new RegExp(missionId));
     assert.match(page, /NOT INCLUDED/);
     assert.match(page, /declared command/);
