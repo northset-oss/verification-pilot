@@ -147,13 +147,23 @@ are documented in [docs/pipeline.md](docs/pipeline.md). [`examples/`](examples/)
 has its own page under [`docs/`](docs/) (the table below). Signing happens separately, in GitHub
 Actions — the pipeline itself never contacts GitHub.
 
-## The public ledger
+A fresh execution rejects any pre-existing attestation and writes the new mission envelope with
+`run_record_bundle_digest` and `attestation_uri` set to `null`. Those fields remain pending until
+the new bundle is signed and its publication metadata is recorded.
+
+## Proof-of-Pass Receipts
 
 Public records appear at **<https://northset-oss.github.io/verification-pilot/>**. Verification work
 for a maintainer is consent-first; contributor self-run records cover only Northset's own submitted
 changes and do not represent maintainer approval. Immutable run bundles are kept separate from the
 mutable `publication.json` envelope that tracks a PR's live status. The first entry is our own-repo
 rehearsal ([`missions/M-001`](missions/M-001)), labeled as exactly that.
+
+The ledger is an index of printable, permanent Proof-of-Pass Receipts. Each receipt shows the
+verbatim declared commands and exit statuses from its committed run record, the recorded code and
+environment, the source limitations, bundle provenance, and (separately) any linked live upstream
+outcome. A pass is scoped to those declared commands; it is not a statement that the code is good,
+secure, fully tested, maintainer-approved, or production-ready.
 
 ## Our promises
 

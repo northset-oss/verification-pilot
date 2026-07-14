@@ -20,7 +20,70 @@
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null
+      "publication": null,
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-001",
+        "canonical_path": "receipts/M-001/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-001/",
+        "variant": "own_repo_rehearsal",
+        "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
+        "disclosure_label": "Self-funded rehearsal. Not external validation.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/northset-oss/verification-pilot",
+        "issue_or_task": null,
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": null,
+          "tested_commit": null,
+          "patch_diff_hash": null
+        },
+        "started_at": "2026-07-10T00:00:00Z",
+        "finished_at": "2026-07-10T00:00:00Z",
+        "environment": {
+          "container_image_ref": "node:20-bookworm-slim",
+          "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": null,
+          "install_commands": []
+        },
+        "commands": [
+          {
+            "cmd": "node --test",
+            "exit_code": 0,
+            "duration_ms": 2677,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": null,
+        "setup_install_duration_ms": null,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Self-funded rehearsal on Northset's own repository; not external validation."
+        ],
+        "bundle_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-001.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
+        "patch_diff": null,
+        "stdout_redacted": "=== cmd 1: node --test ===\nTAP version 13\n# Subtest: create produces the frozen layout, redactions, and a verifiable manifest\nok 1 - create produces the frozen layout, redactions, and a verifiable manifest\n  ---\n  duration_ms: 609.149\n  ...\n# Subtest: verify reports tampered, missing, and extra files\n    # Subtest: tampered\n    ok 1 - tampered\n      ---\n      duration_ms: 212.946584\n      ...\n    # Subtest: missing\n    ok 2 - missing\n      ---\n      duration_ms: 125.629042\n      ...\n    # Subtest: extra\n    ok 3 - extra\n      ---\n      duration_ms: 74.087667\n      ...\n    1..3\nok 2 - verify reports tampered, missing, and extra files\n  ---\n  duration_ms: 427.230459\n  ...\n# Subtest: same inputs and created_at produce a byte-identical manifest\nok 3 - same inputs and created_at produce a byte-identical manifest\n  ---\n  duration_ms: 89.32375\n  ...\n# Subtest: CONSENT_FILE_REQUIRED applies to V but not own_repo_rehearsal\nok 4 - CONSENT_FILE_REQUIRED applies to V but not own_repo_rehearsal\n  ---\n  duration_ms: 132.194459\n  ...\n# Subtest: --json returns machine-readable create and verify results\nok 5 - --json returns machine-readable create and verify results\n  ---\n  duration_ms: 102.9525\n  ...\n# Subtest: run record validation rejects unknown top-level keys and malformed members\nok 6 - run record validation rejects unknown top-level keys and malformed members\n  ---\n  duration_ms: 0.887458\n  ...\n# Subtest: run record validation enforces the timeout exit-code invariant\nok 7 - run record validation enforces the timeout exit-code invariant\n  ---\n  duration_ms: 1.369125\n  ...\n# Subtest: CLI exits zero and stays quiet for valid receipts\nok 8 - CLI exits zero and stays quiet for valid receipts\n  ---\n  duration_ms: 211.251708\n  ...\n# Subtest: CLI exits one with one human-readable line per violation\nok 9 - CLI exits one with one human-readable line per violation\n  ---\n  duration_ms: 198.271751\n  ...\n# Subtest: --json emits parseable per-file results\nok 10 - --json emits parseable per-file results\n  ---\n  duration_ms: 294.64975\n  ...\n# Subtest: buildDockerArgs encodes both-phase isolation without host environment or source paths\nok 11 - buildDockerArgs encodes both-phase isolation without host environment or source paths\n  ---\n  duration_ms: 2.397583\n  ...\n# Subtest: config rejects unknown top-level keys\nok 12 - config rejects unknown top-level keys\n  ---\n  duration_ms: 1.576625\n  ...\n# Subtest: happy path writes deterministic bundle-compatible outputs\nok 13 - happy path writes deterministic bundle-compatible outputs\n  ---\n  duration_ms: 410.935667\n  ...\n# Subtest: empty RepoDigests falls back to the resolved image Id\nok 14 - empty RepoDigests falls back to the resolved image Id\n  ---\n  duration_ms: 90.996042\n  ...\n# Subtest: missing RepoDigests and image Id fails closed before phase B\nok 15 - missing RepoDigests and image Id fails closed before phase B\n  ---\n  duration_ms: 87.162334\n  ...\n# Subtest: failed image inspection fails closed before phase B\nok 16 - failed image inspection fails closed before phase B\n  ---\n  duration_ms: 14.113708\n  ...\n# Subtest: stream output is truncated at the byte cap with a marker\nok 17 - stream output is truncated at the byte cap with a marker\n  ---\n  duration_ms: 11.790334\n  ...\n# Subtest: a nonzero exit is recorded and later commands still run\nok 18 - a nonzero exit is recorded and later commands still run\n  ---\n  duration_ms: 83.326416\n  ...\n# Subtest: timeout records null exit and timed_out, continues, and is accepted by bundle create\nok 19 - timeout records null exit and timed_out, continues, and is accepted by bundle create\n  ---\n  duration_ms: 119.667958\n  ...\n# Subtest: phase A nonzero exit aborts phase B and cleanup removes every container and workspace\nok 20 - phase A nonzero exit aborts phase B and cleanup removes every container and workspace\n  ---\n  duration_ms: 10.502166\n  ...\n# Subtest: workspace cap breach after a phase-B command stops later commands and cleans up\nok 21 - workspace cap breach after a phase-B command stops later commands and cleans up\n  ---\n  duration_ms: 61.566\n  ...\n# Subtest: phase A workspace cap breach aborts before phase B\nok 22 - phase A workspace cap breach aborts before phase B\n  ---\n  duration_ms: 6.753208\n  ...\n# Subtest: optional Docker integration\nok 23 - optional Docker integration # SKIP\n  ---\n  duration_ms: 0.078583\n  ...\n# Subtest: build includes only valid missions in sorted deterministic projections\nok 24 - build includes only valid missions in sorted deterministic projections\n  ---\n  duration_ms: 507.791126\n  ...\n# Subtest: build exits nonzero when the missions directory is unreadable\nok 25 - build exits nonzero when the missions directory is unreadable\n  ---\n  duration_ms: 195.457958\n  ...\n# Subtest: render emits a self-contained claims surface with encoded mission data\nok 26 - render emits a self-contained claims surface with encoded mission data\n  ---\n  duration_ms: 199.288042\n  ...\n# Subtest: all canonical examples pass validation\n    # Subtest: M-001_own_repo_rehearsal.json\n    ok 1 - M-001_own_repo_rehearsal.json\n      ---\n      duration_ms: 76.915792\n      ...\n    # Subtest: M-004_verification_give.json\n    ok 2 - M-004_verification_give.json\n      ---\n      duration_ms: 6.576\n      ...\n    # Subtest: M-005_worker_mission.json\n    ok 3 - M-005_worker_mission.json\n      ---\n      duration_ms: 1.331584\n      ...\n    1..3\nok 27 - all canonical examples pass validation\n  ---\n  duration_ms: 95.821542\n  ...\n# Subtest: each policy fixture fails only its named rule\n    # Subtest: banned_phrases.json\n    ok 1 - banned_phrases.json\n      ---\n      duration_ms: 1.802333\n      ...\n    # Subtest: consent_required.json\n    ok 2 - consent_required.json\n      ---\n      duration_ms: 4.231166\n      ...\n    # Subtest: grade_outcome_consistency.json\n    ok 3 - grade_outcome_consistency.json\n      ---\n      duration_ms: 1.354166\n      ...\n    # Subtest: limitations_baseline.json\n    ok 4 - limitations_baseline.json\n      ---\n      duration_ms: 4.452708\n      ...\n    # Subtest: merge_contingent_forbidden.json\n    ok 5 - merge_contingent_forbidden.json\n      ---\n      duration_ms: 79.636458\n      ...\n    # Subtest: r3_own_repo_only.json\n    ok 6 - r3_own_repo_only.json\n      ---\n      duration_ms: 2.687875\n      ...\n    # Subtest: rehearsal_label.json\n    ok 7 - rehearsal_label.json\n      ---\n      duration_ms: 1.714208\n      ...\n    # Subtest: tier_language.json\n    ok 8 - tier_language.json\n      ---\n      duration_ms: 2.546333\n      ...\n    1..8\nok 28 - each policy fixture fails only its named rule\n  ---\n  duration_ms: 101.924708\n  ...\n# Subtest: CONSENT_REQUIRED covers V, W, and F variants\n    # Subtest: V\n    ok 1 - V\n      ---\n      duration_ms: 2.468584\n      ...\n    # Subtest: W\n    ok 2 - W\n      ---\n      duration_ms: 2.55025\n      ...\n    # Subtest: F\n    ok 3 - F\n      ---\n      duration_ms: 3.63975\n      ...\n    1..3\nok 29 - CONSENT_REQUIRED covers V, W, and F variants\n  ---\n  duration_ms: 10.75\n  ...\n# Subtest: URL fields reject non-http(s) schemes (ledger renders them as hrefs)\n    # Subtest: javascript:alert(1)\n    ok 1 - javascript:alert(1)\n      ---\n      duration_ms: 4.417625\n      ...\n    # Subtest: data:text/html,<script>x</script>\n    ok 2 - data:text/html,<script>x</script>\n      ---\n      duration_ms: 73.34225\n      ...\n    # Subtest: file:///etc/passwd\n    ok 3 - file:///etc/passwd\n      ---\n      duration_ms: 1.586\n      ...\n    1..3\nok 30 - URL fields reject non-http(s) schemes (ledger renders them as hrefs)\n  ---\n  duration_ms: 80.167625\n  ...\n# Subtest: both GRADE_OUTCOME_CONSISTENCY branches are enforced\n    # Subtest: B+ requires an accepted outcome\n    ok 1 - B+ requires an accepted outcome\n      ---\n      duration_ms: 2.463916\n      ...\n    # Subtest: B0 requires own_repo_rehearsal\n    ok 2 - B0 requires own_repo_rehearsal\n      ---\n      duration_ms: 2.597917\n      ...\n    1..2\nok 31 - both GRADE_OUTCOME_CONSISTENCY branches are enforced\n  ---\n  duration_ms: 5.4645\n  ...\n# Subtest: all banned phrases are matched case-insensitively\n    # Subtest: SETTLED ON-CHAIN\n    ok 1 - SETTLED ON-CHAIN\n      ---\n      duration_ms: 2.842125\n      ...\n    # Subtest: Proves Tests Pass\n    ok 2 - Proves Tests Pass\n      ---\n      duration_ms: 3.2075\n      ...\n    # Subtest: Production Ready\n    ok 3 - Production Ready\n      ---\n      duration_ms: 1.393958\n      ...\n    # Subtest: Customer\n    ok 4 - Customer\n      ---\n      duration_ms: 1.393666\n      ...\n    # Subtest: Marketplace\n    ok 5 - Marketplace\n      ---\n      duration_ms: 2.638042\n      ...\n    1..5\nok 32 - all banned phrases are matched case-insensitively\n  ---\n  duration_ms: 12.126958\n  ...\n# Subtest: banned phrases cover every free-text field\n    # Subtest: $.disclosure_label\n    ok 1 - $.disclosure_label\n      ---\n      duration_ms: 2.750875\n      ...\n    # Subtest: $.funding_source\n    ok 2 - $.funding_source\n      ---\n      duration_ms: 3.327083\n      ...\n    # Subtest: $.external_counterparty\n    ok 3 - $.external_counterparty\n      ---\n      duration_ms: 2.021208\n      ...\n    # Subtest: $.repo_policy_snapshot.ai_policy_summary\n    ok 4 - $.repo_policy_snapshot.ai_policy_summary\n      ---\n      duration_ms: 74.300166\n      ...\n    # Subtest: $.worker_identity.runtime\n    ok 5 - $.worker_identity.runtime\n      ---\n      duration_ms: 1.4955\n      ...\n    # Subtest: $.worker_identity.human_operator\n    ok 6 - $.worker_identity.human_operator\n      ---\n      duration_ms: 1.106458\n      ...\n    # Subtest: $.environment.network_policy\n    ok 7 - $.environment.network_policy\n      ---\n      duration_ms: 2.818209\n      ...\n    # Subtest: $.commands_declared[0]\n    ok 8 - $.commands_declared[0]\n      ---\n      duration_ms: 1.48825\n      ...\n    # Subtest: $.limitations[2]\n    ok 9 - $.limitations[2]\n      ---\n      duration_ms: 1.537833\n      ...\n    1..9\nok 33 - banned phrases cover every free-text field\n  ---\n  duration_ms: 92.390667\n  ...\n# Subtest: TIER_LANGUAGE rejects both restricted substrings below R3\n    # Subtest: on-chain evidence\n    ok 1 - on-chain evidence\n      ---\n      duration_ms: 2.206542\n      ...\n    # Subtest: settlement evidence\n    ok 2 - settlement evidence\n      ---\n      duration_ms: 2.519583\n      ...\n    1..2\nok 34 - TIER_LANGUAGE rejects both restricted substrings below R3\n  ---\n  duration_ms: 5.067916\n  ...\n# Subtest: R3 allows tier language on own-repository rehearsals\nok 35 - R3 allows tier language on own-repository rehearsals\n  ---\n  duration_ms: 1.742125\n  ...\n# Subtest: B+ accepts an approved outcome\nok 36 - B+ accepts an approved outcome\n  ---\n  duration_ms: 3.64325\n  ...\n# Subtest: attributed maintainer outcomes require linked evidence\n    # Subtest: merged\n    ok 1 - merged\n      ---\n      duration_ms: 1.156667\n      ...\n    # Subtest: approved\n    ok 2 - approved\n      ---\n      duration_ms: 1.695666\n      ...\n    # Subtest: rejected\n    ok 3 - rejected\n      ---\n      duration_ms: 1.967375\n      ...\n    # Subtest: closed\n    ok 4 - closed\n      ---\n      duration_ms: 1.659917\n      ...\n    1..4\nok 37 - attributed maintainer outcomes require linked evidence\n  ---\n  duration_ms: 6.987125\n  ...\n# Subtest: unattributed maintainer outcomes do not require linked evidence\n    # Subtest: silent\n    ok 1 - silent\n      ---\n      duration_ms: 74.694541\n      ...\n    # Subtest: pending\n    ok 2 - pending\n      ---\n      duration_ms: 2.0505\n      ...\n    1..2\nok 38 - unattributed maintainer outcomes do not require linked evidence\n  ---\n  duration_ms: 77.045417\n  ...\n# Subtest: structural validation covers the exact v0 constraints\n    # Subtest: top-level object\n    ok 1 - top-level object\n      ---\n      duration_ms: 3.030375\n      ...\n    # Subtest: required properties\n    ok 2 - required properties\n      ---\n      duration_ms: 2.5565\n      ...\n    # Subtest: additional properties\n    ok 3 - additional properties\n      ---\n      duration_ms: 2.489209\n      ...\n    # Subtest: mission ID pattern\n    ok 4 - mission ID pattern\n      ---\n      duration_ms: 1.407167\n      ...\n    # Subtest: R4 is excluded\n    ok 5 - R4 is excluded\n      ---\n      duration_ms: 1.873375\n      ...\n    # Subtest: claim tiers are unique\n    ok 6 - claim tiers are unique\n      ---\n      duration_ms: 1.570125\n      ...\n    # Subtest: URLs are absolute\n    ok 7 - URLs are absolute\n      ---\n      duration_ms: 1.613792\n      ...\n    # Subtest: timestamps are real ISO-8601 date-times\n    ok 8 - timestamps are real ISO-8601 date-times\n      ---\n      duration_ms: 1.264459\n      ...\n    # Subtest: commit identifiers contain 40 hex characters\n    ok 9 - commit identifiers contain 40 hex characters\n      ---\n      duration_ms: 2.311\n      ...\n    # Subtest: nested members are required\n    ok 10 - nested members are required\n      ---\n      duration_ms: 1.4305\n      ...\n    1..10\nok 39 - structural validation covers the exact v0 constraints\n  ---\n  duration_ms: 20.73575\n  ...\n# Subtest: schema declares draft 2020-12 and package stays dependency-free\nok 40 - schema declares draft 2020-12 and package stays dependency-free\n  ---\n  duration_ms: 75.121208\n  ...\n# Subtest: V mission without consent_file fails closed before executor and writes no mission\nok 41 - V mission without consent_file fails closed before executor and writes no mission\n  ---\n  duration_ms: 15.933292\n  ...\n# Subtest: invalid mission fails validation before executor\nok 42 - invalid mission fails validation before executor\n  ---\n  duration_ms: 5.080459\n  ...\n# Subtest: declared command mismatch fails before executor and writes no mission\nok 43 - declared command mismatch fails before executor and writes no mission\n  ---\n  duration_ms: 76.053166\n  ...\n# Subtest: executed command mismatch fails after executor and publishes no mission\nok 44 - executed command mismatch fails after executor and publishes no mission\n  ---\n  duration_ms: 20.639584\n  ...\n# Subtest: own_repo_rehearsal with the required label proceeds without consent\nok 45 - own_repo_rehearsal with the required label proceeds without consent\n  ---\n  duration_ms: 191.533958\n  ...\n# Subtest: happy path creates a real verifiable bundle and refreshes the ledger\nok 46 - happy path creates a real verifiable bundle and refreshes the ledger\n  ---\n  duration_ms: 297.356625\n  ...\n# Subtest: W mission with consent proceeds and copies consent verbatim\nok 47 - W mission with consent proceeds and copies consent verbatim\n  ---\n  duration_ms: 95.321792\n  ...\n# Subtest: executor failure removes the partial mission directory\nok 48 - executor failure removes the partial mission directory\n  ---\n  duration_ms: 5.342959\n  ...\n# Subtest: ledger failure restores a mission replaced with --force\nok 49 - ledger failure restores a mission replaced with --force\n  ---\n  duration_ms: 20.833542\n  ...\n# Subtest: same input and --now write identical mission.json bytes\nok 50 - same input and --now write identical mission.json bytes\n  ---\n  duration_ms: 85.435583\n  ...\n# Subtest: CLI gate failure exits one with the rule and leaves no mission directory\nok 51 - CLI gate failure exits one with the rule and leaves no mission directory\n  ---\n  duration_ms: 89.678209\n  ...\n# Subtest: mission input rejects unknown top-level keys before execution\nok 52 - mission input rejects unknown top-level keys before execution\n  ---\n  duration_ms: 1.92475\n  ...\n# Subtest: diffPolicyState classifies unchanged, changed, new, and removed files\nok 53 - diffPolicyState classifies unchanged, changed, new, and removed files\n  ---\n  duration_ms: 2.872959\n  ...\n# Subtest: checkTargets handles found, missing, rate-limited, and changed files\nok 54 - checkTargets handles found, missing, rate-limited, and changed files\n  ---\n  duration_ms: 5.803291\n  ...\n# Subtest: checkTargets sends authorization only when a token is set\nok 55 - checkTargets sends authorization only when a token is set\n  ---\n  duration_ms: 0.481625\n  ...\n# Subtest: CLI exits zero for an unchanged fixture snapshot\nok 56 - CLI exits zero for an unchanged fixture snapshot\n  ---\n  duration_ms: 209.266917\n  ...\n# Subtest: CLI exits two when a blob SHA changes\nok 57 - CLI exits two when a blob SHA changes\n  ---\n  duration_ms: 175.705834\n  ...\n# Subtest: CLI exits one when the targets config is unreadable\nok 58 - CLI exits one when the targets config is unreadable\n  ---\n  duration_ms: 199.702584\n  ...\n# Subtest: --write persists state and the second CLI run sees no change\nok 59 - --write persists state and the second CLI run sees no change\n  ---\n  duration_ms: 203.045708\n  ...\n# Subtest: CLI treats all-request warnings as a hard error and does not write state\nok 60 - CLI treats all-request warnings as a hard error and does not write state\n  ---\n  duration_ms: 31.276083\n  ...\n# Subtest: redacts every required secret class and reports exact counts\nok 61 - redacts every required secret class and reports exact counts\n  ---\n  duration_ms: 12.527625\n  ...\n# Subtest: over-redacts 0x-prefixed sha256-shaped values but preserves digest fields\nok 62 - over-redacts 0x-prefixed sha256-shaped values but preserves digest fields\n  ---\n  duration_ms: 2.875417\n  ...\n# Subtest: redacts string values recursively without changing keys or scalar types\nok 63 - redacts string values recursively without changing keys or scalar types\n  ---\n  duration_ms: 0.936625\n  ...\n1..63\n# tests 117\n# suites 0\n# pass 116\n# fail 0\n# cancelled 0\n# skipped 1\n# todo 0\n# duration_ms 2356.986501\n",
+        "stderr_redacted": "=== cmd 1: node --test ===\n",
+        "correction_note": null,
+        "publication": null,
+        "live_outcome": null
+      }
     },
     {
       "mission_id": "M-002",
@@ -40,7 +103,70 @@
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null
+      "publication": null,
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-002",
+        "canonical_path": "receipts/M-002/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-002/",
+        "variant": "own_repo_rehearsal",
+        "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
+        "disclosure_label": "Self-funded rehearsal. Not external validation.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/northset-oss/verification-pilot",
+        "issue_or_task": null,
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
+          "tested_commit": null,
+          "patch_diff_hash": null
+        },
+        "started_at": "2026-07-10T19:31:21.476Z",
+        "finished_at": "2026-07-10T19:31:22.336Z",
+        "environment": {
+          "container_image_ref": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": null,
+          "install_commands": []
+        },
+        "commands": [
+          {
+            "cmd": "node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json",
+            "exit_code": 0,
+            "duration_ms": 237,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 860,
+        "setup_install_duration_ms": 623,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Self-funded rehearsal on Northset's own repository; not external validation."
+        ],
+        "bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-002.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
+        "patch_diff": null,
+        "stdout_redacted": "=== cmd 1: node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json ===\n",
+        "stderr_redacted": "=== cmd 1: node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json ===\n",
+        "correction_note": null,
+        "publication": null,
+        "live_outcome": null
+      }
     },
     {
       "mission_id": "M-003",
@@ -60,7 +186,76 @@
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null
+      "publication": null,
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-003",
+        "canonical_path": "receipts/M-003/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-003/",
+        "variant": "own_repo_rehearsal",
+        "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
+        "disclosure_label": "Self-funded rehearsal. Not external validation.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/northset-oss/verification-pilot",
+        "issue_or_task": null,
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
+          "tested_commit": null,
+          "patch_diff_hash": null
+        },
+        "started_at": "2026-07-10T19:33:56.672Z",
+        "finished_at": "2026-07-10T19:33:57.860Z",
+        "environment": {
+          "container_image_ref": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": null,
+          "install_commands": []
+        },
+        "commands": [
+          {
+            "cmd": "node bin/validate-mission.mjs missions/M-001/mission.json",
+            "exit_code": 0,
+            "duration_ms": 247,
+            "timed_out": false
+          },
+          {
+            "cmd": "node bin/bundle.mjs verify missions/M-001",
+            "exit_code": 0,
+            "duration_ms": 222,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 2,
+        "successful_checks": 2,
+        "result": "PASS — 2/2 declared checks",
+        "wall_duration_ms": 1188,
+        "setup_install_duration_ms": 719,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Self-funded rehearsal on Northset's own repository; not external validation."
+        ],
+        "bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-003.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
+        "patch_diff": null,
+        "stdout_redacted": "=== cmd 1: node bin/validate-mission.mjs missions/M-001/mission.json ===\n=== cmd 2: node bin/bundle.mjs verify missions/M-001 ===\nOK sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62\n",
+        "stderr_redacted": "=== cmd 1: node bin/validate-mission.mjs missions/M-001/mission.json ===\n=== cmd 2: node bin/bundle.mjs verify missions/M-001 ===\n",
+        "correction_note": null,
+        "publication": null,
+        "live_outcome": null
+      }
     },
     {
       "mission_id": "M-007",
@@ -98,6 +293,109 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
         "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-007",
+        "canonical_path": "receipts/M-007/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-007/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/objectionary/jeo-maven-plugin",
+        "issue_or_task": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+          "tested_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+          "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2"
+        },
+        "started_at": "2026-07-11T23:07:52.808Z",
+        "finished_at": "2026-07-11T23:13:48.745Z",
+        "environment": {
+          "container_image_ref": "maven:3.9-eclipse-temurin-11",
+          "container_image_digest": "maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+          "install_commands": [
+            "PATH=\"$JAVA_HOME/bin:$PATH\" mvn -Dmaven.repo.local=/workspace/.m2 clean install -ntp -Pqulice --errors --batch-mode",
+            "mvn -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+            "mvn -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest",
+            "exit_code": 0,
+            "duration_ms": 7050,
+            "timed_out": false
+          },
+          {
+            "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+            "exit_code": 0,
+            "duration_ms": 34884,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 2,
+        "successful_checks": 2,
+        "result": "PASS — 2/2 declared checks",
+        "wall_duration_ms": 355937,
+        "setup_install_duration_ms": 314003,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "jwt",
+            "count": 1
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms."
+        ],
+        "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-007.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+        "patch_diff": "diff --git a/src/main/java/org/eolang/jeo/BytecodeClasses.java b/src/main/java/org/eolang/jeo/BytecodeClasses.java\nindex 435b708d1d9ac5ff03dfbd4df2352b6b769f652d..7c1dde6db3957c958860e0c4b3e4c281c3682215 100644\n--- a/src/main/java/org/eolang/jeo/BytecodeClasses.java\n+++ b/src/main/java/org/eolang/jeo/BytecodeClasses.java\n@@ -40,7 +40,7 @@ final class BytecodeClasses implements Classes {\n \n     @Override\n     public String toString() {\n-        return this.input.toString();\n+        return this.checked().toString();\n     }\n \n     @Override\n@@ -50,7 +50,7 @@ final class BytecodeClasses implements Classes {\n \n     @Override\n     public Path root() {\n-        return this.input;\n+        return this.checked();\n     }\n \n     @Override\n@@ -76,19 +76,28 @@ final class BytecodeClasses implements Classes {\n     }\n \n     /**\n-     * Find all bytecode files.\n-     * @return Collection of bytecode files\n-     * @throws IOException If some I/O problem arises\n+     * Check that the classes directory is set.\n+     * @return Classes directory\n      */\n-    private Collection<Path> classes() throws IOException {\n+    private Path checked() {\n         if (Objects.isNull(this.input)) {\n             throw new IllegalStateException(\n                 \"The classes directory is not set, jeo-maven-plugin does not know where to look for classes.\"\n             );\n         }\n+        return this.input;\n+    }\n+\n+    /**\n+     * Find all bytecode files.\n+     * @return Collection of bytecode files\n+     * @throws IOException If some I/O problem arises\n+     */\n+    private Collection<Path> classes() throws IOException {\n+        final Path directory = this.checked();\n         final Collection<Path> result;\n-        if (Files.exists(this.input)) {\n-            try (Stream<Path> walk = Files.walk(this.input)) {\n+        if (Files.exists(directory)) {\n+            try (Stream<Path> walk = Files.walk(directory)) {\n                 result = walk\n                     .filter(Files::isRegularFile)\n                     .filter(path -> path.toString().endsWith(\".class\"))\n@@ -99,7 +108,7 @@ final class BytecodeClasses implements Classes {\n                 this,\n                 String.format(\n                     \"The classes directory '%s' does not exist, jeo-maven-plugin does not know where to look for classes.\",\n-                    this.input\n+                    directory\n                 )\n             );\n             result = Collections.emptyList();\ndiff --git a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java\nindex 73621ac576b2f8eabe702ed8e59bb859eb64f925..ce84e8603743a9268810249cca6cfb5d64ff401e 100644\n--- a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java\n+++ b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java\n@@ -8,6 +8,7 @@ import java.nio.file.Path;\n import java.nio.file.Paths;\n import org.hamcrest.MatcherAssert;\n import org.hamcrest.Matchers;\n+import org.junit.jupiter.api.Assertions;\n import org.junit.jupiter.api.Test;\n \n /**\n@@ -26,6 +27,32 @@ final class BytecodeClassesTest {\n         );\n     }\n \n+    @Test\n+    void throwsDescriptiveExceptionWhenConvertingNullInputToString() {\n+        final IllegalStateException exception = Assertions.assertThrows(\n+            IllegalStateException.class,\n+            () -> new BytecodeClasses(null).toString()\n+        );\n+        MatcherAssert.assertThat(\n+            \"BytecodeClasses toString() should describe the missing classes directory\",\n+            exception.getMessage(),\n+            Matchers.containsString(\"The classes directory is not set\")\n+        );\n+    }\n+\n+    @Test\n+    void throwsDescriptiveExceptionWhenGettingRootFromNullInput() {\n+        final IllegalStateException exception = Assertions.assertThrows(\n+            IllegalStateException.class,\n+            () -> new BytecodeClasses(null).root()\n+        );\n+        MatcherAssert.assertThat(\n+            \"BytecodeClasses root() should describe the missing classes directory\",\n+            exception.getMessage(),\n+            Matchers.containsString(\"The classes directory is not set\")\n+        );\n+    }\n+\n     @Test\n     void doesNotThrowExceptionOnAbsentDirectory() {\n         final Path path = Paths.get(\"/dev/null/absent\");\n",
+        "stdout_redacted": "=== cmd 1: mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest ===\nCan not write to /root/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...\n[INFO] Error stacktraces are turned on.\n[INFO] Scanning for projects...\n[INFO] \n[INFO] --------------------< org.eolang:jeo-maven-plugin >---------------------\n[INFO] Building jeo 1.0-SNAPSHOT\n[INFO]   from pom.xml\n[INFO] ----------------------------[ maven-plugin ]----------------------------\n[INFO] \n[INFO] --- enforcer:3.6.1:enforce (enforce-maven) @ jeo-maven-plugin ---\n[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed\n[INFO] \n[INFO] --- buildnumber:3.2.1:create (jcabi-build-number) @ jeo-maven-plugin ---\n[INFO] maven is executed in offline mode, Updating project files from SCM: skipped.\n[INFO] ShortRevision tag detected. The value is '7'.\n[INFO] Executing: /bin/sh -c cd '/workspace' && 'git' 'log' '-1' '--no-merges' '--format=format:%H %aI %aE %aN'\n[INFO] Working directory: /workspace\n[INFO] Storing buildNumber: 4d033aa at timestamp: 2026-07-11T23:13:08\n[INFO] Executing: /bin/sh -c cd '/workspace' && 'git' 'symbolic-ref' 'HEAD'\n[INFO] Working directory: /workspace\n[WARNING] Cannot get the branch information from the git repository: \nDetecting the current branch failed: fatal: ref HEAD is not a symbolic ref\n\n[INFO] ShortRevision tag detected. The value is '7'.\n[INFO] Executing: /bin/sh -c cd '/workspace' && 'git' 'log' '-1' '--no-merges' '--format=format:%H %aI %aE %aN'\n[INFO] Working directory: /workspace\n[INFO] Storing scmBranch: UNKNOWN\n[INFO] \n[INFO] --- buildnumber:3.2.1:create-timestamp (jcabi-build-number) @ jeo-maven-plugin ---\n[INFO] Skipping because we are not in root module.\n[INFO] \n[INFO] --- plugin:3.15.1:helpmojo (default) @ jeo-maven-plugin ---\n[INFO] \n[INFO] --- resources:3.5.0:resources (default-resources) @ jeo-maven-plugin ---\n[INFO] Copying 7 resources from src/main/resources to target/classes\n[INFO] \n[INFO] --- resources:3.5.0:copy-resources (copy-resources) @ jeo-maven-plugin ---\n[INFO] Copying 1 resource from . to target/classes\n[INFO] \n[INFO] --- compiler:3.14.0:compile (java-compile) @ jeo-maven-plugin ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- compiler:3.14.0:compile (compile-helpmojo) @ jeo-maven-plugin ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- plugin:3.15.1:descriptor (default-descriptor) @ jeo-maven-plugin ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-annotations mojo extractor found 3 mojo descriptors.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] \n[INFO] --- plugin:3.15.1:descriptor (default) @ jeo-maven-plugin ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-annotations mojo extractor found 3 mojo descriptors.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] \n[INFO] --- plugin:3.15.1:descriptor (mojo-descriptor) @ jeo-maven-plugin ---\n[INFO] Using 'UTF-8' encoding to read mojo source files.\n[INFO] java-annotations mojo extractor found 3 mojo descriptors.\n[INFO] java-javadoc mojo extractor found 0 mojo descriptor.\n[INFO] ant mojo extractor found 0 mojo descriptor.\n[INFO] bsh mojo extractor found 0 mojo descriptor.\n[INFO] \n[INFO] --- resources:3.5.0:testResources (default-testResources) @ jeo-maven-plugin ---\n[INFO] Copying 22 resources from src/test/resources to target/test-classes\n[INFO] \n[INFO] --- compiler:3.14.0:testCompile (java-test-compile) @ jeo-maven-plugin ---\n[INFO] Nothing to compile - all classes are up to date.\n[INFO] \n[INFO] --- surefire:3.5.4:test (default-test) @ jeo-maven-plugin ---\n[INFO] Tests will run in random order. To reproduce ordering use flag -Dsurefire.runOrder.random.seed=409379750479709\n[INFO] Surefire report directory: /workspace/target/surefire-reports\n[INFO] Using auto detected provider org.apache.maven.[REDACTED:jwt]\n[INFO] \n[INFO] -------------------------------------------------------\n[INFO]  T E S T S\n[INFO] -------------------------------------------------------\n[INFO] Running org.eolang.jeo.BytecodeClassesTest\n23:13:13 [WARN] org.eolang.jeo.BytecodeClasses: The classes directory '/dev/null/absent' does not exist, jeo-maven-plugin does not know where to look for classes.\n[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 s -- in org.eolang.jeo.BytecodeClassesTest\n[INFO] \n[INFO] Results:\n[INFO] \n[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0\n[INFO] \n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  6.196 s\n[INFO] Finished at: 2026-07-11T23:13:13Z\n[INFO] ------------------------------------------------------------------------\n=== cmd 2: mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode ===\nCan not write to /root/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...\n[INFO] Error stacktraces are turned on.\n[INFO] Scanning for projects...\n[INFO] \n[INFO] --------------------< org.eolang:jeo-maven-plugin >---------------------\n[INFO] Building jeo 1.0-SNAPSHOT\n[INFO]   from pom.xml\n[INFO] ----------------------------[ maven-plugin ]----------------------------\n[INFO] \n[INFO] --- qulice:0.24.0:check (default-cli) @ jeo-maven-plugin ---\n[INFO] Calling org.apache.maven.plugins:maven-enforcer-plugin:3.1.0:enforce...\n[INFO] This is not an SVN project\n[INFO] Dependency analysis suppressed in the project via pom.xml\n[INFO] Qulice quality check completed in 33s\n[INFO] ------------------------------------------------------------------------\n[INFO] BUILD SUCCESS\n[INFO] ------------------------------------------------------------------------\n[INFO] Total time:  33.984 s\n[INFO] Finished at: 2026-07-11T23:13:48Z\n[INFO] ------------------------------------------------------------------------\n",
+        "stderr_redacted": "=== cmd 1: mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest ===\nmkdir: cannot create directory ‘/root’: Permission denied\nFailed to load native library:jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so. The native library file at /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64\njava.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: failed to map segment from shared object\nSLF4J(W): Class path contains multiple SLF4J providers.\nSLF4J(W): Found provider [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]\nSLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@50ad3bc1]\nSLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@223aa2f7]\nSLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.\nSLF4J(I): Actual provider is of type [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]\n=== cmd 2: mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode ===\nmkdir: cannot create directory ‘/root’: Permission denied\nFailed to load native library:jansi-2.4.3-8331c5d90999722e-libjansi.so. The native library file at /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64\njava.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: failed to map segment from shared object\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-007",
+          "state": "open",
+          "pr_number": 1573,
+          "pr_url": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
+          "pr_head_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+          "base_branch": "master",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": "2026-07-11T23:24:09Z",
+          "closed_at": null,
+          "updated_at": "2026-07-11T23:26:24Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+          "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "open",
+          "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
+          "attribution": "Live upstream pull request"
+        }
       }
     },
     {
@@ -136,6 +434,103 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
         "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-008",
+        "canonical_path": "receipts/M-008/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-008/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/RaspberryPiFoundation/blockly-samples",
+        "issue_or_task": "https://github.com/RaspberryPiFoundation/blockly-samples/issues/2510",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
+          "tested_commit": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+          "patch_diff_hash": "sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922"
+        },
+        "started_at": "2026-07-12T01:49:17.299Z",
+        "finished_at": "2026-07-12T01:51:33.547Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
+          "install_commands": [
+            "npm_config_cache=/workspace/.npmcache npm ci --no-audit --no-fund --loglevel=error",
+            "npm run build --workspace=@blockly/plugin-workspace-search",
+            "npm run test --workspace=@blockly/plugin-workspace-search"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm run test --workspace=@blockly/plugin-workspace-search",
+            "exit_code": 0,
+            "duration_ms": 6501,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 136248,
+        "setup_install_duration_ms": 129747,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "email",
+            "count": 1
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages."
+        ],
+        "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-008.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+        "patch_diff": "diff --git a/plugins/workspace-search/src/workspace_search.ts b/plugins/workspace-search/src/workspace_search.ts\nindex dbb0bcb3a29fca5a61854f29dbced25d9a8e4192..81268317ae9d1fdf7bc39b7320a5b761a0d7398d 100644\n--- a/plugins/workspace-search/src/workspace_search.ts\n+++ b/plugins/workspace-search/src/workspace_search.ts\n@@ -282,6 +282,7 @@ export class WorkspaceSearch implements Blockly.IPositionable {\n     // Create the button\n     const btn = document.createElement('button');\n     Blockly.utils.dom.addClass(btn, className);\n+    btn.type = 'button';\n     btn.setAttribute('aria-label', text);\n     return btn;\n   }\ndiff --git a/plugins/workspace-search/test/workspace_search_test.mocha.js b/plugins/workspace-search/test/workspace_search_test.mocha.js\nindex 1e231adf8a1c6dfae6de24a5dd95061e6c140631..5ab7e35dc9747df9d664de20f286c5c7a990694a 100644\n--- a/plugins/workspace-search/test/workspace_search_test.mocha.js\n+++ b/plugins/workspace-search/test/workspace_search_test.mocha.js\n@@ -101,6 +101,24 @@ suite('WorkspaceSearch', function () {\n     });\n   });\n \n+  suite('createBtn()', function () {\n+    test('Buttons have type button', function () {\n+      this.workspaceSearch.init();\n+      const nextBtn = document.querySelector(\n+        'button.blockly-ws-search-next-btn',\n+      );\n+      const previousBtn = document.querySelector(\n+        'button.blockly-ws-search-previous-btn',\n+      );\n+      const closeBtn = document.querySelector(\n+        'button.blockly-ws-search-close-btn',\n+      );\n+      assert.equal(nextBtn.type, 'button');\n+      assert.equal(previousBtn.type, 'button');\n+      assert.equal(closeBtn.type, 'button');\n+    });\n+  });\n+\n   suite('dispose()', function () {\n     test('DOM is disposed', function () {\n       this.workspaceSearch.init();\n",
+        "stdout_redacted": "=== cmd 1: npm run test --workspace=@blockly/plugin-workspace-search ===\n\n> @[REDACTED:email] test\n> blockly-scripts test\n\nBuilding tests for @blockly/plugin-workspace-search\nassets by path \u001b[1m\u001b[32m../dist/src/*.ts\u001b[39m\u001b[22m 8.94 KiB\n  asset \u001b[1m\u001b[32m../dist/src/workspace_search.d.ts\u001b[39m\u001b[22m 8.57 KiB \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\n  asset \u001b[1m\u001b[32m../dist/src/css.d.ts\u001b[39m\u001b[22m 216 bytes \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\n  asset \u001b[1m\u001b[32m../dist/src/index.d.ts\u001b[39m\u001b[22m 159 bytes \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\nassets by path \u001b[1m\u001b[32m../dist/src/*.map\u001b[39m\u001b[22m 2.66 KiB\n  asset \u001b[1m\u001b[32m../dist/src/workspace_search.d.ts.map\u001b[39m\u001b[22m 2.36 KiB \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\n  asset \u001b[1m\u001b[32m../dist/src/css.d.ts.map\u001b[39m\u001b[22m 158 bytes \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\n  asset \u001b[1m\u001b[32m../dist/src/index.d.ts.map\u001b[39m\u001b[22m 141 bytes \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m\nasset \u001b[1m\u001b[32mworkspace_search_test.mocha.js\u001b[39m\u001b[22m 7.46 MiB \u001b[1m\u001b[33m[compared for emit]\u001b[39m\u001b[22m (name: workspace_search_test)\nruntime modules 937 bytes 4 modules\nmodules by path \u001b[1m../../node_modules/\u001b[39m\u001b[22m 1.2 MiB 154 modules\nmodules by path \u001b[1m./\u001b[39m\u001b[22m 38.8 KiB\n  \u001b[1m./test/workspace_search_test.mocha.js\u001b[39m\u001b[22m 16.8 KiB \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n  \u001b[1m./src/index.ts\u001b[39m\u001b[22m 124 bytes \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n  \u001b[1m./src/workspace_search.ts\u001b[39m\u001b[22m 18.9 KiB \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n  \u001b[1m./src/css.ts\u001b[39m\u001b[22m 3.08 KiB \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\noptional modules 84 bytes \u001b[1m\u001b[33m[optional]\u001b[39m\u001b[22m\n  \u001b[1mexternal \"timers\"\u001b[39m\u001b[22m 42 bytes \u001b[1m\u001b[33m[optional]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n  \u001b[1mexternal \"timers/promises\"\u001b[39m\u001b[22m 42 bytes \u001b[1m\u001b[33m[optional]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n\u001b[1mexternal \"assert\"\u001b[39m\u001b[22m 42 bytes \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n\u001b[1mexternal \"jsdom\"\u001b[39m\u001b[22m 42 bytes \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\n\u001b[1mexternal \"util\"\u001b[39m\u001b[22m 42 bytes \u001b[1m\u001b[33m[built]\u001b[39m\u001b[22m \u001b[1m\u001b[33m[code generated]\u001b[39m\u001b[22m\nwebpack 5.107.2 compiled \u001b[1m\u001b[32msuccessfully\u001b[39m\u001b[22m in 2750 ms\nRunning tests for @blockly/plugin-workspace-search\n\n\n  WorkspaceSearch\n    init()\n      ✔ CSS is injected at init()\n      ✔ DOM is intialized at init()\n    createBtn()\n      ✔ Buttons have type button\n    dispose()\n      ✔ DOM is disposed\n    searchAndHighlight()\n      ✔ Match all blocks\n      ✔ Match no blocks\n      ✔ Match all non-fields\n      ✔ Match all field and collapsed blocks\n      ✔ Preserve current, in results\n      ✔ Preserve current, not in results\n    next()\n      ✔ next() with unset current\n      ✔ next() wrap around\n    previous()\n      ✔ previous() with unset current\n      ✔ previous() wrap around\n    focus\n      ✔ close with match focuses found block\n      ✔ close with no match restores focus to workspace\n      ✔ close with match followed by non-match still focuses last found block\n\n\n  17 passing (554ms)\n\n",
+        "stderr_redacted": "=== cmd 1: npm run test --workspace=@blockly/plugin-workspace-search ===\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\n(node:29) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 17)\n(Use `node --trace-warnings ...` to show where the warning was created)\nTried to move a non-movable workspace. This could result in blocks becoming inaccessible.\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-008",
+          "state": "merged",
+          "pr_number": 2748,
+          "pr_url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748",
+          "pr_head_oid": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": "62ce120977078bf9179c5633681ee70446e5073b",
+          "review_decision": "approved",
+          "decision_url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315",
+          "opened_at": "2026-07-12T02:18:47Z",
+          "closed_at": "2026-07-13T19:03:50Z",
+          "updated_at": "2026-07-13T19:03:50Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+          "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "merged",
+          "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -174,6 +569,97 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
         "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-009",
+        "canonical_path": "receipts/M-009/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-009/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/prettier/prettier",
+        "issue_or_task": "https://github.com/prettier/prettier/issues/19588",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+          "tested_commit": "296019b33e287334febc9882b204c9501725116d",
+          "patch_diff_hash": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714"
+        },
+        "started_at": "2026-07-12T10:06:34.026Z",
+        "finished_at": "2026-07-12T10:07:48.529Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+          "install_commands": [
+            "node .yarn/releases/yarn-4.17.1.cjs install",
+            "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown",
+            "exit_code": 0,
+            "duration_ms": 11655,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 74503,
+        "setup_install_duration_ms": 62848,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The declared network-off check runs Prettier's full Markdown Jest suite (tests/format/markdown, 1476 tests including the new escaped-entity-semicolon regression fixture) on Node 22 via the repository's vendored Yarn, after a disclosed online phase-A install. It does not run the full repository test/lint matrix; upstream CI additionally runs multiple Node versions, ESLint, TypeScript typecheck, changelog lint, and production/browser tests."
+        ],
+        "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-009.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+        "patch_diff": "diff --git a/changelog_unreleased/markdown/19611.md b/changelog_unreleased/markdown/19611.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..9999818122d0ae50304e2ac651630fba2e0cf3dd\n--- /dev/null\n+++ b/changelog_unreleased/markdown/19611.md\n@@ -0,0 +1,18 @@\n+#### Preserve escaped semicolons that guard character references in Markdown link URLs (#19611 by @AysajanE)\n+\n+An escaped semicolon terminating an HTML character reference in a link/image URL\n+(e.g. `&quot\\;`) previously lost its backslash on the first format, producing a\n+real entity that a second format then resolved — breaking idempotency. Prettier\n+now keeps the escape so the URL round-trips.\n+\n+<!-- prettier-ignore -->\n+```markdown\n+<!-- Input -->\n+[test](/hello?foo&quot\\;bar)\n+\n+<!-- Prettier stable -->\n+[test](/hello?foo&quot;bar)\n+\n+<!-- Prettier main -->\n+[test](/hello?foo&quot\\;bar)\n+```\ndiff --git a/src/language-markdown/print/mdast.js b/src/language-markdown/print/mdast.js\nindex ca3a5991bfd3f8bac52b1a6e58f297c5a453ca33..7674f66ed0a451b7dca0cfe99cc65faec9b36239 100644\n--- a/src/language-markdown/print/mdast.js\n+++ b/src/language-markdown/print/mdast.js\n@@ -531,11 +531,18 @@ function printUrl(url, dangerousCharOrChars = []) {\n       : [dangerousCharOrChars]),\n   ];\n \n-  return new RegExp(\n+  const printedUrl = new RegExp(\n     dangerousChars.map((x) => escapeStringRegexp(x)).join(\"|\"),\n   ).test(url)\n     ? `<${encodeUrl(url, \"<>\")}>`\n     : url;\n+\n+  // An escaped semicolon is decoded by the parser. Escape it again when it\n+  // would otherwise turn the preceding text into a character reference.\n+  return printedUrl.replaceAll(\n+    /&(?:#\\d{1,7}|#x[0-9A-F]{1,6}|[A-Z][A-Z0-9]{1,30});/gi,\n+    (reference) => String.raw`${reference.slice(0, -1)}\\;`,\n+  );\n }\n \n function printTitle(title, options, printSpace = true) {\ndiff --git a/tests/format/markdown/link/__snapshots__/format.test.js.snap b/tests/format/markdown/link/__snapshots__/format.test.js.snap\nindex f896dc4143af354c5856f6a20dfc481bb8e4ff40..eea6d5d9f24578d23827bd39944708b7f1929829 100644\n--- a/tests/format/markdown/link/__snapshots__/format.test.js.snap\n+++ b/tests/format/markdown/link/__snapshots__/format.test.js.snap\n@@ -129,6 +129,56 @@ proseWrap: \"always\"\n ================================================================================\n `;\n \n+exports[`escaped-entity-semicolon.md - {\"proseWrap\":\"always\"} format 1`] = `\n+====================================options=====================================\n+parsers: [\"markdown\"]\n+proseWrap: \"always\"\n+                                                      printWidth: 80 (default) |\n+=====================================input======================================\n+[test](/hello?foo&quot\\\\;bar)\n+\n+[test](/hello?foo&quot;bar)\n+\n+![image](/hello?foo&amp\\\\;bar)\n+\n+[decimal](/hello?foo&#123\\\\;bar)\n+\n+[hex-lowercase](/hello?foo&#xAB\\\\;bar)\n+\n+[hex-uppercase](/hello?foo&#XAB\\\\;bar)\n+\n+[non-entity](/hello?foo;a;b)\n+\n+[wrapped](</hello?foo=&quot\\\\;bar baz>)\n+\n+[reference][entity]\n+\n+[entity]: /hello?foo&#123\\\\;bar\n+\n+=====================================output=====================================\n+[test](/hello?foo&quot\\\\;bar)\n+\n+[test](/hello?foo\"bar)\n+\n+![image](/hello?foo&amp\\\\;bar)\n+\n+[decimal](/hello?foo&#123\\\\;bar)\n+\n+[hex-lowercase](/hello?foo&#xAB\\\\;bar)\n+\n+[hex-uppercase](/hello?foo&#XAB\\\\;bar)\n+\n+[non-entity](/hello?foo;a;b)\n+\n+[wrapped](</hello?foo=&quot\\\\;bar baz>)\n+\n+[reference][entity]\n+\n+[entity]: /hello?foo&#123\\\\;bar\n+\n+================================================================================\n+`;\n+\n exports[`long.md - {\"proseWrap\":\"always\"} format 1`] = `\n ====================================options=====================================\n parsers: [\"markdown\"]\ndiff --git a/tests/format/markdown/link/escaped-entity-semicolon.md b/tests/format/markdown/link/escaped-entity-semicolon.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..89b76c23968ce1f628dc68b9cb1f24d254f3b999\n--- /dev/null\n+++ b/tests/format/markdown/link/escaped-entity-semicolon.md\n@@ -0,0 +1,19 @@\n+[test](/hello?foo&quot\\;bar)\n+\n+[test](/hello?foo&quot;bar)\n+\n+![image](/hello?foo&amp\\;bar)\n+\n+[decimal](/hello?foo&#123\\;bar)\n+\n+[hex-lowercase](/hello?foo&#xAB\\;bar)\n+\n+[hex-uppercase](/hello?foo&#XAB\\;bar)\n+\n+[non-entity](/hello?foo;a;b)\n+\n+[wrapped](</hello?foo=&quot\\;bar baz>)\n+\n+[reference][entity]\n+\n+[entity]: /hello?foo&#123\\;bar\n",
+        "stdout_redacted": "=== cmd 1: node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown ===\n",
+        "stderr_redacted": "=== cmd 1: node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown ===\nPASS tests/format/markdown/trim-space/format.test.js\nPASS tests/format/markdown/splitCjkText/format.test.js\nPASS tests/format/markdown/commonmark-test-suite-legacy/format.test.js\nPASS tests/format/markdown/gfm-test-suite/format.test.js\nPASS tests/format/markdown/auto-link/format.test.js\nPASS tests/format/markdown/splitCjkText/non-bmp/format.test.js\nPASS tests/format/markdown/list/empty-list-items/format.test.js\nPASS tests/format/markdown/heading/setext/format.test.js\nPASS tests/format/markdown/wiki-link/format.test.js\nPASS tests/format/markdown/list/indent/format.test.js\nPASS tests/format/markdown/broken-plugins/format.test.js\nPASS tests/format/markdown/footnoteDefinition/format.test.js\nPASS tests/format/markdown/table/empty-table/format.test.js\nPASS tests/format/markdown/inlineCode/format.test.js\nPASS tests/format/markdown/html/format.test.js\nPASS tests/format/markdown/paragraph/format.test.js\nPASS tests/format/markdown/commonmark-test-suite/format.test.js\nPASS tests/format/markdown/link/quotes/format.test.js\nPASS tests/format/markdown/jsx-semi/format.test.js\nPASS tests/format/markdown/fenced-code-block/format.test.js\nPASS tests/format/markdown/list/huge-first-number/format.test.js\nPASS tests/format/markdown/linkReference/format.test.js\nPASS tests/format/markdown/blockquote/format.test.js\nPASS tests/format/markdown/code/lwc/format.test.js\nPASS tests/format/markdown/break/list-item/format.test.js\nPASS tests/format/markdown/code/angular/format.test.js\nPASS tests/format/markdown/liquid/format.test.js\nPASS tests/format/markdown/long-table/format.test.js\nPASS tests/format/markdown/indentation/format.test.js\nPASS tests/format/markdown/multiparser-json/format.test.js\nPASS tests/format/markdown/list/parser-regression/format.test.js\nPASS tests/format/markdown/multiparser-js/format.test.js\nPASS tests/format/markdown/link/parser-regression/format.test.js\nPASS tests/format/markdown/word/format.test.js\nPASS tests/format/markdown/thematicBreak/format.test.js\nPASS tests/format/markdown/toml/format.test.js\nPASS tests/format/markdown/table/format.test.js\nPASS tests/format/markdown/strong/format.test.js\nPASS tests/format/markdown/spec-legacy/format.test.js\nPASS tests/format/markdown/yaml/format.test.js\nPASS tests/format/markdown/link/format.test.js\nPASS tests/format/markdown/image/format.test.js\nPASS tests/format/markdown/imageReference/format.test.js\nPASS tests/format/markdown/ignore/format.test.js\nPASS tests/format/markdown/heading/format.test.js\nPASS tests/format/markdown/footnote/format.test.js\nPASS tests/format/markdown/footnoteReference/format.test.js\nPASS tests/format/markdown/emphasis/format.test.js\nPASS tests/format/markdown/list/format.test.js\nPASS tests/format/markdown/delete/format.test.js\nPASS tests/format/markdown/definition/format.test.js\nPASS tests/format/markdown/break/format.test.js\nPASS tests/format/markdown/list/blank-lines/format.test.js\nPASS tests/format/markdown/wiki-link/alias/format.test.js\nPASS tests/format/markdown/list/task-list/format.test.js\nPASS tests/format/markdown/linkReference/case-and-space/format.test.js\nPASS tests/format/markdown/html/html/format.test.js\nPASS tests/format/markdown/markdown/format.test.js\nPASS tests/format/markdown/math/format.test.js\nPASS tests/format/markdown/front-matter/format.test.js\nPASS tests/format/markdown/multiparser-css/format.test.js\nPASS tests/format/markdown/cursor/format.test.js\nPASS tests/format/markdown/code/format.test.js\n\nTest Suites: 63 passed, 63 total\nTests:       1476 passed, 1476 total\nSnapshots:   1465 passed, 1465 total\nTime:        7.23 s\nRan all test suites matching tests/format/markdown.\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-009",
+          "state": "closed_unmerged",
+          "pr_number": 19611,
+          "pr_url": "https://github.com/prettier/prettier/pull/19611",
+          "pr_head_oid": "296019b33e287334febc9882b204c9501725116d",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": "2026-07-12T10:15:36Z",
+          "closed_at": "2026-07-12T10:46:44Z",
+          "updated_at": "2026-07-12T10:46:44Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+          "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "closed_unmerged",
+          "link": "https://github.com/prettier/prettier/pull/19611",
+          "attribution": "Live upstream pull request"
+        }
       }
     },
     {
@@ -212,6 +698,102 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
         "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-011",
+        "canonical_path": "receipts/M-011/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-011/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/prometheus/client_js",
+        "issue_or_task": "https://github.com/prometheus/client_js/issues/539",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "c51c2cd36f6a14e32fa305a164ccded7c250612a",
+          "tested_commit": "e345d993c4d2e1ad54e7367e38e07bcc283ccbca",
+          "patch_diff_hash": "sha256:a42626ab3db4f7f1e5ab68068b2818e3f4c522092c54b786c671a3e969c3ebbf"
+        },
+        "started_at": "2026-07-12T20:03:40.048Z",
+        "finished_at": "2026-07-12T20:04:34.428Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "c51c2cd36f6a14e32fa305a164ccded7c250612a",
+          "install_commands": [
+            "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error",
+            "npm run test-unit"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm run test-unit",
+            "exit_code": 0,
+            "duration_ms": 5862,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 54380,
+        "setup_install_duration_ms": 48518,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "email",
+            "count": 1
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The declared network-off check runs the prom-client jest unit suite on node:22 after a disclosed online phase-A npm ci. It does not run lint, prettier, or the TypeScript type-check gates that upstream CI also runs."
+        ],
+        "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-011.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
+        "patch_diff": "diff --git a/CHANGELOG.md b/CHANGELOG.md\nindex 74bd4a5..da34780 100644\n--- a/CHANGELOG.md\n+++ b/CHANGELOG.md\n@@ -37,6 +37,7 @@ This release marks our first release under the Prometheus umbrella.\n - AggregatorRegistry renamed to ClusterRegistry, old name deprecated\n - chore: update faceoff to 1.1\n - perf: Stat aggregation uses similar strategy to collection. 60% faster aggregation\n+- Make cluster metric aggregation independent of worker response order\n \n ### Added\n \ndiff --git a/lib/metricAggregators.js b/lib/metricAggregators.js\nindex 8ea0528..6c2a1dd 100644\n--- a/lib/metricAggregators.js\n+++ b/lib/metricAggregators.js\n@@ -51,6 +51,13 @@ function AggregatorFactory(aggregatorFn) {\n // Export for users to define their own aggregation methods.\n exports.AggregatorFactory = AggregatorFactory;\n \n+function sumValues(values) {\n+\treturn values\n+\t\t.slice()\n+\t\t.sort((a, b) => a.value - b.value)\n+\t\t.reduce((p, c) => p + c.value, 0);\n+}\n+\n /**\n  * Functions that can be used to aggregate metrics from multiple registries.\n  */\n@@ -58,7 +65,7 @@ exports.aggregators = {\n \t/**\n \t * @returns The sum of values.\n \t */\n-\tsum: AggregatorFactory(v => v.reduce((p, c) => p + c.value, 0)),\n+\tsum: AggregatorFactory(sumValues),\n \t/**\n \t * @returns The first value.\n \t */\n@@ -70,9 +77,7 @@ exports.aggregators = {\n \t/**\n \t * @returns The arithmetic mean of the values.\n \t */\n-\taverage: AggregatorFactory(\n-\t\tv => v.reduce((p, c) => p + c.value, 0) / v.length,\n-\t),\n+\taverage: AggregatorFactory(v => sumValues(v) / v.length),\n \t/**\n \t * @returns The minimum of the values.\n \t */\ndiff --git a/test/aggregatorsTest.js b/test/aggregatorsTest.js\nindex 0010a65..f3f77ad 100644\n--- a/test/aggregatorsTest.js\n+++ b/test/aggregatorsTest.js\n@@ -34,6 +34,20 @@ describe('aggregators', () => {\n \t\t\t\t{ value: 6, labels: ['label1'] },\n \t\t\t]);\n \t\t});\n+\n+\t\tit('sums values independently of their order', () => {\n+\t\t\tconst workerMetrics = [0.1, 0.2, 0.3].map(value => ({\n+\t\t\t\thelp: 'metric_help',\n+\t\t\t\tname: 'metric_name',\n+\t\t\t\ttype: 'does not matter',\n+\t\t\t\tvalues: [{ labels: [], value }],\n+\t\t\t}));\n+\n+\t\t\tconst result = aggregators.sum(workerMetrics);\n+\t\t\tconst reorderedResult = aggregators.sum(workerMetrics.slice().reverse());\n+\n+\t\t\texpect(result.values[0].value).toBe(reorderedResult.values[0].value);\n+\t\t});\n \t});\n \n \tdescribe('first', () => {\n",
+        "stdout_redacted": "=== cmd 1: npm run test-unit ===\n\n> @[REDACTED:email] test-unit\n> jest\n\n",
+        "stderr_redacted": "=== cmd 1: npm run test-unit ===\nPASS test/histogramTest.js\nPASS test/summaryTest.js\nPASS test/registerTest.js\nPASS test/utilTest.js\nPASS test/gaugeTest.js\nPASS test/exemplarsTest.js\nPASS test/counterTest.js\nPASS test/pushgatewayWithPathTest.js\nPASS test/aggregatorsTest.js\nPASS test/pushgatewayTest.js\nPASS test/defaultMetricsTest.js\nPASS test/metrics/heapSpacesSizeAndUsedTest.js\nPASS test/metrics/eventLoopLagTest.js\nPASS test/timeWindowQuantilesTest.js\nPASS test/clusterTest.js\nPASS test/metrics/maxFileDescriptorsTest.js\nPASS test/bucketGeneratorsTest.js\nPASS test/metrics/versionTest.js\nPASS test/metrics/heapSizeAndUsedTest.js\nPASS test/workerTest.js\nPASS test/metrics/gcTest.js\nPASS test/metrics/processRequestsTest.js\nPASS test/metrics/processHandlesTest.js\nPASS test/browserCompatibilityTest.js\nPASS test/metrics/processStartTimeTest.js\nPASS test/validationTest.js\nPASS test/metrics/processOpenFileDescriptorsTest.js\nPASS test/metrics/processResourcesTest.js\nA worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.\n\nTest Suites: 28 passed, 28 total\nTests:       543 passed, 543 total\nSnapshots:   34 passed, 34 total\nTime:        4.076 s\nRan all test suites.\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-011",
+          "state": "open",
+          "pr_number": 771,
+          "pr_url": "https://github.com/prometheus/client_js/pull/771",
+          "pr_head_oid": "0162ab553f8beb750bf4241f116b89257aef1078",
+          "base_branch": "main",
+          "head_drift": true,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": "changes_requested",
+          "decision_url": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4681169445",
+          "opened_at": "2026-07-12T20:04:24Z",
+          "closed_at": null,
+          "updated_at": "2026-07-13T22:31:53Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
+          "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "changes_requested",
+          "link": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4681169445",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -250,6 +832,96 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-012",
+        "canonical_path": "receipts/M-012/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-012/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/nodejs/doc-kit",
+        "issue_or_task": "https://github.com/nodejs/doc-kit/issues/897",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
+          "tested_commit": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+          "patch_diff_hash": "sha256:524fa5413c71090d9b4d4ad8dfd20f877f163551943875f83db2fbde9903beb3"
+        },
+        "started_at": "2026-07-12T22:06:14.381Z",
+        "finished_at": "2026-07-12T22:06:51.093Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
+          "install_commands": [
+            "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm_config_cache=/workspace/.npmcache npm ci --no-audit --no-fund --loglevel=error"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs",
+            "exit_code": 0,
+            "duration_ms": 747,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 36712,
+        "setup_install_duration_ms": 35965,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs."
+        ],
+        "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-012.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+        "patch_diff": "diff --git a/.changeset/quiet-dingos-detect.md b/.changeset/quiet-dingos-detect.md\nnew file mode 100644\nindex 0000000..fb55278\n--- /dev/null\n+++ b/.changeset/quiet-dingos-detect.md\n@@ -0,0 +1,5 @@\n+---\n+'@node-core/doc-kit': patch\n+---\n+\n+Automatically load `doc-kit.config.mjs` from the current working directory.\ndiff --git a/src/utils/configuration/__tests__/index.test.mjs b/src/utils/configuration/__tests__/index.test.mjs\nindex ac7bf50..8ce318f 100644\n--- a/src/utils/configuration/__tests__/index.test.mjs\n+++ b/src/utils/configuration/__tests__/index.test.mjs\n@@ -1,10 +1,13 @@\n import assert from 'node:assert';\n+import * as nodeFs from 'node:fs';\n+import { join } from 'node:path';\n import { describe, it, mock, beforeEach } from 'node:test';\n \n // Mock dependencies\n const mockParseChangelog = mock.fn(async changelog => [changelog]);\n const mockParseIndex = mock.fn(async index => [index]);\n const mockImportFromURL = mock.fn(async () => ({}));\n+const mockExistsSync = mock.fn(() => false);\n \n const createMockConfig = (overrides = {}) => ({\n   global: {},\n@@ -31,6 +34,9 @@ mock.module('../../../parsers/markdown.mjs', {\n mock.module('../../loaders.mjs', {\n   namedExports: { importFromURL: mockImportFromURL },\n });\n+mock.module('node:fs', {\n+  namedExports: { ...nodeFs, existsSync: mockExistsSync },\n+});\n \n const {\n   assertRunnableOptions,\n@@ -43,9 +49,12 @@ const {\n \n // Helper to reset all mocks\n const resetAllMocks = () => {\n-  [mockParseChangelog, mockParseIndex, mockImportFromURL].forEach(m =>\n-    m.mock.resetCalls()\n-  );\n+  [\n+    mockParseChangelog,\n+    mockParseIndex,\n+    mockImportFromURL,\n+    mockExistsSync,\n+  ].forEach(m => m.mock.resetCalls());\n };\n \n // Helper to count specific function calls\n@@ -149,6 +158,47 @@ describe('config.mjs', () => {\n   });\n \n   describe('createRunConfiguration', () => {\n+    it('should auto-detect a config file in the current directory', async () => {\n+      const defaultConfigFile = join(process.cwd(), 'doc-kit.config.mjs');\n+      const mockConfig = createMockConfig({\n+        global: { input: 'auto-detected-src/' },\n+      });\n+      mockExistsSync.mock.mockImplementationOnce(() => true);\n+      mockImportFromURL.mock.mockImplementationOnce(async () => mockConfig);\n+\n+      const config = await createRunConfiguration({});\n+\n+      assert.strictEqual(config.global.input, 'auto-detected-src/');\n+      assert.strictEqual(mockExistsSync.mock.calls.length, 1);\n+      assert.strictEqual(\n+        mockExistsSync.mock.calls[0].arguments[0],\n+        defaultConfigFile\n+      );\n+      assert.strictEqual(mockImportFromURL.mock.calls.length, 1);\n+      assert.strictEqual(\n+        mockImportFromURL.mock.calls[0].arguments[0],\n+        defaultConfigFile\n+      );\n+    });\n+\n+    it('should prefer an explicit config file', async () => {\n+      mockImportFromURL.mock.mockImplementationOnce(async () =>\n+        createMockConfig({ global: { input: 'explicit-src/' } })\n+      );\n+\n+      const config = await createRunConfiguration({\n+        configFile: 'explicit-config.mjs',\n+      });\n+\n+      assert.strictEqual(config.global.input, 'explicit-src/');\n+      assert.strictEqual(mockExistsSync.mock.calls.length, 0);\n+      assert.strictEqual(mockImportFromURL.mock.calls.length, 1);\n+      assert.strictEqual(\n+        mockImportFromURL.mock.calls[0].arguments[0],\n+        'explicit-config.mjs'\n+      );\n+    });\n+\n     it('should merge config sources in correct order', async () => {\n       mockImportFromURL.mock.mockImplementationOnce(async () =>\n         createMockConfig({ global: { input: 'custom-src/' } })\n@@ -204,7 +254,7 @@ describe('config.mjs', () => {\n       assert.strictEqual(config.chunkSize, 1);\n     });\n \n-    it('should work without config file', async () => {\n+    it('should use an empty config when no config file is present', async () => {\n       const config = await createRunConfiguration({\n         version: '20.0.0',\n         threads: 4,\n@@ -212,6 +262,11 @@ describe('config.mjs', () => {\n \n       assert.ok(config);\n       assert.strictEqual(config.threads, 4);\n+      assert.strictEqual(mockExistsSync.mock.calls.length, 1);\n+      assert.strictEqual(\n+        mockExistsSync.mock.calls[0].arguments[0],\n+        join(process.cwd(), 'doc-kit.config.mjs')\n+      );\n       assert.strictEqual(mockImportFromURL.mock.calls.length, 0);\n     });\n \ndiff --git a/src/utils/configuration/index.mjs b/src/utils/configuration/index.mjs\nindex a31bc35..9f5536b 100644\n--- a/src/utils/configuration/index.mjs\n+++ b/src/utils/configuration/index.mjs\n@@ -1,4 +1,6 @@\n+import { existsSync } from 'node:fs';\n import { cpus } from 'node:os';\n+import { join } from 'node:path';\n import { isMainThread } from 'node:worker_threads';\n \n import { coerce } from 'semver';\n@@ -123,7 +125,8 @@ export const assertRunnableOptions = config => {\n };\n \n /**\n- * Creates a complete run configuration by merging config file, user options, and defaults.\n+ * Creates a complete run configuration by merging an explicit or auto-detected\n+ * config file, user options, and defaults.\n  * Processes and validates configuration values including version coercion, changelog parsing,\n  * and constraint enforcement for threads and chunk size.\n  *\n@@ -131,7 +134,11 @@ export const assertRunnableOptions = config => {\n  * @returns {Promise<import('./types').Configuration>} The configuration\n  */\n export const createRunConfiguration = async options => {\n-  const config = await loadConfigFile(options.configFile);\n+  const defaultConfigFile = join(process.cwd(), 'doc-kit.config.mjs');\n+  const configFile =\n+    options.configFile ??\n+    (existsSync(defaultConfigFile) ? defaultConfigFile : undefined);\n+  const config = await loadConfigFile(configFile);\n   config.target &&= enforceArray(config.target);\n \n   // Merge with defaults\n",
+        "stdout_redacted": "=== cmd 1: node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs ===\nTAP version 13\n# (node:16) ExperimentalWarning: Module mocking is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: config.mjs\n    # Subtest: loadConfigFile\n        # Subtest: should load config from file path\n        ok 1 - should load config from file path\n          ---\n          duration_ms: 0.750042\n          type: 'test'\n          ...\n        # Subtest: should return empty object for falsy paths\n        ok 2 - should return empty object for falsy paths\n          ---\n          duration_ms: 0.4375\n          type: 'test'\n          ...\n        1..2\n    ok 1 - loadConfigFile\n      ---\n      duration_ms: 1.599792\n      type: 'suite'\n      ...\n    # Subtest: createConfigFromCLIOptions\n        # Subtest: should convert CLI options to config structure\n        ok 1 - should convert CLI options to config structure\n          ---\n          duration_ms: 0.916875\n          type: 'test'\n          ...\n        # Subtest: should handle empty options\n        ok 2 - should handle empty options\n          ---\n          duration_ms: 1.205833\n          type: 'test'\n          ...\n        1..2\n    ok 2 - createConfigFromCLIOptions\n      ---\n      duration_ms: 2.334\n      type: 'suite'\n      ...\n    # Subtest: assertRunnableOptions\n        # Subtest: should throw when target is missing\n        ok 1 - should throw when target is missing\n          ---\n          duration_ms: 0.567875\n          type: 'test'\n          ...\n        # Subtest: should throw when input is missing\n        ok 2 - should throw when input is missing\n          ---\n          duration_ms: 0.137959\n          type: 'test'\n          ...\n        # Subtest: should not throw when both target and input are provided\n        ok 3 - should not throw when both target and input are provided\n          ---\n          duration_ms: 0.314917\n          type: 'test'\n          ...\n        1..3\n    ok 3 - assertRunnableOptions\n      ---\n      duration_ms: 1.220542\n      type: 'suite'\n      ...\n    # Subtest: createRunConfiguration\n        # Subtest: should auto-detect a config file in the current directory\n        ok 1 - should auto-detect a config file in the current directory\n          ---\n          duration_ms: 1.383042\n          type: 'test'\n          ...\n        # Subtest: should prefer an explicit config file\n        ok 2 - should prefer an explicit config file\n          ---\n          duration_ms: 0.285959\n          type: 'test'\n          ...\n        # Subtest: should merge config sources in correct order\n        ok 3 - should merge config sources in correct order\n          ---\n          duration_ms: 0.3115\n          type: 'test'\n          ...\n        # Subtest: should transform string values only once\n        ok 4 - should transform string values only once\n          ---\n          duration_ms: 0.305416\n          type: 'test'\n          ...\n        # Subtest: should enforce minimum constraints\n        ok 5 - should enforce minimum constraints\n          ---\n          duration_ms: 0.172875\n          type: 'test'\n          ...\n        # Subtest: should use an empty config when no config file is present\n        ok 6 - should use an empty config when no config file is present\n          ---\n          duration_ms: 0.25425\n          type: 'test'\n          ...\n        # Subtest: should handle generator-specific overrides\n        ok 7 - should handle generator-specific overrides\n          ---\n          duration_ms: 0.340833\n          type: 'test'\n          ...\n        1..7\n    ok 4 - createRunConfiguration\n      ---\n      duration_ms: 3.230959\n      type: 'suite'\n      ...\n    # Subtest: setConfig and getConfig\n        # Subtest: should persist config across calls\n        ok 1 - should persist config across calls\n          ---\n          duration_ms: 0.276209\n          type: 'test'\n          ...\n        1..1\n    ok 5 - setConfig and getConfig\n      ---\n      duration_ms: 0.339458\n      type: 'suite'\n      ...\n    # Subtest: transformation optimization\n        # Subtest: should transform changelog parsing only for strings\n        ok 1 - should transform changelog parsing only for strings\n          ---\n          duration_ms: 0.406833\n          type: 'test'\n          ...\n        # Subtest: should transform index parsing only for strings\n        ok 2 - should transform index parsing only for strings\n          ---\n          duration_ms: 0.22975\n          type: 'test'\n          ...\n        1..2\n    ok 6 - transformation optimization\n      ---\n      duration_ms: 0.725042\n      type: 'suite'\n      ...\n    1..6\nok 1 - config.mjs\n  ---\n  duration_ms: 10.071958\n  type: 'suite'\n  ...\n1..1\n# tests 17\n# suites 7\n# pass 17\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 418.699959\n",
+        "stderr_redacted": "=== cmd 1: node --test --experimental-test-module-mocks src/utils/configuration/__tests__/index.test.mjs ===\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-012",
+          "state": "open",
+          "pr_number": 901,
+          "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
+          "pr_head_oid": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": "changes_requested",
+          "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
+          "opened_at": "2026-07-12T22:22:09Z",
+          "closed_at": null,
+          "updated_at": "2026-07-13T21:13:48Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+          "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "changes_requested",
+          "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -288,6 +960,101 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
         "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-014",
+        "canonical_path": "receipts/M-014/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-014/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/prometheus/client_js",
+        "issue_or_task": "https://github.com/prometheus/client_js/issues/621",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+          "tested_commit": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+          "patch_diff_hash": "sha256:48a2c9ae72581cf4767ec4bc01ed2b1468ebf12aef9973f6e4ecf49c4803b666"
+        },
+        "started_at": "2026-07-13T00:25:57.698Z",
+        "finished_at": "2026-07-13T00:27:10.686Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+          "install_commands": [
+            "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm run test-unit",
+            "exit_code": 0,
+            "duration_ms": 5593,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 72988,
+        "setup_install_duration_ms": 67395,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "email",
+            "count": 1
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+          "The declared network-off check runs `npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+        ],
+        "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-014.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
+        "patch_diff": "diff --git a/index.d.ts b/index.d.ts\nindex 8c0ebb2..fe41cc4 100644\n--- a/index.d.ts\n+++ b/index.d.ts\n@@ -323,6 +323,7 @@ export interface CounterConfiguration<\n \tT extends string,\n > extends MetricConfiguration<T> {\n \tcollect?: CollectFunction<Counter<T>>;\n+\tuseCounterValueAsExemplar?: boolean;\n }\n \n export interface IncreaseDataWithExemplar<T extends string> {\ndiff --git a/lib/counter.js b/lib/counter.js\nindex 7835c8d..b6ce480 100644\n--- a/lib/counter.js\n+++ b/lib/counter.js\n@@ -24,7 +24,7 @@ const Exemplar = require('./exemplar');\n \n class Counter extends Metric {\n \tconstructor(config) {\n-\t\tsuper(config);\n+\t\tsuper(config, { useCounterValueAsExemplar: false });\n \t\tthis.type = 'counter';\n \t\tthis.defaultLabels = {};\n \t\tthis.defaultValue = 1;\n@@ -93,7 +93,11 @@ class Counter extends Metric {\n \t\tentry.exemplar ??= new Exemplar();\n \t\tentry.exemplar.validateExemplarLabelSet(exemplarLabels);\n \t\tentry.exemplar.labelSet = exemplarLabels;\n-\t\tentry.exemplar.value = value ? value : 1;\n+\t\tentry.exemplar.value = this.useCounterValueAsExemplar\n+\t\t\t? entry.value\n+\t\t\t: value\n+\t\t\t\t? value\n+\t\t\t\t: 1;\n \t\tentry.exemplar.timestamp = nowTimestamp();\n \t}\n \ndiff --git a/test/exemplarsTest.js b/test/exemplarsTest.js\nindex 0ad6588..344d523 100644\n--- a/test/exemplarsTest.js\n+++ b/test/exemplarsTest.js\n@@ -60,6 +60,34 @@ describe('Exemplars', () => {\n \t\t\t\t);\n \t\t\t});\n \n+\t\t\tit('should optionally use the counter value for exemplars', async () => {\n+\t\t\t\tconst counterWithTotal = new Counter({\n+\t\t\t\t\tname: 'counter_total_exemplar_test',\n+\t\t\t\t\thelp: 'help',\n+\t\t\t\t\tenableExemplars: true,\n+\t\t\t\t\tuseCounterValueAsExemplar: true,\n+\t\t\t\t\tregisters: [],\n+\t\t\t\t});\n+\t\t\t\tconst counterWithIncrement = new Counter({\n+\t\t\t\t\tname: 'counter_increment_exemplar_test',\n+\t\t\t\t\thelp: 'help',\n+\t\t\t\t\tenableExemplars: true,\n+\t\t\t\t\tregisters: [],\n+\t\t\t\t});\n+\n+\t\t\t\tcounterWithTotal.inc({ exemplarLabels: { traceId: 'x' } });\n+\t\t\t\tcounterWithTotal.inc({ exemplarLabels: { traceId: 'x' } });\n+\t\t\t\tcounterWithIncrement.inc({ exemplarLabels: { traceId: 'x' } });\n+\t\t\t\tcounterWithIncrement.inc({ exemplarLabels: { traceId: 'x' } });\n+\n+\t\t\t\tconst totalValues = await counterWithTotal.get();\n+\t\t\t\tconst incrementValues = await counterWithIncrement.get();\n+\t\t\t\texpect(totalValues.values[0].value).toEqual(2);\n+\t\t\t\texpect(totalValues.values[0].exemplar.value).toEqual(2);\n+\t\t\t\texpect(incrementValues.values[0].value).toEqual(2);\n+\t\t\t\texpect(incrementValues.values[0].exemplar.value).toEqual(1);\n+\t\t\t});\n+\n \t\t\tit('should make histogram with exemplars on multiple buckets', async () => {\n \t\t\t\tconst histogramInstance = new Histogram({\n \t\t\t\t\tname: 'histogram_exemplar_test',\n",
+        "stdout_redacted": "=== cmd 1: npm run test-unit ===\n\n> @[REDACTED:email] test-unit\n> jest\n\n",
+        "stderr_redacted": "=== cmd 1: npm run test-unit ===\nPASS test/histogramTest.js\nPASS test/summaryTest.js\nPASS test/registerTest.js\nPASS test/utilTest.js\nPASS test/gaugeTest.js\nPASS test/exemplarsTest.js\nPASS test/counterTest.js\nPASS test/defaultMetricsTest.js\nPASS test/pushgatewayWithPathTest.js\nPASS test/pushgatewayTest.js\nPASS test/aggregatorsTest.js\nPASS test/metrics/heapSpacesSizeAndUsedTest.js\nPASS test/metrics/eventLoopLagTest.js\nPASS test/timeWindowQuantilesTest.js\nPASS test/metrics/maxFileDescriptorsTest.js\nPASS test/clusterTest.js\nPASS test/bucketGeneratorsTest.js\nPASS test/metrics/versionTest.js\nPASS test/metrics/heapSizeAndUsedTest.js\nPASS test/workerTest.js\nPASS test/metrics/gcTest.js\nPASS test/metrics/processRequestsTest.js\nPASS test/metrics/processHandlesTest.js\nPASS test/browserCompatibilityTest.js\nPASS test/metrics/processStartTimeTest.js\nPASS test/metrics/processOpenFileDescriptorsTest.js\nPASS test/metrics/processResourcesTest.js\nPASS test/validationTest.js\nA worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.\n\nTest Suites: 28 passed, 28 total\nTests:       543 passed, 543 total\nSnapshots:   34 passed, 34 total\nTime:        3.724 s\nRan all test suites.\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-014",
+          "state": "closed_unmerged",
+          "pr_number": 773,
+          "pr_url": "https://github.com/prometheus/client_js/pull/773",
+          "pr_head_oid": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": "changes_requested",
+          "decision_url": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322",
+          "opened_at": "2026-07-13T00:31:54Z",
+          "closed_at": "2026-07-13T02:23:13Z",
+          "updated_at": "2026-07-13T02:23:33Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
+          "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "closed_unmerged",
+          "link": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -326,6 +1093,101 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
         "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
         "release_asset_sha256": null
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-015",
+        "canonical_path": "receipts/M-015/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-015/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/prometheus/client_js",
+        "issue_or_task": "https://github.com/prometheus/client_js/issues/582",
+        "worker_identity": {
+          "runtime": "northset-oss executor v0",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+          "tested_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+          "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6"
+        },
+        "started_at": "2026-07-13T01:03:28.905Z",
+        "finished_at": "2026-07-13T01:04:13.457Z",
+        "environment": {
+          "container_image_ref": "node:22-bookworm",
+          "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+          "install_commands": [
+            "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm run compile-typescript && npm run test-unit",
+            "exit_code": 0,
+            "duration_ms": 7550,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 44552,
+        "setup_install_duration_ms": 37002,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "email",
+            "count": 2
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+          "The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+        ],
+        "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-015.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+        "patch_diff": "diff --git a/index.d.ts b/index.d.ts\nindex 8c0ebb2..ad40e62 100644\n--- a/index.d.ts\n+++ b/index.d.ts\n@@ -304,7 +304,7 @@ type MetricValueWithName<T extends string> = MetricValue<T> & {\n \n type LabelValues<T extends string> = T extends NoLabelNameType\n \t? Partial<Record<string, never>>\n-\t: Partial<Record<T, string | number>>;\n+\t: Partial<Record<T, string | number | string[]>>;\n \n interface MetricConfiguration<T extends string> {\n \tname: string;\ndiff --git a/test/typescript.ts b/test/typescript.ts\nindex 80d899c..2a0ff38 100644\n--- a/test/typescript.ts\n+++ b/test/typescript.ts\n@@ -18,8 +18,10 @@ const registry = new Registry();\n const counter = new Counter({\n \tname: 'typescript_test_counter',\n \thelp: 'TypeScript test counter',\n+\tlabelNames: ['handler'],\n \tregisters: [registry],\n });\n+counter.inc({ handler: ['/a', '/b'] });\n \n const metricsText: Promise<string> = registry.getMetricsAsString(counter);\n const gatewayWithRegistry = new Pushgateway('http://127.0.0.1:9091', registry);\n",
+        "stdout_redacted": "=== cmd 1: npm run compile-typescript && npm run test-unit ===\n\n> @[REDACTED:email] compile-typescript\n> tsc --project .\n\n\n> @[REDACTED:email] test-unit\n> jest\n\n",
+        "stderr_redacted": "=== cmd 1: npm run compile-typescript && npm run test-unit ===\nPASS test/histogramTest.js\nPASS test/summaryTest.js\nPASS test/registerTest.js\nPASS test/utilTest.js\nPASS test/gaugeTest.js\nPASS test/exemplarsTest.js\nPASS test/counterTest.js\nPASS test/pushgatewayWithPathTest.js\nPASS test/defaultMetricsTest.js\nPASS test/pushgatewayTest.js\nPASS test/aggregatorsTest.js\nPASS test/metrics/heapSpacesSizeAndUsedTest.js\nPASS test/metrics/eventLoopLagTest.js\nPASS test/timeWindowQuantilesTest.js\nPASS test/clusterTest.js\nPASS test/metrics/maxFileDescriptorsTest.js\nPASS test/bucketGeneratorsTest.js\nPASS test/metrics/versionTest.js\nPASS test/metrics/heapSizeAndUsedTest.js\nPASS test/workerTest.js\nPASS test/metrics/processRequestsTest.js\nPASS test/metrics/gcTest.js\nPASS test/metrics/processHandlesTest.js\nPASS test/browserCompatibilityTest.js\nPASS test/metrics/processStartTimeTest.js\nPASS test/metrics/processOpenFileDescriptorsTest.js\nPASS test/validationTest.js\nPASS test/metrics/processResourcesTest.js\nA worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.\n\nTest Suites: 28 passed, 28 total\nTests:       542 passed, 542 total\nSnapshots:   34 passed, 34 total\nTime:        3.89 s\nRan all test suites.\n",
+        "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-015",
+          "state": "closed_unmerged",
+          "pr_number": 774,
+          "pr_url": "https://github.com/prometheus/client_js/pull/774",
+          "pr_head_oid": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": "review_required",
+          "decision_url": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",
+          "opened_at": "2026-07-13T01:08:25Z",
+          "closed_at": "2026-07-13T01:27:05Z",
+          "updated_at": "2026-07-13T01:27:05Z",
+          "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+          "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+          "release_asset_sha256": null
+        },
+        "live_outcome": {
+          "status": "closed_unmerged",
+          "link": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -364,6 +1226,95 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
         "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287"
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-016",
+        "canonical_path": "receipts/M-016/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-016/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/renovatebot/renovate",
+        "issue_or_task": "https://github.com/renovatebot/renovate/issues/44500",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "77da69117e70421ae034f2723f8007dd6829f142",
+          "tested_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
+          "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb"
+        },
+        "started_at": "2026-07-13T18:08:11.710Z",
+        "finished_at": "2026-07-13T18:11:10.751Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "77da69117e70421ae034f2723f8007dd6829f142",
+          "install_commands": [
+            "corepack pnpm install --frozen-lockfile"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts",
+            "exit_code": 0,
+            "duration_ms": 4990,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 179041,
+        "setup_install_duration_ms": 174051,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+        ],
+        "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-016-4a0512e8d6e6.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
+        "patch_diff": "diff --git a/lib/modules/manager/quadlet/digest-replacement.spec.ts b/lib/modules/manager/quadlet/digest-replacement.spec.ts\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..05d30e92a567ad61e0584e65fa4a5f2e059b49a4\n--- /dev/null\n+++ b/lib/modules/manager/quadlet/digest-replacement.spec.ts\n@@ -0,0 +1,32 @@\n+import { codeBlock } from 'common-tags';\n+import { extractPackageFile } from './extract.ts';\n+\n+describe('modules/manager/quadlet/digest-replacement', () => {\n+  it('supports digest replacement metadata for Quadlet images', () => {\n+    const image =\n+      'docker.io/library/alpine:3.23.0@sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375';\n+    const content = codeBlock`\n+      [Container]\n+      Image=${image}\n+    `;\n+\n+    const result = extractPackageFile(content, 'alpine.container', {});\n+\n+    expect(result).toEqual({\n+      deps: [\n+        {\n+          autoReplaceStringTemplate:\n+            '{{depName}}{{#if newValue}}:{{newValue}}{{/if}}{{#if newDigest}}@{{newDigest}}{{/if}}',\n+          currentDigest:\n+            'sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375',\n+          currentValue: '3.23.0',\n+          datasource: 'docker',\n+          depName: 'docker.io/library/alpine',\n+          depType: 'image',\n+          packageName: 'docker.io/library/alpine',\n+          replaceString: image,\n+        },\n+      ],\n+    });\n+  });\n+});\ndiff --git a/lib/modules/manager/quadlet/extract.ts b/lib/modules/manager/quadlet/extract.ts\nindex f7e6dcc08f0ef4a96c4d603538e86016f1147374..dcd803533fa690036170f577976af48e65942956 100644\n--- a/lib/modules/manager/quadlet/extract.ts\n+++ b/lib/modules/manager/quadlet/extract.ts\n@@ -40,7 +40,7 @@ function getQuadletImage(\n     const cleanedImage = image\n       .replace(regEx(/^docker:\\/\\//), '')\n       .replace(regEx(/^docker-daemon:/), '');\n-    const dep = getDep(cleanedImage, false, config.registryAliases);\n+    const dep = getDep(cleanedImage, true, config.registryAliases);\n     if (dep) {\n       dep.depType = 'image';\n \n",
+        "stdout_redacted": "=== cmd 1: node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts ===\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.10 \u001b[39m\u001b[90m/workspace\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m lib/modules/manager/quadlet/digest-replacement.spec.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 7\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m1 passed\u001b[39m\u001b[22m\u001b[90m (1)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m1 passed\u001b[39m\u001b[22m\u001b[90m (1)\u001b[39m\n\u001b[2m   Start at \u001b[22m 18:10:44\n\u001b[2m   Duration \u001b[22m 3.14s\u001b[2m (transform 688ms, setup 591ms, import 1.77s, tests 7ms, environment 0ms)\u001b[22m\n\n<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<testsuites name=\"vitest tests\" tests=\"1\" failures=\"0\" errors=\"0\" time=\"0.006817833\">\n    <testsuite name=\"lib/modules/manager/quadlet/digest-replacement.spec.ts\" timestamp=\"2026-07-13T18:10:47.837Z\" hostname=\"ec0ab839a8b9\" tests=\"1\" failures=\"0\" errors=\"0\" skipped=\"0\" time=\"0.006817833\">\n        <testcase classname=\"lib/modules/manager/quadlet/digest-replacement.spec.ts\" name=\"modules/manager/quadlet/digest-replacement &gt; supports digest replacement metadata for Quadlet images\" time=\"0.004128458\">\n        </testcase>\n    </testsuite>\n</testsuites>\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n\n=============================== Coverage summary ===============================\nStatements   : 8.09% ( 291/3595 )\nBranches     : 2.79% ( 55/1971 )\nFunctions    : 12.76% ( 83/650 )\nLines        : 8.13% ( 289/3554 )\n================================================================================\n",
+        "stderr_redacted": "=== cmd 1: node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts ===\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-016",
+          "state": "open",
+          "pr_number": 44538,
+          "pr_url": "https://github.com/renovatebot/renovate/pull/44538",
+          "pr_head_oid": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
+          "base_branch": "main",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": null,
+          "review_decision": "review_required",
+          "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
+          "opened_at": "2026-07-13T18:20:19Z",
+          "closed_at": null,
+          "updated_at": "2026-07-13T18:21:42Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
+          "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+          "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287"
+        },
+        "live_outcome": {
+          "status": "open",
+          "link": "https://github.com/renovatebot/renovate/pull/44538",
+          "attribution": "Maintainer decision"
+        }
       }
     },
     {
@@ -402,6 +1353,101 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
         "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
         "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"
+      },
+      "receipt": {
+        "version": 1,
+        "mission_id": "M-019",
+        "canonical_path": "receipts/M-019/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-019/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/glideapps/quicktype",
+        "issue_or_task": "https://github.com/glideapps/quicktype/issues/2423",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "b11081470089ca0345117951033936405d874193",
+          "tested_commit": "7a233c5bc4d165eb20288bd8748c6bb09356ea6e",
+          "patch_diff_hash": "sha256:6f620bf548fc8a12cb1c45f3fc5c3dbde5d15ac90afaadd6cb5e1e59029ef1c5"
+        },
+        "started_at": "2026-07-13T20:15:31.047Z",
+        "finished_at": "2026-07-13T20:17:01.848Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "b11081470089ca0345117951033936405d874193",
+          "install_commands": [
+            "npm ci"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm run test:unit -- test/unit/swift-json-null-hashable.test.ts",
+            "exit_code": 0,
+            "duration_ms": 5120,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared check",
+        "wall_duration_ms": 90801,
+        "setup_install_duration_ms": 85681,
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [
+          {
+            "kind": "email",
+            "count": 1
+          }
+        ],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "The focused test inspects generated Swift output but does not invoke a Swift compiler.",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+        ],
+        "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
+        "verify_command": "gh attestation verify run-record-M-019-94b543f5e590.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
+        "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
+        "patch_diff": "diff --git a/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts b/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts\nindex b9fae90ee909e57d24a4024359a63cd5c1868689..fa77615b20ce065106f8613c645602ed7769d038 100644\n--- a/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts\n+++ b/packages/quicktype-core/src/language/Swift/SwiftRenderer.ts\n@@ -1185,12 +1185,10 @@ encoder.dateEncodingStrategy = .formatted(formatter)`);\n \t\t\treturn 0\n \t}`);\n \n-                if (this._options.swift5Support) {\n-                    this.ensureBlankLine();\n-                    this.emitMultiline(`    public func hash(into hasher: inout Hasher) {\n+                this.ensureBlankLine();\n+                this.emitMultiline(`    public func hash(into hasher: inout Hasher) {\n \t\t\t// No-op\n \t}`);\n-                }\n             }\n \n             this.ensureBlankLine();\ndiff --git a/test/unit/swift-json-null-hashable.test.ts b/test/unit/swift-json-null-hashable.test.ts\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..78c9cf92881410f9f37597320457f79031db9b25\n--- /dev/null\n+++ b/test/unit/swift-json-null-hashable.test.ts\n@@ -0,0 +1,27 @@\n+import {\n+    InputData,\n+    JSONSchemaInput,\n+    quicktype,\n+} from \"../../packages/quicktype-core/src/index.js\";\n+import { expect, test } from \"vitest\";\n+\n+const schema = JSON.stringify({\n+    type: \"object\",\n+    properties: {\n+        value: {},\n+    },\n+    required: [\"value\"],\n+});\n+\n+test(\"emits hash(into:) for JSONNull by default\", async () => {\n+    const schemaInput = new JSONSchemaInput(undefined);\n+    await schemaInput.addSource({ name: \"TopLevel\", schema });\n+\n+    const inputData = new InputData();\n+    inputData.addInput(schemaInput);\n+\n+    const result = await quicktype({ inputData, lang: \"swift\" });\n+    const output = result.lines.join(\"\\n\");\n+\n+    expect(output).toContain(\"public func hash(into hasher: inout Hasher)\");\n+});\n",
+        "stdout_redacted": "=== cmd 1: npm run test:unit -- test/unit/swift-json-null-hashable.test.ts ===\n\n> [REDACTED:email] test:unit\n> vitest run test/unit/swift-json-null-hashable.test.ts\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.10 \u001b[39m\u001b[90m/workspace\u001b[39m\n\n \u001b[32m✓\u001b[39m test/unit/swift-json-null-hashable.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 40\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m1 passed\u001b[39m\u001b[22m\u001b[90m (1)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m1 passed\u001b[39m\u001b[22m\u001b[90m (1)\u001b[39m\n\u001b[2m   Start at \u001b[22m 20:16:48\n\u001b[2m   Duration \u001b[22m 3.37s\u001b[2m (transform 2.59s, setup 0ms, import 3.08s, tests 40ms, environment 0ms)\u001b[22m\n\n",
+        "stderr_redacted": "=== cmd 1: npm run test:unit -- test/unit/swift-json-null-hashable.test.ts ===\n",
+        "correction_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-019",
+          "state": "merged",
+          "pr_number": 2928,
+          "pr_url": "https://github.com/glideapps/quicktype/pull/2928",
+          "pr_head_oid": "7a233c5bc4d165eb20288bd8748c6bb09356ea6e",
+          "base_branch": "master",
+          "head_drift": false,
+          "ci_state": "success",
+          "merge_commit_oid": "2164e06a440101025307859a593b326e66f1a940",
+          "review_decision": null,
+          "decision_url": "https://github.com/glideapps/quicktype/pull/2928",
+          "opened_at": "2026-07-13T20:22:36Z",
+          "closed_at": "2026-07-13T20:39:02Z",
+          "updated_at": "2026-07-13T20:39:02Z",
+          "correction_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
+          "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
+          "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"
+        },
+        "live_outcome": {
+          "status": "merged",
+          "link": "https://github.com/glideapps/quicktype/pull/2928",
+          "attribution": "Maintainer decision"
+        }
       }
     }
   ]

@@ -47,8 +47,13 @@ jobs:
             node bin/verify-receipt-parity.mjs "$(dirname "$mission")"
           done
 
-      - name: The public ledger page must match missions/index.json
+      - name: The public ledger index and complete receipt site must match committed sources
         run: |
           set -euo pipefail
-          node bin/ledger.mjs render --index missions/index.json --out "${RUNNER_TEMP}/index.html"
-          diff "${RUNNER_TEMP}/index.html" site/index.html
+          generated_at="$(node -e 'const fs=require("fs");process.stdout.write(JSON.parse(fs.readFileSync("missions/index.json","utf8")).generated_at ?? "")')"
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+          node bin/ledger.mjs build --missions-dir missions --out "$work/index.json" --now "$generated_at"
+          diff -u missions/index.json "$work/index.json"
+          node bin/ledger.mjs render --index "$work/index.json" --out "$work/site/index.html"
+          diff -ru site "$work/site"

@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>M-007 Proof-of-Pass Receipt</title>
+  <style>
+    :root { color-scheme:dark; --bg:#182323; --ink:#edf3ed; --muted:#b8c7bf; --paper:#fffdf7; --paper-ink:#1b211e; --rule:#d5d0c2; --green:#087f55; --green-pale:#d9f0e4; --rehearsal:#e6e2db; --self:#e3f0ec; --line:#4d615a; --focus:#ffcd57; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    * { box-sizing:border-box; }
+    html { background:var(--bg); }
+    body { margin:0; min-width:0; background:var(--bg); color:var(--ink); font:16px/1.5 var(--mono); }
+    main { width:min(1120px,100%); margin:auto; padding:clamp(1.1rem,4vw,3.5rem) 1rem 4rem; }
+    h1,h2,h3,p { margin-top:0; } h1 { max-width:18ch; margin-bottom:.65rem; font-size:clamp(2rem,7vw,4.8rem); line-height:1.02; letter-spacing:-.06em; } h2 { line-height:1.15; } h3,.eyebrow { font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; }
+    a { color:inherit; overflow-wrap:anywhere; text-decoration-thickness:1px; text-underline-offset:3px; } a:focus-visible,button:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    .mast { max-width:68ch; margin-bottom:2rem; } .mast > p:last-child { color:var(--muted); }
+    .eyebrow { margin-bottom:.45rem; color:#9dd9bd; font-weight:700; } .hero { display:grid; grid-template-columns:minmax(15rem,1fr) minmax(0,34rem); gap:1rem 3rem; align-items:start; } .hero-intro { grid-column:1; grid-row:1 / span 3; max-width:38rem; } .hero-intro h2 { font-size:clamp(1.2rem,3vw,1.8rem); } .hero > .receipt { grid-column:2; grid-row:1; margin-top:0; } .hero > .outcome-stub { grid-column:2; grid-row:2; } .hero > .verify-ledger { grid-column:2; grid-row:3; } .hero-notes { width:100%; margin:2rem 0 0; padding:0; display:grid; gap:.6rem; list-style:none; } .hero-note { padding:.7rem; border:1px solid var(--line); color:var(--muted); font-size:.76rem; } .hero-note strong,.hero-note span { display:block; } .hero-note strong { color:#b5edce; margin-bottom:.2rem; text-transform:uppercase; letter-spacing:.06em; }
+    .receipt { width:min(100%, 34rem); margin:1rem auto; padding:1.15rem; overflow:hidden; background:var(--paper); color:var(--paper-ink); border:1px solid var(--rule); box-shadow:0 1.2rem 2.8rem #0006; position:relative; transform:rotate(-.18deg); }
+    .receipt::before,.receipt::after { content:""; position:absolute; left:0; right:0; height:7px; background:linear-gradient(135deg,transparent 4px,var(--paper) 0) 0 0/8px 8px repeat-x; } .receipt::before { top:0; } .receipt::after { bottom:0; transform:rotate(180deg); }
+    .receipt--rehearsal { --paper:#f0ede7; filter:saturate(.45); } .receipt--self-run .receipt-head { border-left:5px solid #207f6a; padding-left:.7rem; } .receipt--verification .receipt-head { border-left:5px solid var(--green); padding-left:.7rem; } .receipt--declared { --paper:#f5f0e1; border-top:5px solid #9b6c18; }
+    .receipt-head { border-bottom:1px dashed var(--rule); padding:1rem 0 .8rem; } .brand { margin-bottom:.2rem; letter-spacing:.34em; font-weight:800; } .receipt-head h1,.receipt-head h2 { max-width:none; margin-bottom:.65rem; font-size:1.35rem; line-height:1.15; letter-spacing:normal; } .class-stamp { display:inline-block; margin:0; padding:.18rem .35rem; border:2px solid currentColor; font-size:.68rem; font-weight:800; letter-spacing:.04em; transform:rotate(-1deg); } .consent-artifact { margin:.65rem 0 0; font-size:.72rem; }
+    .receipt--rehearsal .class-stamp { color:#5c625d; } .receipt--self-run .class-stamp { color:#155e4c; } .receipt--verification .class-stamp { color:var(--green); } .receipt--declared .class-stamp { color:#79520e; }
+    .receipt-meta,.facts { margin:1rem 0 0; display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.3rem .8rem; } .receipt-meta { grid-template-columns:1fr 1fr; } .receipt-meta div { min-width:0; } dt { color:#59635d; font-size:.72rem; text-transform:uppercase; } dd { margin:0; min-width:0; overflow-wrap:anywhere; } code { font:inherit; overflow-wrap:anywhere; white-space:pre-wrap; }
+    .receipt-section { padding:.9rem 0; border-bottom:1px dashed var(--rule); } .receipt-section h2,.receipt-section h3,.correction h2,.correction h3 { margin-bottom:.55rem; font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; } .receipt-section p:last-child { margin-bottom:0; } .commands { margin:0; padding-left:1.2rem; } .commands li+li { margin-top:.8rem; } pre { max-width:100%; margin:.35rem 0; padding:.6rem; overflow:auto; background:#f2eee4; color:#1b211e; border:1px solid #ded8c9; font:inherit; white-space:pre-wrap; overflow-wrap:anywhere; } .command-result { margin:.25rem 0 0; color:#4d5751; font-size:.85rem; }
+    .duration-line { display:flex; justify-content:space-between; gap:1rem; color:#4d5751; font-size:.85rem; } .total { margin:.85rem 0 .35rem; padding:.6rem; background:var(--green-pale); color:#075238; font-weight:800; } .scope-note { color:#3f4d46; font-size:.82rem; }
+    .limitations ul { margin:0; padding-left:1.15rem; } .limitations li+li { margin-top:.4rem; } .correction { margin:.9rem 0; padding:.8rem; border:2px solid #9d503a; background:#fff1e8; color:#5b271b; } .correction h2,.correction h3 { margin-bottom:.35rem; } .correction p { margin:0; }
+    .button-link,button { display:inline-block; padding:.48rem .65rem; border:1px solid #37685a; border-radius:0; background:#e7f3ed; color:#064b34; font:inherit; font-size:.78rem; cursor:pointer; } button:hover,.button-link:hover { background:#ccebdc; }
+    .verify-command { display:grid; gap:.45rem; margin-top:.7rem; } .verify-command pre { font-size:.72rem; } .qr-link { display:flex; align-items:center; gap:.65rem; margin-top:1rem; color:#33443c; font-size:.72rem; text-decoration:none; } .qr-link svg { width:4.5rem; height:4.5rem; flex:none; border:4px solid #fff; } .receipt-disclosure { margin-top:.9rem; padding-top:.8rem; border-top:1px dashed var(--rule); font-size:.8rem; } .receipt-disclosure p { margin:.4rem 0 0; color:#4d5751; }
+    .receipt-open { margin:.9rem 0 0; font-weight:800; } .patch,.evidence-output { margin-top:1rem; } .patch summary,.evidence-output summary { cursor:pointer; font-weight:700; } .patch pre,.evidence-output pre { max-height:24rem; font-size:.72rem; }
+    .outcome-stub { width:min(100%,34rem); margin:-1rem auto 1rem; padding:1.2rem 1.15rem 1rem; color:#ecf4ef; border:1px dashed #b7cbc0; background:#254039; text-align:center; } .outcome-stub h2 { margin-bottom:.5rem; font-size:1rem; text-transform:uppercase; letter-spacing:.08em; } .outcome-stub strong { font-size:1.15rem; } .outcome-stub p { margin:.3rem 0 0; font-size:.78rem; } .stub-cut { color:#b7cbc0; letter-spacing:.05em; }
+    .verify-ledger { width:min(100%,34rem); margin:1.6rem auto 2.5rem; padding:1rem; border-left:4px solid #9dd9bd; background:#223831; } .verify-ledger h2 { font-size:1rem; } .verify-ledger p { color:var(--muted); font-size:.86rem; } .verify-ledger pre { font-size:.72rem; }
+    .counts { display:flex; flex-wrap:wrap; gap:.6rem; margin:2rem 0; } .counts p { margin:0; padding:.35rem .6rem; border:1px solid var(--line); color:var(--muted); font-size:.78rem; } .counts strong { color:#b5edce; }
+    .gallery { margin-top:3rem; } .gallery-head { display:flex; gap:1rem; justify-content:space-between; align-items:end; flex-wrap:wrap; } .gallery-head h2 { margin-bottom:0; } .filters { display:flex; flex-wrap:wrap; gap:.4rem; } .filters button { color:var(--ink); border-color:var(--line); background:transparent; } .filters button[aria-pressed="true"] { color:#082d20; background:#b5edce; }
+    .preview-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1rem; margin-top:1rem; } .receipt-preview { min-width:0; padding:1rem; border:1px solid var(--line); background:#21342f; } .receipt-preview[hidden] { display:none; } .receipt-preview.receipt--rehearsal { background:#3d4641; } .receipt-preview.receipt--self-run { border-top:5px solid #3c9b80; } .receipt-preview.receipt--verification { border:3px double #4ed18e; border-top-width:7px; } .receipt-preview.receipt--declared { border-top:5px dashed #d4aa5e; } .preview-id,.preview-class,.preview-scope,.preview-attestation,.preview-outcome { margin-bottom:.5rem; } .preview-id { font-weight:800; } .preview-class,.preview-scope,.preview-attestation,.preview-outcome { color:var(--muted); font-size:.75rem; } .preview-link { display:inline-block; margin-top:.4rem; color:#b5edce; font-weight:800; }.noscript { color:var(--muted); }
+    .claims { max-width:58rem; margin:3.5rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); }.claims h2 { color:var(--ink); }.site-footer { max-width:58rem; margin:2rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.78rem; }.page-nav { width:min(100%,34rem); margin:0 auto 1rem; color:var(--muted); font-size:.78rem; }.page-nav p { margin:.5rem 0 0; overflow-wrap:anywhere; }.page-actions { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    @media (max-width:58rem) { .hero { grid-template-columns:1fr; } .hero-intro,.hero > .receipt,.hero > .outcome-stub,.hero > .verify-ledger { grid-column:1; grid-row:auto; } .hero-notes { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:34rem) { .receipt { margin-left:0; margin-right:0; padding:.85rem; } .receipt-meta { grid-template-columns:1fr; } .facts { grid-template-columns:1fr; gap:.15rem; } .hero-notes { grid-template-columns:1fr; } dd { margin-bottom:.55rem; } }
+    @media print { @page { size:80mm 800mm; margin:4mm; } :root,html,body { color-scheme:light; background:#fff; color:#000; } body { font-size:9pt; } main,.receipt-page { width:auto; padding:0; margin:0; } .mast,.counts,.gallery,.claims,.site-footer,.page-nav,.verify-ledger,.receipt-open,.outcome-stub,.patch,.evidence-output { display:none !important; } .receipt { display:block; width:72mm; max-width:100%; margin:0; box-shadow:none; transform:none; } .receipt .button-link,.receipt button { display:none; } .proof-scope,.limitations,.verification,.receipt-disclosure,.qr-link { break-inside:avoid; page-break-inside:avoid; } .qr-link { display:flex; } a { color:inherit; text-decoration:none; } }
+  </style>
+</head>
+<body>
+<main class="receipt-page"><header class="page-nav"><div class="page-actions"><a href="../../index.html">← All Proof-of-Pass Receipts</a><button type="button" data-print>Print 80 mm receipt</button></div><p>Canonical receipt · https://northset-oss.github.io/verification-pilot/receipts/M-007/</p></header><article class="receipt receipt--self-run">
+  <header class="receipt-head">
+    <p class="brand">NORTHSET</p>
+    <h1>Proof-of-Pass Receipt — M-007</h1>
+    <p class="class-stamp">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
+
+    <dl class="receipt-meta"><div><dt>Receipt</dt><dd>M-007</dd></div><div><dt>Run start</dt><dd>2026-07-11T23:07:52.808Z</dd></div><div><dt>Run finish</dt><dd>2026-07-11T23:13:48.745Z</dd></div></dl>
+  </header>
+  <section class="receipt-section"><h2>Project</h2><p><a class="" href="https://github.com/objectionary/jeo-maven-plugin">objectionary/jeo-maven-plugin</a></p><h2>Work</h2><p><a class="" href="https://github.com/objectionary/jeo-maven-plugin/issues/1538">Issue #1538</a> · <a class="" href="https://github.com/objectionary/jeo-maven-plugin/pull/1573">PR #1573</a></p><h2>Served by</h2><p>northset-oss executor v0<br>operator: aeziz</p></section>
+  <section class="receipt-section"><h2>Code</h2><dl class="facts"><dt>base</dt><dd><code>5e770723809effb4db5fba8b8e1f372da5318b62</code></dd><dt>tested</dt><dd><code>c8f904b93482c66ecab3cc7954be87d9cd170979</code></dd><dt>patch</dt><dd><code>sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2</code></dd></dl></section>
+  <section class="receipt-section"><h2>Environment</h2><dl class="facts"><dt>image</dt><dd>maven:3.9-eclipse-temurin-11<br><code>maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c</code></dd><dt>network</dt><dd>phaseA:bridge,phaseB:none</dd></dl></section>
+  <section class="receipt-section proof-scope"><h2>Declared checks</h2><ol class="commands"><li><pre><code>mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest</code></pre><p class="command-result">exit 0 · 7s</p></li><li><pre><code>mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode</code></pre><p class="command-result">exit 0 · 34.9s</p></li></ol><p class="duration-line">setup + install (derived) <span>5m14s</span></p><p class="duration-line">run wall (derived from recorded timestamps) <span>5m55s</span></p><p class="total">PASS — 2/2 declared checks</p><p class="scope-note">Every command listed returned exit 0 in the declared environment.</p></section>
+  <section class="receipt-section"><h2>Record details</h2><dl class="facts"><dt>payment</dt><dd>none · not merge-contingent</dd><dt>redactions</dt><dd>1 jwt</dd><dt>bundle</dt><dd><code>sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1</code></dd></dl></section>
+  <section class="receipt-section limitations"><h2>NOT INCLUDED</h2><ul><li>Does not prove code quality</li><li>Does not prove security</li><li>Contributor self-run record of Northset&#39;s own contribution; not the maintainer&#39;s verification.</li><li>Declared network-off checks cover this change&#39;s regression tests plus the repository&#39;s full Qulice static-quality gate on JDK 11; the repository&#39;s complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.</li></ul></section>
+
+  <section class="receipt-section verification"><h2>Attestation and bundle</h2><p><a class="button-link" href="https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz">Download attested bundle</a></p><div class="verify-command"><pre><code>gh attestation verify run-record-M-007.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml</code></pre><button type="button" data-copy="gh attestation verify run-record-M-007.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml">Copy verify command</button></div><p class="attestation-scope">Attestation confirms that Northset's signing workflow produced this exact bundle. The signer does not witness the recorded run, and verification does not turn it into maintainer verification.</p><a class="qr-link" href="./index.html" aria-label="Canonical receipt page for M-007"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" role="img" aria-label="QR code for https://northset-oss.github.io/verification-pilot/receipts/M-007/" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h45v45H0z"/><path fill="#111" transform="translate(4 4)" d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM23,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM33,0h1v1h-1zM34,0h1v1h-1zM35,0h1v1h-1zM36,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM9,1h1v1h-1zM13,1h1v1h-1zM17,1h1v1h-1zM23,1h1v1h-1zM24,1h1v1h-1zM25,1h1v1h-1zM26,1h1v1h-1zM27,1h1v1h-1zM30,1h1v1h-1zM36,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM15,2h1v1h-1zM19,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM27,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM36,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM9,3h1v1h-1zM12,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM26,3h1v1h-1zM27,3h1v1h-1zM28,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM36,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM36,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM35,6h1v1h-1zM36,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM15,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM0,8h1v1h-1zM1,8h1v1h-1zM2,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM20,8h1v1h-1zM21,8h1v1h-1zM25,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM34,8h1v1h-1zM0,9h1v1h-1zM1,9h1v1h-1zM2,9h1v1h-1zM4,9h1v1h-1zM5,9h1v1h-1zM8,9h1v1h-1zM9,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM24,9h1v1h-1zM30,9h1v1h-1zM33,9h1v1h-1zM34,9h1v1h-1zM36,9h1v1h-1zM0,10h1v1h-1zM2,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM26,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM36,10h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM3,11h1v1h-1zM4,11h1v1h-1zM7,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM30,11h1v1h-1zM32,11h1v1h-1zM33,11h1v1h-1zM36,11h1v1h-1zM0,12h1v1h-1zM2,12h1v1h-1zM3,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM36,12h1v1h-1zM0,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM34,13h1v1h-1zM36,13h1v1h-1zM0,14h1v1h-1zM1,14h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM4,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM9,14h1v1h-1zM13,14h1v1h-1zM17,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM0,15h1v1h-1zM3,15h1v1h-1zM4,15h1v1h-1zM8,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM35,15h1v1h-1zM0,16h1v1h-1zM3,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM16,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM36,16h1v1h-1zM2,17h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM8,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM34,17h1v1h-1zM36,17h1v1h-1zM3,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM18,18h1v1h-1zM22,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM32,18h1v1h-1zM33,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM1,19h1v1h-1zM2,19h1v1h-1zM5,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM20,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM35,19h1v1h-1zM0,20h1v1h-1zM1,20h1v1h-1zM2,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM18,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM31,20h1v1h-1zM35,20h1v1h-1zM36,20h1v1h-1zM2,21h1v1h-1zM3,21h1v1h-1zM7,21h1v1h-1zM9,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM36,21h1v1h-1zM3,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM7,22h1v1h-1zM8,22h1v1h-1zM9,22h1v1h-1zM13,22h1v1h-1zM17,22h1v1h-1zM20,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM35,22h1v1h-1zM36,22h1v1h-1zM1,23h1v1h-1zM3,23h1v1h-1zM7,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM15,23h1v1h-1zM19,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM35,23h1v1h-1zM1,24h1v1h-1zM4,24h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM12,24h1v1h-1zM16,24h1v1h-1zM21,24h1v1h-1zM25,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM35,24h1v1h-1zM36,24h1v1h-1zM2,25h1v1h-1zM5,25h1v1h-1zM8,25h1v1h-1zM9,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM0,26h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM9,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM20,26h1v1h-1zM26,26h1v1h-1zM31,26h1v1h-1zM33,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM1,27h1v1h-1zM2,27h1v1h-1zM3,27h1v1h-1zM4,27h1v1h-1zM7,27h1v1h-1zM9,27h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM31,27h1v1h-1zM35,27h1v1h-1zM0,28h1v1h-1zM4,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM18,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM8,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM35,29h1v1h-1zM36,29h1v1h-1zM0,30h1v1h-1zM1,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM13,30h1v1h-1zM17,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM35,30h1v1h-1zM36,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM9,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM0,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM9,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM16,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM0,33h1v1h-1zM2,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM9,33h1v1h-1zM10,33h1v1h-1zM11,33h1v1h-1zM12,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM17,33h1v1h-1zM24,33h1v1h-1zM27,33h1v1h-1zM32,33h1v1h-1zM35,33h1v1h-1zM0,34h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM8,34h1v1h-1zM9,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM26,34h1v1h-1zM29,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM34,34h1v1h-1zM35,34h1v1h-1zM36,34h1v1h-1zM0,35h1v1h-1zM6,35h1v1h-1zM8,35h1v1h-1zM9,35h1v1h-1zM12,35h1v1h-1zM13,35h1v1h-1zM14,35h1v1h-1zM16,35h1v1h-1zM17,35h1v1h-1zM18,35h1v1h-1zM19,35h1v1h-1zM20,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM31,35h1v1h-1zM35,35h1v1h-1zM0,36h1v1h-1zM1,36h1v1h-1zM2,36h1v1h-1zM3,36h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM8,36h1v1h-1zM9,36h1v1h-1zM10,36h1v1h-1zM11,36h1v1h-1zM14,36h1v1h-1zM15,36h1v1h-1zM18,36h1v1h-1zM19,36h1v1h-1zM20,36h1v1h-1zM23,36h1v1h-1zM24,36h1v1h-1zM25,36h1v1h-1zM27,36h1v1h-1zM28,36h1v1h-1zM30,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1z"/></svg><span>QR → receipt page</span></a></section>
+  <footer class="receipt-disclosure"><strong>Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.</strong><p>Evidence of what ran — not a verdict that the code is good.</p><p><strong>SELF-FUNDED FIELD-TESTING.</strong></p></footer>
+  <details class="patch"><summary>Committed patch.diff</summary><pre><code>diff --git a/src/main/java/org/eolang/jeo/BytecodeClasses.java b/src/main/java/org/eolang/jeo/BytecodeClasses.java
+index 435b708d1d9ac5ff03dfbd4df2352b6b769f652d..7c1dde6db3957c958860e0c4b3e4c281c3682215 100644
+--- a/src/main/java/org/eolang/jeo/BytecodeClasses.java
++++ b/src/main/java/org/eolang/jeo/BytecodeClasses.java
+@@ -40,7 +40,7 @@ final class BytecodeClasses implements Classes {
+&#32;
+     @Override
+     public String toString() {
+-        return this.input.toString();
++        return this.checked().toString();
+     }
+&#32;
+     @Override
+@@ -50,7 +50,7 @@ final class BytecodeClasses implements Classes {
+&#32;
+     @Override
+     public Path root() {
+-        return this.input;
++        return this.checked();
+     }
+&#32;
+     @Override
+@@ -76,19 +76,28 @@ final class BytecodeClasses implements Classes {
+     }
+&#32;
+     /**
+-     * Find all bytecode files.
+-     * @return Collection of bytecode files
+-     * @throws IOException If some I/O problem arises
++     * Check that the classes directory is set.
++     * @return Classes directory
+      */
+-    private Collection&lt;Path&gt; classes() throws IOException {
++    private Path checked() {
+         if (Objects.isNull(this.input)) {
+             throw new IllegalStateException(
+                 &quot;The classes directory is not set, jeo-maven-plugin does not know where to look for classes.&quot;
+             );
+         }
++        return this.input;
++    }
++
++    /**
++     * Find all bytecode files.
++     * @return Collection of bytecode files
++     * @throws IOException If some I/O problem arises
++     */
++    private Collection&lt;Path&gt; classes() throws IOException {
++        final Path directory = this.checked();
+         final Collection&lt;Path&gt; result;
+-        if (Files.exists(this.input)) {
+-            try (Stream&lt;Path&gt; walk = Files.walk(this.input)) {
++        if (Files.exists(directory)) {
++            try (Stream&lt;Path&gt; walk = Files.walk(directory)) {
+                 result = walk
+                     .filter(Files::isRegularFile)
+                     .filter(path -&gt; path.toString().endsWith(&quot;.class&quot;))
+@@ -99,7 +108,7 @@ final class BytecodeClasses implements Classes {
+                 this,
+                 String.format(
+                     &quot;The classes directory &#39;%s&#39; does not exist, jeo-maven-plugin does not know where to look for classes.&quot;,
+-                    this.input
++                    directory
+                 )
+             );
+             result = Collections.emptyList();
+diff --git a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
+index 73621ac576b2f8eabe702ed8e59bb859eb64f925..ce84e8603743a9268810249cca6cfb5d64ff401e 100644
+--- a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
++++ b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
+@@ -8,6 +8,7 @@ import java.nio.file.Path;
+ import java.nio.file.Paths;
+ import org.hamcrest.MatcherAssert;
+ import org.hamcrest.Matchers;
++import org.junit.jupiter.api.Assertions;
+ import org.junit.jupiter.api.Test;
+&#32;
+ /**
+@@ -26,6 +27,32 @@ final class BytecodeClassesTest {
+         );
+     }
+&#32;
++    @Test
++    void throwsDescriptiveExceptionWhenConvertingNullInputToString() {
++        final IllegalStateException exception = Assertions.assertThrows(
++            IllegalStateException.class,
++            () -&gt; new BytecodeClasses(null).toString()
++        );
++        MatcherAssert.assertThat(
++            &quot;BytecodeClasses toString() should describe the missing classes directory&quot;,
++            exception.getMessage(),
++            Matchers.containsString(&quot;The classes directory is not set&quot;)
++        );
++    }
++
++    @Test
++    void throwsDescriptiveExceptionWhenGettingRootFromNullInput() {
++        final IllegalStateException exception = Assertions.assertThrows(
++            IllegalStateException.class,
++            () -&gt; new BytecodeClasses(null).root()
++        );
++        MatcherAssert.assertThat(
++            &quot;BytecodeClasses root() should describe the missing classes directory&quot;,
++            exception.getMessage(),
++            Matchers.containsString(&quot;The classes directory is not set&quot;)
++        );
++    }
++
+     @Test
+     void doesNotThrowExceptionOnAbsentDirectory() {
+         final Path path = Paths.get(&quot;/dev/null/absent&quot;);
+</code></pre></details>
+  <details class="evidence-output"><summary>Redacted stdout</summary><pre><code>=== cmd 1: mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest ===
+Can not write to /root/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...
+[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO]&#32;
+[INFO] --------------------&lt; org.eolang:jeo-maven-plugin &gt;---------------------
+[INFO] Building jeo 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] ----------------------------[ maven-plugin ]----------------------------
+[INFO]&#32;
+[INFO] --- enforcer:3.6.1:enforce (enforce-maven) @ jeo-maven-plugin ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO]&#32;
+[INFO] --- buildnumber:3.2.1:create (jcabi-build-number) @ jeo-maven-plugin ---
+[INFO] maven is executed in offline mode, Updating project files from SCM: skipped.
+[INFO] ShortRevision tag detected. The value is &#39;7&#39;.
+[INFO] Executing: /bin/sh -c cd &#39;/workspace&#39; &amp;&amp; &#39;git&#39; &#39;log&#39; &#39;-1&#39; &#39;--no-merges&#39; &#39;--format=format:%H %aI %aE %aN&#39;
+[INFO] Working directory: /workspace
+[INFO] Storing buildNumber: 4d033aa at timestamp: 2026-07-11T23:13:08
+[INFO] Executing: /bin/sh -c cd &#39;/workspace&#39; &amp;&amp; &#39;git&#39; &#39;symbolic-ref&#39; &#39;HEAD&#39;
+[INFO] Working directory: /workspace
+[WARNING] Cannot get the branch information from the git repository:&#32;
+Detecting the current branch failed: fatal: ref HEAD is not a symbolic ref
+
+[INFO] ShortRevision tag detected. The value is &#39;7&#39;.
+[INFO] Executing: /bin/sh -c cd &#39;/workspace&#39; &amp;&amp; &#39;git&#39; &#39;log&#39; &#39;-1&#39; &#39;--no-merges&#39; &#39;--format=format:%H %aI %aE %aN&#39;
+[INFO] Working directory: /workspace
+[INFO] Storing scmBranch: UNKNOWN
+[INFO]&#32;
+[INFO] --- buildnumber:3.2.1:create-timestamp (jcabi-build-number) @ jeo-maven-plugin ---
+[INFO] Skipping because we are not in root module.
+[INFO]&#32;
+[INFO] --- plugin:3.15.1:helpmojo (default) @ jeo-maven-plugin ---
+[INFO]&#32;
+[INFO] --- resources:3.5.0:resources (default-resources) @ jeo-maven-plugin ---
+[INFO] Copying 7 resources from src/main/resources to target/classes
+[INFO]&#32;
+[INFO] --- resources:3.5.0:copy-resources (copy-resources) @ jeo-maven-plugin ---
+[INFO] Copying 1 resource from . to target/classes
+[INFO]&#32;
+[INFO] --- compiler:3.14.0:compile (java-compile) @ jeo-maven-plugin ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]&#32;
+[INFO] --- compiler:3.14.0:compile (compile-helpmojo) @ jeo-maven-plugin ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]&#32;
+[INFO] --- plugin:3.15.1:descriptor (default-descriptor) @ jeo-maven-plugin ---
+[INFO] Using &#39;UTF-8&#39; encoding to read mojo source files.
+[INFO] java-annotations mojo extractor found 3 mojo descriptors.
+[INFO] java-javadoc mojo extractor found 0 mojo descriptor.
+[INFO] ant mojo extractor found 0 mojo descriptor.
+[INFO] bsh mojo extractor found 0 mojo descriptor.
+[INFO]&#32;
+[INFO] --- plugin:3.15.1:descriptor (default) @ jeo-maven-plugin ---
+[INFO] Using &#39;UTF-8&#39; encoding to read mojo source files.
+[INFO] java-annotations mojo extractor found 3 mojo descriptors.
+[INFO] java-javadoc mojo extractor found 0 mojo descriptor.
+[INFO] ant mojo extractor found 0 mojo descriptor.
+[INFO] bsh mojo extractor found 0 mojo descriptor.
+[INFO]&#32;
+[INFO] --- plugin:3.15.1:descriptor (mojo-descriptor) @ jeo-maven-plugin ---
+[INFO] Using &#39;UTF-8&#39; encoding to read mojo source files.
+[INFO] java-annotations mojo extractor found 3 mojo descriptors.
+[INFO] java-javadoc mojo extractor found 0 mojo descriptor.
+[INFO] ant mojo extractor found 0 mojo descriptor.
+[INFO] bsh mojo extractor found 0 mojo descriptor.
+[INFO]&#32;
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ jeo-maven-plugin ---
+[INFO] Copying 22 resources from src/test/resources to target/test-classes
+[INFO]&#32;
+[INFO] --- compiler:3.14.0:testCompile (java-test-compile) @ jeo-maven-plugin ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]&#32;
+[INFO] --- surefire:3.5.4:test (default-test) @ jeo-maven-plugin ---
+[INFO] Tests will run in random order. To reproduce ordering use flag -Dsurefire.runOrder.random.seed=409379750479709
+[INFO] Surefire report directory: /workspace/target/surefire-reports
+[INFO] Using auto detected provider org.apache.maven.[REDACTED:jwt]
+[INFO]&#32;
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.eolang.jeo.BytecodeClassesTest
+23:13:13 [WARN] org.eolang.jeo.BytecodeClasses: The classes directory &#39;/dev/null/absent&#39; does not exist, jeo-maven-plugin does not know where to look for classes.
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 s -- in org.eolang.jeo.BytecodeClassesTest
+[INFO]&#32;
+[INFO] Results:
+[INFO]&#32;
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO]&#32;
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.196 s
+[INFO] Finished at: 2026-07-11T23:13:13Z
+[INFO] ------------------------------------------------------------------------
+=== cmd 2: mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode ===
+Can not write to /root/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...
+[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO]&#32;
+[INFO] --------------------&lt; org.eolang:jeo-maven-plugin &gt;---------------------
+[INFO] Building jeo 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] ----------------------------[ maven-plugin ]----------------------------
+[INFO]&#32;
+[INFO] --- qulice:0.24.0:check (default-cli) @ jeo-maven-plugin ---
+[INFO] Calling org.apache.maven.plugins:maven-enforcer-plugin:3.1.0:enforce...
+[INFO] This is not an SVN project
+[INFO] Dependency analysis suppressed in the project via pom.xml
+[INFO] Qulice quality check completed in 33s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  33.984 s
+[INFO] Finished at: 2026-07-11T23:13:48Z
+[INFO] ------------------------------------------------------------------------
+</code></pre></details><details class="evidence-output"><summary>Redacted stderr</summary><pre><code>=== cmd 1: mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest ===
+mkdir: cannot create directory ‘/root’: Permission denied
+Failed to load native library:jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so. The native library file at /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64
+java.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: failed to map segment from shared object
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@50ad3bc1]
+SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@223aa2f7]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]
+=== cmd 2: mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode ===
+mkdir: cannot create directory ‘/root’: Permission denied
+Failed to load native library:jansi-2.4.3-8331c5d90999722e-libjansi.so. The native library file at /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64
+java.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: failed to map segment from shared object
+</code></pre></details>
+
+</article><section class="outcome-stub" aria-label="Live upstream outcome"><p class="stub-cut">- - - detach here - - -</p><h2>Live upstream outcome</h2><strong><a class="outcome-link" href="https://github.com/objectionary/jeo-maven-plugin/pull/1573">OPEN</a></strong><p>Live upstream pull request · <a class="" href="https://github.com/objectionary/jeo-maven-plugin/pull/1573">open linked record</a></p></section><section class="claims receipt-page-claims" aria-labelledby="receipt-claims-boundary"><h2 id="receipt-claims-boundary">Claims boundary</h2><p>This page reports recorded run evidence. It does not prove code quality, security, full CI coverage, production readiness, or maintainer approval. An attestation confirms bundle provenance; it does not broaden the receipt's claim.</p><p>Read the full <a href="https://github.com/northset-oss/verification-pilot/blob/main/policies/claims_boundary.md">Claims Boundary policy</a>.</p></section><footer class="site-footer receipt-page-footer">The reported external signal is the maintainer decision, which Northset does not control. Source: <a href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a>.</footer></main>
+<script>
+  (() => {
+    for (const button of document.querySelectorAll('[data-copy]')) {
+      button.addEventListener('click', async () => {
+        const text = button.dataset.copy;
+        try { await navigator.clipboard.writeText(text); button.textContent = 'Copied'; }
+        catch { button.textContent = 'Copy unavailable'; }
+      });
+    }
+    for (const button of document.querySelectorAll('[data-print]')) {
+      button.addEventListener('click', () => window.print());
+    }
+    const filters = document.querySelectorAll('[data-filter]');
+    const cards = document.querySelectorAll('.receipt-preview');
+    for (const button of filters) button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      for (const candidate of filters) candidate.setAttribute('aria-pressed', String(candidate === button));
+      for (const card of cards) card.hidden = filter !== 'all' && card.dataset.outcome !== filter;
+    });
+  })();
+</script>
+</body>
+</html>

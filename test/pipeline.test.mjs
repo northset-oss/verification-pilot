@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import {
   access,
   cp,
+  mkdir,
   mkdtemp,
   readFile,
   rm,
@@ -74,7 +75,12 @@ function fakeExecutor(
     const stdoutFile = path.join(outDir, 'stdout.txt');
     const stderrFile = path.join(outDir, 'stderr.txt');
     const runRecord = JSON.parse(await readFile(path.join(fixtures, 'run_record.json'), 'utf8'));
-    runRecord.environment = { ...runRecord.environment, source_commit: sourceCommit, patch_sha256: patchSha256 };
+    runRecord.environment = {
+      ...runRecord.environment,
+      container_image_ref: config.image,
+      source_commit: sourceCommit,
+      patch_sha256: patchSha256,
+    };
     runRecord.commands = (executedCommands ?? config.commands).map((cmd) => ({
       cmd,
       exit_code: 0,
@@ -156,6 +162,63 @@ test('declared command mismatch fails before executor and writes no mission', as
   await assertMissing(path.join(missionsDir, input.mission.mission_id));
 });
 
+test('a fresh execution rejects a pre-existing attestation before executor', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample), {
+    mission: {
+      attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz',
+    },
+  });
+
+  await assert.rejects(
+    runPipeline(input, { missionsDir, now: fixedNow, executeImpl: fakeExecutor(counter) }),
+    (error) => error instanceof PipelineError && error.errors.some((item) => item.ruleId === 'STALE_ATTESTATION'),
+  );
+  assert.equal(counter.calls, 0);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+});
+
+test('a fresh execution accepts a schema-valid mission with no attestation key', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample));
+  delete input.mission.attestation_uri;
+
+  await runPipeline(input, {
+    missionsDir,
+    now: fixedNow,
+    executeImpl: fakeExecutor(counter),
+  });
+
+  assert.equal(counter.calls, 1);
+  const writtenMission = JSON.parse(await readFile(
+    path.join(missionsDir, input.mission.mission_id, 'mission.json'),
+    'utf8',
+  ));
+  assert.equal(writtenMission.attestation_uri, null);
+});
+
+test('a non-object mission fails with a structured pipeline error before executor', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample));
+  input.mission = null;
+
+  await assert.rejects(
+    runPipeline(input, { missionsDir, now: fixedNow, executeImpl: fakeExecutor(counter) }),
+    (error) => (
+      error instanceof PipelineError &&
+      error.message === 'mission receipt invalid' &&
+      error.errors.some((item) => item.path === '$')
+    ),
+  );
+  assert.equal(counter.calls, 0);
+});
+
 test('executed command mismatch fails after executor and publishes no mission', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');
@@ -211,6 +274,9 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
     'utf8',
   ));
   assert.equal(result.bundleDigest, manifest.bundle_digest);
+  const writtenMission = JSON.parse(await readFile(path.join(result.missionDir, 'mission.json'), 'utf8'));
+  assert.equal(writtenMission.run_record_bundle_digest, null);
+  assert.equal(writtenMission.attestation_uri, null);
   const index = JSON.parse(await readFile(path.join(missionsDir, 'index.json'), 'utf8'));
   assert.equal(result.ledgerIncluded, 1);
   assert.deepEqual(index.missions.map((mission) => mission.mission_id), ['M-001']);
@@ -231,6 +297,15 @@ test('siteFile renders the public page atomically with the index refresh', async
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');
   const siteFile = path.join(temporaryRoot, 'site/index.html');
+  await mkdir(path.join(temporaryRoot, 'site', 'assets'), { recursive: true });
+  await mkdir(path.join(temporaryRoot, 'site', 'receipts', 'legacy'), { recursive: true });
+  await mkdir(path.join(temporaryRoot, 'site', 'receipts', 'M-999'), { recursive: true });
+  await Promise.all([
+    writeFile(siteFile, '<p>old generated page</p>\n'),
+    writeFile(path.join(temporaryRoot, 'site', 'assets', 'keep.txt'), 'keep asset\n'),
+    writeFile(path.join(temporaryRoot, 'site', 'receipts', 'legacy', 'index.html'), 'keep legacy\n'),
+    writeFile(path.join(temporaryRoot, 'site', 'receipts', 'M-999', 'index.html'), 'remove stale generated receipt\n'),
+  ]);
   const result = await runPipeline(missionInput(await example(rehearsalExample)), {
     missionsDir,
     siteFile,
@@ -240,7 +315,11 @@ test('siteFile renders the public page atomically with the index refresh', async
 
   assert.equal(result.siteFile, siteFile);
   const page = await readFile(siteFile, 'utf8');
-  assert.match(page, /"mission_id": "M-001"/);
+  assert.match(page, /M-001/);
+  assert.match(await readFile(path.join(temporaryRoot, 'site/receipts/M-001/index.html'), 'utf8'), /NOT INCLUDED/);
+  assert.equal(await readFile(path.join(temporaryRoot, 'site/assets/keep.txt'), 'utf8'), 'keep asset\n');
+  assert.equal(await readFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), 'utf8'), 'keep legacy\n');
+  await assertMissing(path.join(temporaryRoot, 'site/receipts/M-999/index.html'));
   const index = JSON.parse(await readFile(path.join(missionsDir, 'index.json'), 'utf8'));
   assert.deepEqual(index.missions.map((mission) => mission.mission_id), ['M-001']);
 });
@@ -250,6 +329,16 @@ test('site render failure rolls back the mission and leaves index and page untou
   const missionsDir = path.join(temporaryRoot, 'missions');
   const siteFile = path.join(temporaryRoot, 'site/index.html');
   const input = missionInput(await example(rehearsalExample));
+  const previousIndex = '{"previous":true}\n';
+  const previousPage = '<p>previous page</p>\n';
+  const previousReceipt = '<p>previous receipt</p>\n';
+  await mkdir(path.join(temporaryRoot, 'site/receipts/legacy'), { recursive: true });
+  await mkdir(missionsDir, { recursive: true });
+  await Promise.all([
+    writeFile(path.join(missionsDir, 'index.json'), previousIndex),
+    writeFile(siteFile, previousPage),
+    writeFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), previousReceipt),
+  ]);
 
   await assert.rejects(
     runPipeline(input, {
@@ -257,15 +346,20 @@ test('site render failure rolls back the mission and leaves index and page untou
       siteFile,
       now: fixedNow,
       executeImpl: fakeExecutor(),
-      renderImpl: async () => {
+      renderImpl: async ({ out }) => {
+        await mkdir(path.join(path.dirname(out), 'receipts/partial'), { recursive: true });
+        await writeFile(out, '<p>partial page</p>\n');
+        await writeFile(path.join(path.dirname(out), 'receipts/partial/index.html'), '<p>partial receipt</p>\n');
         throw new Error('fake render failed');
       },
     }),
     /fake render failed/,
   );
   await assertMissing(path.join(missionsDir, input.mission.mission_id));
-  await assertMissing(path.join(missionsDir, 'index.json'));
-  await assertMissing(siteFile);
+  assert.equal(await readFile(path.join(missionsDir, 'index.json'), 'utf8'), previousIndex);
+  assert.equal(await readFile(siteFile, 'utf8'), previousPage);
+  assert.equal(await readFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), 'utf8'), previousReceipt);
+  await assertMissing(path.join(temporaryRoot, 'site/receipts/partial/index.html'));
 });
 
 test('requireSuccess rejects failed and timed-out commands and publishes nothing', async (t) => {
@@ -274,6 +368,7 @@ test('requireSuccess rejects failed and timed-out commands and publishes nothing
   const input = missionInput(await example(rehearsalExample));
   const failingExecutor = (record) => async (config, { outDir }) => {
     const runRecord = JSON.parse(await readFile(path.join(fixtures, 'run_record.json'), 'utf8'));
+    runRecord.environment.container_image_ref = config.image;
     runRecord.commands = [record(config.commands[0])];
     const runRecordFile = path.join(outDir, 'run_record.json');
     await Promise.all([
