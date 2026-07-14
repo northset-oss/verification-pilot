@@ -59,6 +59,42 @@ test('publication schema is exact, complete, and enforces state-dependent facts'
   assert.throws(() => validatePublication(completePublication({
     attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz?download=1',
   }), 'M-007'), /attestation_uri|release asset/i);
+
+  const future = completePublication({
+    mission_id: 'M-021',
+    pr_number: 21,
+    pr_url: 'https://github.com/acme/project/pull/21',
+    attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-021/run-record-M-021.tar.gz',
+    pr_disclosure: {
+      schema_version: 1,
+      required: true,
+      mode: 'pr_body',
+      canonical_url: 'https://northset-oss.github.io/verification-pilot/receipts/M-021/',
+      verified_at: '2026-07-14T14:29:00Z',
+    },
+  });
+  assert.equal(validatePublication(future, 'M-021').pr_disclosure.mode, 'pr_body');
+  assert.throws(
+    () => validatePublication({
+      ...future,
+      pr_disclosure: { ...future.pr_disclosure, canonical_url: 'https://example.com/M-021/' },
+    }, 'M-021'),
+    /pr_disclosure.*canonical/i,
+  );
+  assert.throws(
+    () => validatePublication({
+      ...future,
+      pr_disclosure: { ...future.pr_disclosure, extra: true },
+    }, 'M-021'),
+    /pr_disclosure.*extra.*allowed/i,
+  );
+  assert.throws(
+    () => validatePublication({
+      ...future,
+      pr_disclosure: { ...future.pr_disclosure, verified_at: '2026-07-14T09:59:59Z' },
+    }, 'M-021'),
+    /pr_disclosure.*verified_at.*opened_at/i,
+  );
 });
 
 test('ledger cross-checks head_drift against the immutable recorded patch commit', async (t) => {
@@ -170,6 +206,11 @@ test('public JSON schemas are committed for publication, ledger, receipt, and ru
   }
   const publicationSchema = JSON.parse(await readFile(path.join(root, 'schema/publication.schema.json'), 'utf8'));
   assert.deepEqual([...publicationSchema.required].sort(), publicationFields);
+  assert.equal(publicationSchema.properties.pr_disclosure.$ref, '#/$defs/prDisclosure');
+  assert.deepEqual(
+    [...publicationSchema.$defs.prDisclosure.required].sort(),
+    ['canonical_url', 'mode', 'required', 'schema_version', 'verified_at'],
+  );
   const receiptSchema = JSON.parse(await readFile(path.join(root, 'schema/public-receipt.schema.json'), 'utf8'));
   const receipt = JSON.parse(await readFile(path.join(root, 'site/receipts/M-020/receipt.json'), 'utf8'));
   assert.deepEqual(Object.keys(receipt).sort(), [...receiptSchema.required].sort());

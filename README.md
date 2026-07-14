@@ -169,6 +169,13 @@ environment, the source limitations, bundle provenance, and (separately) any lin
 outcome. A pass is scoped to those declared commands; it is not a statement that the code is good,
 secure, fully tested, maintainer-approved, or production-ready.
 
+For future Northset-authored contributions, publication is fail-closed on the PR disclosure
+rule: the live receipt must return `200`, its exact canonical URL must appear once in the PR
+body, no legacy ledger anchor or second Northset ledger link may appear there, and configured
+Northset accounts must not post the receipt as a separate PR comment. The ten receipts published
+before this gate are explicitly listed as historical exemptions and are never rewritten by the
+checker. See [PR receipt disclosure](docs/pr-receipt-disclosure.md).
+
 ## Our promises
 
 - [Claims Boundary](policies/claims_boundary.md) — exactly what a run record does and does not establish.
@@ -187,6 +194,7 @@ Node.js + the built-in test runner):
 | `lib/bundle.mjs` + `bin/bundle.mjs` | Assembles the redacted run-record bundle and its digest manifest | [docs/bundle.md](docs/bundle.md) |
 | `lib/pipeline.mjs` + `bin/run-mission.mjs` | Consent gate → sandbox → bundle → ledger, binding the record to what actually ran | [docs/pipeline.md](docs/pipeline.md) |
 | `lib/ledger.mjs` + `bin/ledger.mjs` | Builds the public mission ledger and its static page | [docs/ledger.md](docs/ledger.md) |
+| `lib/pr-receipt-disclosure.mjs` + `bin/pr-receipt-disclosure.mjs` | Checks and safely synchronizes the one-link contributor PR-body disclosure | [docs/pr-receipt-disclosure.md](docs/pr-receipt-disclosure.md) |
 | `.github/workflows/attest-bundle.yml` | Signs a bundle with GitHub artifact attestations | [docs/attestation.md](docs/attestation.md) |
 
 Run the test suite with `node --test`.

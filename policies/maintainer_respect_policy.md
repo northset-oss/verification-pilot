@@ -60,7 +60,9 @@ Not a vague "you're in control" — the specific levers, all of them yours:
 5. Small, focused diffs. Linked issues. The verification commands listed in the open. No
    promotional content. For our own contributor PR, disclosure uses at most one short canonical
    per-receipt URL in the PR body. We do not post a separate receipt comment unless a maintainer
-   invites one. Historical PR bodies are not rewritten.
+   invites one. The automated gate is stricter by default and rejects all Northset-authored
+   receipt-link comments; an invited exception requires a separately reviewed policy change and
+   explicit human authorization. Historical PR bodies are not rewritten.
 6. If you reject our work, we thank you and close. We don't contest it, don't argue in public,
    and don't criticize maintainers anywhere.
 7. Our default is to verify work already in your queue — running the declared checks on a pull
