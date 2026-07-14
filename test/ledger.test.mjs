@@ -135,8 +135,9 @@ test('publication envelopes overlay immutable mission records with factual PR st
   assert.equal(mission.maintainer_outcome.status, 'closed_unmerged');
 });
 
-test('an open PR with changes requested is not described as awaiting maintainer review', () => {
+test('open PR review decisions are projected as maintainer outcomes', () => {
   assert.equal(publicationOutcome({state: 'open', review_decision: 'changes_requested'}), 'changes_requested');
+  assert.equal(publicationOutcome({state: 'open', review_decision: 'approved'}), 'approved');
   assert.equal(publicationOutcome({state: 'open', review_decision: null}), 'open');
   assert.equal(publicationOutcome({state: 'closed_unmerged', review_decision: 'changes_requested'}), 'closed_unmerged');
 });
