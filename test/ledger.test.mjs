@@ -145,7 +145,7 @@ test('open PR review decisions are projected as maintainer outcomes', () => {
 test('outcome attribution follows recorded state and decision evidence, never URL presence alone', async () => {
   const expected = new Map([
     ['M-016', ['open', 'Live upstream pull request']],
-    ['M-020', ['open', 'Live upstream pull request']],
+    ['M-020', ['merged', 'Linked maintainer review']],
     ['M-019', ['merged', 'Recorded upstream outcome']],
     ['M-009', ['closed_unmerged', 'Recorded upstream outcome']],
     ['M-011', ['approved', 'Linked maintainer review']],
@@ -158,6 +158,24 @@ test('outcome attribution follows recorded state and decision evidence, never UR
     assert.equal(receipt.live_outcome.status, status, missionId);
     assert.equal(receipt.live_outcome.attribution, attribution, missionId);
   }
+});
+
+test('M-020 records the confirmed upstream merge without implying the receipt tested the final PR head', async () => {
+  const receipt = await buildReceiptViewModel({
+    missionFile: path.join(committedMissionsDirectory, 'M-020', 'mission.json'),
+  });
+
+  assert.equal(receipt.publication.state, 'merged');
+  assert.equal(receipt.publication.review_decision, 'approved');
+  assert.equal(receipt.publication.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
+  assert.equal(receipt.publication.head_drift, true);
+  assert.equal(receipt.publication.ci_state, 'success');
+  assert.equal(receipt.publication.merge_commit_oid, 'b419d921c8de0b68e7eb7054f412b05ee69336a2');
+  assert.equal(receipt.publication.closed_at, '2026-07-14T13:27:04Z');
+  assert.equal(receipt.publication.decision_url, 'https://github.com/KaotoIO/kaoto/pull/3478#pullrequestreview-4694480971');
+  assert.notEqual(receipt.code.tested_commit, receipt.publication.pr_head_oid);
+  assert.equal(receipt.live_outcome.head_drift, true);
+  assert.equal(receipt.live_outcome.pr_head_oid, receipt.publication.pr_head_oid);
 });
 
 test('publication attestation overlays cannot point outside the signing repository', () => {
@@ -509,9 +527,9 @@ test('render creates a permanent printable receipt for every committed mission a
     .filter((receipt) => receipt.variant === 'own_repo_rehearsal')
     .map((receipt) => receipt.mission_id);
   for (const missionId of rehearsalIds) assert.doesNotMatch(externalGallery, new RegExp(`>${missionId}<`));
-  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 5);
+  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 4);
   assert.equal((externalGallery.match(/data-review-decision="changes_requested"/g) ?? []).length, 2);
-  assert.equal((externalGallery.match(/data-publication-state="merged"/g) ?? []).length, 2);
+  assert.equal((externalGallery.match(/data-publication-state="merged"/g) ?? []).length, 3);
   assert.equal((externalGallery.match(/data-publication-state="closed_unmerged"/g) ?? []).length, 3);
   for (const preview of externalGallery.match(/<article class="receipt-preview[\s\S]*?<\/article>/g) ?? []) {
     const labelledBy = preview.match(/aria-labelledby="([^"]+)"/)?.[1];
@@ -558,6 +576,7 @@ test('render creates a permanent printable receipt for every committed mission a
   const m008 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-008', 'index.html'), 'utf8');
   const m016 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'index.html'), 'utf8');
   const m019 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'index.html'), 'utf8');
+  const m020 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'index.html'), 'utf8');
   const receiptArticle = m008.match(/<article class="receipt[\s\S]*?<\/article>/)?.[0];
   assert.ok(receiptArticle);
   assert.doesNotMatch(homepage, /[ \t]+$/m);
@@ -583,8 +602,12 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m019, /The focused test inspects generated Swift output\. It does not invoke a Swift compiler or run the full quicktype test suite\./);
   const m016Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'receipt.json'), 'utf8'));
   const m019Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'receipt.json'), 'utf8'));
+  const m020Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'receipt.json'), 'utf8'));
   assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
   assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
+  assert.match(m020, /This receipt tested <code>ffc3e052480163e7338e3164008c6a7a26a77605<\/code>; the upstream outcome applies to later PR head <code>00d27e70410dc78f0fcda582b987d515dc8b5817<\/code>\./);
+  assert.equal(m020Json.upstream_outcome.head_drift, true);
+  assert.equal(m020Json.upstream_outcome.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
   assert.doesNotMatch(m016, /OPEN[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m019, /MERGED[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m008, /<h3>/);
