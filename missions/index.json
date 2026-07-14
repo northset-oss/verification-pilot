@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-13T22:32:35Z",
+  "generated_at": "2026-07-14T11:34:30.497Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -402,6 +402,44 @@
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
         "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
         "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"
+      }
+    },
+    {
+      "mission_id": "M-020",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/KaotoIO/kaoto",
+      "issue_or_task": "https://github.com/KaotoIO/kaoto/issues/3473",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:ee7f9a6f1ce091c8dd5d34edd000b4dabc5e403c4ce6c28432090a9db61df124",
+      "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": true,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-020",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": "main",
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": "2026-07-14T11:34:30.497Z",
+        "correction_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
+        "bundle_digest": "sha256:ee7f9a6f1ce091c8dd5d34edd000b4dabc5e403c4ce6c28432090a9db61df124",
+        "release_asset_sha256": null
       }
     }
   ]
