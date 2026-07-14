@@ -75,6 +75,8 @@ jobs:
           M="${{ steps.mission.outputs.id }}"
           node bin/validate-mission.mjs "missions/${M}/mission.json"
           node bin/bundle.mjs verify "missions/${M}"
+          node bin/verify-receipt-parity.mjs "missions/${M}"
+          node bin/verify-proof-of-pass.mjs "missions/${M}"
 
       - name: Package the bundle deterministically
         id: pack

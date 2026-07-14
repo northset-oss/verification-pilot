@@ -18,13 +18,21 @@ The index is sorted by `mission_id` and contains the public projection plus a no
 Proof-of-Pass Receipt view model. For every schema-valid mission, the builder reads the
 committed `bundle/run_record.json` and requires exact, one-to-one command parity with
 `mission.json:commands_declared`; missing, blank, or mismatched receipt evidence fails the
-build rather than producing a partial receipt. `generated_at` is the exact `--now` value;
+build rather than producing a partial receipt. It also binds top-level `mission.json` to the
+signed `bundle/mission.json` (only the post-signing digest and attestation envelope may differ)
+and requires every declared command to have returned exit `0` without timing out. When present,
+only the nested issue title from `bundle/issue_snapshot.json` is exposed, and its `html_url` must
+match `mission.json:issue_or_task`; bodies and comments are never projected. `generated_at` is
+the exact `--now` value;
 when the optional flag is omitted it is `null`, and the builder never reads the wall clock.
 
 An optional sibling `publication.json` is a mutable factual envelope for an immutable mission. It
 records the direct PR URL and head OID, base/head drift, CI state, merge commit,
 `prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
-and verified release-asset evidence. Ledger builds overlay
+an optional public `scope_note`, and verified release-asset evidence. A scope note is a nullable,
+validated, transparent public interpretation of the receipt's scope. It stays in the mutable
+publication envelope, is shown separately from the immutable signed limitations, and must not
+claim checks absent from the signed command evidence. Ledger builds overlay
 that envelope without modifying `mission.json` or any file inside `bundle/`.
 
 The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
@@ -38,8 +46,11 @@ node bin/ledger.mjs render \
   --now 2026-07-15T00:00:00Z
 ```
 
-This writes `site/index.html` plus `site/receipts/M-XXX/index.html` for every mission. The
-homepage is server-rendered with an M-008 receipt and receipt previews; JavaScript only
+This writes `site/index.html`, `site/receipts/M-XXX/index.html`, and a minimized, versioned
+`site/receipts/M-XXX/receipt.json` summary for every mission. The JSON summary excludes raw
+patches, output streams, and the mutable publication envelope. The homepage is server-rendered
+with an M-008 receipt, newest-first external receipt previews, and a lower collapsed archive for
+own-repository rehearsals; JavaScript only
 enhances filters and copy buttons. Each page is rendered from the normalized record, includes
 verbatim raw commands and limitations, expandable committed redacted stdout/stderr when present,
 and print CSS sized for an approximately 80 mm receipt. Direct rendering writes every new page
@@ -51,6 +62,7 @@ is currently generator-only. The renderer never reads the network or
 the wall clock, uses no external scripts,
 stylesheets, fonts, images, or runtime APIs, and works when opened with `file://`.
 
-Future PR disclosure footers should link to the canonical `receipts/M-XXX/` page, not the legacy
-homepage `#M-XXX` anchor. Existing PR bodies are historical records and are not rewritten by the
-ledger generator.
+Future contributor PR disclosure uses at most one short canonical per-receipt
+`receipts/M-XXX/` URL in the PR body, not the legacy homepage `#M-XXX` anchor. Do not add a
+separate comment unless a maintainer invites one. Existing PR bodies are historical records and
+are not rewritten by the ledger generator.

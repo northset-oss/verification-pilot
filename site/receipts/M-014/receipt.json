@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "receipt_id": "M-014",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-13T00:25:57.698Z",
+    "finished_at": "2026-07-13T00:27:10.686Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm run test-unit",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 5593
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+    "install_commands": [
+      "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error"
+    ]
+  },
+  "code": {
+    "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+    "tested_commit": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+    "patch_diff_hash": "sha256:48a2c9ae72581cf4767ec4bc01ed2b1468ebf12aef9973f6e4ecf49c4803b666"
+  },
+  "bundle": {
+    "digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz"
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-014/",
+    "target_repo": "https://github.com/prometheus/client_js",
+    "issue_or_task": "https://github.com/prometheus/client_js/issues/621",
+    "publication_pr": "https://github.com/prometheus/client_js/pull/773"
+  },
+  "issue_title": null,
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+    "The declared network-off check runs `npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+  ],
+  "correction": null,
+  "scope_note": null,
+  "upstream_outcome": {
+    "status": "closed_unmerged",
+    "link": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322",
+    "attribution": "Linked maintainer review"
+  }
+}
