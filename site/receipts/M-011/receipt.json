@@ -54,6 +54,8 @@
   "upstream_outcome": {
     "status": "approved",
     "link": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4689926060",
-    "attribution": "Linked maintainer review"
+    "attribution": "Linked maintainer review",
+    "head_drift": true,
+    "pr_head_oid": "b64dc651cb3a1a22ed5e51095bbea2296d2b57ad"
   }
 }
