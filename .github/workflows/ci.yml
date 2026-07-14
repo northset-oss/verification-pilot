@@ -47,6 +47,13 @@ jobs:
             node bin/verify-receipt-parity.mjs "$(dirname "$mission")"
           done
 
+      - name: Every public receipt is proof of all declared commands passing
+        run: |
+          set -euo pipefail
+          for mission in missions/*/mission.json; do
+            node bin/verify-proof-of-pass.mjs "$(dirname "$mission")"
+          done
+
       - name: The public ledger index and complete receipt site must match committed sources
         run: |
           set -euo pipefail

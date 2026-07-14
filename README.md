@@ -79,7 +79,8 @@ branch actually do" by hand.
   lives in a public transparency log — is created only if you agree to publish one.
 - Say "stop" and we stop — we close anything open and don't come back unless you invite us.
 - We never comment uninvited, never post into a stranger's issues, and add no promotional
-  content.
+  content. A future contributor PR may include at most one short canonical receipt URL in its
+  body; we post no separate receipt comment unless a maintainer invites one.
 
 **We also contribute, like anyone.** Separately from all of the above: when your project opens an
 issue to contribution — a `good first issue` or `help wanted` label, an assignment, or an

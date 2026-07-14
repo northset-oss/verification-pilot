@@ -15,6 +15,7 @@
   "closed_at": "2026-07-13T20:39:02Z",
   "updated_at": "2026-07-13T20:39:02Z",
   "correction_note": null,
+  "scope_note": "The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.",
   "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
   "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
   "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"

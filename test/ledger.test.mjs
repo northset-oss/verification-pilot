@@ -142,6 +142,24 @@ test('open PR review decisions are projected as maintainer outcomes', () => {
   assert.equal(publicationOutcome({state: 'closed_unmerged', review_decision: 'changes_requested'}), 'closed_unmerged');
 });
 
+test('outcome attribution follows recorded state and decision evidence, never URL presence alone', async () => {
+  const expected = new Map([
+    ['M-016', ['open', 'Live upstream pull request']],
+    ['M-020', ['open', 'Live upstream pull request']],
+    ['M-019', ['merged', 'Recorded upstream outcome']],
+    ['M-009', ['closed_unmerged', 'Recorded upstream outcome']],
+    ['M-011', ['approved', 'Linked maintainer review']],
+    ['M-012', ['changes_requested', 'Linked maintainer review']],
+  ]);
+  for (const [missionId, [status, attribution]] of expected) {
+    const receipt = await buildReceiptViewModel({
+      missionFile: path.join(committedMissionsDirectory, missionId, 'mission.json'),
+    });
+    assert.equal(receipt.live_outcome.status, status, missionId);
+    assert.equal(receipt.live_outcome.attribution, attribution, missionId);
+  }
+});
+
 test('publication attestation overlays cannot point outside the signing repository', () => {
   const publication = {
     schema_version: 1,
@@ -212,6 +230,7 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.doesNotMatch(html, /<script>alert\(/);
   const xssReceipt = await readFile(path.join(temporaryRoot, 'receipts', 'M-005', 'index.html'), 'utf8');
   const verificationReceipt = await readFile(path.join(temporaryRoot, 'receipts', 'M-004', 'index.html'), 'utf8');
+  const unattestedReceipt = await readFile(path.join(temporaryRoot, 'receipts', 'M-001', 'index.html'), 'utf8');
   assert.match(xssReceipt, /NOT INCLUDED/);
   assert.doesNotMatch(xssReceipt, /<script>alert\(/);
   assert.match(xssReceipt, /&lt;script&gt;alert/);
@@ -224,11 +243,14 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.equal((html.match(/<li class="hero-note">/g) ?? []).length, 4);
   assert.match(verificationReceipt, /Maintainer consent/);
   assert.match(verificationReceipt, /https:\/\/example\.com\/maintainer\/project\/consent\/42/);
+  assert.doesNotMatch(unattestedReceipt, /Attestation confirms that Northset's signing workflow produced this exact bundle/);
   const previews = [...html.matchAll(/<article class="receipt-preview[\s\S]*?<\/article>/g)].map((match) => match[0]);
   assert.equal(previews.length, 3);
-  for (const preview of previews) assert.doesNotMatch(preview, /\bPASS\b/);
-  assert.match(previews[0], /attestation: not recorded/);
-  assert.match(previews[1], /attestation: recorded/);
+  for (const preview of previews.filter((preview) => !/REHEARSAL/.test(preview))) {
+    assert.match(preview, /PASS — \d+\/\d+ declared command/);
+  }
+  assert.ok(previews.some((preview) => /attestation: not recorded/.test(preview)));
+  assert.ok(previews.some((preview) => /attestation: recorded/.test(preview)));
 
   const allowedHosts = collectHttpHosts(index);
   allowedHosts.add('northset.ai');
@@ -246,7 +268,8 @@ test('receipt view models copy command-level evidence from committed sources and
     'npm run test --workspace=@blockly/plugin-workspace-search',
   ]);
   assert.deepEqual(receipt.commands.map((command) => command.exit_code), [0]);
-  assert.equal(receipt.result, 'PASS — 1/1 declared check');
+  assert.equal(receipt.result, 'PASS — 1/1 declared command');
+  assert.equal(receipt.issue_title, 'workspace-search buttons need type=button');
   assert.equal(receipt.classification, 'CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION');
   assert.equal(receipt.environment.container_image_ref, 'node:22-bookworm');
   assert.equal(receipt.publication.state, 'merged');
@@ -289,6 +312,49 @@ test('receipt view models copy command-level evidence from committed sources and
     buildReceiptViewModel({ missionFile: path.join(copiedMission, 'mission.json') }),
     /exit_code.*timed_out/i,
   );
+
+  runRecord.commands[0].exit_code = 1;
+  runRecord.commands[0].timed_out = false;
+  await writeFile(runRecordFile, `${JSON.stringify(runRecord, null, 2)}\n`);
+  await assert.rejects(
+    buildReceiptViewModel({ missionFile: path.join(copiedMission, 'mission.json') }),
+    /proof-of-pass.*exit 0/i,
+  );
+
+  runRecord.commands[0].exit_code = null;
+  runRecord.commands[0].timed_out = true;
+  await writeFile(runRecordFile, `${JSON.stringify(runRecord, null, 2)}\n`);
+  await assert.rejects(
+    buildReceiptViewModel({ missionFile: path.join(copiedMission, 'mission.json') }),
+    /proof-of-pass.*timed out/i,
+  );
+});
+
+test('receipt view models bind the signed mission and expose only a URL-bound issue title', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const copiedMission = path.join(temporaryRoot, 'missions', 'M-008');
+  await cp(path.join(committedMissionsDirectory, 'M-008'), copiedMission, { recursive: true });
+  const missionFile = path.join(copiedMission, 'mission.json');
+  const bundledMissionFile = path.join(copiedMission, 'bundle', 'mission.json');
+  const bundledMission = JSON.parse(await readFile(bundledMissionFile, 'utf8'));
+  bundledMission.disclosure_label = 'A divergent signed disclosure.';
+  await writeFile(bundledMissionFile, `${JSON.stringify(bundledMission, null, 2)}\n`);
+  await assert.rejects(buildReceiptViewModel({ missionFile }), /signed bundle.*disclosure_label/i);
+
+  await cp(path.join(committedMissionsDirectory, 'M-008', 'bundle', 'mission.json'), bundledMissionFile);
+  const issueFile = path.join(copiedMission, 'bundle', 'issue_snapshot.json');
+  const issueSnapshot = JSON.parse(await readFile(issueFile, 'utf8'));
+  issueSnapshot.issue.html_url = 'https://github.com/example/other/issues/99';
+  await writeFile(issueFile, `${JSON.stringify(issueSnapshot, null, 2)}\n`);
+  await assert.rejects(buildReceiptViewModel({ missionFile }), /issue_snapshot.*issue_or_task/i);
+
+  for (const missingValue of [null, undefined]) {
+    const freshSnapshot = JSON.parse(await readFile(path.join(committedMissionsDirectory, 'M-008', 'bundle', 'issue_snapshot.json'), 'utf8'));
+    if (missingValue === undefined) delete freshSnapshot.issue.html_url;
+    else freshSnapshot.issue.html_url = missingValue;
+    await writeFile(issueFile, `${JSON.stringify(freshSnapshot, null, 2)}\n`);
+    await assert.rejects(buildReceiptViewModel({ missionFile }), /issue_snapshot.*html_url.*must equal.*issue_or_task/i);
+  }
 });
 
 test('receipt view models bind code, bundle, and attestation identity across committed sources', async (t) => {
@@ -297,15 +363,20 @@ test('receipt view models bind code, bundle, and attestation identity across com
   await cp(path.join(committedMissionsDirectory, 'M-008'), copiedMission, { recursive: true });
   const missionFile = path.join(copiedMission, 'mission.json');
   const publicationFile = path.join(copiedMission, 'publication.json');
+  const bundledMissionFile = path.join(copiedMission, 'bundle', 'mission.json');
   const originalMission = JSON.parse(await readFile(missionFile, 'utf8'));
+  const originalBundledMission = JSON.parse(await readFile(bundledMissionFile, 'utf8'));
   const originalPublication = JSON.parse(await readFile(publicationFile, 'utf8'));
 
   await writeFile(missionFile, `${JSON.stringify({ ...originalMission, base_commit: 'b'.repeat(40) }, null, 2)}\n`);
+  await writeFile(bundledMissionFile, `${JSON.stringify({ ...originalBundledMission, base_commit: 'b'.repeat(40) }, null, 2)}\n`);
   await assert.rejects(buildReceiptViewModel({ missionFile }), /base_commit.*source_commit/i);
 
   await writeFile(missionFile, `${JSON.stringify({ ...originalMission, patch_diff_hash: `sha256:${'c'.repeat(64)}` }, null, 2)}\n`);
+  await writeFile(bundledMissionFile, `${JSON.stringify({ ...originalBundledMission, patch_diff_hash: `sha256:${'c'.repeat(64)}` }, null, 2)}\n`);
   await assert.rejects(buildReceiptViewModel({ missionFile }), /patch_diff_hash.*patch_sha256/i);
 
+  await writeFile(bundledMissionFile, `${JSON.stringify(originalBundledMission, null, 2)}\n`);
   await writeFile(missionFile, `${JSON.stringify({ ...originalMission, run_record_bundle_digest: `sha256:${'d'.repeat(64)}` }, null, 2)}\n`);
   await assert.rejects(buildReceiptViewModel({ missionFile }), /bundle digest.*disagree/i);
 
@@ -330,6 +401,14 @@ test('an invalid publication fails the ledger build instead of hiding mutable ou
   await assert.rejects(
     buildLedger({ missionsDir, out: path.join(temporaryRoot, 'index.json'), now: generatedAt }),
     /publication correction_note must be a string or null/i,
+  );
+
+  publication.correction_note = null;
+  publication.scope_note = ['not transparent prose'];
+  await writeFile(publicationFile, `${JSON.stringify(publication, null, 2)}\n`);
+  await assert.rejects(
+    buildLedger({ missionsDir, out: path.join(temporaryRoot, 'index.json'), now: generatedAt }),
+    /publication scope_note must be a string or null/i,
   );
 });
 
@@ -405,6 +484,40 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.ok(featuredArticle);
   assert.match(featuredArticle, /signing workflow[^<]+does not witness the recorded run/i);
   assert.match(featuredArticle, /SELF-FUNDED FIELD-TESTING/);
+  assert.match(homepage, /<details class="rehearsal-archive">/);
+  assert.match(homepage, /External receipts/);
+  assert.match(homepage, /Attested external receipts/);
+  assert.match(homepage, /Merged upstream/);
+  assert.match(homepage, /Awaiting review/);
+  assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
+  assert.match(homepage, /workspace-search buttons need type=button/);
+  assert.match(homepage, /for open-source work/);
+  const externalGallery = homepage.match(/<section class="gallery"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(externalGallery);
+  const externalReceipts = build.index.missions
+    .map((mission) => mission.receipt)
+    .filter((receipt) => receipt.variant !== 'own_repo_rehearsal')
+    .sort((left, right) => right.finished_at.localeCompare(left.finished_at) || left.mission_id.localeCompare(right.mission_id));
+  let lastPreviewPosition = -1;
+  for (const receipt of externalReceipts) {
+    const position = externalGallery.indexOf(`class="preview-id">${receipt.mission_id}<`);
+    assert.ok(position > lastPreviewPosition, `${receipt.mission_id} should follow newest-first external order`);
+    lastPreviewPosition = position;
+  }
+  const rehearsalIds = build.index.missions
+    .map((mission) => mission.receipt)
+    .filter((receipt) => receipt.variant === 'own_repo_rehearsal')
+    .map((receipt) => receipt.mission_id);
+  for (const missionId of rehearsalIds) assert.doesNotMatch(externalGallery, new RegExp(`>${missionId}<`));
+  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 5);
+  assert.equal((externalGallery.match(/data-review-decision="changes_requested"/g) ?? []).length, 2);
+  assert.equal((externalGallery.match(/data-publication-state="merged"/g) ?? []).length, 2);
+  assert.equal((externalGallery.match(/data-publication-state="closed_unmerged"/g) ?? []).length, 3);
+  for (const preview of externalGallery.match(/<article class="receipt-preview[\s\S]*?<\/article>/g) ?? []) {
+    const labelledBy = preview.match(/aria-labelledby="([^"]+)"/)?.[1];
+    assert.ok(labelledBy, 'preview must have aria-labelledby');
+    assert.match(preview, new RegExp(`<h3 id="${labelledBy}" class="preview-id">`));
+  }
 
   const missionIds = (await readdir(committedMissionsDirectory, { withFileTypes: true }))
     .filter((entry) => entry.isDirectory() && /^M-/.test(entry.name))
@@ -414,7 +527,28 @@ test('render creates a permanent printable receipt for every committed mission a
     const page = await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'index.html'), 'utf8');
     assert.match(page, new RegExp(missionId));
     assert.match(page, /NOT INCLUDED/);
-    assert.match(page, /declared check/);
+    assert.match(page, /declared command/);
+    assert.match(page, /Receipt ID/);
+    assert.match(page, /Verification execution/);
+    assert.match(page, /Signed bundle/);
+    assert.match(page, /Download receipt\.json/);
+    assert.match(page, /Download signed bundle/);
+    assert.match(page, /Verify this receipt/);
+    assert.match(page, /Print \/ Save receipt/);
+    assert.match(page, /Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded\./);
+    const receiptJson = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'receipt.json'), 'utf8'));
+    assert.equal(receiptJson.schema_version, 1);
+    assert.equal(receiptJson.receipt_id, missionId);
+    assert.match(receiptJson.receipt_result, /^PASS — \d+\/\d+ declared command/);
+    assert.equal(receiptJson.passed_commands, receiptJson.declared_commands);
+    assert.ok(Array.isArray(receiptJson.commands));
+    assert.ok(receiptJson.environment);
+    assert.ok(receiptJson.code);
+    assert.ok(receiptJson.bundle.digest);
+    assert.ok(!Object.hasOwn(receiptJson, 'patch_diff'));
+    assert.ok(!Object.hasOwn(receiptJson, 'stdout_redacted'));
+    assert.ok(!Object.hasOwn(receiptJson, 'stderr_redacted'));
+    assert.ok(!Object.hasOwn(receiptJson, 'publication'));
     assert.doesNotMatch(page, /[ \t]+$/m);
     assert.doesNotMatch(page, /^ +\t/m);
   }
@@ -422,6 +556,8 @@ test('render creates a permanent printable receipt for every committed mission a
   const m001 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-001', 'index.html'), 'utf8');
   assert.match(correction, /Correction: compile-typescript was run/);
   const m008 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-008', 'index.html'), 'utf8');
+  const m016 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'index.html'), 'utf8');
+  const m019 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'index.html'), 'utf8');
   const receiptArticle = m008.match(/<article class="receipt[\s\S]*?<\/article>/)?.[0];
   assert.ok(receiptArticle);
   assert.doesNotMatch(homepage, /[ \t]+$/m);
@@ -441,6 +577,16 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.doesNotMatch(m008, /setup \+ install \(online, derived\)/);
   assert.match(m008, /setup \+ install \(derived\)/);
   assert.match(m008, /<h1>Proof-of-Pass Receipt — M-008<\/h1>/);
+  assert.match(m008, /workspace-search buttons need type=button/);
+  assert.match(m016, /Public scope interpretation/);
+  assert.match(m016, /The declared network-off check runs one focused Vitest spec for Quadlet digest replacement\. It does not run Renovate’s full test, lint, typecheck, or coverage gates\./);
+  assert.match(m019, /The focused test inspects generated Swift output\. It does not invoke a Swift compiler or run the full quicktype test suite\./);
+  const m016Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'receipt.json'), 'utf8'));
+  const m019Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'receipt.json'), 'utf8'));
+  assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
+  assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
+  assert.doesNotMatch(m016, /OPEN[\s\S]{0,160}Maintainer decision/);
+  assert.doesNotMatch(m019, /MERGED[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m008, /<h3>/);
   assert.match(homepage, /<h2>Proof-of-Pass Receipt<\/h2>/);
   assert.match(homepage, /<svg[^>]+role="img"/);

@@ -362,7 +362,7 @@ test('site render failure rolls back the mission and leaves index and page untou
   await assertMissing(path.join(temporaryRoot, 'site/receipts/partial/index.html'));
 });
 
-test('requireSuccess rejects failed and timed-out commands and publishes nothing', async (t) => {
+test('proof-of-pass pipeline rejects failed and timed-out commands without an opt-in flag', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');
   const input = missionInput(await example(rehearsalExample));
@@ -389,7 +389,6 @@ test('requireSuccess rejects failed and timed-out commands and publishes nothing
       runPipeline(input, {
         missionsDir,
         now: fixedNow,
-        requireSuccess: true,
         executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
       }),
       (error) => error.errors.some((item) => item.ruleId === 'COMMAND_FAILED'),
@@ -402,7 +401,6 @@ test('requireSuccess rejects failed and timed-out commands and publishes nothing
       runPipeline(input, {
         missionsDir,
         now: fixedNow,
-        requireSuccess: true,
         executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: null, duration_ms: 10, timed_out: true })),
       }),
       (error) => error.errors.some((item) => item.ruleId === 'COMMAND_FAILED'),
@@ -410,13 +408,17 @@ test('requireSuccess rejects failed and timed-out commands and publishes nothing
     await assertMissing(path.join(missionsDir, input.mission.mission_id));
   });
 
-  await t.test('without the flag a failing record still publishes (honest failure receipt)', async () => {
-    const result = await runPipeline(input, {
-      missionsDir,
-      now: fixedNow,
-      executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
-    });
-    assert.equal(result.missionDir, path.join(missionsDir, 'M-001'));
+  await t.test('the compatibility flag remains accepted', async () => {
+    await assert.rejects(
+      runPipeline(input, {
+        missionsDir,
+        now: fixedNow,
+        requireSuccess: true,
+        executeImpl: failingExecutor((cmd) => ({ cmd, exit_code: 1, duration_ms: 10 })),
+      }),
+      (error) => error.errors.some((item) => item.ruleId === 'COMMAND_FAILED'),
+    );
+    await assertMissing(path.join(missionsDir, input.mission.mission_id));
   });
 });
 

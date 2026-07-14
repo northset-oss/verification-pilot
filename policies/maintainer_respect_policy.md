@@ -58,7 +58,9 @@ Not a vague "you're in control" — the specific levers, all of them yours:
    assistance is disclosed in the format your repository asks for. We check your current
    contribution policy before we contact you, so we're following your rules, not last year's.
 5. Small, focused diffs. Linked issues. The verification commands listed in the open. No
-   promotional content — at most one plain link to the run record.
+   promotional content. For our own contributor PR, disclosure uses at most one short canonical
+   per-receipt URL in the PR body. We do not post a separate receipt comment unless a maintainer
+   invites one. Historical PR bodies are not rewritten.
 6. If you reject our work, we thank you and close. We don't contest it, don't argue in public,
    and don't criticize maintainers anywhere.
 7. Our default is to verify work already in your queue — running the declared checks on a pull
