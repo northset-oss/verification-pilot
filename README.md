@@ -21,25 +21,28 @@ pull requests — a way to check the work already sitting in your queue.
 
 ## How it works
 
-1. **You invite us.** Email us or open an issue and point us at a PR — or, for a repo we're
-   already working with, apply the `northset-verify` label as a standing OK. Nothing runs before
-   that; a disclosure inside a PR is never, by itself, consent.
+1. **You invite us.** [Email a private request](mailto:oss@northset.ai) or
+   [open a public run request](https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml)
+   and point us at a PR. For a repo already onboarded with Northset, applying the
+   `northset-verify` label to a PR requests a run on that PR. Nothing runs before that; a
+   disclosure inside a PR is never, by itself, consent.
 2. **We run its declared checks** in a hardened, network-isolated, throwaway container.
 3. **You get the result privately** — the exact commands, their outcomes, and the redacted,
    size-capped output. A signed, publicly-verifiable copy is published **only if you ask for one.**
 
 ## Ask us to check a PR
 
-- **Start here:** [open an issue](https://github.com/northset-oss/verification-pilot/issues) or
-  email **oss@northset.ai** and point us at the PR. We confirm with you before anything runs —
-  there's no bot watching every repo, so a label applied into the void won't reach us.
-- **Standing OK:** once we're working together, apply the **`northset-verify`** label to any PR
-  (create the label in your repo if it doesn't exist yet) — that's your consent to run its
-  declared checks on it. Remove the label, or just say "stop," and we stop.
+- **Private route:** [email oss@northset.ai](mailto:oss@northset.ai) and point us at the PR.
+- **Public route:** [open the dedicated run-request form](https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml).
+  The issue is public, so do not include secrets or private repository details.
+- **Already onboarded:** apply **`northset-verify`** to the specific PR you want checked. That
+  label requests a run on that PR; it is not blanket or standing consent for other PRs. Remove
+  the label, or just say "stop," and we stop.
 
 Either way it's **free**, the result comes back to you **privately by default**, and it **asks
-nothing of you in return**. You choose the scope (one PR, or a standing OK for anything carrying
-your label), and you decide whether any record is ever made public.
+nothing of you in return**. You choose the scope for each requested PR, and you decide whether
+any record is ever made public. The operator-side consent handling for public forms, private
+email, and per-PR labels is documented in [Run-request intake](docs/run-request-intake.md).
 
 **Why not just read your own CI?** Because a signed run record is portable in a way a CI dashboard
 isn't: a downstream user can verify the exact record bytes, their workflow provenance, and the
@@ -77,7 +80,7 @@ branch actually do" by hand.
 **Consent-first, and every lever is yours.**
 
 - Nothing runs until you say so — the `northset-verify` label, or a written OK.
-- You choose the scope: one pull request, or a standing OK for PRs that carry your label.
+- You choose the scope for each pull request you submit or label.
 - The result comes to you privately by default. A signed, publicly-verifiable record — which
   lives in a public transparency log — is created only if you agree to publish one.
 - Say "stop" and we stop — we close anything open and don't come back unless you invite us.
@@ -119,9 +122,10 @@ tool assists; it doesn't replace you.
 work. Anything automated we do is clearly labeled as automation; anything about consent or your
 relationship with us comes from a person.
 
-**Opt in, opt out, or ask us anything.** Open an issue in this repository or email
-oss@northset.ai. Opting out takes effect as soon as we see it, and we'll remove your entries
-from the public ledger on request.
+**Opt in, opt out, or ask us anything.** [Email a private request](mailto:oss@northset.ai) or
+[open the public run-request form](https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml).
+Opting out takes effect as soon as we see it, and we'll remove your entries from the public
+ledger on request.
 
 ---
 

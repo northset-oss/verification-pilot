@@ -90,31 +90,62 @@ test('disclosure policy is exact, future-safe, and produces canonical per-receip
   );
 });
 
-test('receipt disclosure block is concise, marked, and idempotently replaceable', () => {
+test('receipt disclosure block is state-specific, marked, and idempotently replaceable', () => {
   const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
-  const block = renderDisclosureBlock({ missionId: 'M-021', receiptUrl });
+  const block = renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' });
   assert.match(block, /<!-- northset-receipt:M-021:start -->/);
   assert.match(block, /Northset proof-of-pass receipt/);
   assert.match(block, /Contributor self-run; not maintainer verification\./);
+  assert.doesNotMatch(block, /request a separate, private run/i);
   assert.equal(block.split(receiptUrl).length - 1, 1);
   assert.doesNotMatch(block, /badge|logo|attestation/i);
+
+  const merged = renderDisclosureBlock({
+    missionId: 'M-021',
+    receiptUrl,
+    publicationState: 'merged',
+  });
+  assert.match(merged, /This record covers Northset’s own contribution; it is not maintainer verification\./);
+  assert.match(merged, /Maintainers can request a separate, private run for a PR already in their queue at oss@northset\.ai\./);
+  assert.match(merged, /adding `northset-verify` to a PR requests a run on that PR\./);
+  assert.equal((merged.match(/request a separate, private run/g) ?? []).length, 1);
+
+  const closed = renderDisclosureBlock({
+    missionId: 'M-021',
+    receiptUrl,
+    publicationState: 'closed_unmerged',
+  });
+  assert.doesNotMatch(closed, /request a separate, private run/i);
 
   const first = upsertDisclosureBlock('## Summary\n\nFocused fix.', {
     missionId: 'M-021',
     receiptUrl,
+    publicationState: 'open',
   });
   assert.equal(first.changed, true);
   assert.equal(first.body.split(receiptUrl).length - 1, 1);
-  const second = upsertDisclosureBlock(first.body, { missionId: 'M-021', receiptUrl });
+  const second = upsertDisclosureBlock(first.body, {
+    missionId: 'M-021',
+    receiptUrl,
+    publicationState: 'open',
+  });
   assert.equal(second.changed, false);
   assert.equal(second.body, first.body);
 
   assert.throws(
-    () => upsertDisclosureBlock(`Existing unmarked ${receiptUrl}`, { missionId: 'M-021', receiptUrl }),
+    () => upsertDisclosureBlock(`Existing unmarked ${receiptUrl}`, {
+      missionId: 'M-021',
+      receiptUrl,
+      publicationState: 'open',
+    }),
     /unmarked/i,
   );
   assert.throws(
-    () => upsertDisclosureBlock('<!-- northset-receipt:M-099:start -->\nold\n<!-- northset-receipt:M-099:end -->', { missionId: 'M-021', receiptUrl }),
+    () => upsertDisclosureBlock('<!-- northset-receipt:M-099:start -->\nold\n<!-- northset-receipt:M-099:end -->', {
+      missionId: 'M-021',
+      receiptUrl,
+      publicationState: 'open',
+    }),
     /different mission/i,
   );
 });
@@ -123,7 +154,7 @@ test('live audit requires one canonical body link, a live receipt, and no Norths
   const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
   const prApi = 'https://api.github.com/repos/example/project/pulls/21';
   const commentsApi = 'https://api.github.com/repos/example/project/issues/21/comments?per_page=100';
-  const body = renderDisclosureBlock({ missionId: 'M-021', receiptUrl });
+  const body = renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' });
   const request = fakeRequest(new Map([
     [`GET ${receiptUrl}`, response(200)],
     [`GET ${prApi}`, response(200, { number: 21, html_url: publication().pr_url, body })],
@@ -197,6 +228,53 @@ test('live audit requires one canonical body link, a live receipt, and no Norths
   );
 });
 
+test('live audit enforces the merged-only invitation exactly once', async () => {
+  const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
+  const prApi = 'https://api.github.com/repos/example/project/pulls/21';
+  const commentsApi = 'https://api.github.com/repos/example/project/issues/21/comments?per_page=100';
+  const mergedPublication = publication('M-021', { state: 'merged' });
+  const mergedBody = renderDisclosureBlock({
+    missionId: 'M-021',
+    receiptUrl,
+    publicationState: 'merged',
+  });
+  const valid = fakeRequest(new Map([
+    [`GET ${receiptUrl}`, response(200)],
+    [`GET ${prApi}`, response(200, { number: 21, html_url: mergedPublication.pr_url, body: mergedBody })],
+    [`GET ${commentsApi}`, response(200, [])],
+  ]));
+  await auditMissionDisclosure({
+    mission: mission(),
+    publication: mergedPublication,
+    policy,
+    request: valid,
+  });
+
+  const missing = fakeRequest(new Map([
+    [`GET ${receiptUrl}`, response(200)],
+    [`GET ${prApi}`, response(200, {
+      number: 21,
+      html_url: mergedPublication.pr_url,
+      body: renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' }),
+    })],
+    [`GET ${commentsApi}`, response(200, [])],
+  ]));
+  await assert.rejects(
+    auditMissionDisclosure({ mission: mission(), publication: mergedPublication, policy, request: missing }),
+    /merged.*invitation|expected.*marked block/i,
+  );
+
+  const openWithInvitation = fakeRequest(new Map([
+    [`GET ${receiptUrl}`, response(200)],
+    [`GET ${prApi}`, response(200, { number: 21, html_url: publication().pr_url, body: mergedBody })],
+    [`GET ${commentsApi}`, response(200, [])],
+  ]));
+  await assert.rejects(
+    auditMissionDisclosure({ mission: mission(), publication: publication(), policy, request: openWithInvitation }),
+    /open.*invitation|expected.*marked block/i,
+  );
+});
+
 test('repository audit explicitly exempts historical PRs but fails closed for a future disclosure gap', async (t) => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'northset-pr-disclosure-audit-'));
   t.after(() => rm(root, { recursive: true, force: true }));
@@ -237,7 +315,7 @@ test('comment pagination cannot leave the original GitHub API endpoint', async (
     [`GET ${prApi}`, response(200, {
       number: 21,
       html_url: publication().pr_url,
-      body: renderDisclosureBlock({ missionId: 'M-021', receiptUrl }),
+      body: renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' }),
     })],
     [`GET ${commentsApi}`, response(200, [], {
       link: '<https://example.com/redirect?page=2>; rel="next"',
