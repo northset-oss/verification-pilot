@@ -173,6 +173,14 @@ environment, the source limitations, bundle provenance, and (separately) any lin
 outcome. A pass is scoped to those declared commands; it is not a statement that the code is good,
 secure, fully tested, maintainer-approved, or production-ready.
 
+New contributor receipts also carry a factual **economic identity** in the same canonical receipt:
+the issue-level task and complete attempt lineage, observed stage effort, measured executor usage,
+enforced resource caps, verified change scope, explicit human approval, and public cost evidence
+when it actually exists. Unknown model usage, compute, human effort, rates, or costs remain visibly
+unknown; estimates and value/ROI claims are not accepted. A recorded zero maintainer payment means
+only that no external maintainer payment occurred, never that the work cost zero. See
+[Economic identity in Proof-of-Pass receipts](docs/economic-identity.md).
+
 For future Northset-authored contributions, publication is fail-closed on the PR disclosure
 rule: the live receipt must return `200`, its exact canonical URL must appear once in the PR
 body, no legacy ledger anchor or second Northset ledger link may appear there, and configured
@@ -193,11 +201,12 @@ Node.js + the built-in test runner):
 
 | Piece | What it does | Docs |
 | --- | --- | --- |
-| `schema/` + `bin/validate-mission.mjs` | Versioned mission, publication, ledger, public receipt, consent, and run-record schemas plus policy validation | [docs/schema.md](docs/schema.md) |
+| `schema/` + `bin/validate-mission.mjs` | Versioned mission, publication, ledger, public receipt, economic identity, approval, consent, and run-record schemas plus policy validation | [docs/schema.md](docs/schema.md) |
 | `lib/executor.mjs` + `bin/execute.mjs` | The two-phase, network-isolated Docker sandbox that runs declared checks | [docs/executor.md](docs/executor.md) |
 | `lib/bundle.mjs` + `bin/bundle.mjs` | Assembles the redacted run-record bundle and its digest manifest | [docs/bundle.md](docs/bundle.md) |
 | `lib/pipeline.mjs` + `bin/run-mission.mjs` | Consent gate → sandbox → bundle → ledger, binding the record to what actually ran | [docs/pipeline.md](docs/pipeline.md) |
 | `lib/ledger.mjs` + `bin/ledger.mjs` | Builds the public mission ledger and its static page | [docs/ledger.md](docs/ledger.md) |
+| `lib/economic-identity.mjs` | Validates, finalizes, and projects factual task economics | [docs/economic-identity.md](docs/economic-identity.md) |
 | `lib/pr-receipt-disclosure.mjs` + `bin/pr-receipt-disclosure.mjs` | Checks and safely synchronizes the one-link contributor PR-body disclosure | [docs/pr-receipt-disclosure.md](docs/pr-receipt-disclosure.md) |
 | `.github/workflows/attest-bundle.yml` | Signs a bundle with GitHub artifact attestations | [docs/attestation.md](docs/attestation.md) |
 

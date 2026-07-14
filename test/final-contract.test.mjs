@@ -252,10 +252,19 @@ test('ledger build is strict by default and allow-skips is an explicit diagnosti
   );
 });
 
-test('public JSON schemas are committed for publication, ledger, receipt, and run record', async () => {
-  for (const name of ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json']) {
+test('public JSON schemas are committed for publication, ledger, receipt, economic identity, approval, and run record', async () => {
+  const publicSchemas = ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json', 'economic-identity.schema.json', 'approval.schema.json'];
+  for (const name of publicSchemas) {
     const schema = JSON.parse(await readFile(path.join(root, 'schema', name), 'utf8'));
-    assert.equal(schema.additionalProperties, false, name);
+    if (name === 'economic-identity.schema.json') {
+      assert.deepEqual(schema.oneOf, [
+        {$ref: '#/$defs/sourceEconomicIdentity'},
+        {$ref: '#/$defs/publicEconomicIdentity'},
+      ], name);
+      assert.equal(schema.$defs.publicEconomicIdentity.additionalProperties, false, name);
+      assert.equal(schema.$defs.sourceEconomicIdentity.additionalProperties, false, name);
+    } else if (name === 'approval.schema.json') assert.equal(schema.$defs.approval.additionalProperties, false, name);
+    else assert.equal(schema.additionalProperties, false, name);
   }
   const publicationSchema = JSON.parse(await readFile(path.join(root, 'schema/publication.schema.json'), 'utf8'));
   assert.deepEqual([...publicationSchema.required].sort(), publicationFields);
@@ -292,8 +301,8 @@ test('public JSON schemas are committed for publication, ledger, receipt, and ru
   );
   const receiptSchema = JSON.parse(await readFile(path.join(root, 'schema/public-receipt.schema.json'), 'utf8'));
   assert.deepEqual(
-    receiptSchema.allOf,
-    [{
+    receiptSchema.allOf[0],
+    {
       if: {
         properties: {
           upstream_outcome: {
@@ -325,14 +334,19 @@ test('public JSON schemas are committed for publication, ledger, receipt, and ru
         attestation_verified_at: { $ref: '#/$defs/time' },
         provenance: { const: 'Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval.' },
       } } } },
-    }],
+    },
   );
+  assert.deepEqual(receiptSchema.allOf[1], {
+    if: {properties: {schema_version: {const: 2}}, required: ['schema_version']},
+    then: {required: ['economic_identity']},
+    else: {not: {required: ['economic_identity']}},
+  });
   const receipt = JSON.parse(await readFile(path.join(root, 'site/receipts/M-020/receipt.json'), 'utf8'));
   assert.deepEqual(Object.keys(receipt).sort(), [...receiptSchema.required].sort());
   const ledgerSchema = JSON.parse(await readFile(path.join(root, 'schema/ledger.schema.json'), 'utf8'));
   const ledger = JSON.parse(await readFile(path.join(root, 'site/ledger.json'), 'utf8'));
   assert.deepEqual(Object.keys(ledger).sort(), [...ledgerSchema.required].sort());
-  for (const name of ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json']) {
+  for (const name of publicSchemas) {
     assert.deepEqual(
       JSON.parse(await readFile(path.join(root, 'site/schema', name), 'utf8')),
       JSON.parse(await readFile(path.join(root, 'schema', name), 'utf8')),

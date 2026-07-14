@@ -93,6 +93,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": null,
         "setup_install_duration_ms": null,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -232,6 +233,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 860,
         "setup_install_duration_ms": 623,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -377,6 +379,7 @@
         "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 1188,
         "setup_install_duration_ms": 719,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -524,6 +527,7 @@
         "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 355937,
         "setup_install_duration_ms": 314003,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -675,6 +679,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 136248,
         "setup_install_duration_ms": 129747,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -825,6 +830,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 74503,
         "setup_install_duration_ms": 62848,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -970,6 +976,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 54380,
         "setup_install_duration_ms": 48518,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1121,6 +1128,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 36712,
         "setup_install_duration_ms": 35965,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1265,6 +1273,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 72988,
         "setup_install_duration_ms": 67395,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1414,6 +1423,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 44552,
         "setup_install_duration_ms": 37002,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1563,6 +1573,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 179041,
         "setup_install_duration_ms": 174051,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1706,6 +1717,7 @@
         "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 90801,
         "setup_install_duration_ms": 85681,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -1873,6 +1885,7 @@
         "execution_summary": "4/4 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 1878549,
         "setup_install_duration_ms": 350403,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false
@@ -2053,6 +2066,7 @@
         "execution_summary": "4/4 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 2613459,
         "setup_install_duration_ms": 444603,
+        "economic_identity": null,
         "payment": {
           "maintainer_payment": "none",
           "merge_contingent": false

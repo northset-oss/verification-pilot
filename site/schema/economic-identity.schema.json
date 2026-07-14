@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/economic-identity.schema.json",
+  "title": "Northset factual economic identity",
+  "oneOf": [
+    { "$ref": "#/$defs/sourceEconomicIdentity" },
+    { "$ref": "#/$defs/publicEconomicIdentity" }
+  ],
+  "$defs": {
+    "publicEconomicIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scope", "task", "funding", "external_transfers", "authorization", "attempt_lineage", "usage", "work_scope", "costs", "outcome", "completeness", "provenance"],
+      "properties": {
+        "scope": { "const": "end_to_end_task" },
+        "task": { "$ref": "#/$defs/task" },
+        "funding": { "$ref": "#/$defs/funding" },
+        "external_transfers": {
+          "type": "object", "additionalProperties": false,
+          "required": ["maintainer_payment", "merge_contingent"],
+          "properties": {
+            "maintainer_payment": { "const": "none" },
+            "merge_contingent": { "const": false }
+          }
+        },
+        "authorization": {
+          "type": "object", "additionalProperties": false,
+          "required": ["approved_manifest_digest", "approved_by", "approved_at", "operational_caps"],
+          "properties": {
+            "approved_manifest_digest": { "$ref": "#/$defs/digest" },
+            "approved_by": { "type": "string", "minLength": 1 },
+            "approved_at": { "type": "string", "format": "date-time" },
+            "operational_caps": { "$ref": "#/$defs/operationalCaps" }
+          }
+        },
+        "attempt_lineage": { "$ref": "#/$defs/lineage" },
+        "usage": { "$ref": "#/$defs/usage" },
+        "work_scope": { "$ref": "#/$defs/workScope" },
+        "costs": { "$ref": "#/$defs/costs" },
+        "outcome": { "$ref": "#/$defs/outcome" },
+        "completeness": { "$ref": "#/$defs/completeness" },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "sourceEconomicIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "task", "funding", "attempt_lineage", "usage", "work_scope", "costs", "completeness", "provenance"],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "task": { "$ref": "#/$defs/task" },
+        "funding": { "$ref": "#/$defs/funding" },
+        "attempt_lineage": { "$ref": "#/$defs/lineage" },
+        "usage": { "$ref": "#/$defs/usage" },
+        "work_scope": { "$ref": "#/$defs/workScope" },
+        "costs": { "$ref": "#/$defs/costs" },
+        "completeness": { "$ref": "#/$defs/completeness" },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_id", "attempt_id", "attempt_sequence", "work_category", "external_demand"],
+      "properties": {
+        "task_id": { "$ref": "#/$defs/taskId" },
+        "attempt_id": { "$ref": "#/$defs/missionId" },
+        "attempt_sequence": { "type": "integer", "minimum": 1 },
+        "work_category": { "enum": ["defect_fix", "compatibility_fix", "developer_tooling_fix", "documentation_fix", "test_infrastructure_fix"] },
+        "external_demand": {
+          "type": "object", "additionalProperties": false,
+          "required": ["source", "issue_url", "acceptance_contract_digest", "invitation_type", "invitation_url"],
+          "properties": {
+            "source": { "const": "public_github_issue" },
+            "issue_url": { "type": "string", "format": "uri" },
+            "acceptance_contract_digest": { "$ref": "#/$defs/digest" },
+            "invitation_type": { "enum": ["label", "assignment", "maintainer_comment", "repository_policy"] },
+            "invitation_url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    },
+    "funding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["program", "initiative", "budget_id", "financial_cap", "currency"],
+      "properties": {
+        "program": { "type": "string", "minLength": 1 },
+        "initiative": { "type": "string", "minLength": 1 },
+        "budget_id": { "$ref": "#/$defs/nullableString" },
+        "financial_cap": { "$ref": "#/$defs/nullableDecimal" },
+        "currency": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "lineage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["attempts_total", "successful_attempt_id", "attempts"],
+      "properties": {
+        "attempts_total": { "type": "integer", "minimum": 1 },
+        "successful_attempt_id": { "$ref": "#/$defs/missionId" },
+        "attempts": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["attempt_id", "attempt_sequence", "state", "terminal_reason_class"],
+            "properties": {
+              "attempt_id": { "$ref": "#/$defs/missionId" },
+              "attempt_sequence": { "type": "integer", "minimum": 1 },
+              "state": { "type": "string", "minLength": 1 },
+              "terminal_reason_class": { "$ref": "#/$defs/nullableString" }
+            }
+          }
+        }
+      }
+    },
+    "usage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["discovery", "qualification", "authoring", "preparation", "verification", "resource_envelope"],
+      "properties": {
+        "discovery": {
+          "type": "object", "additionalProperties": false,
+          "required": ["finder_run_id", "candidate_rank", "elapsed_ms"],
+          "properties": {
+            "finder_run_id": { "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }] },
+            "candidate_rank": { "type": ["integer", "null"], "minimum": 1 },
+            "elapsed_ms": { "$ref": "#/$defs/nullableInteger" }
+          }
+        },
+        "qualification": { "$ref": "#/$defs/qualificationUsage" },
+        "authoring": { "$ref": "#/$defs/authoringUsage" },
+        "preparation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["total_duration_ms", "stages"],
+          "properties": {
+            "total_duration_ms": { "type": "integer", "minimum": 0 },
+            "stages": {
+              "type": "array",
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["stage", "duration_ms"],
+                "properties": {
+                  "stage": { "type": "string", "minLength": 1 },
+                  "duration_ms": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        },
+        "verification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["executor_elapsed_ms", "networked_setup_elapsed_ms", "dependency_install_ms", "declared_commands_ms", "unclassified_executor_ms", "cpu_ms", "peak_rss_bytes", "measurement_status"],
+          "properties": {
+            "executor_elapsed_ms": { "$ref": "#/$defs/nullableInteger" },
+            "networked_setup_elapsed_ms": { "$ref": "#/$defs/nullableInteger" },
+            "dependency_install_ms": { "$ref": "#/$defs/nullableInteger" },
+            "declared_commands_ms": { "$ref": "#/$defs/nullableInteger" },
+            "unclassified_executor_ms": { "$ref": "#/$defs/nullableInteger" },
+            "cpu_ms": { "$ref": "#/$defs/nullableInteger" },
+            "peak_rss_bytes": { "$ref": "#/$defs/nullableInteger" },
+            "measurement_status": { "enum": ["complete", "partial"] }
+          }
+        },
+        "resource_envelope": { "$ref": "#/$defs/resourceEnvelope" }
+      }
+    },
+    "workScope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["files_changed", "changed_lines", "production_files", "test_files", "checks_declared", "checks_not_run"],
+      "properties": {
+        "files_changed": { "type": "integer", "minimum": 0 },
+        "changed_lines": { "type": "integer", "minimum": 0 },
+        "production_files": { "type": "integer", "minimum": 0 },
+        "test_files": { "type": "integer", "minimum": 0 },
+        "checks_declared": { "type": "integer", "minimum": 0 },
+        "checks_not_run": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "costs": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "currency", "lines", "known_direct_cost", "allocated_shared_cost", "human_standard_cost", "total_economic_cost", "missing_components"],
+      "properties": {
+        "status": { "enum": ["partial", "complete"] },
+        "currency": { "$ref": "#/$defs/nullableString" },
+        "lines": { "type": "array", "items": { "$ref": "#/$defs/costLine" } },
+        "known_direct_cost": { "$ref": "#/$defs/nullableDecimal" },
+        "allocated_shared_cost": { "$ref": "#/$defs/nullableDecimal" },
+        "human_standard_cost": { "$ref": "#/$defs/nullableDecimal" },
+        "total_economic_cost": { "$ref": "#/$defs/nullableDecimal" },
+        "missing_components": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "costLine": {
+      "type": "object", "additionalProperties": false,
+      "required": ["component", "measurement_class", "quantity", "unit", "unit_rate", "amount", "currency", "source_refs", "rate_card_digest", "allocation_method", "finality", "visibility"],
+      "properties": {
+        "component": { "type": "string", "minLength": 1 },
+        "measurement_class": { "enum": ["provider_billed", "provider_metered", "calculated_from_usage", "allocated_shared_cost", "standard_labor_cost", "observed_quantity_unpriced", "unavailable"] },
+        "quantity": { "$ref": "#/$defs/nullableDecimal" },
+        "unit": { "type": "string", "minLength": 1 },
+        "unit_rate": { "$ref": "#/$defs/nullableDecimal" },
+        "amount": { "$ref": "#/$defs/nullableDecimal" },
+        "currency": { "$ref": "#/$defs/nullableString" },
+        "source_refs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceRef" } },
+        "rate_card_digest": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "allocation_method": { "$ref": "#/$defs/nullableString" },
+        "finality": { "enum": ["provisional", "final"] },
+        "visibility": { "const": "public" }
+      }
+    },
+    "outcome": {
+      "type": "object", "additionalProperties": false,
+      "required": ["technical_checks_passed", "pr_opened", "ci_state", "merged", "accepted_as_submitted", "time_to_close_ms", "released", "deployed", "business_result_observed"],
+      "properties": {
+        "technical_checks_passed": { "type": "boolean" },
+        "pr_opened": { "type": "boolean" },
+        "ci_state": { "type": ["string", "null"] },
+        "merged": { "type": "boolean" },
+        "accepted_as_submitted": { "type": ["boolean", "null"] },
+        "time_to_close_ms": { "$ref": "#/$defs/nullableInteger" },
+        "released": { "type": ["boolean", "null"] },
+        "deployed": { "type": ["boolean", "null"] },
+        "business_result_observed": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "completeness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_identity", "technical_execution", "attempt_lineage", "usage", "cost", "external_outcome", "business_value"],
+      "properties": {
+        "task_identity": { "type": "string" }, "technical_execution": { "type": "string" },
+        "attempt_lineage": { "type": "string" }, "usage": { "type": "string" },
+        "cost": { "type": "string" }, "external_outcome": { "type": "string" },
+        "business_value": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["spec_sha256", "qualification_evidence_sha256", "issue_snapshot_sha256"],
+      "properties": {
+        "spec_sha256": { "$ref": "#/$defs/digest" },
+        "qualification_evidence_sha256": { "$ref": "#/$defs/digest" },
+        "issue_snapshot_sha256": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "qualificationUsage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["review_id", "requested_model", "actual_model", "reasoning_effort", "service_tier", "duration_ms", "model_requests", "input_tokens", "cached_input_tokens", "output_tokens", "reasoning_tokens"],
+      "properties": {
+        "review_id": { "$ref": "#/$defs/digest" },
+        "requested_model": { "type": "string", "minLength": 1 },
+        "actual_model": { "$ref": "#/$defs/nullableString" },
+        "reasoning_effort": { "type": "string", "minLength": 1 },
+        "service_tier": { "type": "string", "minLength": 1 },
+        "duration_ms": { "$ref": "#/$defs/nullableInteger" },
+        "model_requests": { "$ref": "#/$defs/nullableInteger" },
+        "input_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "cached_input_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "output_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "reasoning_tokens": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "authoringUsage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requested_model", "actual_model", "reasoning_effort", "service_tier", "duration_ms", "bootstrap_duration_ms", "bootstrap_retry_count", "model_requests", "input_tokens", "cached_input_tokens", "output_tokens", "reasoning_tokens"],
+      "properties": {
+        "requested_model": { "type": "string", "minLength": 1 },
+        "actual_model": { "$ref": "#/$defs/nullableString" },
+        "reasoning_effort": { "type": "string", "minLength": 1 },
+        "service_tier": { "type": "string", "minLength": 1 },
+        "duration_ms": { "$ref": "#/$defs/nullableInteger" },
+        "bootstrap_duration_ms": { "$ref": "#/$defs/nullableInteger" },
+        "bootstrap_retry_count": { "type": "integer", "minimum": 0 },
+        "model_requests": { "$ref": "#/$defs/nullableInteger" },
+        "input_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "cached_input_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "output_tokens": { "$ref": "#/$defs/nullableInteger" },
+        "reasoning_tokens": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "resourceEnvelope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cpus", "memory_mb", "pids", "wall_clock_seconds_per_command", "output_bytes_per_stream"],
+      "properties": {
+        "cpus": { "type": "integer", "minimum": 1 },
+        "memory_mb": { "type": "integer", "minimum": 1 },
+        "pids": { "type": "integer", "minimum": 1 },
+        "wall_clock_seconds_per_command": { "type": "integer", "minimum": 1 },
+        "output_bytes_per_stream": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "operationalCaps": {
+      "type": "object", "additionalProperties": false,
+      "required": ["finder_wall_seconds", "qualification_wall_seconds", "prepare_wall_seconds", "ship_wall_seconds", "maximum_attempts"],
+      "properties": {
+        "finder_wall_seconds": { "type": "integer", "minimum": 1 },
+        "qualification_wall_seconds": { "type": "integer", "minimum": 1 },
+        "prepare_wall_seconds": { "type": "integer", "minimum": 1 },
+        "ship_wall_seconds": { "type": "integer", "minimum": 1 },
+        "maximum_attempts": { "type": ["integer", "null"], "minimum": 1 }
+      }
+    },
+    "evidenceRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["artifact", "artifact_sha256", "json_pointer"],
+      "properties": {
+        "artifact": { "type": "string", "minLength": 1 },
+        "artifact_sha256": { "$ref": "#/$defs/digest" },
+        "json_pointer": { "type": "string", "pattern": "^/" }
+      }
+    },
+    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "taskId": { "type": "string", "pattern": "^TASK-OSS-[0-9A-F]{16}$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "nullableString": { "type": ["string", "null"], "minLength": 1 },
+    "nullableInteger": { "type": ["integer", "null"], "minimum": 0 },
+    "nullableDecimal": { "type": ["string", "null"], "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$" }
+  }
+}

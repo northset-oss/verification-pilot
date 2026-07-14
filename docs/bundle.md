@@ -49,7 +49,9 @@ The bundle contains the validated mission, derived command/base/outcome/tier fil
 the redacted run outputs, any supported optional source files, and
 `bundle.manifest.json`. Manifest entries are path-sorted, exclude the manifest itself,
 and record the SHA-256 and byte length of every other bundle file. `created_at` comes
-only from the required flag.
+only from the required flag. When the mission pipeline supplies `economic.json`, it is validated
+and included as another signed bundle member; a later `approval.json` is deliberately outside this
+prepared bundle because approval happens after these exact bytes exist.
 
 Verify an existing bundle with:
 
@@ -60,6 +62,7 @@ node bin/bundle.mjs verify <mission-dir>
 Success prints `OK <bundle_digest>`. Verification rejects non-regular members (including
 symlinks), hash/size drift, missing or extra files, invalid mission/run-record structure, and
 semantic contradictions among the mission, declared/executed commands, base commit, patch,
-claims tier, maintainer outcome, and consent receipt. Legacy run records without
-`schema_version` remain readable; newly executed records use `schema_version: 1`. `--json` is
+claims tier, maintainer outcome, consent receipt, and optional economic identity. Legacy run records
+without `schema_version` and schema-version-1 records remain readable; newly executed records use
+`schema_version: 2`. `--json` is
 available for verification as well.

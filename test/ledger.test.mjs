@@ -717,10 +717,10 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /Building tests for @blockly\/plugin-workspace-search/);
   assert.match(m008, /Tried to move a non-movable workspace/);
   assert.doesNotMatch(m001, /run wall \(derived from recorded timestamps\)/);
-  assert.doesNotMatch(m001, /setup \+ install \(derived\)/);
-  assert.doesNotMatch(m008, /setup \+ install \(online, derived\)/);
-  assert.match(m008, /setup \+ install \(derived\)/);
-  assert.match(m008, /<h1>Proof-of-Pass Receipt — M-008<\/h1>/);
+  assert.doesNotMatch(m001, /unclassified executor time \(derived residual\)/);
+  assert.doesNotMatch(m008, /setup \+ install/);
+  assert.match(m008, /unclassified executor time \(derived residual\)/);
+  assert.match(m008, /<h1>Proof-of-Pass Receipt — <span class="receipt-id">M-008<\/span><\/h1>/);
   assert.match(m008, /workspace-search buttons need type=button/);
   assert.match(m016, /Public scope interpretation/);
   assert.match(m016, /The declared network-off check runs one focused Vitest spec for Quadlet digest replacement\. It does not run Renovate’s full test, lint, typecheck, or coverage gates\./);
@@ -748,7 +748,8 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /\.receipt--declared\s*\{/);
   assert.match(m008, /data-print/);
   assert.match(m008, /window\.print\(\)/);
-  assert.match(m008, /@page \{ size:80mm 800mm; margin:4mm; \}/);
+  assert.match(m008, /@page \{ margin:8mm; \}/);
+  assert.match(m008, /\.receipt:not\(\.receipt--economic\)\s*\{\s*width:72mm/);
   assert.equal(await readFile(path.join(temporaryRoot, 'site', 'assets', 'keep.txt'), 'utf8'), 'keep asset\n');
   assert.equal(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'legacy', 'index.html'), 'utf8'), 'keep legacy\n');
   await assert.rejects(access(path.join(temporaryRoot, 'site', 'receipts', 'M-999', 'index.html')), (error) => error.code === 'ENOENT');
