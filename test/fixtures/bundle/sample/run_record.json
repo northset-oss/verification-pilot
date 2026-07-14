@@ -3,7 +3,9 @@
   "finished_at": "2026-07-08T10:00:01Z",
   "environment": {
     "container_image_digest": null,
-    "network_policy": "Network disabled; operator path /Users/fixture/work"
+    "network_policy": "Network disabled; operator path /Users/fixture/work",
+    "source_commit": "1111111111111111111111111111111111111111",
+    "patch_sha256": "sha256:8dc8f17a7ad6e089ac67e4d786720195058b9194129464b03dc08d7cd473796f"
   },
   "commands": [
     {

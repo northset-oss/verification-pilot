@@ -155,18 +155,28 @@ test('CONSENT_FILE_REQUIRED applies to V but not own_repo_rehearsal', async (t) 
   assert.match(rejected.stderr, /CONSENT_FILE_REQUIRED/);
   assert.equal(rejected.stdout, '');
 
-  await writeFile(path.join(variantDirectory, 'consent.md'), 'fixture consent\n');
+  const consent = {
+    schema_version: 1,
+    mission_id: 'M-102',
+    variant: 'V',
+    consent_artifact: 'https://example.com/maintainer/bundle-fixture/consent/1',
+    granted_at: '2026-07-08T12:00:00Z',
+    granted_by: 'fixture maintainer',
+    publication_consent: true,
+    scope: ['run the declared verification commands', 'publish the scoped receipt'],
+  };
+  await writeFile(path.join(variantDirectory, 'consent.json'), `${JSON.stringify(consent, null, 2)}\n`);
   const consented = run(createArgs(variantDirectory));
   assert.equal(consented.status, 0, consented.stderr);
-  assert.equal(
-    await readFile(path.join(variantDirectory, 'bundle/consent.md'), 'utf8'),
-    'fixture consent\n',
+  assert.deepEqual(
+    JSON.parse(await readFile(path.join(variantDirectory, 'bundle/consent.json'), 'utf8')),
+    consent,
   );
 
   const rehearsalDirectory = await copyFixture(t);
   const accepted = run(createArgs(rehearsalDirectory));
   assert.equal(accepted.status, 0, accepted.stderr);
-  assert.equal((await readdir(path.join(rehearsalDirectory, 'bundle'))).includes('consent.md'), false);
+  assert.equal((await readdir(path.join(rehearsalDirectory, 'bundle'))).includes('consent.json'), false);
 });
 
 test('--json returns machine-readable create and verify results', async (t) => {
@@ -195,7 +205,6 @@ test('run record validation rejects unknown top-level keys and malformed members
   const result = validateRunRecord(record);
   assert.equal(result.valid, false);
   assert.deepEqual(result.errors.map((error) => error.ruleId), [
-    'RUN_RECORD_ADDITIONAL_PROPERTY',
     'RUN_RECORD_FORMAT',
     'RUN_RECORD_TYPE',
   ]);

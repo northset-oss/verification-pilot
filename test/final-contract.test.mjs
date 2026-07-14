@@ -1,0 +1,186 @@
+import assert from 'node:assert/strict';
+import { cp, mkdtemp, readFile, rm, unlink, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import test from 'node:test';
+import { fileURLToPath } from 'node:url';
+
+import { buildLedger, renderLedger, validatePublication } from '../lib/ledger.mjs';
+
+const root = fileURLToPath(new URL('../', import.meta.url));
+const generatedAt = '2026-07-14T14:30:00Z';
+const publicationFields = [
+  'schema_version', 'mission_id', 'state', 'pr_number', 'pr_url', 'pr_head_oid',
+  'base_branch', 'head_drift', 'ci_state', 'merge_commit_oid', 'review_decision',
+  'decision_url', 'opened_at', 'closed_at', 'updated_at', 'observed_at',
+  'correction_note', 'scope_note', 'attestation_uri', 'bundle_digest',
+  'release_asset_sha256', 'attestation_verified_at',
+].sort();
+
+function completePublication(overrides = {}) {
+  return {
+    schema_version: 1,
+    mission_id: 'M-007',
+    state: 'open',
+    pr_number: 7,
+    pr_url: 'https://github.com/acme/project/pull/7',
+    pr_head_oid: 'a'.repeat(40),
+    base_branch: 'main',
+    head_drift: false,
+    ci_state: 'success',
+    merge_commit_oid: null,
+    review_decision: 'review_required',
+    decision_url: null,
+    opened_at: '2026-07-14T10:00:00Z',
+    closed_at: null,
+    updated_at: '2026-07-14T10:01:00Z',
+    observed_at: '2026-07-14T14:25:52Z',
+    correction_note: null,
+    scope_note: null,
+    attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz',
+    bundle_digest: `sha256:${'b'.repeat(64)}`,
+    release_asset_sha256: `sha256:${'c'.repeat(64)}`,
+    attestation_verified_at: '2026-07-14T14:21:48Z',
+    ...overrides,
+  };
+}
+
+test('publication schema is exact, complete, and enforces state-dependent facts', () => {
+  assert.deepEqual(Object.keys(validatePublication(completePublication(), 'M-007')).sort(), publicationFields);
+  assert.throws(() => validatePublication({ ...completePublication(), surprise: true }, 'M-007'), /allowed|unknown|additional/i);
+  const missing = completePublication();
+  delete missing.observed_at;
+  assert.throws(() => validatePublication(missing, 'M-007'), /observed_at.*required/i);
+  assert.throws(() => validatePublication(completePublication({ state: 'merged', closed_at: '2026-07-14T10:01:00Z', merge_commit_oid: null }), 'M-007'), /merge_commit_oid/i);
+  assert.throws(() => validatePublication(completePublication({ state: 'open', closed_at: generatedAt }), 'M-007'), /closed_at/i);
+  assert.throws(() => validatePublication(completePublication({ head_drift: true, pr_head_oid: null }), 'M-007'), /head_drift|pr_head_oid/i);
+  assert.throws(() => validatePublication(completePublication({ release_asset_sha256: 'abc' }), 'M-007'), /release_asset_sha256/i);
+  assert.throws(() => validatePublication(completePublication({ observed_at: '2026-07-14T09:59:59Z' }), 'M-007'), /observed_at|timestamps/i);
+  assert.throws(() => validatePublication(completePublication({
+    attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz?download=1',
+  }), 'M-007'), /attestation_uri|release asset/i);
+});
+
+test('ledger cross-checks head_drift against the immutable recorded patch commit', async (t) => {
+  const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-head-drift-'));
+  t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
+  const missions = path.join(temporaryRoot, 'missions');
+  await cp(path.join(root, 'missions/M-007'), path.join(missions, 'M-007'), { recursive: true });
+  const publicationPath = path.join(missions, 'M-007/publication.json');
+  const mission = JSON.parse(await readFile(path.join(missions, 'M-007/mission.json'), 'utf8'));
+  const publication = JSON.parse(await readFile(publicationPath, 'utf8'));
+
+  publication.pr_head_oid = 'f'.repeat(40);
+  publication.head_drift = false;
+  await writeFile(publicationPath, `${JSON.stringify(publication, null, 2)}\n`);
+  await assert.rejects(
+    buildLedger({ missionsDir: missions, out: path.join(temporaryRoot, 'false-mismatch.json'), now: generatedAt }),
+    /head_drift.*mismatch|mismatch.*head_drift/i,
+  );
+
+  publication.pr_head_oid = mission.patch_commit;
+  publication.head_drift = true;
+  await writeFile(publicationPath, `${JSON.stringify(publication, null, 2)}\n`);
+  await assert.rejects(
+    buildLedger({ missionsDir: missions, out: path.join(temporaryRoot, 'true-match.json'), now: generatedAt }),
+    /head_drift.*mismatch|mismatch.*head_drift/i,
+  );
+});
+
+test('all committed missions have complete publication envelopes and freshness metadata', async () => {
+  for (const missionId of ['M-001', 'M-002', 'M-003', 'M-007', 'M-008', 'M-009', 'M-011', 'M-012', 'M-014', 'M-015', 'M-016', 'M-019', 'M-020']) {
+    const publication = JSON.parse(await readFile(path.join(root, 'missions', missionId, 'publication.json'), 'utf8'));
+    assert.deepEqual(Object.keys(publication).sort(), publicationFields, missionId);
+    assert.equal(publication.attestation_verified_at, '2026-07-14T14:21:48Z', missionId);
+    assert.match(publication.release_asset_sha256, /^sha256:[0-9a-f]{64}$/, missionId);
+    validatePublication(publication, missionId);
+  }
+});
+
+test('generated open ledger exposes exact state counts, freshness, provenance, drift, and machine-readable ledger', async (t) => {
+  const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-final-contract-'));
+  t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
+  const indexPath = path.join(temporaryRoot, 'index.json');
+  const siteFile = path.join(temporaryRoot, 'site', 'index.html');
+  const built = await buildLedger({ missionsDir: path.join(root, 'missions'), out: indexPath, now: generatedAt });
+  assert.equal(built.included, 13);
+  await renderLedger({ indexPath, out: siteFile, now: generatedAt });
+  const html = await readFile(siteFile, 'utf8');
+  assert.match(html, new RegExp(`Generated at\\s*${generatedAt}`));
+  for (const [number, label] of [['10', 'External receipts'], ['3', 'Merged upstream'], ['3', 'Closed unmerged'], ['1', 'Open approved'], ['1', 'Open changes requested'], ['2', 'Open awaiting review']]) {
+    assert.match(html, new RegExp(`<strong>${number}</strong> ${label}`));
+  }
+  assert.match(html, /External status.*mutable.*unattested/is);
+  assert.match(html, /M-011[\s\S]*recorded patch commit[\s\S]*current PR head/i);
+  assert.match(html, /M-020[\s\S]*recorded patch commit[\s\S]*current PR head/i);
+  assert.doesNotMatch(html, /This receipt tested/i);
+  const receipt = JSON.parse(await readFile(path.join(temporaryRoot, 'site/receipts/M-020/receipt.json'), 'utf8'));
+  assert.equal(receipt.generated_at, generatedAt);
+  assert.ok(receipt.execution_summary);
+  assert.ok(receipt.code.recorded_patch_commit);
+  assert.equal(receipt.code.patch_commit_binding, 'declared metadata; not execution-bound');
+  assert.equal(receipt.code.patch_diff_binding, 'bound to executed patch bytes');
+  assert.ok(receipt.bundle.bundle_contents_digest);
+  assert.ok(receipt.bundle.signed_asset_sha256);
+  assert.equal(receipt.bundle.attestation_verified_at, '2026-07-14T14:21:48Z');
+  const publicLedger = JSON.parse(await readFile(path.join(temporaryRoot, 'site/ledger.json'), 'utf8'));
+  assert.equal(publicLedger.generated_at, generatedAt);
+  assert.equal(publicLedger.receipts.length, 13);
+});
+
+test('render rejects unknown index fields instead of trusting hand-authored projections', async (t) => {
+  const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-index-strict-'));
+  t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
+  const indexPath = path.join(temporaryRoot, 'index.json');
+  await writeFile(indexPath, JSON.stringify({ version: '0', generated_at: generatedAt, missions: [], extra: true }));
+  await assert.rejects(renderLedger({ indexPath, out: path.join(temporaryRoot, 'site/index.html'), now: generatedAt }), /extra|allowed|index/i);
+});
+
+test('ledger build is strict by default and allow-skips is an explicit diagnostic mode', async (t) => {
+  const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-build-strict-'));
+  t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
+  const missions = path.join(temporaryRoot, 'missions');
+  await cp(path.join(root, 'test/fixtures/ledger/missions'), missions, { recursive: true });
+  await unlink(path.join(missions, 'alpha/publication.json'));
+  await assert.rejects(
+    buildLedger({ missionsDir: missions, out: path.join(temporaryRoot, 'strict.json'), now: generatedAt }),
+    /publication\.json is required/,
+  );
+  const diagnostic = await buildLedger({
+    missionsDir: missions,
+    out: path.join(temporaryRoot, 'diagnostic.json'),
+    now: generatedAt,
+    allowSkips: true,
+  });
+  assert.ok(diagnostic.skipped >= 2);
+
+  const emptyMissions = path.join(temporaryRoot, 'empty-missions');
+  await cp(path.join(root, 'test/fixtures/ledger/missions/alpha'), path.join(emptyMissions, 'M-007'), { recursive: true });
+  await unlink(path.join(emptyMissions, 'M-007/mission.json'));
+  await assert.rejects(
+    buildLedger({ missionsDir: emptyMissions, out: path.join(temporaryRoot, 'missing-mission.json'), now: generatedAt }),
+    /mission\.json is required/i,
+  );
+});
+
+test('public JSON schemas are committed for publication, ledger, receipt, and run record', async () => {
+  for (const name of ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json']) {
+    const schema = JSON.parse(await readFile(path.join(root, 'schema', name), 'utf8'));
+    assert.equal(schema.additionalProperties, false, name);
+  }
+  const publicationSchema = JSON.parse(await readFile(path.join(root, 'schema/publication.schema.json'), 'utf8'));
+  assert.deepEqual([...publicationSchema.required].sort(), publicationFields);
+  const receiptSchema = JSON.parse(await readFile(path.join(root, 'schema/public-receipt.schema.json'), 'utf8'));
+  const receipt = JSON.parse(await readFile(path.join(root, 'site/receipts/M-020/receipt.json'), 'utf8'));
+  assert.deepEqual(Object.keys(receipt).sort(), [...receiptSchema.required].sort());
+  const ledgerSchema = JSON.parse(await readFile(path.join(root, 'schema/ledger.schema.json'), 'utf8'));
+  const ledger = JSON.parse(await readFile(path.join(root, 'site/ledger.json'), 'utf8'));
+  assert.deepEqual(Object.keys(ledger).sort(), [...ledgerSchema.required].sort());
+  for (const name of ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json']) {
+    assert.deepEqual(
+      JSON.parse(await readFile(path.join(root, 'site/schema', name), 'utf8')),
+      JSON.parse(await readFile(path.join(root, 'schema', name), 'utf8')),
+      `${name} must be published with the Pages site`,
+    );
+  }
+});

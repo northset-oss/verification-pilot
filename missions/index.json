@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-14T11:44:16Z",
+  "generated_at": "2026-07-14T15:02:48Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -13,14 +13,37 @@
       "issue_or_task": null,
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
+        "status": "prepared",
         "link": null
       },
-      "run_record_bundle_digest": null,
+      "run_record_bundle_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-001",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
+        "bundle_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
+        "release_asset_sha256": "sha256:717170af7491439460c951cc635d346a9866413bc868bc4c1f75c9a2b8c9fedd",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
+      },
       "receipt": {
         "version": 1,
         "mission_id": "M-001",
@@ -39,14 +62,19 @@
         },
         "code": {
           "base_commit": null,
-          "tested_commit": null,
-          "patch_diff_hash": null
+          "recorded_patch_commit": null,
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": null,
+          "patch_diff_binding": "no patch recorded"
         },
         "started_at": "2026-07-10T00:00:00Z",
         "finished_at": "2026-07-10T00:00:00Z",
         "environment": {
           "container_image_ref": "node:20-bookworm-slim",
           "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": null,
           "install_commands": []
@@ -62,6 +90,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": null,
         "setup_install_duration_ms": null,
         "payment": {
@@ -75,6 +104,8 @@
           "Self-funded rehearsal on Northset's own repository; not external validation."
         ],
         "bundle_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
+        "release_asset_sha256": "sha256:717170af7491439460c951cc635d346a9866413bc868bc4c1f75c9a2b8c9fedd",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
         "verify_command": "gh attestation verify run-record-M-001.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
@@ -83,7 +114,30 @@
         "stderr_redacted": "=== cmd 1: node --test ===\n",
         "correction_note": null,
         "scope_note": null,
-        "publication": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-001",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
+          "bundle_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
+          "release_asset_sha256": "sha256:717170af7491439460c951cc635d346a9866413bc868bc4c1f75c9a2b8c9fedd",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
+        },
         "live_outcome": null
       }
     },
@@ -98,14 +152,37 @@
       "issue_or_task": null,
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
+        "status": "prepared",
         "link": null
       },
       "run_record_bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-002",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
+        "bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
+        "release_asset_sha256": "sha256:74d6669758500e108bf08b86970292d26ec291259313c9d4ec48df8fcbf78ebb",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
+      },
       "receipt": {
         "version": 1,
         "mission_id": "M-002",
@@ -124,14 +201,19 @@
         },
         "code": {
           "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
-          "tested_commit": null,
-          "patch_diff_hash": null
+          "recorded_patch_commit": null,
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": null,
+          "patch_diff_binding": "no patch recorded"
         },
         "started_at": "2026-07-10T19:31:21.476Z",
         "finished_at": "2026-07-10T19:31:22.336Z",
         "environment": {
           "container_image_ref": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
           "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": null,
           "install_commands": []
@@ -147,6 +229,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 860,
         "setup_install_duration_ms": 623,
         "payment": {
@@ -160,6 +243,8 @@
           "Self-funded rehearsal on Northset's own repository; not external validation."
         ],
         "bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
+        "release_asset_sha256": "sha256:74d6669758500e108bf08b86970292d26ec291259313c9d4ec48df8fcbf78ebb",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
         "verify_command": "gh attestation verify run-record-M-002.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
@@ -168,7 +253,30 @@
         "stderr_redacted": "=== cmd 1: node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json ===\n",
         "correction_note": null,
         "scope_note": null,
-        "publication": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-002",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-002/run-record-M-002.tar.gz",
+          "bundle_digest": "sha256:8913a843c76dc93dffd0d1ed5fdd23b12cd5970a032c624513faaab7cbeeb197",
+          "release_asset_sha256": "sha256:74d6669758500e108bf08b86970292d26ec291259313c9d4ec48df8fcbf78ebb",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
+        },
         "live_outcome": null
       }
     },
@@ -183,14 +291,37 @@
       "issue_or_task": null,
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "pending",
+        "status": "prepared",
         "link": null
       },
       "run_record_bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
       "disclosure_label": "Self-funded rehearsal. Not external validation.",
       "attested": true,
-      "publication": null,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-003",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
+        "bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+        "release_asset_sha256": "sha256:90ceabf13f47e43b4c8ff3e80128a88dac9881d9420579766da09c88b13f741b",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
+      },
       "receipt": {
         "version": 1,
         "mission_id": "M-003",
@@ -209,14 +340,19 @@
         },
         "code": {
           "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
-          "tested_commit": null,
-          "patch_diff_hash": null
+          "recorded_patch_commit": null,
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": null,
+          "patch_diff_binding": "no patch recorded"
         },
         "started_at": "2026-07-10T19:33:56.672Z",
         "finished_at": "2026-07-10T19:33:57.860Z",
         "environment": {
           "container_image_ref": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
           "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": null,
           "install_commands": []
@@ -238,6 +374,7 @@
         "declared_checks": 2,
         "successful_checks": 2,
         "result": "PASS — 2/2 declared commands",
+        "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 1188,
         "setup_install_duration_ms": 719,
         "payment": {
@@ -251,6 +388,8 @@
           "Self-funded rehearsal on Northset's own repository; not external validation."
         ],
         "bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+        "release_asset_sha256": "sha256:90ceabf13f47e43b4c8ff3e80128a88dac9881d9420579766da09c88b13f741b",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
         "verify_command": "gh attestation verify run-record-M-003.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
@@ -259,7 +398,30 @@
         "stderr_redacted": "=== cmd 1: node bin/validate-mission.mjs missions/M-001/mission.json ===\n=== cmd 2: node bin/bundle.mjs verify missions/M-001 ===\n",
         "correction_note": null,
         "scope_note": null,
-        "publication": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-003",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
+          "bundle_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+          "release_asset_sha256": "sha256:90ceabf13f47e43b4c8ff3e80128a88dac9881d9420579766da09c88b13f741b",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
+        },
         "live_outcome": null
       }
     },
@@ -295,10 +457,13 @@
         "opened_at": "2026-07-11T23:24:09Z",
         "closed_at": null,
         "updated_at": "2026-07-11T23:26:24Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
         "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -318,14 +483,19 @@
         },
         "code": {
           "base_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
-          "tested_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
-          "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2"
+          "recorded_patch_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-11T23:07:52.808Z",
         "finished_at": "2026-07-11T23:13:48.745Z",
         "environment": {
           "container_image_ref": "maven:3.9-eclipse-temurin-11",
           "container_image_digest": "maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
           "install_commands": [
@@ -351,6 +521,7 @@
         "declared_checks": 2,
         "successful_checks": 2,
         "result": "PASS — 2/2 declared commands",
+        "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 355937,
         "setup_install_duration_ms": 314003,
         "payment": {
@@ -370,6 +541,8 @@
           "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms."
         ],
         "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+        "release_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
         "verify_command": "gh attestation verify run-record-M-007.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
@@ -394,10 +567,13 @@
           "opened_at": "2026-07-11T23:24:09Z",
           "closed_at": null,
           "updated_at": "2026-07-11T23:26:24Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
           "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "open",
@@ -438,10 +614,13 @@
         "opened_at": "2026-07-12T02:18:47Z",
         "closed_at": "2026-07-13T19:03:50Z",
         "updated_at": "2026-07-13T19:03:50Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
         "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:78d81249cc1b429983365ad72de44971530936d65e938f42cdc75b8e1eb56638",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -461,14 +640,19 @@
         },
         "code": {
           "base_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
-          "tested_commit": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
-          "patch_diff_hash": "sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922"
+          "recorded_patch_commit": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-12T01:49:17.299Z",
         "finished_at": "2026-07-12T01:51:33.547Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
           "install_commands": [
@@ -488,6 +672,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 136248,
         "setup_install_duration_ms": 129747,
         "payment": {
@@ -507,6 +692,8 @@
           "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages."
         ],
         "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+        "release_asset_sha256": "sha256:78d81249cc1b429983365ad72de44971530936d65e938f42cdc75b8e1eb56638",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
         "verify_command": "gh attestation verify run-record-M-008.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
@@ -531,10 +718,13 @@
           "opened_at": "2026-07-12T02:18:47Z",
           "closed_at": "2026-07-13T19:03:50Z",
           "updated_at": "2026-07-13T19:03:50Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
           "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:78d81249cc1b429983365ad72de44971530936d65e938f42cdc75b8e1eb56638",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "merged",
@@ -575,10 +765,13 @@
         "opened_at": "2026-07-12T10:15:36Z",
         "closed_at": "2026-07-12T10:46:44Z",
         "updated_at": "2026-07-12T10:46:44Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
         "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:83000c6ca030d502b4b3f1fc6afd16168bb1148c3699d17dc618792c874dc9a8",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -598,14 +791,19 @@
         },
         "code": {
           "base_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
-          "tested_commit": "296019b33e287334febc9882b204c9501725116d",
-          "patch_diff_hash": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714"
+          "recorded_patch_commit": "296019b33e287334febc9882b204c9501725116d",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-12T10:06:34.026Z",
         "finished_at": "2026-07-12T10:07:48.529Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
           "install_commands": [
@@ -624,6 +822,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 74503,
         "setup_install_duration_ms": 62848,
         "payment": {
@@ -638,6 +837,8 @@
           "The declared network-off check runs Prettier's full Markdown Jest suite (tests/format/markdown, 1476 tests including the new escaped-entity-semicolon regression fixture) on Node 22 via the repository's vendored Yarn, after a disclosed online phase-A install. It does not run the full repository test/lint matrix; upstream CI additionally runs multiple Node versions, ESLint, TypeScript typecheck, changelog lint, and production/browser tests."
         ],
         "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+        "release_asset_sha256": "sha256:83000c6ca030d502b4b3f1fc6afd16168bb1148c3699d17dc618792c874dc9a8",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
         "verify_command": "gh attestation verify run-record-M-009.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
@@ -662,10 +863,13 @@
           "opened_at": "2026-07-12T10:15:36Z",
           "closed_at": "2026-07-12T10:46:44Z",
           "updated_at": "2026-07-12T10:46:44Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
           "bundle_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:83000c6ca030d502b4b3f1fc6afd16168bb1148c3699d17dc618792c874dc9a8",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "closed_unmerged",
@@ -706,10 +910,13 @@
         "opened_at": "2026-07-12T20:04:24Z",
         "closed_at": null,
         "updated_at": "2026-07-14T00:23:44Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
         "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:5b5e4910280b590f9669865161086644cf9f04178229e4f7c25be20d331f7935",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -729,14 +936,19 @@
         },
         "code": {
           "base_commit": "c51c2cd36f6a14e32fa305a164ccded7c250612a",
-          "tested_commit": "e345d993c4d2e1ad54e7367e38e07bcc283ccbca",
-          "patch_diff_hash": "sha256:a42626ab3db4f7f1e5ab68068b2818e3f4c522092c54b786c671a3e969c3ebbf"
+          "recorded_patch_commit": "e345d993c4d2e1ad54e7367e38e07bcc283ccbca",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:a42626ab3db4f7f1e5ab68068b2818e3f4c522092c54b786c671a3e969c3ebbf",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-12T20:03:40.048Z",
         "finished_at": "2026-07-12T20:04:34.428Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "c51c2cd36f6a14e32fa305a164ccded7c250612a",
           "install_commands": [
@@ -755,6 +967,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 54380,
         "setup_install_duration_ms": 48518,
         "payment": {
@@ -774,6 +987,8 @@
           "The declared network-off check runs the prom-client jest unit suite on node:22 after a disclosed online phase-A npm ci. It does not run lint, prettier, or the TypeScript type-check gates that upstream CI also runs."
         ],
         "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
+        "release_asset_sha256": "sha256:5b5e4910280b590f9669865161086644cf9f04178229e4f7c25be20d331f7935",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
         "verify_command": "gh attestation verify run-record-M-011.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
@@ -798,10 +1013,13 @@
           "opened_at": "2026-07-12T20:04:24Z",
           "closed_at": null,
           "updated_at": "2026-07-14T00:23:44Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz",
           "bundle_digest": "sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:5b5e4910280b590f9669865161086644cf9f04178229e4f7c25be20d331f7935",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "approved",
@@ -844,10 +1062,13 @@
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
         "updated_at": "2026-07-13T21:13:48Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -867,14 +1088,19 @@
         },
         "code": {
           "base_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
-          "tested_commit": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
-          "patch_diff_hash": "sha256:524fa5413c71090d9b4d4ad8dfd20f877f163551943875f83db2fbde9903beb3"
+          "recorded_patch_commit": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:524fa5413c71090d9b4d4ad8dfd20f877f163551943875f83db2fbde9903beb3",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-12T22:06:14.381Z",
         "finished_at": "2026-07-12T22:06:51.093Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "11d012a9956fc778a024a37488f0783e4b1cf90f",
           "install_commands": [
@@ -892,6 +1118,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 36712,
         "setup_install_duration_ms": 35965,
         "payment": {
@@ -906,6 +1133,8 @@
           "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs."
         ],
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+        "release_asset_sha256": "sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
         "verify_command": "gh attestation verify run-record-M-012.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
@@ -930,10 +1159,13 @@
           "opened_at": "2026-07-12T22:22:09Z",
           "closed_at": null,
           "updated_at": "2026-07-13T21:13:48Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
           "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "changes_requested",
@@ -974,10 +1206,13 @@
         "opened_at": "2026-07-13T00:31:54Z",
         "closed_at": "2026-07-13T02:23:13Z",
         "updated_at": "2026-07-13T02:23:33Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
         "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:1121a9aa74a20a29854bd9130157cc6dd628d5ebfe27ff55c53e0e99348f2cfe",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -997,14 +1232,19 @@
         },
         "code": {
           "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
-          "tested_commit": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
-          "patch_diff_hash": "sha256:48a2c9ae72581cf4767ec4bc01ed2b1468ebf12aef9973f6e4ecf49c4803b666"
+          "recorded_patch_commit": "6e2083494d2cb088ee5bb9fb82bc05deb16a684e",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:48a2c9ae72581cf4767ec4bc01ed2b1468ebf12aef9973f6e4ecf49c4803b666",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-13T00:25:57.698Z",
         "finished_at": "2026-07-13T00:27:10.686Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
           "install_commands": [
@@ -1022,6 +1262,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 72988,
         "setup_install_duration_ms": 67395,
         "payment": {
@@ -1041,6 +1282,8 @@
           "The declared network-off check runs `npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
         ],
         "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
+        "release_asset_sha256": "sha256:1121a9aa74a20a29854bd9130157cc6dd628d5ebfe27ff55c53e0e99348f2cfe",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
         "verify_command": "gh attestation verify run-record-M-014.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
@@ -1065,10 +1308,13 @@
           "opened_at": "2026-07-13T00:31:54Z",
           "closed_at": "2026-07-13T02:23:13Z",
           "updated_at": "2026-07-13T02:23:33Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-014/run-record-M-014.tar.gz",
           "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:1121a9aa74a20a29854bd9130157cc6dd628d5ebfe27ff55c53e0e99348f2cfe",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "closed_unmerged",
@@ -1109,10 +1355,13 @@
         "opened_at": "2026-07-13T01:08:25Z",
         "closed_at": "2026-07-13T01:27:05Z",
         "updated_at": "2026-07-13T01:27:05Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
         "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
-        "release_asset_sha256": null
+        "release_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -1132,14 +1381,19 @@
         },
         "code": {
           "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
-          "tested_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
-          "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6"
+          "recorded_patch_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-13T01:03:28.905Z",
         "finished_at": "2026-07-13T01:04:13.457Z",
         "environment": {
           "container_image_ref": "node:22-bookworm",
           "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
           "install_commands": [
@@ -1157,6 +1411,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 44552,
         "setup_install_duration_ms": 37002,
         "payment": {
@@ -1176,6 +1431,8 @@
           "The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
         ],
         "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+        "release_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
         "verify_command": "gh attestation verify run-record-M-015.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
@@ -1200,10 +1457,13 @@
           "opened_at": "2026-07-13T01:08:25Z",
           "closed_at": "2026-07-13T01:27:05Z",
           "updated_at": "2026-07-13T01:27:05Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
           "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
-          "release_asset_sha256": null
+          "release_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "closed_unmerged",
@@ -1244,11 +1504,13 @@
         "opened_at": "2026-07-13T18:20:19Z",
         "closed_at": null,
         "updated_at": "2026-07-13T18:21:42Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
-        "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287"
+        "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -1268,14 +1530,19 @@
         },
         "code": {
           "base_commit": "77da69117e70421ae034f2723f8007dd6829f142",
-          "tested_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
-          "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb"
+          "recorded_patch_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-13T18:08:11.710Z",
         "finished_at": "2026-07-13T18:11:10.751Z",
         "environment": {
           "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
           "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "77da69117e70421ae034f2723f8007dd6829f142",
           "install_commands": [
@@ -1293,6 +1560,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 179041,
         "setup_install_duration_ms": 174051,
         "payment": {
@@ -1306,6 +1574,8 @@
           "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
         ],
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+        "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "verify_command": "gh attestation verify run-record-M-016-4a0512e8d6e6.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
@@ -1330,11 +1600,13 @@
           "opened_at": "2026-07-13T18:20:19Z",
           "closed_at": null,
           "updated_at": "2026-07-13T18:21:42Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
           "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
-          "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287"
+          "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "open",
@@ -1375,11 +1647,13 @@
         "opened_at": "2026-07-13T20:22:36Z",
         "closed_at": "2026-07-13T20:39:02Z",
         "updated_at": "2026-07-13T20:39:02Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
         "scope_note": "The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
         "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
-        "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"
+        "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -1399,14 +1673,19 @@
         },
         "code": {
           "base_commit": "b11081470089ca0345117951033936405d874193",
-          "tested_commit": "7a233c5bc4d165eb20288bd8748c6bb09356ea6e",
-          "patch_diff_hash": "sha256:6f620bf548fc8a12cb1c45f3fc5c3dbde5d15ac90afaadd6cb5e1e59029ef1c5"
+          "recorded_patch_commit": "7a233c5bc4d165eb20288bd8748c6bb09356ea6e",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:6f620bf548fc8a12cb1c45f3fc5c3dbde5d15ac90afaadd6cb5e1e59029ef1c5",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-13T20:15:31.047Z",
         "finished_at": "2026-07-13T20:17:01.848Z",
         "environment": {
           "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
           "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "b11081470089ca0345117951033936405d874193",
           "install_commands": [
@@ -1424,6 +1703,7 @@
         "declared_checks": 1,
         "successful_checks": 1,
         "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
         "wall_duration_ms": 90801,
         "setup_install_duration_ms": 85681,
         "payment": {
@@ -1443,6 +1723,8 @@
           "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
         ],
         "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
+        "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
         "verify_command": "gh attestation verify run-record-M-019-94b543f5e590.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
@@ -1467,11 +1749,13 @@
           "opened_at": "2026-07-13T20:22:36Z",
           "closed_at": "2026-07-13T20:39:02Z",
           "updated_at": "2026-07-13T20:39:02Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
           "scope_note": "The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.",
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-019-94b543f5e590/run-record-M-019-94b543f5e590.tar.gz",
           "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",
-          "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991"
+          "release_asset_sha256": "sha256:f27def37d665ff3f176b9c68a1f3226d84476372b935c7cacf90350c0835a991",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "merged",
@@ -1512,10 +1796,13 @@
         "opened_at": "2026-07-14T11:35:06Z",
         "closed_at": "2026-07-14T13:27:04Z",
         "updated_at": "2026-07-14T13:27:04Z",
+        "observed_at": "2026-07-14T15:02:48Z",
         "correction_note": null,
+        "scope_note": null,
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
         "bundle_digest": "sha256:ee7f9a6f1ce091c8dd5d34edd000b4dabc5e403c4ce6c28432090a9db61df124",
-        "release_asset_sha256": "sha256:7d9687ebc8ad43c74d382e5eaa3d10ce77adafda9e70bc61792e7dda72dcb78c"
+        "release_asset_sha256": "sha256:7d9687ebc8ad43c74d382e5eaa3d10ce77adafda9e70bc61792e7dda72dcb78c",
+        "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
       "receipt": {
         "version": 1,
@@ -1535,14 +1822,19 @@
         },
         "code": {
           "base_commit": "caf30cc7c6123728c8c05d1f36e9cd8a67f23f0e",
-          "tested_commit": "ffc3e052480163e7338e3164008c6a7a26a77605",
-          "patch_diff_hash": "sha256:df4e811a58411b60c9f1b8362e342138080730992f78ff08c7e60ae0bf61d025"
+          "recorded_patch_commit": "ffc3e052480163e7338e3164008c6a7a26a77605",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:df4e811a58411b60c9f1b8362e342138080730992f78ff08c7e60ae0bf61d025",
+          "patch_diff_binding": "bound to executed patch bytes"
         },
         "started_at": "2026-07-14T00:54:12.419Z",
         "finished_at": "2026-07-14T01:25:30.968Z",
         "environment": {
           "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
           "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": null,
+          "container_os": null,
+          "container_architecture": null,
           "network_policy": "phaseA:bridge,phaseB:none",
           "source_commit": "caf30cc7c6123728c8c05d1f36e9cd8a67f23f0e",
           "install_commands": [
@@ -1578,6 +1870,7 @@
         "declared_checks": 4,
         "successful_checks": 4,
         "result": "PASS — 4/4 declared commands",
+        "execution_summary": "4/4 declared commands returned exit 0 in the recorded environment",
         "wall_duration_ms": 1878549,
         "setup_install_duration_ms": 350403,
         "payment": {
@@ -1601,6 +1894,8 @@
           "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
         ],
         "bundle_digest": "sha256:ee7f9a6f1ce091c8dd5d34edd000b4dabc5e403c4ce6c28432090a9db61df124",
+        "release_asset_sha256": "sha256:7d9687ebc8ad43c74d382e5eaa3d10ce77adafda9e70bc61792e7dda72dcb78c",
+        "attestation_verified_at": "2026-07-14T14:21:48Z",
         "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
         "verify_command": "gh attestation verify run-record-M-020-ee7f9a6f1ce0.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml",
         "download_url": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
@@ -1625,10 +1920,13 @@
           "opened_at": "2026-07-14T11:35:06Z",
           "closed_at": "2026-07-14T13:27:04Z",
           "updated_at": "2026-07-14T13:27:04Z",
+          "observed_at": "2026-07-14T15:02:48Z",
           "correction_note": null,
+          "scope_note": null,
           "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-020-ee7f9a6f1ce0/run-record-M-020-ee7f9a6f1ce0.tar.gz",
           "bundle_digest": "sha256:ee7f9a6f1ce091c8dd5d34edd000b4dabc5e403c4ce6c28432090a9db61df124",
-          "release_asset_sha256": "sha256:7d9687ebc8ad43c74d382e5eaa3d10ce77adafda9e70bc61792e7dda72dcb78c"
+          "release_asset_sha256": "sha256:7d9687ebc8ad43c74d382e5eaa3d10ce77adafda9e70bc61792e7dda72dcb78c",
+          "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
           "status": "merged",

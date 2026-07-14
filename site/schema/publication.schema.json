@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/publication.schema.json",
+  "title": "Northset publication envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mission_id", "state", "pr_number", "pr_url", "pr_head_oid", "base_branch", "head_drift", "ci_state", "merge_commit_oid", "review_decision", "decision_url", "opened_at", "closed_at", "updated_at", "observed_at", "correction_note", "scope_note", "attestation_uri", "bundle_digest", "release_asset_sha256", "attestation_verified_at"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "mission_id": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "state": { "enum": ["prepared", "open", "closed_unmerged", "merged"] },
+    "pr_number": { "type": ["integer", "null"], "minimum": 1 },
+    "pr_url": { "$ref": "#/$defs/nullableUrl" },
+    "pr_head_oid": { "$ref": "#/$defs/nullableOid" },
+    "base_branch": { "type": ["string", "null"], "minLength": 1 },
+    "head_drift": { "type": "boolean" },
+    "ci_state": { "enum": ["success", "failure", "pending", "cancelled", "skipped", null] },
+    "merge_commit_oid": { "$ref": "#/$defs/nullableOid" },
+    "review_decision": { "enum": ["approved", "changes_requested", "review_required", null] },
+    "decision_url": { "$ref": "#/$defs/nullableUrl" },
+    "opened_at": { "$ref": "#/$defs/nullableTime" },
+    "closed_at": { "$ref": "#/$defs/nullableTime" },
+    "updated_at": { "$ref": "#/$defs/nullableTime" },
+    "observed_at": { "$ref": "#/$defs/nullableTime" },
+    "correction_note": { "type": ["string", "null"], "minLength": 1 },
+    "scope_note": { "type": ["string", "null"], "minLength": 1 },
+    "attestation_uri": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
+    "bundle_digest": { "$ref": "#/$defs/digest" },
+    "release_asset_sha256": { "$ref": "#/$defs/digest" },
+    "attestation_verified_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "nullableOid": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+    "nullableUrl": { "type": ["string", "null"], "format": "uri" },
+    "nullableTime": { "type": ["string", "null"], "format": "date-time" }
+  }
+}

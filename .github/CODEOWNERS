@@ -1,0 +1,8 @@
+# Evidence, claims, signing, and publication controls require owner review.
+/lib/ @AysajanE
+/bin/ @AysajanE
+/schema/ @AysajanE
+/policies/ @AysajanE
+/.github/workflows/ @AysajanE
+/GOVERNANCE.md @AysajanE
+/SECURITY.md @AysajanE

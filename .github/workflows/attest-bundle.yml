@@ -1,125 +1,70 @@
-# Attest a mission run-record bundle so anyone can verify its provenance.
-#
-# This workflow NEVER runs untrusted PR code. It only packages a run-record bundle that the
-# sandboxed executor already produced, validates it, and attests the packaged tarball with
-# GitHub artifact attestations (Sigstore, public Rekor transparency log). Public repo only —
-# private-repo attestations require GitHub Enterprise and skip the public log.
-#
-# The attestation binds this bundle to THIS workflow, at THIS commit, in this repository. It is
-# provenance: it proves where the bundle came from and that it has not been altered. It does not
-# prove the checks passed, the code is safe, or the work is good. See policies/claims_boundary.md.
-
+# Sign only the exact artifact emitted by a successful CI run for a main-branch push.
 name: attest-bundle
 
 on:
-  workflow_dispatch:
-    inputs:
-      mission_id:
-        description: "Mission ID to attest (e.g. M-001)"
-        required: true
-  push:
-    branches: [main]
-    paths: ["missions/**/bundle/**"]
+  workflow_run:
+    workflows: ["ci"]
+    types: [completed]
 
-permissions:
-  id-token: write        # mint the OIDC token for a Sigstore signing certificate
-  attestations: write    # persist the attestation
-  contents: write        # checkout + publish the attested tarball as a release asset
+permissions: {}
 
 jobs:
   attest:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      id-token: write
+      attestations: write
+      contents: write
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Download the CI-validated handoff
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          fetch-depth: 2   # so a push event can diff HEAD~1 to find the changed mission
+          name: ci-release-${{ github.event.workflow_run.head_sha }}
+          path: handoff
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: "20"
-
-      - name: Resolve the mission id
-        id: mission
+      - name: Validate handoff metadata
+        id: handoff
         env:
-          INPUT_MISSION_ID: ${{ github.event.inputs.mission_id }}
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
-          MISSION="$INPUT_MISSION_ID"
-          if [ -z "$MISSION" ]; then
-            # Diff the same paths that trigger this workflow (missions/*/bundle/**) — a wider
-            # pathspec would count missions/index.json as a "mission" and trip the guard below
-            # on every normal bundle+index push.
-            CHANGED="$(git diff --name-only HEAD~1 -- ':(glob)missions/*/bundle/**' | cut -d/ -f2 | sort -u)"
-            # Fail closed on multi-mission pushes: silently attesting only the first changed
-            # mission would leave the others unsigned. Push one mission per commit, or
-            # dispatch this workflow once per mission id.
-            if [ "$(echo "$CHANGED" | grep -c .)" -gt 1 ]; then
-              echo "more than one mission changed in this push:" >&2
-              echo "$CHANGED" >&2
-              echo "re-run via workflow_dispatch once per mission id" >&2
-              exit 1
-            fi
-            MISSION="$CHANGED"
-          fi
-          # Fail closed on anything that is not a clean mission id (no path traversal / injection).
-          if ! [[ "$MISSION" =~ ^M-[0-9]{3,}$ || "$MISSION" =~ ^M-E2[a-c]$ ]]; then
-            echo "invalid or undeterminable mission id: '$MISSION'" >&2
-            exit 1
-          fi
-          test -d "missions/${MISSION}/bundle" || { echo "no bundle at missions/${MISSION}/bundle" >&2; exit 1; }
-          echo "id=${MISSION}" >> "$GITHUB_OUTPUT"
+          test "$(jq -r '.schema_version' handoff/metadata.json)" = "1"
+          test "$(jq -r '.head_sha' handoff/metadata.json)" = "$EXPECTED_SHA"
+          no_op="$(jq -r '.no_op' handoff/metadata.json)"
+          echo "no_op=$no_op" >> "$GITHUB_OUTPUT"
+          if [ "$no_op" = "true" ]; then exit 0; fi
+          mission="$(jq -r '.mission_id' handoff/metadata.json)"
+          bundle="$(jq -r '.bundle' handoff/metadata.json)"
+          digest="$(jq -r '.bundle_digest' handoff/metadata.json)"
+          tag="$(jq -r '.release_tag' handoff/metadata.json)"
+          [[ "$mission" =~ ^M-([0-9]{3,}|E2[a-c])$ ]]
+          [[ "$bundle" =~ ^run-record-${mission}-[0-9a-f]{12}\.tar\.gz$ ]]
+          [[ "$tag" =~ ^run-record-${mission}-[0-9a-f]{12}$ ]]
+          [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          test -f "handoff/$bundle"
+          echo "mission=$mission" >> "$GITHUB_OUTPUT"
+          echo "bundle=$bundle" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$tag" >> "$GITHUB_OUTPUT"
 
-      - name: Validate the receipt and the bundle before attesting
-        run: |
-          set -euo pipefail
-          M="${{ steps.mission.outputs.id }}"
-          node bin/validate-mission.mjs "missions/${M}/mission.json"
-          node bin/bundle.mjs verify "missions/${M}"
-          node bin/verify-receipt-parity.mjs "missions/${M}"
-          node bin/verify-proof-of-pass.mjs "missions/${M}"
-
-      - name: Package the bundle deterministically
-        id: pack
-        run: |
-          set -euo pipefail
-          M="${{ steps.mission.outputs.id }}"
-          BUNDLE_DIGEST="$(jq -r '.bundle_digest | sub("^sha256:"; "")' "missions/${M}/bundle/bundle.manifest.json")"
-          SHORT_DIGEST="${BUNDLE_DIGEST%${BUNDLE_DIGEST#????????????}}"
-          OUT="run-record-${M}-${SHORT_DIGEST}.tar.gz"
-          TAG="run-record-${M}-${SHORT_DIGEST}"
-          tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner \
-            -czf "${OUT}" -C "missions/${M}" bundle
-          sha256sum "${OUT}"
-          echo "bundle=${OUT}" >> "$GITHUB_OUTPUT"
-          echo "bundle_digest=sha256:${BUNDLE_DIGEST}" >> "$GITHUB_OUTPUT"
-          echo "release_tag=${TAG}" >> "$GITHUB_OUTPUT"
-
-      - name: Attest bundle provenance
+      - name: Attest exact bundle provenance
+        if: steps.handoff.outputs.no_op == 'false'
         uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
         with:
-          subject-path: ${{ steps.pack.outputs.bundle }}
+          subject-path: handoff/${{ steps.handoff.outputs.bundle }}
 
-      - name: Publish the attested tarball as a downloadable release asset
-        # The attestation binds this exact tarball's digest. tar/gzip output is not byte-
-        # reproducible across machines, so a verifier cannot reconstruct it — they must download
-        # the exact bytes that were signed. We publish them here, in the same run, as a release
-        # asset so anyone can `gh attestation verify` the real artifact.
+      - name: Publish exact signed bytes
+        if: steps.handoff.outputs.no_op == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          MISSION: ${{ steps.handoff.outputs.mission }}
+          BUNDLE: ${{ steps.handoff.outputs.bundle }}
+          TAG: ${{ steps.handoff.outputs.release_tag }}
         run: |
           set -euo pipefail
-          M="${{ steps.mission.outputs.id }}"
-          TAG="${{ steps.pack.outputs.release_tag }}"
-          BUNDLE="${{ steps.pack.outputs.bundle }}"
-          gh release view "$TAG" -R "${{ github.repository }}" >/dev/null 2>&1 || \
-            gh release create "$TAG" -R "${{ github.repository }}" \
-              --title "Run record ${M}" \
-              --notes "Attested run-record bundle for mission ${M}. Verify with the command in the release asset name — see policies/claims_boundary.md and docs/attestation.md."
-          gh release upload "$TAG" "$BUNDLE" -R "${{ github.repository }}"
-
-      - name: How to verify
-        run: |
-          echo "Download the attested tarball from this repo's releases, then:"
-          echo "  gh attestation verify ${{ steps.pack.outputs.bundle }} \\"
-          echo "    --repo ${{ github.repository }} \\"
-          echo "    --signer-workflow ${{ github.repository }}/.github/workflows/attest-bundle.yml"
+          gh release view "$TAG" -R "$REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" -R "$REPOSITORY" --title "Run record ${MISSION}" --notes "Attested run-record bundle for ${MISSION}. Signed provenance records artifact origin; it does not witness execution or imply maintainer approval."
+          gh release upload "$TAG" "handoff/$BUNDLE" -R "$REPOSITORY"

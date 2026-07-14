@@ -8,15 +8,14 @@ work is good — see [Claims Boundary](../policies/claims_boundary.md).
 
 ## How a bundle gets signed
 
-The `.github/workflows/attest-bundle.yml` workflow runs in GitHub Actions (never on a
-contributor's machine, never over untrusted PR code). It:
+The `.github/workflows/attest-bundle.yml` workflow runs only after the named `ci` workflow
+completed successfully for a push to `main`. CI validates the repository and packages the exact
+handoff bytes. The signer never checks out or executes repository code. It:
 
-1. locates the mission's `bundle/` directory,
-2. re-validates the receipt (`validate-mission`) and the bundle's own digest manifest
-   (`bundle verify`) before signing anything,
-3. packages the bundle into a deterministic tarball whose filename and release tag include the
-   first 12 hexadecimal characters of the immutable bundle digest, and
-4. attests that tarball with `actions/attest-build-provenance`.
+1. downloads the artifact produced by that exact CI run and verifies its head SHA metadata,
+2. handles an explicit no-op marker when no bundle changed,
+3. validates the mission id and digest-qualified asset/tag names, and
+4. attests and releases the exact CI-produced tarball with pinned actions.
 
 Public-repository attestations are written to the public transparency log, so anyone can verify
 them without any Northset infrastructure or trust.

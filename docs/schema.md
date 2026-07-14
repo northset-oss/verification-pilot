@@ -1,6 +1,10 @@
 # Mission receipt schema v0
 
-`schema/mission.schema.json` is a JSON Schema draft 2020-12 description of a Northset OSS Run Record mission receipt. The dependency-free CLI applies the same structural constraints and the additional receipt policy rules.
+Every file under `schema/` uses JSON Schema draft 2020-12. `mission.schema.json` describes the
+immutable mission envelope; `publication.schema.json`, `ledger.schema.json`,
+`public-receipt.schema.json`, `run-record.schema.json`, and `public-consent.schema.json` describe
+the mutable observation envelope and machine-readable evidence surfaces. The dependency-free
+runtime applies strict structural and cross-field checks without loading a schema package.
 
 ## Required fields
 
@@ -61,7 +65,8 @@ The validator refuses any receipt whose claims outrun its evidence:
   input `.git` (index `assume-unchanged`/`skip-worktree`, or `.gitignore`d files a clean
   checkout would not contain). Within our own clean-clone flow that surface does not arise, and
   `base_tree_digest` (which walks the whole tree) captures ignored files for re-runners; the
-  full trustless guarantee is the separate execution-in-the-signed-workflow build.
+  signed artifact and its recorded inputs remain auditable, but signing provenance is not
+  independent witnessing of execution.
 - `CONSENT_REQUIRED` — only variants `V`/`W`/`F` (running checks on someone else's work) require a consent artifact. `author_contribution` is our own work and is consent-exempt; `CONTRIBUTOR_LABEL` requires it to state, as data, "Contributor self-run. Not maintainer verification.", `CONTRIBUTION_BASE_COMMIT` requires it to pin the upstream commit, and `CONTRIBUTION_ROLE`/`CONTRIBUTION_PATCH` require the worker role + a real bound patch so a consent-requiring V/W/F cannot relabel to dodge consent. (The exemption rests on operator discipline — the record never claims maintainer verification regardless — which is acceptable for our own single-operator contributions.)
 - `MERGE_CONTINGENT_FORBIDDEN`, `REHEARSAL_LABEL`, `OUTCOME_EVIDENCE_REQUIRED`, `LIMITATIONS_BASELINE`, `BANNED_PHRASES`, `TIER_LANGUAGE` — as before; settlement/on-chain wording is rejected on every v0 receipt since no claimable tier permits it.
 

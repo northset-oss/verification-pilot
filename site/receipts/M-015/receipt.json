@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-14T15:02:48Z",
   "receipt_id": "M-015",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -19,6 +20,9 @@
   "environment": {
     "container_image_ref": "node:22-bookworm",
     "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
     "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
     "install_commands": [
@@ -27,12 +31,18 @@
   },
   "code": {
     "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
-    "tested_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
-    "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6"
+    "recorded_patch_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6",
+    "patch_diff_binding": "bound to executed patch bytes"
   },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
-    "digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz"
+    "bundle_contents_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+    "signed_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {

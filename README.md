@@ -16,8 +16,8 @@ pull requests — a way to check the work already sitting in your queue.
   type-check, build. We run those, not checks of our own invention.
 - **Run record** — the receipt from a run: evidence of *what ran* (the declared commands, the
   code, the container, the outputs). It is not a verdict on whether the code is good.
-- **Mission** — one such run, described by a `mission.json` that pins the exact code, container,
-  and commands so the record can't drift from what happened.
+- **Mission** — one such run, described by a `mission.json` that records the declared code,
+  container, and commands. The pipeline checks those declarations against the executor record.
 
 ## How it works
 
@@ -42,8 +42,10 @@ nothing of you in return**. You choose the scope (one PR, or a standing OK for a
 your label), and you decide whether any record is ever made public.
 
 **Why not just read your own CI?** Because a signed run record is portable in a way a CI dashboard
-isn't: a downstream user or auditor can confirm exactly what ran — same commands, same code, same
-container — without trusting you *or* us. And because it lands on the PRs you're already triaging,
+isn't: a downstream user can verify the exact record bytes, their workflow provenance, and the
+declared commands, code identifiers, environment, and outputs without relying on a mutable
+dashboard. Execution remains self-operated and self-reported; the signer does not independently
+witness it. And because it lands on the PRs you're already triaging,
 it subtracts review effort rather than adding one more tool to babysit.
 
 **When you want proof others can check, we sign it.** If you'd like a record anyone can
@@ -67,7 +69,8 @@ and we hold every word we say to it.
 **What the record is — and isn't.** A run record is evidence of what ran: the declared commands,
 on the declared code, in the declared container. The pipeline refuses to publish a record whose
 declared commands don't match what actually executed, so the record can't claim something
-different from what happened. It is still not a verdict on whether the code is good, safe, or
+different from the executor record. This is an internal consistency check, not independent
+observation of the run. It is still not a verdict on whether the code is good, safe, or
 ready — you stay the judge; the record just means you don't have to reconstruct "what does this
 branch actually do" by hand.
 
@@ -179,7 +182,7 @@ Node.js + the built-in test runner):
 
 | Piece | What it does | Docs |
 | --- | --- | --- |
-| `schema/` + `bin/validate-mission.mjs` | The `mission.json` receipt schema and its policy validator | [docs/schema.md](docs/schema.md) |
+| `schema/` + `bin/validate-mission.mjs` | Versioned mission, publication, ledger, public receipt, consent, and run-record schemas plus policy validation | [docs/schema.md](docs/schema.md) |
 | `lib/executor.mjs` + `bin/execute.mjs` | The two-phase, network-isolated Docker sandbox that runs declared checks | [docs/executor.md](docs/executor.md) |
 | `lib/bundle.mjs` + `bin/bundle.mjs` | Assembles the redacted run-record bundle and its digest manifest | [docs/bundle.md](docs/bundle.md) |
 | `lib/pipeline.mjs` + `bin/run-mission.mjs` | Consent gate → sandbox → bundle → ledger, binding the record to what actually ran | [docs/pipeline.md](docs/pipeline.md) |

@@ -60,7 +60,8 @@ Every phase-A and phase-B container uses the following posture:
 - configured CPU, memory, and PID limits
 - a read-only root filesystem and a writable `/tmp` tmpfs capped at 512 MiB
 - only the temporary workspace bind-mounted writable at `/workspace`
-- only fixed `PATH`, `HOME`, and `CI` container environment values
+- only fixed `PATH`, `HOME`, `CI`, `COREPACK_HOME`, `NPM_CONFIG_CACHE`, `XDG_CACHE_HOME`, and
+  `XDG_DATA_HOME` container environment values
 
 The executor measures the copied workspace after phase A and after each phase-B command,
 without following symlinks, and stops if its files exceed 2 GiB. Each phase run is terminated
@@ -94,12 +95,13 @@ execution, disclosed via `patch_sha256`, `install_commands`, and `network_policy
 `pre_check_tree_digest`, `post_check_tree_digest`, and `check_tree_changed` additionally disclose
 whether the declared check commands changed the workspace they received.
 
-After phase A makes the configured image available, the executor resolves it with
-`docker image inspect` before starting phase B. The run record keeps the exact configured
-string as `container_image_ref` and records the first repository content digest as
-`container_image_digest`. For a locally built image with no repository digest, it records the
-image's `sha256:...` ID instead. If neither value can be resolved, execution fails closed and
-no run record is written. The environment also reports the literal network policy
+Before phase A, the executor resolves the configured image with `docker image inspect`, pulling
+it once and retrying when it is not present locally. Phase A and every phase-B check run by the
+resolved immutable `sha256:...` image ID, never the mutable tag. The run record keeps the
+configured string as `container_image_ref`, the repository content digest when available as
+`container_image_digest`, and always records `container_image_id`, container OS, and architecture.
+If the immutable identity cannot be resolved, execution fails closed before any containerized
+command and no run record is written. The environment also reports the literal network policy
 `phaseA:bridge,phaseB:none`.
 
 The executor always attempts to remove phase containers and removes its temporary workspace

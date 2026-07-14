@@ -10,9 +10,10 @@ node bin/ledger.mjs build \
 ```
 
 Each direct child directory is checked for `mission.json`. Receipts are validated with
-the mission validator, and invalid receipts are omitted with a warning on standard
-error. A successful build exits zero even when it skips receipts. Add `--json` to print
-the included and skipped totals as a machine-readable summary.
+the mission validator. Strict mode is the default: a missing/invalid publication envelope,
+receipt, bundle relationship, or normalized evidence field fails the build. The explicit
+`--allow-skips` diagnostic mode omits invalid entries with warnings. Add `--json` to print the
+included and skipped totals as a machine-readable summary.
 
 The index is sorted by `mission_id` and contains the public projection plus a normalized
 Proof-of-Pass Receipt view model. For every schema-valid mission, the builder reads the
@@ -26,7 +27,7 @@ match `mission.json:issue_or_task`; bodies and comments are never projected. `ge
 the exact `--now` value;
 when the optional flag is omitted it is `null`, and the builder never reads the wall clock.
 
-An optional sibling `publication.json` is a mutable factual envelope for an immutable mission. It
+A required sibling `publication.json` is a mutable factual envelope for an immutable mission. It
 records the direct PR URL and head OID, base/head drift, CI state, merge commit,
 `prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
 an optional public `scope_note`, and verified release-asset evidence. A scope note is a nullable,
@@ -46,8 +47,10 @@ node bin/ledger.mjs render \
   --now 2026-07-15T00:00:00Z
 ```
 
-This writes `site/index.html`, `site/receipts/M-XXX/index.html`, and a minimized, versioned
-`site/receipts/M-XXX/receipt.json` summary for every mission. The JSON summary excludes raw
+This writes `site/index.html`, `site/ledger.json`, the public schemas under `site/schema/`,
+`site/receipts/M-XXX/index.html`, and a minimized, versioned
+`site/receipts/M-XXX/receipt.json` summary for every mission. Every page and JSON projection
+records the deterministic ledger `generated_at`. The JSON summary excludes raw
 patches, output streams, and the mutable publication envelope. The homepage is server-rendered
 with an M-008 receipt, newest-first external receipt previews, and a lower collapsed archive for
 own-repository rehearsals; JavaScript only

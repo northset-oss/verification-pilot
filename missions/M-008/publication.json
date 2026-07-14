@@ -14,8 +14,11 @@
   "opened_at": "2026-07-12T02:18:47Z",
   "closed_at": "2026-07-13T19:03:50Z",
   "updated_at": "2026-07-13T19:03:50Z",
+  "observed_at": "2026-07-14T15:02:48Z",
   "correction_note": null,
+  "scope_note": null,
   "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
   "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
-  "release_asset_sha256": null
+  "release_asset_sha256": "sha256:78d81249cc1b429983365ad72de44971530936d65e938f42cdc75b8e1eb56638",
+  "attestation_verified_at": "2026-07-14T14:21:48Z"
 }

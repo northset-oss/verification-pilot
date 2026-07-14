@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-14T15:02:48Z",
   "receipt_id": "M-001",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -19,18 +20,27 @@
   "environment": {
     "container_image_ref": "node:20-bookworm-slim",
     "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
     "source_commit": null,
     "install_commands": []
   },
   "code": {
     "base_commit": null,
-    "tested_commit": null,
-    "patch_diff_hash": null
+    "recorded_patch_commit": null,
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": null,
+    "patch_diff_binding": "no patch recorded"
   },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
-    "digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz"
+    "bundle_contents_digest": "sha256:6a8bfdeb771e9b1515aa3fcdddda239dba417865fad29bff20f1ac187d372b62",
+    "signed_asset_sha256": "sha256:717170af7491439460c951cc635d346a9866413bc868bc4c1f75c9a2b8c9fedd",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-001/run-record-M-001.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
   "links": {

@@ -42,6 +42,7 @@ function buildArgs(out, extra = []) {
     out,
     '--now',
     generatedAt,
+    '--allow-skips',
     ...extra,
   ];
 }
@@ -82,7 +83,7 @@ test('build includes only valid missions in sorted deterministic projections', a
     'M-004',
     'M-005',
   ]);
-  assert.deepEqual(index.missions.map((mission) => mission.attested), [false, true, true]);
+  assert.deepEqual(index.missions.map((mission) => mission.attested), [true, true, true]);
 
   const expectedFields = [
     'attestation_uri',
@@ -117,18 +118,29 @@ test('publication envelopes overlay immutable mission records with factual PR st
   await writeFile(path.join(copiedMissions, 'zeta', 'publication.json'), `${JSON.stringify({
     schema_version: 1,
     mission_id: 'M-004',
+    state: 'closed_unmerged',
+    pr_number: 44,
     pr_url: 'https://github.com/example/project/pull/44',
     pr_head_oid: 'a'.repeat(40),
-    state: 'closed_unmerged',
+    base_branch: 'main',
+    head_drift: true,
+    ci_state: 'success',
+    merge_commit_oid: null,
     review_decision: 'changes_requested',
     decision_url: 'https://github.com/example/project/pull/44#pullrequestreview-1',
     opened_at: '2026-07-10T00:00:00Z',
     closed_at: '2026-07-11T00:00:00Z',
     updated_at: '2026-07-11T00:00:00Z',
+    observed_at: '2026-07-11T01:00:00Z',
     correction_note: null,
+    scope_note: null,
+    attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-004/run-record-M-004.tar.gz',
+    bundle_digest: `sha256:${'d'.repeat(64)}`,
+    release_asset_sha256: `sha256:${'c'.repeat(64)}`,
+    attestation_verified_at: '2026-07-11T01:00:00Z',
   }, null, 2)}\n`);
   const out = path.join(temporaryRoot, 'index.json');
-  const result = await buildLedger({missionsDir: copiedMissions, out, now: generatedAt});
+  const result = await buildLedger({missionsDir: copiedMissions, out, now: generatedAt, allowSkips: true});
   const mission = result.index.missions.find((entry) => entry.mission_id === 'M-004');
   assert.equal(mission.publication.pr_url, 'https://github.com/example/project/pull/44');
   assert.equal(mission.publication.state, 'closed_unmerged');
@@ -173,7 +185,7 @@ test('M-020 records the confirmed upstream merge without implying the receipt te
   assert.equal(receipt.publication.merge_commit_oid, 'b419d921c8de0b68e7eb7054f412b05ee69336a2');
   assert.equal(receipt.publication.closed_at, '2026-07-14T13:27:04Z');
   assert.equal(receipt.publication.decision_url, 'https://github.com/KaotoIO/kaoto/pull/3478#pullrequestreview-4694480971');
-  assert.notEqual(receipt.code.tested_commit, receipt.publication.pr_head_oid);
+  assert.notEqual(receipt.code.recorded_patch_commit, receipt.publication.pr_head_oid);
   assert.equal(receipt.live_outcome.head_drift, true);
   assert.equal(receipt.live_outcome.pr_head_oid, receipt.publication.pr_head_oid);
 });
@@ -183,8 +195,25 @@ test('publication attestation overlays cannot point outside the signing reposito
     schema_version: 1,
     mission_id: 'M-008',
     state: 'merged',
+    pr_number: 8,
+    pr_url: 'https://github.com/example/project/pull/8',
+    pr_head_oid: 'a'.repeat(40),
+    base_branch: 'main',
+    head_drift: false,
+    ci_state: 'success',
+    merge_commit_oid: 'b'.repeat(40),
     review_decision: 'approved',
+    decision_url: 'https://github.com/example/project/pull/8#pullrequestreview-1',
+    opened_at: '2026-07-10T00:00:00Z',
+    closed_at: '2026-07-11T00:00:00Z',
+    updated_at: '2026-07-11T00:00:00Z',
+    observed_at: '2026-07-11T01:00:00Z',
+    correction_note: null,
+    scope_note: null,
     attestation_uri: 'https://example.com/run-record-M-008.tar.gz',
+    bundle_digest: `sha256:${'a'.repeat(64)}`,
+    release_asset_sha256: `sha256:${'b'.repeat(64)}`,
+    attestation_verified_at: '2026-07-11T01:00:00Z',
   };
   assert.throws(() => validatePublication(publication, 'M-008'), /attestation_uri.*signing repository/i);
 });
@@ -261,14 +290,13 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.equal((html.match(/<li class="hero-note">/g) ?? []).length, 4);
   assert.match(verificationReceipt, /Maintainer consent/);
   assert.match(verificationReceipt, /https:\/\/example\.com\/maintainer\/project\/consent\/42/);
-  assert.doesNotMatch(unattestedReceipt, /Attestation confirms that Northset's signing workflow produced this exact bundle/);
+  assert.match(unattestedReceipt, /Attestation confirms that Northset's signing workflow produced this exact bundle/);
   const previews = [...html.matchAll(/<article class="receipt-preview[\s\S]*?<\/article>/g)].map((match) => match[0]);
   assert.equal(previews.length, 3);
   for (const preview of previews.filter((preview) => !/REHEARSAL/.test(preview))) {
     assert.match(preview, /PASS — \d+\/\d+ declared command/);
   }
-  assert.ok(previews.some((preview) => /attestation: not recorded/.test(preview)));
-  assert.ok(previews.some((preview) => /attestation: recorded/.test(preview)));
+  assert.ok(previews.every((preview) => /attestation: recorded/.test(preview)));
 
   const allowedHosts = collectHttpHosts(index);
   allowedHosts.add('northset.ai');
@@ -504,9 +532,8 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(featuredArticle, /SELF-FUNDED FIELD-TESTING/);
   assert.match(homepage, /<details class="rehearsal-archive">/);
   assert.match(homepage, /External receipts/);
-  assert.match(homepage, /Attested external receipts/);
   assert.match(homepage, /Merged upstream/);
-  assert.match(homepage, /Awaiting review/);
+  assert.match(homepage, /Open awaiting review/);
   assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
   assert.match(homepage, /workspace-search buttons need type=button/);
   assert.match(homepage, /for open-source work/);
@@ -562,7 +589,8 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.ok(Array.isArray(receiptJson.commands));
     assert.ok(receiptJson.environment);
     assert.ok(receiptJson.code);
-    assert.ok(receiptJson.bundle.digest);
+    assert.ok(receiptJson.bundle.bundle_contents_digest);
+    assert.ok(receiptJson.bundle.signed_asset_sha256);
     assert.ok(!Object.hasOwn(receiptJson, 'patch_diff'));
     assert.ok(!Object.hasOwn(receiptJson, 'stdout_redacted'));
     assert.ok(!Object.hasOwn(receiptJson, 'stderr_redacted'));
@@ -605,7 +633,8 @@ test('render creates a permanent printable receipt for every committed mission a
   const m020Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'receipt.json'), 'utf8'));
   assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
   assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
-  assert.match(m020, /This receipt tested <code>ffc3e052480163e7338e3164008c6a7a26a77605<\/code>; the upstream outcome applies to later PR head <code>00d27e70410dc78f0fcda582b987d515dc8b5817<\/code>\./);
+  assert.match(m020, /PR changed since this record\.[\s\S]*Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605<\/code>; current PR head observed at 2026-07-14T15:02:48Z: <code>00d27e70410dc78f0fcda582b987d515dc8b5817<\/code>/);
+  assert.doesNotMatch(m020, /This receipt tested/);
   assert.equal(m020Json.upstream_outcome.head_drift, true);
   assert.equal(m020Json.upstream_outcome.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
   assert.doesNotMatch(m016, /OPEN[\s\S]{0,160}Maintainer decision/);
@@ -618,6 +647,7 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /SELF-FUNDED FIELD-TESTING/);
   assert.match(receiptArticle, /SELF-FUNDED FIELD-TESTING/);
   assert.match(m008, /@media print[\s\S]*color-scheme:light/);
+  assert.match(m008, /@media print[\s\S]*\.facts,\.receipt-meta\s*\{\s*grid-template-columns:1fr/);
   assert.match(m008, /\.receipt--declared\s*\{/);
   assert.match(m008, /data-print/);
   assert.match(m008, /window\.print\(\)/);

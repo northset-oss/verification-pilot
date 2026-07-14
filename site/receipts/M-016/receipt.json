@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-14T15:02:48Z",
   "receipt_id": "M-016",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -19,6 +20,9 @@
   "environment": {
     "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
     "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
     "source_commit": "77da69117e70421ae034f2723f8007dd6829f142",
     "install_commands": [
@@ -27,12 +31,18 @@
   },
   "code": {
     "base_commit": "77da69117e70421ae034f2723f8007dd6829f142",
-    "tested_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
-    "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb"
+    "recorded_patch_commit": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb",
+    "patch_diff_binding": "bound to executed patch bytes"
   },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
-    "digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz"
+    "bundle_contents_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+    "signed_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {

@@ -11,7 +11,8 @@ node bin/bundle.mjs create <mission-dir> \
 ```
 
 The mission must pass the existing mission validator. Variants `V`, `W`, and `F` also
-require `<mission-dir>/consent.md`; an own-repository rehearsal does not include that
+require a schema-valid `<mission-dir>/consent.json` public consent receipt with explicit
+`publication_consent: true`; an own-repository rehearsal does not include that
 file. The command replaces `<mission-dir>/bundle`, prints its `sha256:` bundle digest,
 and never reads the network or environment variables. Pass `--json` for structured
 output.
@@ -56,5 +57,9 @@ Verify an existing bundle with:
 node bin/bundle.mjs verify <mission-dir>
 ```
 
-Success prints `OK <bundle_digest>`. Failure exits nonzero and lists every mismatched,
-missing, or extra file. `--json` is available for verification as well.
+Success prints `OK <bundle_digest>`. Verification rejects non-regular members (including
+symlinks), hash/size drift, missing or extra files, invalid mission/run-record structure, and
+semantic contradictions among the mission, declared/executed commands, base commit, patch,
+claims tier, maintainer outcome, and consent receipt. Legacy run records without
+`schema_version` remain readable; newly executed records use `schema_version: 1`. `--json` is
+available for verification as well.

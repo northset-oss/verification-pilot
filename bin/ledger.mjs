@@ -4,11 +4,12 @@ import { buildLedger, renderLedger } from '../lib/ledger.mjs';
 
 const rawArgs = process.argv.slice(2);
 const jsonMode = rawArgs.includes('--json');
-const args = rawArgs.filter((argument) => argument !== '--json');
+const allowSkips = rawArgs.includes('--allow-skips');
+const args = rawArgs.filter((argument) => argument !== '--json' && argument !== '--allow-skips');
 const subcommand = args.shift();
 
 function usage(message) {
-  const command = 'ledger.mjs build --missions-dir <dir> --out <index.json> [--now <iso>] [--json] | ledger.mjs render --index <index.json> --out <site/index.html> [--now <iso>]';
+  const command = 'ledger.mjs build --missions-dir <dir> --out <index.json> [--now <iso>] [--allow-skips] [--json] | ledger.mjs render --index <index.json> --out <site/index.html> [--now <iso>]';
   throw new Error(`${message}; usage: ${command}`);
 }
 
@@ -48,11 +49,13 @@ try {
       ...options,
       now: options.now ?? null,
       onWarning: (message) => process.stderr.write(`warning: ${message}\n`),
+      allowSkips,
     });
     if (jsonMode) {
       process.stdout.write(`${JSON.stringify({ included: result.included, skipped: result.skipped })}\n`);
     }
   } else if (subcommand === 'render') {
+    if (allowSkips) usage('--allow-skips is only valid for build');
     const flags = new Map([
       ['--index', 'indexPath'],
       ['--out', 'out'],
