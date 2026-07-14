@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T20:09:09.539Z",
+  "generated_at": "2026-07-14T23:05:57.244Z",
   "receipt_id": "M-015",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -59,7 +59,7 @@
     "The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
   ],
   "correction": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
-  "scope_note": null,
+  "scope_note": "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification. The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates.",
   "upstream_outcome": {
     "status": "closed_unmerged",
     "link": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",

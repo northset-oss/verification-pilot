@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T20:09:09.539Z",
+  "generated_at": "2026-07-14T23:05:57.244Z",
   "receipt_id": "M-020",
   "receipt_result": "PASS — 4/4 declared commands",
   "passed_commands": 4,
@@ -77,7 +77,7 @@
     "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The focused regression validates parsed document structure and does not exercise the full browser UI.",
   "upstream_outcome": {
     "status": "merged",
     "link": "https://github.com/KaotoIO/kaoto/pull/3478#pullrequestreview-4694480971",

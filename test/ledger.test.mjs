@@ -728,9 +728,14 @@ test('render creates a permanent printable receipt for every committed mission a
   const m016Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'receipt.json'), 'utf8'));
   const m019Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'receipt.json'), 'utf8'));
   const m020Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'receipt.json'), 'utf8'));
+  const m020Publication = JSON.parse(
+    await readFile(path.join(committedMissionsDirectory, 'M-020', 'publication.json'), 'utf8'),
+  );
   assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
   assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
-  assert.match(m020, /PR changed since this record\.[\s\S]*Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605<\/code>; current PR head observed at 2026-07-14T15:02:48Z: <code>00d27e70410dc78f0fcda582b987d515dc8b5817<\/code>/);
+  assert.ok(m020.includes(
+    `<strong>PR changed since this record.</strong> Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605</code>; current PR head observed at ${m020Publication.observed_at}: <code>00d27e70410dc78f0fcda582b987d515dc8b5817</code>`,
+  ));
   assert.doesNotMatch(m020, /This receipt tested/);
   assert.equal(m020Json.upstream_outcome.head_drift, true);
   assert.equal(m020Json.upstream_outcome.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
