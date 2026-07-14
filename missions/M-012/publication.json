@@ -14,11 +14,11 @@
   "opened_at": "2026-07-12T22:22:09Z",
   "closed_at": null,
   "updated_at": "2026-07-13T21:13:48Z",
-  "observed_at": "2026-07-14T15:02:48Z",
+  "observed_at": "2026-07-14T23:05:48.808Z",
   "correction_note": null,
-  "scope_note": null,
-  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
+  "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
   "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
   "release_asset_sha256": "sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf",
   "attestation_verified_at": "2026-07-14T14:21:48Z"
 }

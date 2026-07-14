@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T20:09:09.539Z",
+  "generated_at": "2026-07-14T23:05:57.244Z",
   "receipt_id": "M-007",
   "receipt_result": "PASS — 2/2 declared commands",
   "passed_commands": 2,
@@ -67,7 +67,7 @@
     "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
   "upstream_outcome": {
     "status": "open",
     "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T20:09:09.539Z",
+  "generated_at": "2026-07-14T23:05:57.244Z",
   "receipt_id": "M-012",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -59,7 +59,7 @@
     "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
   "upstream_outcome": {
     "status": "changes_requested",
     "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",

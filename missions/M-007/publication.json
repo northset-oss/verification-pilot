@@ -14,11 +14,11 @@
   "opened_at": "2026-07-11T23:24:09Z",
   "closed_at": null,
   "updated_at": "2026-07-11T23:26:24Z",
-  "observed_at": "2026-07-14T15:02:48Z",
+  "observed_at": "2026-07-14T23:05:44.766Z",
   "correction_note": null,
-  "scope_note": null,
-  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+  "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
   "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
   "release_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
   "attestation_verified_at": "2026-07-14T14:21:48Z"
 }

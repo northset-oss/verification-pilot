@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-14T20:09:09.539Z",
+  "generated_at": "2026-07-14T23:05:57.244Z",
   "receipt_id": "M-008",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -61,7 +61,7 @@
     "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages.",
   "upstream_outcome": {
     "status": "merged",
     "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315",
