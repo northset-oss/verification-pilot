@@ -193,6 +193,11 @@ test('render emits a self-contained claims surface with encoded mission data', a
   const html = await readFile(htmlPath, 'utf8');
   assert.match(html, /<title>Northset Proof-of-Pass Receipts<\/title>/);
   assert.match(html, /<link rel="icon" href="data:,">/);
+  assert.match(html, /<a class="northset-brand" href="https:\/\/northset\.ai"/);
+  assert.match(html, /<svg class="northset-wordmark" role="img" aria-label="NORTHSET"/);
+  assert.match(html, /<p class="northset-domain"><a href="https:\/\/northset\.ai">NORTHSET\.ai<\/a><\/p>/);
+  assert.match(html, /\.northset-wordmark \{[^}]*width:min\(100%,32rem\);/);
+  assert.match(html, /\.northset-domain \{[^}]*font-size:clamp\(1\.15rem,3vw,1\.5rem\);/);
   assert.match(html, /Proof-of-Pass Receipts/);
   assert.doesNotMatch(html, /[ \t]+$/m);
   for (const mission of index.missions) assert.ok(html.includes(mission.mission_id));
@@ -224,6 +229,7 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.match(previews[1], /attestation: recorded/);
 
   const allowedHosts = collectHttpHosts(index);
+  allowedHosts.add('northset.ai');
   const renderedHosts = collectRenderedHttpHosts(html);
   assert.ok(renderedHosts.length > 0);
   for (const host of renderedHosts) assert.ok(allowedHosts.has(host), host);
@@ -450,6 +456,7 @@ test('render creates a permanent printable receipt for every committed mission a
   await assert.rejects(access(path.join(temporaryRoot, 'site', 'receipts', 'M-999', 'index.html')), (error) => error.code === 'ENOENT');
 
   const allowedHosts = collectHttpHosts(JSON.parse(await readFile(indexPath, 'utf8')));
+  allowedHosts.add('northset.ai');
   const renderedHosts = collectRenderedHttpHosts(`${homepage}\n${m008}`);
   assert.ok(renderedHosts.length > 0);
   for (const host of renderedHosts) assert.ok(allowedHosts.has(host), host);
