@@ -218,6 +218,87 @@ test('publication attestation overlays cannot point outside the signing reposito
   assert.throws(() => validatePublication(publication, 'M-008'), /attestation_uri.*signing repository/i);
 });
 
+test('a prepared receipt with pending attestation builds and renders without claiming verification', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missions = path.join(temporaryRoot, 'missions');
+  const missionDirectory = path.join(missions, 'M-020');
+  await cp(path.join(committedMissionsDirectory, 'M-020'), missionDirectory, { recursive: true });
+  const publicationFile = path.join(missionDirectory, 'publication.json');
+  const publication = JSON.parse(await readFile(publicationFile, 'utf8'));
+  const staleMissionAttestation = publication.attestation_uri;
+  const staleReleaseAssetSha256 = publication.release_asset_sha256;
+  const staleAttestationVerifiedAt = publication.attestation_verified_at;
+  const missionFile = path.join(missionDirectory, 'mission.json');
+  const mission = JSON.parse(await readFile(missionFile, 'utf8'));
+  mission.attestation_uri = staleMissionAttestation;
+  await writeFile(missionFile, `${JSON.stringify(mission, null, 2)}\n`);
+  Object.assign(publication, {
+    state: 'prepared',
+    pr_number: null,
+    pr_url: null,
+    pr_head_oid: null,
+    base_branch: null,
+    head_drift: false,
+    ci_state: null,
+    merge_commit_oid: null,
+    review_decision: null,
+    decision_url: null,
+    opened_at: null,
+    closed_at: null,
+    updated_at: null,
+    observed_at: null,
+    attestation_uri: null,
+    release_asset_sha256: null,
+    attestation_verified_at: null,
+  });
+  await writeFile(publicationFile, `${JSON.stringify(publication, null, 2)}\n`);
+
+  const indexPath = path.join(temporaryRoot, 'index.json');
+  const siteFile = path.join(temporaryRoot, 'site', 'index.html');
+  await buildLedger({ missionsDir: missions, out: indexPath, now: generatedAt });
+  await renderLedger({ indexPath, out: siteFile, now: generatedAt });
+
+  const index = JSON.parse(await readFile(indexPath, 'utf8'));
+  assert.equal(index.missions[0].attested, false);
+  assert.equal(index.missions[0].attestation_uri, null);
+  assert.equal(index.missions[0].receipt.attestation_uri, null);
+  assert.equal(index.missions[0].receipt.verify_command, null);
+  assert.equal(index.missions[0].receipt.download_url, null);
+  const receiptHtml = await readFile(path.join(temporaryRoot, 'site/receipts/M-020/index.html'), 'utf8');
+  assert.match(receiptHtml, /Signed asset SHA-256<\/dt><dd><code>not recorded<\/code>/);
+  assert.match(receiptHtml, /Signed provenance recorded<\/dt><dd>not verified<\/dd>/);
+  assert.match(receiptHtml, /Attestation URL was not recorded/);
+  assert.doesNotMatch(receiptHtml, /Download signed bundle/);
+  const receiptJson = JSON.parse(await readFile(path.join(temporaryRoot, 'site/receipts/M-020/receipt.json'), 'utf8'));
+  assert.equal(receiptJson.bundle.signed_asset_sha256, null);
+  assert.equal(receiptJson.bundle.attestation_verified_at, null);
+  assert.equal(receiptJson.bundle.attestation_uri, null);
+  assert.equal(receiptJson.bundle.provenance, 'Signed provenance has not been verified.');
+  assert.equal(receiptJson.upstream_outcome.status, 'prepared');
+
+  const incoherentReceipt = index.missions[0].receipt;
+  incoherentReceipt.attestation_uri = staleMissionAttestation;
+  incoherentReceipt.release_asset_sha256 = staleReleaseAssetSha256;
+  incoherentReceipt.attestation_verified_at = staleAttestationVerifiedAt;
+  incoherentReceipt.verify_command = 'gh attestation verify stale.tar.gz';
+  incoherentReceipt.download_url = staleMissionAttestation;
+  const incoherentIndex = path.join(temporaryRoot, 'incoherent-index.json');
+  await writeFile(incoherentIndex, `${JSON.stringify(index, null, 2)}\n`);
+  const defensiveSite = path.join(temporaryRoot, 'defensive-site', 'index.html');
+  await renderLedger({ indexPath: incoherentIndex, out: defensiveSite, now: generatedAt });
+  const defensiveHome = await readFile(defensiveSite, 'utf8');
+  assert.match(defensiveHome, /attestation: not recorded/);
+  assert.doesNotMatch(defensiveHome, /attestation: recorded/);
+  const defensiveHtml = await readFile(path.join(temporaryRoot, 'defensive-site/receipts/M-020/index.html'), 'utf8');
+  assert.match(defensiveHtml, /Attestation URL was not recorded/);
+  assert.match(defensiveHtml, /Signed asset SHA-256<\/dt><dd><code>not recorded<\/code>/);
+  assert.match(defensiveHtml, /Signed provenance recorded<\/dt><dd>not verified<\/dd>/);
+  assert.doesNotMatch(defensiveHtml, /Download signed bundle|gh attestation verify stale|Attestation confirms/);
+  const defensiveJson = JSON.parse(await readFile(path.join(temporaryRoot, 'defensive-site/receipts/M-020/receipt.json'), 'utf8'));
+  assert.equal(defensiveJson.bundle.attestation_uri, null);
+  assert.equal(defensiveJson.bundle.provenance, 'Signed provenance has not been verified.');
+});
+
 test('build exits nonzero when the missions directory is unreadable', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const result = run([

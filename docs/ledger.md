@@ -37,6 +37,13 @@ publication envelope, is shown separately from the immutable signed limitations,
 claim checks absent from the signed command evidence. Ledger builds overlay
 that envelope without modifying `mission.json` or any file inside `bundle/`.
 
+During the `prepared` bootstrap stage, `attestation_uri`, `release_asset_sha256`, and
+`attestation_verified_at` remain present and must be either all `null` or all populated. The
+prepared publication envelope is authoritative over any stale mission-level attestation value;
+an all-null envelope renders the asset as not recorded and its provenance as not verified, and
+the ledger index reports `attested: false`. Once publication moves to `open`, `closed_unmerged`,
+or `merged`, all three fields are required and strictly validated.
+
 The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
 
 Render the self-contained public ledger and every permanent printable receipt page from an index:

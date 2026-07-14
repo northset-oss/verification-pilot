@@ -24,12 +24,35 @@
     "observed_at": { "$ref": "#/$defs/nullableTime" },
     "correction_note": { "type": ["string", "null"], "minLength": 1 },
     "scope_note": { "type": ["string", "null"], "minLength": 1 },
-    "attestation_uri": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
+    "attestation_uri": { "type": ["string", "null"], "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
     "bundle_digest": { "$ref": "#/$defs/digest" },
-    "release_asset_sha256": { "$ref": "#/$defs/digest" },
-    "attestation_verified_at": { "type": "string", "format": "date-time" },
+    "release_asset_sha256": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+    "attestation_verified_at": { "$ref": "#/$defs/nullableTime" },
     "pr_disclosure": { "$ref": "#/$defs/prDisclosure" }
   },
+  "allOf": [{
+    "if": { "properties": { "state": { "const": "prepared" } }, "required": ["state"] },
+    "then": { "oneOf": [{
+      "properties": {
+        "attestation_uri": { "type": "null" },
+        "release_asset_sha256": { "type": "null" },
+        "attestation_verified_at": { "type": "null" }
+      }
+    }, {
+      "properties": {
+        "attestation_uri": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
+        "release_asset_sha256": { "$ref": "#/$defs/digest" },
+        "attestation_verified_at": { "type": "string", "format": "date-time" }
+      }
+    }] },
+    "else": {
+      "properties": {
+        "attestation_uri": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
+        "release_asset_sha256": { "$ref": "#/$defs/digest" },
+        "attestation_verified_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }],
   "$defs": {
     "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
     "nullableOid": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
