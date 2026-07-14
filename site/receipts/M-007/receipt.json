@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-14T15:02:48Z",
   "receipt_id": "M-007",
   "receipt_result": "PASS — 2/2 declared commands",
   "passed_commands": 2,
@@ -25,6 +26,9 @@
   "environment": {
     "container_image_ref": "maven:3.9-eclipse-temurin-11",
     "container_image_digest": "maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
     "source_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
     "install_commands": [
@@ -35,12 +39,18 @@
   },
   "code": {
     "base_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
-    "tested_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
-    "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2"
+    "recorded_patch_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2",
+    "patch_diff_binding": "bound to executed patch bytes"
   },
+  "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
   "bundle": {
-    "digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz"
+    "bundle_contents_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+    "signed_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {

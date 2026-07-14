@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "generated_at": "2026-07-14T15:02:48Z",
   "receipt_id": "M-003",
   "receipt_result": "PASS — 2/2 declared commands",
   "passed_commands": 2,
@@ -25,18 +26,27 @@
   "environment": {
     "container_image_ref": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
     "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
     "source_commit": null,
     "install_commands": []
   },
   "code": {
     "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
-    "tested_commit": null,
-    "patch_diff_hash": null
+    "recorded_patch_commit": null,
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": null,
+    "patch_diff_binding": "no patch recorded"
   },
+  "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
   "bundle": {
-    "digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz"
+    "bundle_contents_digest": "sha256:70857aa3ed190d1bde8e468e6a6d7260aafaf0da83891f016031055feb13b1c3",
+    "signed_asset_sha256": "sha256:90ceabf13f47e43b4c8ff3e80128a88dac9881d9420579766da09c88b13f741b",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-003/run-record-M-003.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
   "links": {

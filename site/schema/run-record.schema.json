@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/run-record.schema.json",
+  "title": "Northset run record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["started_at", "finished_at", "environment", "commands", "notes"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" },
+    "environment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["container_image_digest", "network_policy"],
+      "properties": {
+        "executor_profile": { "type": "string", "minLength": 1 },
+        "container_image_ref": { "type": "string", "minLength": 1 },
+        "container_image_digest": { "type": ["string", "null"], "pattern": "^(?:[^@ ]+@)?sha256:[0-9a-f]{64}$" },
+        "container_image_id": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "container_os": { "type": "string", "minLength": 1 },
+        "container_architecture": { "type": "string", "minLength": 1 },
+        "network_policy": { "type": "string", "minLength": 1 },
+        "source_commit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "base_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "pre_check_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "approved_tracked_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "post_check_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "check_tree_changed": { "type": "boolean" },
+        "patch_sha256": { "$ref": "#/$defs/nullableDigest" },
+        "install_commands": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["cmd", "exit_code", "duration_ms"],
+        "properties": {
+          "cmd": { "type": "string", "minLength": 1 },
+          "exit_code": { "type": ["integer", "null"] },
+          "duration_ms": { "type": "integer", "minimum": 0 },
+          "timed_out": { "type": "boolean" }
+        }
+      }
+    },
+    "notes": { "type": ["string", "null"] },
+    "redactions": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["schema_version"] },
+      "then": {
+        "properties": {
+          "environment": {
+            "type": "object",
+            "required": ["executor_profile", "container_image_ref", "container_image_digest", "container_image_id", "container_os", "container_architecture", "network_policy", "source_commit", "base_tree_digest", "pre_check_tree_digest", "approved_tracked_tree_digest", "post_check_tree_digest", "check_tree_changed", "patch_sha256", "install_commands"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nullableDigest": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

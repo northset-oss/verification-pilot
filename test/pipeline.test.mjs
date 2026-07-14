@@ -258,6 +258,7 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');
   const input = missionInput(await example(rehearsalExample), {
+    mission: { patch_diff_hash: 'sha256:b286395fefe486db82d6d2530838ca06f1ef8e49da6cf9d7b4a3cfb669b8f867' },
     patch_file: path.join(fixtures, 'change.patch'),
     issue_snapshot_file: path.join(fixtures, 'issue_snapshot.json'),
     ci_links_file: path.join(fixtures, 'ci_links.json'),
@@ -265,7 +266,10 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
   const result = await runPipeline(input, {
     missionsDir,
     now: fixedNow,
-    executeImpl: fakeExecutor(undefined, { patchFile: input.patch_file }),
+    executeImpl: fakeExecutor(undefined, {
+      patchFile: input.patch_file,
+      patchSha256: 'sha256:b286395fefe486db82d6d2530838ca06f1ef8e49da6cf9d7b4a3cfb669b8f867',
+    }),
   });
 
   assert.equal(result.attestationPending, true);
@@ -278,8 +282,8 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
   assert.equal(writtenMission.run_record_bundle_digest, null);
   assert.equal(writtenMission.attestation_uri, null);
   const index = JSON.parse(await readFile(path.join(missionsDir, 'index.json'), 'utf8'));
-  assert.equal(result.ledgerIncluded, 1);
-  assert.deepEqual(index.missions.map((mission) => mission.mission_id), ['M-001']);
+  assert.equal(result.ledgerIncluded, 0);
+  assert.deepEqual(index.missions.map((mission) => mission.mission_id), []);
   assert.deepEqual(
     await readFile(path.join(result.missionDir, 'patch.diff')),
     await readFile(input.patch_file),
@@ -291,6 +295,23 @@ test('happy path creates a real verifiable bundle and refreshes the ledger', asy
   });
   assert.equal(verification.status, 0, verification.stderr);
   assert.equal(verification.stdout, `OK ${result.bundleDigest}\n`);
+});
+
+test('pipeline excludes only its pending mission and fails closed on another invalid ledger source', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  await mkdir(path.join(missionsDir, 'M-999'), { recursive: true });
+  await writeFile(path.join(missionsDir, 'M-999/mission.json'), '{}\n');
+
+  await assert.rejects(
+    runPipeline(missionInput(await example(rehearsalExample)), {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: fakeExecutor(),
+    }),
+    /M-999|mission_id|required|invalid/i,
+  );
+  await assertMissing(path.join(missionsDir, 'M-001'));
 });
 
 test('siteFile renders the public page atomically with the index refresh', async (t) => {
@@ -315,13 +336,13 @@ test('siteFile renders the public page atomically with the index refresh', async
 
   assert.equal(result.siteFile, siteFile);
   const page = await readFile(siteFile, 'utf8');
-  assert.match(page, /M-001/);
-  assert.match(await readFile(path.join(temporaryRoot, 'site/receipts/M-001/index.html'), 'utf8'), /NOT INCLUDED/);
+  assert.match(page, /Proof-of-Pass Receipts/);
+  await assertMissing(path.join(temporaryRoot, 'site/receipts/M-001/index.html'));
   assert.equal(await readFile(path.join(temporaryRoot, 'site/assets/keep.txt'), 'utf8'), 'keep asset\n');
   assert.equal(await readFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), 'utf8'), 'keep legacy\n');
   await assertMissing(path.join(temporaryRoot, 'site/receipts/M-999/index.html'));
   const index = JSON.parse(await readFile(path.join(missionsDir, 'index.json'), 'utf8'));
-  assert.deepEqual(index.missions.map((mission) => mission.mission_id), ['M-001']);
+  assert.deepEqual(index.missions.map((mission) => mission.mission_id), []);
 });
 
 test('site render failure rolls back the mission and leaves index and page untouched', async (t) => {
@@ -360,6 +381,37 @@ test('site render failure rolls back the mission and leaves index and page untou
   assert.equal(await readFile(siteFile, 'utf8'), previousPage);
   assert.equal(await readFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), 'utf8'), previousReceipt);
   await assertMissing(path.join(temporaryRoot, 'site/receipts/partial/index.html'));
+});
+
+test('failure after index publication restores the previous mission, index, and complete site tree', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const siteFile = path.join(temporaryRoot, 'site/index.html');
+  const previousIndex = '{"previous":true}\n';
+  const previousPage = '<p>previous page</p>\n';
+  const previousReceipt = '<p>previous receipt</p>\n';
+  await mkdir(path.join(temporaryRoot, 'site/receipts/legacy'), { recursive: true });
+  await mkdir(missionsDir, { recursive: true });
+  await Promise.all([
+    writeFile(path.join(missionsDir, 'index.json'), previousIndex),
+    writeFile(siteFile, previousPage),
+    writeFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), previousReceipt),
+  ]);
+
+  await assert.rejects(
+    runPipeline(missionInput(await example(rehearsalExample)), {
+      missionsDir,
+      siteFile,
+      now: fixedNow,
+      executeImpl: fakeExecutor(),
+      afterIndexPublish: () => { throw new Error('injected after index publish'); },
+    }),
+    /injected after index publish/,
+  );
+  await assertMissing(path.join(missionsDir, 'M-001'));
+  assert.equal(await readFile(path.join(missionsDir, 'index.json'), 'utf8'), previousIndex);
+  assert.equal(await readFile(siteFile, 'utf8'), previousPage);
+  assert.equal(await readFile(path.join(temporaryRoot, 'site/receipts/legacy/index.html'), 'utf8'), previousReceipt);
 });
 
 test('proof-of-pass pipeline rejects failed and timed-out commands without an opt-in flag', async (t) => {
@@ -475,7 +527,17 @@ test('W mission with consent proceeds and copies consent verbatim', async (t) =>
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');
   const mission = { ...(await example(verificationExample)), mission_id: 'M-005', variant: 'W' };
-  const consentFile = path.join(fixtures, 'consent.md');
+  const consentFile = path.join(temporaryRoot, 'consent.json');
+  await writeFile(consentFile, `${JSON.stringify({
+    schema_version: 1,
+    mission_id: 'M-005',
+    variant: 'W',
+    consent_artifact: mission.consent_artifact,
+    granted_at: '2026-07-09T11:00:00Z',
+    granted_by: 'fixture maintainer',
+    publication_consent: true,
+    scope: ['run the declared verification commands', 'publish the scoped receipt'],
+  }, null, 2)}\n`);
   const input = missionInput(mission, { consent_file: consentFile });
   const result = await runPipeline(input, {
     missionsDir,
@@ -484,7 +546,7 @@ test('W mission with consent proceeds and copies consent verbatim', async (t) =>
   });
 
   assert.deepEqual(
-    await readFile(path.join(result.missionDir, 'consent.md')),
+    await readFile(path.join(result.missionDir, 'consent.json')),
     await readFile(consentFile),
   );
 });

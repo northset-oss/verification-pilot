@@ -8,8 +8,10 @@ or attest the result.
 
 The pipeline fails closed before starting the executor. It first validates the full `mission`
 receipt. Variants `V`, `W`, and `F` then require both an HTTP(S) `consent_artifact` in the
-receipt and a readable, absolute `consent_file` path. The file is copied verbatim to
-`consent.md`. An `own_repo_rehearsal` needs no consent file, but its disclosure label must
+receipt and a readable, absolute `consent_file` path. The file must be a strict
+`schema/public-consent.schema.json` receipt bound to the same mission, variant, and public
+consent URL and set `publication_consent` to `true`; its canonical JSON is stored as
+`consent.json`. An `own_repo_rehearsal` needs no consent file, but its disclosure label must
 contain `Self-funded rehearsal. Not external validation.` There is no bypass flag.
 
 If the gate or any later stage fails, the pipeline removes its staged mission. With `--force`,
@@ -30,7 +32,7 @@ The input JSON accepts exactly these top-level fields:
   "mission": {},
   "repo_dir": "/absolute/path/to/repository",
   "patch_file": "/absolute/path/to/change.patch",
-  "consent_file": "/absolute/path/to/consent.md",
+  "consent_file": "/absolute/path/to/consent.json",
   "issue_snapshot_file": "/absolute/path/to/issue_snapshot.json",
   "ci_links_file": "/absolute/path/to/ci_links.json",
   "executor": {
@@ -67,7 +69,8 @@ node bin/run-mission.mjs mission-input.json \
 run. The page is staged next to its target and both artifacts are moved into place only after
 both have been produced, so a render failure rolls the whole mission back and the committed
 `missions/index.json` and `site/index.html` never disagree. (CI independently re-renders the
-page from the index and fails on any drift.)
+page from the index and fails on any drift.) A tested failure-injection seam after the index
+rename proves that the previous mission, index, and complete site tree are restored together.
 
 `--now` is optional. When supplied, the same timestamp is passed to the executor, bundle, and
 ledger. `--force` replaces an existing mission directory only after a new bundle has been
@@ -91,9 +94,11 @@ real evidence values instead of placeholders:
 - set `patch_commit`/`patch_diff_hash` whenever a patch was applied.
 
 On success the command reports the mission directory, bundle digest, number of ledger entries,
-and `attestationPending: true`. Signing happens separately, in GitHub Actions: the
-`.github/workflows/attest-bundle.yml` workflow packages the bundle and attests it (the pipeline
-itself never contacts GitHub or signs). Once that workflow has run, anyone can verify the
+and `attestationPending: true`. Signing happens separately, in GitHub Actions. A successful
+`ci` run on the exact main-branch commit validates and packages the bundle; the
+`.github/workflows/attest-bundle.yml` workflow downloads that CI artifact without checking out
+or executing repository code, then attests the exact bytes. The pipeline itself never contacts
+GitHub or signs. Once that workflow has run, anyone can verify the
 bundle's provenance:
 
 ```sh

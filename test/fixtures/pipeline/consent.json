@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-004",
+  "variant": "V",
+  "consent_artifact": "https://example.com/maintainer/project/consent/42",
+  "granted_at": "2026-07-09T11:00:00Z",
+  "granted_by": "fixture maintainer",
+  "publication_consent": true,
+  "scope": [
+    "run the declared verification commands",
+    "publish the scoped receipt"
+  ]
+}

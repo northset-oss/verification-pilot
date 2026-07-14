@@ -14,8 +14,11 @@
   "opened_at": "2026-07-13T01:08:25Z",
   "closed_at": "2026-07-13T01:27:05Z",
   "updated_at": "2026-07-13T01:27:05Z",
+  "observed_at": "2026-07-14T15:02:48Z",
   "correction_note": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+  "scope_note": null,
   "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
   "bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
-  "release_asset_sha256": null
+  "release_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+  "attestation_verified_at": "2026-07-14T14:21:48Z"
 }

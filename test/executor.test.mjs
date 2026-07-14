@@ -143,10 +143,14 @@ function fakeDocker({
   hanging = new Set(),
   repoDigests = [resolvedRepoDigest],
   repoDigestsCode = 0,
+  repoDigestsCodes = null,
   imageId = resolvedImageId,
   imageIdCode = 0,
+  imageOs = 'linux',
+  imageArchitecture = 'amd64',
 } = {}) {
   const calls = [];
+  let repoInspectCount = 0;
   const children = [];
   const workspaceDirs = new Set();
   const spawnImpl = (command, args, options) => {
@@ -187,10 +191,16 @@ function fakeDocker({
     if (args[0] === 'image') {
       assert.deepEqual(args.slice(0, 3), ['image', 'inspect', config().image]);
       if (args.at(-1) === '{{json .RepoDigests}}') {
-        finishChild(child, { stdout: `${JSON.stringify(repoDigests)}\n`, code: repoDigestsCode });
-      } else {
-        assert.equal(args.at(-1), '{{.Id}}');
+        const code = repoDigestsCodes?.[repoInspectCount] ?? repoDigestsCode;
+        repoInspectCount += 1;
+        finishChild(child, { stdout: `${JSON.stringify(repoDigests)}\n`, code });
+      } else if (args.at(-1) === '{{.Id}}') {
         finishChild(child, { stdout: `${imageId}\n`, code: imageIdCode });
+      } else if (args.at(-1) === '{{.Os}}') {
+        finishChild(child, { stdout: `${imageOs}\n` });
+      } else {
+        assert.equal(args.at(-1), '{{.Architecture}}');
+        finishChild(child, { stdout: `${imageArchitecture}\n` });
       }
       return child;
     }
@@ -362,7 +372,11 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.equal(result.runRecord.started_at, fixedNow);
   assert.equal(result.runRecord.finished_at, fixedNow);
   assert.equal(result.runRecord.environment.container_image_ref, 'node:20-bookworm');
+  assert.equal(result.runRecord.schema_version, 1);
   assert.equal(result.runRecord.environment.container_image_digest, resolvedRepoDigest);
+  assert.equal(result.runRecord.environment.container_image_id, resolvedImageId);
+  assert.equal(result.runRecord.environment.container_os, 'linux');
+  assert.equal(result.runRecord.environment.container_architecture, 'amd64');
   assert.equal(result.runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
   assert.match(result.runRecord.environment.container_image_digest, /sha256:/);
   assertDerivedProvenance(result.runRecord.environment, { installCommands: ['install-fixture'] });
@@ -384,15 +398,12 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.match(bundle.stdout, /^bundle_digest sha256:[0-9a-f]{64}\n$/);
   assert.equal(runCalls(fake, 'A').length, 1);
   assert.equal(runCalls(fake, 'B').length, 2);
-  assert.deepEqual(inspectCalls(fake), [[
-    'image',
-    'inspect',
-    config().image,
-    '--format',
-    '{{json .RepoDigests}}',
-  ]]);
+  assert.deepEqual(inspectCalls(fake).map((args) => args.at(-1)), [
+    '{{json .RepoDigests}}', '{{.Id}}', '{{.Os}}', '{{.Architecture}}',
+  ]);
+  assert.ok(fake.calls.indexOf(inspectCalls(fake)[0]) < fake.calls.indexOf(runCalls(fake, 'A')[0]));
   for (const args of [...runCalls(fake, 'A'), ...runCalls(fake, 'B')]) {
-    assert.equal(imageFromRunArgs(args), config().image);
+    assert.equal(imageFromRunArgs(args), resolvedImageId);
   }
   assertCleanupCalls(fake, 3);
   await assertTemporaryRootsGone(fake);
@@ -961,14 +972,35 @@ test('empty RepoDigests falls back to the resolved image Id', async (t) => {
   });
 
   assert.equal(result.runRecord.environment.container_image_ref, 'node:20-bookworm');
-  assert.equal(result.runRecord.environment.container_image_digest, resolvedImageId);
+  assert.equal(result.runRecord.environment.container_image_digest, null);
+  assert.equal(result.runRecord.environment.container_image_id, resolvedImageId);
   assert.equal(result.runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
-  assert.match(result.runRecord.environment.container_image_digest, /^sha256:/);
   assertDerivedProvenance(result.runRecord.environment, { installCommands: ['install-fixture'] });
   assert.deepEqual(inspectCalls(fake).map((args) => args.at(-1)), [
     '{{json .RepoDigests}}',
     '{{.Id}}',
+    '{{.Os}}',
+    '{{.Architecture}}',
   ]);
+});
+
+test('an absent local image is pulled once, resolved before phase A, and every phase uses its immutable ID', async (t) => {
+  const outputDirectory = await temporaryDirectory(t, 'northset-executor-image-pull-');
+  const fake = fakeDocker({ repoDigestsCodes: [1, 0] });
+  await execute(config(), {
+    outDir: outputDirectory,
+    now: fixedNow,
+    spawnImpl: fake.spawnImpl,
+    gitImpl: nullGit,
+  });
+
+  assert.equal(fake.calls.filter((args) => args[0] === 'pull').length, 1);
+  const firstRun = fake.calls.findIndex((args) => args[0] === 'run');
+  const finalInspect = fake.calls.findLastIndex((args) => args[0] === 'image');
+  assert.ok(finalInspect < firstRun);
+  for (const args of fake.calls.filter((entry) => entry[0] === 'run')) {
+    assert.equal(imageFromRunArgs(args), resolvedImageId);
+  }
 });
 
 test('missing RepoDigests and image Id fails closed before phase B', async (t) => {
@@ -977,11 +1009,11 @@ test('missing RepoDigests and image Id fails closed before phase B', async (t) =
 
   await assert.rejects(
     execute(config(), { outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl }),
-    (error) => error instanceof ExecutorError && error.message === 'cannot resolve image digest',
+    (error) => error instanceof ExecutorError && error.message === 'cannot resolve immutable image identity',
   );
 
   assert.equal(runCalls(fake, 'B').length, 0);
-  assert.equal(inspectCalls(fake).length, 2);
+  assert.equal(inspectCalls(fake).length, 4);
   await assert.rejects(
     access(path.join(outputDirectory, 'run_record.json')),
     (error) => error.code === 'ENOENT',
@@ -996,11 +1028,11 @@ test('failed image inspection fails closed before phase B', async (t) => {
 
   await assert.rejects(
     execute(config(), { outDir: outputDirectory, now: fixedNow, spawnImpl: fake.spawnImpl }),
-    (error) => error instanceof ExecutorError && error.message === 'cannot resolve image digest',
+    (error) => error instanceof ExecutorError && error.message === 'cannot resolve immutable image identity',
   );
 
   assert.equal(runCalls(fake, 'B').length, 0);
-  assert.equal(inspectCalls(fake).length, 1);
+  assert.equal(inspectCalls(fake).length, 2);
   assertCleanupCalls(fake, 3);
   await assertTemporaryRootsGone(fake);
 });

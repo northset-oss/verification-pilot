@@ -20,8 +20,8 @@
     "human_operator": "Northset operator"
   },
   "base_commit": "1111111111111111111111111111111111111111",
-  "patch_commit": null,
-  "patch_diff_hash": null,
+  "patch_commit": "2222222222222222222222222222222222222222",
+  "patch_diff_hash": "sha256:8dc8f17a7ad6e089ac67e4d786720195058b9194129464b03dc08d7cd473796f",
   "commands_declared": ["node --test"],
   "environment": {
     "container_image_digest": null,

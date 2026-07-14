@@ -5,6 +5,10 @@ repositories. It records each existing file's Git blob SHA and compares that fre
 stored snapshot. A missing path (`404`) is normal; other GitHub API failures appear as warning
 results.
 
+This is a separate candidate watchlist. It is not ongoing monitoring of every repository named
+in the public ledger and is not evidence that a ledger counterparty's policy is unchanged. Future
+mission records should preserve their own immutable policy URL or blob SHA.
+
 Run a read-only check:
 
 ```sh
