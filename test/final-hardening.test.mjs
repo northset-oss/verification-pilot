@@ -66,7 +66,7 @@ test('bundle verification rejects symlink members even when their bytes match th
   assert.ok(verified.issues.some(({ kind }) => kind === 'type'));
 });
 
-test('future run records use schema_version 1, exact environment fields, and time/duration invariants', () => {
+test('schema-v1 run records retain exact environment and time/duration invariants', () => {
   const record = {
     schema_version: 1,
     started_at: '2026-07-14T14:00:02Z',

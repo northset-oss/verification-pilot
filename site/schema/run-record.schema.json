@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["started_at", "finished_at", "environment", "commands", "notes"],
   "properties": {
-    "schema_version": { "const": 1 },
+    "schema_version": { "enum": [1, 2] },
     "started_at": { "type": "string", "format": "date-time" },
     "finished_at": { "type": "string", "format": "date-time" },
     "environment": {
@@ -43,12 +43,23 @@
         }
       }
     },
+    "usage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["networked_setup_elapsed_ms", "dependency_install_ms", "declared_commands_ms", "cpu_ms", "peak_rss_bytes"],
+      "properties": {
+        "networked_setup_elapsed_ms": { "type": "integer", "minimum": 0 },
+        "dependency_install_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "declared_commands_ms": { "type": "integer", "minimum": 0 },
+        "cpu_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "peak_rss_bytes": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
     "notes": { "type": ["string", "null"] },
     "redactions": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
   },
   "allOf": [
     {
-      "if": { "required": ["schema_version"] },
+      "if": { "properties": { "schema_version": { "enum": [1, 2] } }, "required": ["schema_version"] },
       "then": {
         "properties": {
           "environment": {
@@ -57,6 +68,10 @@
           }
         }
       }
+    },
+    {
+      "if": { "properties": { "schema_version": { "const": 2 } }, "required": ["schema_version"] },
+      "then": { "required": ["usage"] }
     }
   ],
   "$defs": {

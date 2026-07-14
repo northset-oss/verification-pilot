@@ -27,6 +27,14 @@ match `mission.json:issue_or_task`; bodies and comments are never projected. `ge
 the exact `--now` value;
 when the optional flag is omitted it is `null`, and the builder never reads the wall clock.
 
+Schema-v2 receipts additionally require signed `bundle/economic.json` and an immutable top-level
+`approval.json`; either both exist or neither exists. The builder verifies task and funding
+identity, complete contiguous attempt lineage, run usage reconciliation, approval after run finish,
+issue-snapshot provenance, and every cost source reference down to its public bundle-member digest
+and JSON pointer. The economic file must have a matching `bundle.manifest.json` entry. It then
+projects those facts into the same receipt. Existing missions with neither
+artifact remain schema v1 and are not rewritten. See [Economic identity](economic-identity.md).
+
 A required sibling `publication.json` is a mutable factual envelope for an immutable mission. It
 records the direct PR URL and head OID, base/head drift, CI state, merge commit,
 `prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
@@ -64,7 +72,9 @@ with an M-008 receipt, newest-first external receipt previews, and a lower colla
 own-repository rehearsals; JavaScript only
 enhances filters and copy buttons. Each page is rendered from the normalized record, includes
 verbatim raw commands and limitations, expandable committed redacted stdout/stderr when present,
-and print CSS sized for an approximately 80 mm receipt. Direct rendering writes every new page
+and print CSS. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
+summary-first layout with dense economic, technical, and provenance evidence in expandable drawers.
+Direct rendering writes every new page
 successfully before pruning stale generator-owned `site/receipts/M-XXX/` directories, so a render
 error cannot first remove the last complete receipt set. Unrelated site files and receipt
 directories are preserved by direct `render` invocations. The CI drift gate is stricter: it

@@ -162,6 +162,22 @@ test('declared command mismatch fails before executor and writes no mission', as
   await assertMissing(path.join(missionsDir, input.mission.mission_id));
 });
 
+test('invalid economic identity fails before executor and writes no mission', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = { calls: 0 };
+  const input = missionInput(await example(rehearsalExample), {
+    economic: {schema_version: 1},
+  });
+
+  await assert.rejects(
+    runPipeline(input, {missionsDir, now: fixedNow, executeImpl: fakeExecutor(counter)}),
+    /economic\.json\.task is required/i,
+  );
+  assert.equal(counter.calls, 0);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+});
+
 test('a fresh execution rejects a pre-existing attestation before executor', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');

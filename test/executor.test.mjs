@@ -372,7 +372,7 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.equal(result.runRecord.started_at, fixedNow);
   assert.equal(result.runRecord.finished_at, fixedNow);
   assert.equal(result.runRecord.environment.container_image_ref, 'node:20-bookworm');
-  assert.equal(result.runRecord.schema_version, 1);
+  assert.equal(result.runRecord.schema_version, 2);
   assert.equal(result.runRecord.environment.container_image_digest, resolvedRepoDigest);
   assert.equal(result.runRecord.environment.container_image_id, resolvedImageId);
   assert.equal(result.runRecord.environment.container_os, 'linux');
@@ -384,6 +384,12 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
     { cmd: 'first-check', exit_code: 0 },
     { cmd: 'second-check', exit_code: 0 },
   ]);
+  assert.equal(Number.isInteger(result.runRecord.usage.networked_setup_elapsed_ms), true);
+  assert.equal(result.runRecord.usage.dependency_install_ms, null);
+  assert.equal(
+    result.runRecord.usage.declared_commands_ms,
+    result.runRecord.commands.reduce((total, command) => total + command.duration_ms, 0),
+  );
   assert.equal(
     await readFile(path.join(outputDirectory, 'stdout.txt'), 'utf8'),
     '=== cmd 1: first-check ===\nfirst stdout\n=== cmd 2: second-check ===\nsecond stdout\n',

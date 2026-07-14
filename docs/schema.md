@@ -3,7 +3,9 @@
 Every file under `schema/` uses JSON Schema draft 2020-12. `mission.schema.json` describes the
 immutable mission envelope; `publication.schema.json`, `ledger.schema.json`,
 `public-receipt.schema.json`, `run-record.schema.json`, and `public-consent.schema.json` describe
-the mutable observation envelope and machine-readable evidence surfaces. The dependency-free
+the mutable observation envelope and machine-readable evidence surfaces. Economic receipt v2 also
+uses `economic-identity.schema.json` and `approval.schema.json`; see
+[Economic identity](economic-identity.md). The dependency-free
 runtime applies strict structural and cross-field checks without loading a schema package.
 
 ## Required fields

@@ -70,7 +70,12 @@ with `docker kill` and sends the Docker client `SIGTERM`, followed by `SIGKILL` 
 ten-second grace period if needed. Phase-B timeout records use `"exit_code": null` with
 `"timed_out": true`.
 
-The output directory contains `run_record.json`, `stdout.txt`, and `stderr.txt`. Each stream
+The output directory contains `run_record.json`, `stdout.txt`, and `stderr.txt`. Newly produced run
+records use schema version 2 and add a strict `usage` object. `networked_setup_elapsed_ms` measures
+the whole phase-A Docker interval; it is not relabeled as dependency-install time.
+`dependency_install_ms`, CPU time, and peak RSS are `null` until directly measurable.
+`declared_commands_ms` is the sum of the command durations already recorded below. Resource limits
+remain enforcement configuration, not consumption measurements. Each stream
 uses `=== cmd N: <cmd> ===` section headers. Per-command streams longer than
 `output_bytes_per_stream` are cut at the byte limit and receive a `[TRUNCATED]` marker.
 Output is intentionally not redacted; the bundle step owns redaction.

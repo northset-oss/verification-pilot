@@ -23,6 +23,11 @@ command list against the same declaration before creating or publishing the bund
 mismatch fails closed: the pre-execution mismatch never invokes the executor, and neither
 mismatch leaves a partial published mission directory.
 
+When `economic` is present, its static task, funding, lineage, usage, scope, cost, completeness,
+and provenance facts are also validated before execution. After execution, the pipeline replaces
+only the verification placeholder with run-derived measurements, validates it again against the
+actual run record, and writes it as `economic.json` before bundle creation.
+
 ## Input
 
 The input JSON accepts exactly these top-level fields:
@@ -35,6 +40,7 @@ The input JSON accepts exactly these top-level fields:
   "consent_file": "/absolute/path/to/consent.json",
   "issue_snapshot_file": "/absolute/path/to/issue_snapshot.json",
   "ci_links_file": "/absolute/path/to/ci_links.json",
+  "economic": {},
   "executor": {
     "image": "node:20-bookworm",
     "install_commands": ["npm ci"],
@@ -53,7 +59,8 @@ The input JSON accepts exactly these top-level fields:
 `patch_file`, `consent_file`, `issue_snapshot_file`, and `ci_links_file` may be `null` when
 their artifact is absent, subject to the consent rule above. The pipeline supplies `repo_dir`
 and `patch_file` to the executor configuration. `executor.commands` must be an exact copy of
-`mission.commands_declared`.
+`mission.commands_declared`. `economic` is optional for legacy inputs; when present it must follow
+the source form documented in [economic-identity.md](economic-identity.md).
 
 ## CLI
 
