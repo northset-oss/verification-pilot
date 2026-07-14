@@ -367,7 +367,10 @@ test('render creates a permanent printable receipt for every committed mission a
     out: indexPath,
     now: '2026-07-13T22:32:35Z',
   });
-  assert.equal(build.included, 12);
+  const committedIndex = JSON.parse(
+    await readFile(path.join(committedMissionsDirectory, 'index.json'), 'utf8'),
+  );
+  assert.equal(build.included, committedIndex.missions.length);
 
   await mkdir(path.join(temporaryRoot, 'site', 'assets'), { recursive: true });
   await mkdir(path.join(temporaryRoot, 'site', 'receipts', 'legacy'), { recursive: true });

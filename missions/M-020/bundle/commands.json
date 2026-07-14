@@ -1,0 +1,8 @@
+{
+  "commands": [
+    "corepack yarn workspace @kaoto/kaoto test src/services/document/xml-schema/xml-schema-document.service.abstract-repeated-ref.test.ts packages/ui/src/services/document/xml-schema/xml-schema-document.service.abstract-repeated-ref.test.ts --configLoader runner",
+    "corepack yarn workspace @kaoto/kaoto lint",
+    "corepack yarn workspace @kaoto/kaoto lint:style",
+    "corepack yarn workspace @kaoto/kaoto test --configLoader runner --maxWorkers 4"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "mission_id": "M-020",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "KaotoIO maintainers",
+  "target_repo": "https://github.com/KaotoIO/kaoto",
+  "issue_or_task": "https://github.com/KaotoIO/kaoto/issues/3473",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/KaotoIO/kaoto/blob/caf30cc7c6123728c8c05d1f36e9cd8a67f23f0e/AGENTS.md",
+    "checked_at": "2026-07-13T20:58:14Z",
+    "ai_policy_summary": "Kaoto permits AI-assisted contributions but requires human review, approval, signing, and responsibility. Contributors must use their own fork and branch, stay under 10 PRs per operator per day, follow up within two weeks, and run UI lint, style lint, and tests before submission. AI-use disclosure is optional but recommended."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "caf30cc7c6123728c8c05d1f36e9cd8a67f23f0e",
+  "patch_commit": "ffc3e052480163e7338e3164008c6a7a26a77605",
+  "patch_diff_hash": "sha256:df4e811a58411b60c9f1b8362e342138080730992f78ff08c7e60ae0bf61d025",
+  "commands_declared": [
+    "corepack yarn workspace @kaoto/kaoto test src/services/document/xml-schema/xml-schema-document.service.abstract-repeated-ref.test.ts packages/ui/src/services/document/xml-schema/xml-schema-document.service.abstract-repeated-ref.test.ts --configLoader runner",
+    "corepack yarn workspace @kaoto/kaoto lint",
+    "corepack yarn workspace @kaoto/kaoto lint:style",
+    "corepack yarn workspace @kaoto/kaoto test --configLoader runner --maxWorkers 4"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "The focused regression validates parsed document structure and does not exercise the full browser UI.",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ]
+}
