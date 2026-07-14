@@ -406,7 +406,11 @@ test('CLI audits committed historical receipts without network access', () => {
   const report = JSON.parse(result.stdout);
   assert.equal(report.checked, 0);
   assert.equal(report.historical_exempt, 10);
-  assert.equal(report.prepared, 0);
+  assert.equal(report.prepared, 1);
+  assert.deepEqual(
+    report.reports.filter(({ status }) => status === 'prepared').map(({ mission_id: missionId }) => missionId),
+    ['M-021'],
+  );
 });
 
 test('committed policy freezes the historical cutover and active Northset actors', async () => {

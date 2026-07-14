@@ -651,6 +651,7 @@ test('render creates a permanent printable receipt for every committed mission a
     .sort();
   for (const missionId of missionIds) {
     const page = await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'index.html'), 'utf8');
+    const preparedPending = missionId === 'M-021';
     assert.match(page, new RegExp(missionId));
     assert.match(page, /NOT INCLUDED/);
     assert.match(page, /declared command/);
@@ -658,8 +659,13 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.match(page, /Verification execution/);
     assert.match(page, /Signed bundle/);
     assert.match(page, /Download receipt\.json/);
-    assert.match(page, /Download signed bundle/);
-    assert.match(page, /Verify this receipt/);
+    if (preparedPending) {
+      assert.match(page, /Attestation URL was not recorded/);
+      assert.doesNotMatch(page, /Download signed bundle|Verify this receipt/);
+    } else {
+      assert.match(page, /Download signed bundle/);
+      assert.match(page, /Verify this receipt/);
+    }
     assert.match(page, /Print \/ Save receipt/);
     assert.match(page, /Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded\./);
     const receiptJson = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'receipt.json'), 'utf8'));
@@ -671,7 +677,14 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.ok(receiptJson.environment);
     assert.ok(receiptJson.code);
     assert.ok(receiptJson.bundle.bundle_contents_digest);
-    assert.ok(receiptJson.bundle.signed_asset_sha256);
+    if (preparedPending) {
+      assert.equal(receiptJson.bundle.signed_asset_sha256, null);
+      assert.equal(receiptJson.bundle.attestation_uri, null);
+      assert.equal(receiptJson.bundle.attestation_verified_at, null);
+      assert.equal(receiptJson.bundle.provenance, 'Signed provenance has not been verified.');
+    } else {
+      assert.ok(receiptJson.bundle.signed_asset_sha256);
+    }
     assert.ok(!Object.hasOwn(receiptJson, 'patch_diff'));
     assert.ok(!Object.hasOwn(receiptJson, 'stdout_redacted'));
     assert.ok(!Object.hasOwn(receiptJson, 'stderr_redacted'));
