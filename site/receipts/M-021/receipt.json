@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-14T19:46:34.399Z",
+  "receipt_id": "M-021",
+  "receipt_result": "PASS — 4/4 declared commands",
+  "passed_commands": 4,
+  "declared_commands": 4,
+  "timestamps": {
+    "started_at": "2026-07-14T16:37:19.594Z",
+    "finished_at": "2026-07-14T17:20:53.053Z"
+  },
+  "commands": [
+    {
+      "cmd": "corepack yarn workspace @kaoto/kaoto test src/components/Visualization/Canvas/Canvas.test.tsx packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx --configLoader runner",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 24747
+    },
+    {
+      "cmd": "corepack yarn workspace @kaoto/kaoto lint",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 103713
+    },
+    {
+      "cmd": "corepack yarn workspace @kaoto/kaoto lint:style",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 9291
+    },
+    {
+      "cmd": "corepack yarn workspace @kaoto/kaoto test --configLoader runner --maxWorkers 2",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 2031105
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "b419d921c8de0b68e7eb7054f412b05ee69336a2",
+    "install_commands": [
+      "corepack yarn install --immutable"
+    ]
+  },
+  "code": {
+    "base_commit": "b419d921c8de0b68e7eb7054f412b05ee69336a2",
+    "recorded_patch_commit": "19be9992371505fcddf498cdd93c59a08c0bb152",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:9e8ee6fcbffe89b16cdec6f8a08f6f5c47ea0bd4a724f1cc52baa62e0e4a4f30",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "4/4 declared commands returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
+    "signed_asset_sha256": null,
+    "attestation_uri": null,
+    "attestation_verified_at": null,
+    "provenance": "Signed provenance has not been verified."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
+    "target_repo": "https://github.com/KaotoIO/kaoto",
+    "issue_or_task": "https://github.com/KaotoIO/kaoto/issues/3301",
+    "publication_pr": null
+  },
+  "issue_title": "Collapsed state of groups is not preserved when switching tabs",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ],
+  "correction": null,
+  "scope_note": null,
+  "upstream_outcome": {
+    "status": "prepared",
+    "link": null,
+    "attribution": "Recorded upstream outcome"
+  }
+}
