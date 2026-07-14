@@ -49,9 +49,9 @@
       "required": ["bundle_contents_digest", "signed_asset_sha256", "attestation_uri", "attestation_verified_at", "provenance"],
       "properties": {
         "bundle_contents_digest": { "$ref": "#/$defs/digest" },
-        "signed_asset_sha256": { "$ref": "#/$defs/digest" },
-        "attestation_uri": { "type": "string", "format": "uri" },
-        "attestation_verified_at": { "$ref": "#/$defs/time" },
+        "signed_asset_sha256": { "$ref": "#/$defs/nullableDigest" },
+        "attestation_uri": { "$ref": "#/$defs/nullableUrl" },
+        "attestation_verified_at": { "anyOf": [{ "$ref": "#/$defs/time" }, { "type": "null" }] },
         "provenance": { "type": "string", "minLength": 1 }
       }
     },
@@ -87,6 +87,39 @@
       ]
     }
   },
+  "allOf": [{
+    "if": {
+      "properties": {
+        "upstream_outcome": {
+          "type": "object",
+          "properties": { "status": { "const": "prepared" } },
+          "required": ["status"]
+        }
+      },
+      "required": ["upstream_outcome"]
+    },
+    "then": { "properties": { "bundle": { "oneOf": [{
+      "properties": {
+        "signed_asset_sha256": { "type": "null" },
+        "attestation_uri": { "type": "null" },
+        "attestation_verified_at": { "type": "null" },
+        "provenance": { "const": "Signed provenance has not been verified." }
+      }
+    }, {
+      "properties": {
+        "signed_asset_sha256": { "$ref": "#/$defs/digest" },
+        "attestation_uri": { "type": "string", "format": "uri" },
+        "attestation_verified_at": { "$ref": "#/$defs/time" },
+        "provenance": { "const": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval." }
+      }
+    }] } } },
+    "else": { "properties": { "bundle": { "properties": {
+      "signed_asset_sha256": { "$ref": "#/$defs/digest" },
+      "attestation_uri": { "type": "string", "format": "uri" },
+      "attestation_verified_at": { "$ref": "#/$defs/time" },
+      "provenance": { "const": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval." }
+    } } } }
+  }],
   "$defs": {
     "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
     "time": { "type": "string", "format": "date-time" },

@@ -60,6 +60,51 @@ test('publication schema is exact, complete, and enforces state-dependent facts'
     attestation_uri: 'https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz?download=1',
   }), 'M-007'), /attestation_uri|release asset/i);
 
+  const pendingPrepared = completePublication({
+    state: 'prepared',
+    pr_number: null,
+    pr_url: null,
+    pr_head_oid: null,
+    base_branch: null,
+    head_drift: false,
+    ci_state: null,
+    merge_commit_oid: null,
+    review_decision: null,
+    decision_url: null,
+    opened_at: null,
+    closed_at: null,
+    updated_at: null,
+    observed_at: null,
+    attestation_uri: null,
+    release_asset_sha256: null,
+    attestation_verified_at: null,
+  });
+  assert.doesNotThrow(() => validatePublication(pendingPrepared, 'M-007'));
+  const attestationEvidence = {
+    attestation_uri: completePublication().attestation_uri,
+    release_asset_sha256: completePublication().release_asset_sha256,
+    attestation_verified_at: completePublication().attestation_verified_at,
+  };
+  assert.doesNotThrow(() => validatePublication({ ...pendingPrepared, ...attestationEvidence }, 'M-007'));
+  const evidenceFields = Object.keys(attestationEvidence);
+  for (let mask = 1; mask < 7; mask += 1) {
+    const partial = { ...pendingPrepared };
+    evidenceFields.forEach((field, index) => {
+      if ((mask & (1 << index)) !== 0) partial[field] = attestationEvidence[field];
+    });
+    assert.throws(
+      () => validatePublication(partial, 'M-007'),
+      /prepared attestation evidence must be all null or all present/i,
+      `partial attestation mask ${mask.toString(2).padStart(3, '0')}`,
+    );
+  }
+  for (const field of ['attestation_uri', 'release_asset_sha256', 'attestation_verified_at']) {
+    assert.throws(
+      () => validatePublication(completePublication({ [field]: null }), 'M-007'),
+      new RegExp(`publication ${field} is required for external records`, 'i'),
+    );
+  }
+
   const future = completePublication({
     mission_id: 'M-021',
     pr_number: 21,
@@ -206,12 +251,74 @@ test('public JSON schemas are committed for publication, ledger, receipt, and ru
   }
   const publicationSchema = JSON.parse(await readFile(path.join(root, 'schema/publication.schema.json'), 'utf8'));
   assert.deepEqual([...publicationSchema.required].sort(), publicationFields);
+  assert.deepEqual(
+    publicationSchema.allOf,
+    [{
+      if: { properties: { state: { const: 'prepared' } }, required: ['state'] },
+      then: { oneOf: [{
+        properties: {
+          attestation_uri: { type: 'null' },
+          release_asset_sha256: { type: 'null' },
+          attestation_verified_at: { type: 'null' },
+        },
+      }, {
+        properties: {
+          attestation_uri: { type: 'string', format: 'uri', pattern: '^https://github\\.com/northset-oss/verification-pilot/releases/download/' },
+          release_asset_sha256: { $ref: '#/$defs/digest' },
+          attestation_verified_at: { type: 'string', format: 'date-time' },
+        },
+      }] },
+      else: {
+        properties: {
+          attestation_uri: { type: 'string', format: 'uri', pattern: '^https://github\\.com/northset-oss/verification-pilot/releases/download/' },
+          release_asset_sha256: { $ref: '#/$defs/digest' },
+          attestation_verified_at: { type: 'string', format: 'date-time' },
+        },
+      },
+    }],
+  );
   assert.equal(publicationSchema.properties.pr_disclosure.$ref, '#/$defs/prDisclosure');
   assert.deepEqual(
     [...publicationSchema.$defs.prDisclosure.required].sort(),
     ['canonical_url', 'mode', 'required', 'schema_version', 'verified_at'],
   );
   const receiptSchema = JSON.parse(await readFile(path.join(root, 'schema/public-receipt.schema.json'), 'utf8'));
+  assert.deepEqual(
+    receiptSchema.allOf,
+    [{
+      if: {
+        properties: {
+          upstream_outcome: {
+            type: 'object',
+            properties: { status: { const: 'prepared' } },
+            required: ['status'],
+          },
+        },
+        required: ['upstream_outcome'],
+      },
+      then: { properties: { bundle: { oneOf: [{
+        properties: {
+          signed_asset_sha256: { type: 'null' },
+          attestation_uri: { type: 'null' },
+          attestation_verified_at: { type: 'null' },
+          provenance: { const: 'Signed provenance has not been verified.' },
+        },
+      }, {
+        properties: {
+          signed_asset_sha256: { $ref: '#/$defs/digest' },
+          attestation_uri: { type: 'string', format: 'uri' },
+          attestation_verified_at: { $ref: '#/$defs/time' },
+          provenance: { const: 'Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval.' },
+        },
+      }] } } },
+      else: { properties: { bundle: { properties: {
+        signed_asset_sha256: { $ref: '#/$defs/digest' },
+        attestation_uri: { type: 'string', format: 'uri' },
+        attestation_verified_at: { $ref: '#/$defs/time' },
+        provenance: { const: 'Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval.' },
+      } } } },
+    }],
+  );
   const receipt = JSON.parse(await readFile(path.join(root, 'site/receipts/M-020/receipt.json'), 'utf8'));
   assert.deepEqual(Object.keys(receipt).sort(), [...receiptSchema.required].sort());
   const ledgerSchema = JSON.parse(await readFile(path.join(root, 'schema/ledger.schema.json'), 'utf8'));

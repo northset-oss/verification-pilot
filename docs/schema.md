@@ -58,6 +58,13 @@ This stored observation is not accepted on trust. The separate CI disclosure job
 PR body and comments, confirms the receipt endpoint, and fails if the remote state no longer
 matches. The field is prohibited on a `prepared` publication because there is no PR to observe.
 
+Every publication retains the attestation fields. While `state` is `prepared`,
+`attestation_uri`, `release_asset_sha256`, and `attestation_verified_at` must be either all `null`
+or all valid and present; partial evidence is rejected. The prepared publication envelope is
+authoritative over mission-level attestation metadata, so the all-null form cannot inherit a stale
+URI. Generated receipts then state that the asset is not recorded and its provenance is not
+verified. For `open`, `closed_unmerged`, and `merged`, all three fields must be non-null and valid.
+
 ## Tier, grade, and role policy rules
 
 The validator refuses any receipt whose claims outrun its evidence:
