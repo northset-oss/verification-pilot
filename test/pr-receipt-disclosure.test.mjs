@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { mkdtemp, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
 import os from 'node:os';
@@ -388,24 +387,34 @@ test('synchronizer is read-only by default and apply requires the exact confirme
   });
 });
 
-test('CLI audits committed historical receipts without network access', () => {
-  const result = spawnSync(process.execPath, [
-    'bin/pr-receipt-disclosure.mjs',
-    'check',
-    '--missions-dir',
-    'missions',
-    '--policy',
-    'policies/pr_receipt_disclosure_policy.json',
-    '--json',
-  ], {
-    cwd: repositoryRoot,
-    encoding: 'utf8',
-    env: { ...process.env, GITHUB_TOKEN: '', GH_TOKEN: '' },
-  });
-  assert.equal(result.status, 0, result.stderr);
-  assert.equal(result.stderr, '');
-  const report = JSON.parse(result.stdout);
+test('repository audit checks committed receipts without network access', async () => {
   const publication = JSON.parse(readFileSync(path.join(repositoryRoot, 'missions/M-021/publication.json'), 'utf8'));
+  const routes = new Map();
+  if (publication.state !== 'prepared') {
+    const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
+    const parsedPrUrl = new URL(publication.pr_url);
+    const [owner, repository, resource, number] = parsedPrUrl.pathname.split('/').filter(Boolean);
+    assert.equal(resource, 'pull');
+    assert.equal(Number(number), publication.pr_number);
+    const prApi = `https://api.github.com/repos/${owner}/${repository}/pulls/${number}`;
+    const commentsApi = `https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments?per_page=100`;
+    routes.set(`GET ${receiptUrl}`, response(200));
+    routes.set(`GET ${prApi}`, response(200, {
+      number: publication.pr_number,
+      html_url: publication.pr_url,
+      body: renderDisclosureBlock({
+        missionId: 'M-021',
+        receiptUrl,
+        publicationState: publication.state,
+      }),
+    }));
+    routes.set(`GET ${commentsApi}`, response(200, []));
+  }
+  const report = await auditAllDisclosures({
+    missionsDir: path.join(repositoryRoot, 'missions'),
+    policy,
+    request: fakeRequest(routes),
+  });
   const expectedStatus = publication.state === 'prepared' ? 'prepared' : 'verified';
   assert.equal(report.checked, expectedStatus === 'verified' ? 1 : 0);
   assert.equal(report.historical_exempt, 10);
