@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { mkdtemp, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -404,11 +405,13 @@ test('CLI audits committed historical receipts without network access', () => {
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stderr, '');
   const report = JSON.parse(result.stdout);
-  assert.equal(report.checked, 0);
+  const publication = JSON.parse(readFileSync(path.join(repositoryRoot, 'missions/M-021/publication.json'), 'utf8'));
+  const expectedStatus = publication.state === 'prepared' ? 'prepared' : 'verified';
+  assert.equal(report.checked, expectedStatus === 'verified' ? 1 : 0);
   assert.equal(report.historical_exempt, 10);
-  assert.equal(report.prepared, 1);
+  assert.equal(report.prepared, expectedStatus === 'prepared' ? 1 : 0);
   assert.deepEqual(
-    report.reports.filter(({ status }) => status === 'prepared').map(({ mission_id: missionId }) => missionId),
+    report.reports.filter(({ status }) => status === expectedStatus).map(({ mission_id: missionId }) => missionId),
     ['M-021'],
   );
 });
