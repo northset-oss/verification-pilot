@@ -12,6 +12,24 @@ permissions:
   contents: read
 
 jobs:
+  pr-disclosure:
+    name: pr-disclosure
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+      - name: Enforce future contributor receipt disclosure
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          node bin/pr-receipt-disclosure.mjs check
+          --missions-dir missions
+          --policy policies/pr_receipt_disclosure_policy.json
+          --json
+
   test:
     runs-on: ubuntu-latest
     steps:

@@ -30,7 +30,8 @@ when the optional flag is omitted it is `null`, and the builder never reads the 
 A required sibling `publication.json` is a mutable factual envelope for an immutable mission. It
 records the direct PR URL and head OID, base/head drift, CI state, merge commit,
 `prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
-an optional public `scope_note`, and verified release-asset evidence. A scope note is a nullable,
+an optional public `scope_note`, verified release-asset evidence, and an optional structured
+`pr_disclosure` observation. A scope note is a nullable,
 validated, transparent public interpretation of the receipt's scope. It stays in the mutable
 publication envelope, is shown separately from the immutable signed limitations, and must not
 claim checks absent from the signed command evidence. Ledger builds overlay
@@ -68,4 +69,8 @@ stylesheets, fonts, images, or runtime APIs, and works when opened with `file://
 Future contributor PR disclosure uses at most one short canonical per-receipt
 `receipts/M-XXX/` URL in the PR body, not the legacy homepage `#M-XXX` anchor. Do not add a
 separate comment unless a maintainer invites one. Existing PR bodies are historical records and
-are not rewritten by the ledger generator.
+are not rewritten by the ledger generator. This is mechanically enforced for every future
+non-prepared `author_contribution` by the independent `ci / pr-disclosure` job; the checked
+historical exemption list lives in `policies/pr_receipt_disclosure_policy.json`. The deterministic
+ledger builder remains network-free. See [PR receipt disclosure](pr-receipt-disclosure.md) for
+the operator and enforcement flow.

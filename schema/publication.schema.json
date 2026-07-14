@@ -27,12 +27,29 @@
     "attestation_uri": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/northset-oss/verification-pilot/releases/download/" },
     "bundle_digest": { "$ref": "#/$defs/digest" },
     "release_asset_sha256": { "$ref": "#/$defs/digest" },
-    "attestation_verified_at": { "type": "string", "format": "date-time" }
+    "attestation_verified_at": { "type": "string", "format": "date-time" },
+    "pr_disclosure": { "$ref": "#/$defs/prDisclosure" }
   },
   "$defs": {
     "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
     "nullableOid": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
     "nullableUrl": { "type": ["string", "null"], "format": "uri" },
-    "nullableTime": { "type": ["string", "null"], "format": "date-time" }
+    "nullableTime": { "type": ["string", "null"], "format": "date-time" },
+    "prDisclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "required", "mode", "canonical_url", "verified_at"],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "required": { "const": true },
+        "mode": { "const": "pr_body" },
+        "canonical_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://northset-oss\\.github\\.io/verification-pilot/receipts/M-(?:[0-9]{3}|E2[a-c])/$"
+        },
+        "verified_at": { "type": "string", "format": "date-time" }
+      }
+    }
   }
 }

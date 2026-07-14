@@ -40,6 +40,24 @@ runtime applies strict structural and cross-field checks without loading a schem
 
 Objects reject undeclared properties. Nested object members are required whenever the object is present and non-null. Free-text policy checks cover disclosure, funding source, counterparty, policy summary, worker identity, declared commands, network policy, and limitations; matching is normalized (case, hyphens, underscores, whitespace), so ordinary spelling variants of banned or settlement wording are still caught.
 
+## Publication envelope and PR disclosure
+
+`publication.json` is the mutable observation envelope for an immutable signed mission. Its
+optional `pr_disclosure` object is deliberately absent from the ten historical contributor
+receipts. For every future non-prepared `author_contribution`, the live disclosure gate requires:
+
+| Field | Required value |
+| --- | --- |
+| `schema_version` | `1` |
+| `required` | `true` |
+| `mode` | `pr_body` |
+| `canonical_url` | The exact `https://northset-oss.github.io/verification-pilot/receipts/M-XXX/` URL matching `mission_id` |
+| `verified_at` | UTC ISO-8601 timestamp at or after the PR's `opened_at` |
+
+This stored observation is not accepted on trust. The separate CI disclosure job reads the live
+PR body and comments, confirms the receipt endpoint, and fails if the remote state no longer
+matches. The field is prohibited on a `prepared` publication because there is no PR to observe.
+
 ## Tier, grade, and role policy rules
 
 The validator refuses any receipt whose claims outrun its evidence:
