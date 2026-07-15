@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-15T12:13:15.904Z",
+  "generated_at": "2026-07-15T12:36:37.563Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -547,7 +547,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -615,7 +615,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -683,7 +683,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -750,7 +750,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -818,7 +818,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -906,7 +906,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -992,7 +992,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-15T12:13:15.904Z",
+      "generated_at": "2026-07-15T12:36:37.563Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1076,17 +1076,17 @@
       "execution_summary": "7/7 declared commands returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:63670e6654fe2f1f372d310636afaae274142d35f5047a9a6e40ea27fa08ed22",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-031-5a774731726a/run-record-M-031-5a774731726a.tar.gz",
+        "attestation_verified_at": "2026-07-15T12:36:28.203Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
         "target_repo": "https://github.com/goptics/vizb",
         "issue_or_task": "https://github.com/goptics/vizb/issues/204",
-        "publication_pr": null
+        "publication_pr": "https://github.com/goptics/vizb/pull/226"
       },
       "issue_title": "[bug]: Tooltip donut legend omits zero-value series (should show n/a)",
       "limitations": [
@@ -1096,11 +1096,11 @@
         "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/goptics/vizb/pull/226",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -1336,8 +1336,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
