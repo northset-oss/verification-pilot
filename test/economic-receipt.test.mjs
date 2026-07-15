@@ -378,7 +378,7 @@ test('priced cost arithmetic reconciles source lines, subtotals, and the total e
   assert.throws(() => validateEconomicIdentity(economic), /calculated.*amount|quantity.*unit rate/i);
 });
 
-test('legacy missions remain schema v1 while v2 renders a concise visual hierarchy', async (t) => {
+test('legacy missions remain schema v1 while v2 renders the proofline visual hierarchy', async (t) => {
   const legacy = await buildReceiptViewModel({ missionFile: path.join(fixture, 'mission.json') });
   assert.equal(legacy.version, 1);
 
@@ -393,12 +393,42 @@ test('legacy missions remain schema v1 while v2 renders a concise visual hierarc
   assert.equal(receiptJson.schema_version, 2);
   assert.equal(receiptJson.economic_identity.task.task_id, taskId);
   assert.match(html, /class="economic-overview"/);
-  assert.match(html, /At a glance/);
+  assert.match(html, /class="proof-hero"/);
+  assert.match(html, /class="proofline-instrument"/);
+  assert.match(html, /class="proofline-anatomy"/);
+  assert.match(html, /class="anatomy-bar"/);
+  assert.equal((html.match(/class="anatomy-segment"/g) ?? []).length, 4);
+  assert.match(html, /ATTEMPT 1 \/ EXECUTION ANATOMY/);
+  assert.match(html, /class="proof-score">1\/1</);
+  assert.match(html, /class="attempt-proofline"/);
+  assert.match(html, /class="proofline-stages"/);
+  assert.match(html, /class="identity-flow"/);
+  assert.equal((html.match(/class="flow-lede"/g) ?? []).length, 3);
+  assert.match(html, /class="receipt-cost-total"/);
+  assert.match(html, /TOTAL COST/);
+  assert.match(html, /class="folio-watermark"/);
+  assert.match(html, /class="receipt-provenance"/);
+  assert.match(html, /class="evidence-drawer evidence-annex"/);
+  assert.match(html, /<details class="annex-chapter annex-economic" open>/);
+  assert.match(html, /<details class="annex-chapter annex-technical">/);
+  assert.match(html, /<details class="annex-chapter annex-provenance">/);
+  assert.match(html, /class="evidence-null"/);
+  assert.equal((html.match(/<details class="evidence-drawer/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /class="glance-grid"/);
+  assert.doesNotMatch(html, /class="identity-grid"/);
   assert.match(html, /Economic identity/);
   assert.match(html, /Known, unknown, and unpriced/);
-  assert.match(html, /<details class="evidence-drawer"/);
+  assert.match(html, /@keyframes proofline-reveal/);
+  assert.match(html, /prefers-reduced-motion/);
+  assert.match(html, /--sans:/);
   assert.doesNotMatch(html, /setup \+ install \(derived\)/);
   assert.match(html, /unclassified executor time/i);
+
+  const pageNav = html.match(/<header class="page-nav">[\s\S]*?<\/header>/)?.[0];
+  assert.ok(pageNav);
+  assert.doesNotMatch(pageNav, /Canonical receipt|Generated at/);
+  assert.match(pageNav, /← Receipts/);
+  assert.match(pageNav, />JSON</);
 
   // Optional visual-QA export: production rendering still supplies every byte; this only preserves
   // the otherwise-temporary test site for a real browser inspection.
@@ -407,4 +437,37 @@ test('legacy missions remain schema v1 while v2 renders a concise visual hierarc
     await rm(qaOutput, {recursive: true, force: true});
     await cp(path.join(directory, 'site'), qaOutput, {recursive: true});
   }
+});
+
+test('proofline groups repeated terminal attempts without hiding their recorded count', async (t) => {
+  const economic = economicIdentity();
+  economic.task.attempt_sequence = 7;
+  economic.attempt_lineage = {
+    attempts_total: 7,
+    successful_attempt_id: 'M-005',
+    attempts: [
+      ...Array.from({length: 6}, (_, index) => ({
+        attempt_id: `M-${String(index + 101).padStart(3, '0')}`,
+        attempt_sequence: index + 1,
+        state: 'FAILED_ORACLE',
+        terminal_reason_class: 'verification',
+      })),
+      {attempt_id: 'M-005', attempt_sequence: 7, state: 'READY', terminal_reason_class: null},
+    ],
+  };
+  const {directory} = await v2Mission(t, {economic});
+  const indexFile = path.join(directory, 'missions', 'index.json');
+  const siteFile = path.join(directory, 'site', 'index.html');
+  await buildLedger({missionsDir: path.join(directory, 'missions'), out: indexFile, now: generatedAt});
+  await renderLedger({indexPath: indexFile, out: siteFile, now: generatedAt});
+
+  const html = await readFile(path.join(directory, 'site/receipts/M-005/index.html'), 'utf8');
+  assert.match(html, /proofline-attempt--grouped/);
+  assert.match(html, /class="attempt-group-bracket"/);
+  assert.match(html, /data-attempt-count="6"/);
+  assert.match(html, /ATTEMPTS 1–6/);
+  assert.match(html, /6× FAILED ORACLE/);
+  assert.equal((html.match(/class="attempt-cluster-mark"/g) ?? []).length, 6);
+  assert.match(html, /M-101 → M-106/);
+  assert.match(html, /aria-label="Attempts 1 through 6:/);
 });
