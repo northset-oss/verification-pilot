@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-15T12:36:37.563Z",
+  "generated_at": "2026-07-15T15:35:37.626Z",
   "receipt_id": "M-031",
   "receipt_result": "PASS — 7/7 declared commands",
   "passed_commands": 7,
@@ -106,9 +106,9 @@
   "correction": null,
   "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
   "upstream_outcome": {
-    "status": "open",
+    "status": "merged",
     "link": "https://github.com/goptics/vizb/pull/226",
-    "attribution": "Live upstream pull request"
+    "attribution": "Linked maintainer review"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -345,10 +345,10 @@
     "outcome": {
       "technical_checks_passed": true,
       "pr_opened": true,
-      "ci_state": "pending",
-      "merged": false,
-      "accepted_as_submitted": null,
-      "time_to_close_ms": null,
+      "ci_state": "success",
+      "merged": true,
+      "accepted_as_submitted": true,
+      "time_to_close_ms": 7872000,
       "released": null,
       "deployed": null,
       "business_result_observed": null
@@ -359,7 +359,7 @@
       "attempt_lineage": "complete",
       "usage": "partial",
       "cost": "unpriced",
-      "external_outcome": "partial",
+      "external_outcome": "complete",
       "business_value": "not_observed"
     },
     "provenance": {

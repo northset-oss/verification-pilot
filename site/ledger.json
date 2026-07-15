@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-15T12:36:37.563Z",
+  "generated_at": "2026-07-15T15:35:37.626Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -547,7 +547,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -615,7 +615,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -683,7 +683,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -750,7 +750,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -818,7 +818,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -906,7 +906,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -992,7 +992,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-15T12:36:37.563Z",
+      "generated_at": "2026-07-15T15:35:37.626Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1098,9 +1098,9 @@
       "correction": null,
       "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
       "upstream_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/goptics/vizb/pull/226",
-        "attribution": "Live upstream pull request"
+        "attribution": "Linked maintainer review"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -1337,10 +1337,10 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
-          "merged": false,
-          "accepted_as_submitted": null,
-          "time_to_close_ms": null,
+          "ci_state": "success",
+          "merged": true,
+          "accepted_as_submitted": true,
+          "time_to_close_ms": 7872000,
           "released": null,
           "deployed": null,
           "business_result_observed": null
@@ -1351,7 +1351,7 @@
           "attempt_lineage": "complete",
           "usage": "partial",
           "cost": "unpriced",
-          "external_outcome": "partial",
+          "external_outcome": "complete",
           "business_value": "not_observed"
         },
         "provenance": {

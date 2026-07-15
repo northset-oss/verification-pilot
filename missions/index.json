@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-15T12:36:37.563Z",
+  "generated_at": "2026-07-15T15:35:37.626Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1513,12 +1513,12 @@
         "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
         "opened_at": "2026-07-13T18:20:19Z",
         "closed_at": null,
-        "updated_at": "2026-07-13T18:21:42Z",
-        "observed_at": "2026-07-14T15:02:48Z",
+        "updated_at": "2026-07-15T01:16:37Z",
+        "observed_at": "2026-07-15T15:35:26.462Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
-        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
         "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
         "attestation_verified_at": "2026-07-14T14:21:48Z"
       },
@@ -1610,12 +1610,12 @@
           "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
           "opened_at": "2026-07-13T18:20:19Z",
           "closed_at": null,
-          "updated_at": "2026-07-13T18:21:42Z",
-          "observed_at": "2026-07-14T15:02:48Z",
+          "updated_at": "2026-07-15T01:16:37Z",
+          "observed_at": "2026-07-15T15:35:26.462Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
-          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
           "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
+          "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
           "release_asset_sha256": "sha256:215c2a7f6a4fa32e3d4a6cf481c364f898e8fcd1b55fb136e256ae0956353287",
           "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
@@ -1981,8 +1981,8 @@
         "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
         "opened_at": "2026-07-14T20:08:31Z",
         "closed_at": null,
-        "updated_at": "2026-07-14T20:13:21Z",
-        "observed_at": "2026-07-14T23:05:54.049Z",
+        "updated_at": "2026-07-15T11:39:57Z",
+        "observed_at": "2026-07-15T15:35:30.250Z",
         "correction_note": null,
         "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
         "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -1994,7 +1994,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-          "verified_at": "2026-07-14T23:05:54.049Z"
+          "verified_at": "2026-07-15T15:35:30.250Z"
         }
       },
       "receipt": {
@@ -2113,8 +2113,8 @@
           "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
           "opened_at": "2026-07-14T20:08:31Z",
           "closed_at": null,
-          "updated_at": "2026-07-14T20:13:21Z",
-          "observed_at": "2026-07-14T23:05:54.049Z",
+          "updated_at": "2026-07-15T11:39:57Z",
+          "observed_at": "2026-07-15T15:35:30.250Z",
           "correction_note": null,
           "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
           "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -2126,7 +2126,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-            "verified_at": "2026-07-14T23:05:54.049Z"
+            "verified_at": "2026-07-15T15:35:30.250Z"
           }
         },
         "live_outcome": {
@@ -2145,7 +2145,7 @@
       "issue_or_task": "https://github.com/goptics/vizb/issues/204",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/goptics/vizb/pull/226"
       },
       "run_record_bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -2155,20 +2155,20 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-031",
-        "state": "open",
+        "state": "merged",
         "pr_number": 226,
         "pr_url": "https://github.com/goptics/vizb/pull/226",
         "pr_head_oid": "689279e546d071f37a8e1219898dd8ee693586ef",
         "base_branch": "main",
         "head_drift": false,
-        "ci_state": "pending",
-        "merge_commit_oid": null,
-        "review_decision": "review_required",
+        "ci_state": "success",
+        "merge_commit_oid": "4664a6bf8b83e319d1e487e90a3047de72c40e64",
+        "review_decision": "approved",
         "decision_url": "https://github.com/goptics/vizb/pull/226",
         "opened_at": "2026-07-15T12:36:33Z",
-        "closed_at": null,
-        "updated_at": "2026-07-15T12:36:33Z",
-        "observed_at": "2026-07-15T12:36:35.407Z",
+        "closed_at": "2026-07-15T14:47:45Z",
+        "updated_at": "2026-07-15T14:47:45Z",
+        "observed_at": "2026-07-15T15:35:33.417Z",
         "correction_note": null,
         "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
         "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -2180,7 +2180,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
-          "verified_at": "2026-07-15T12:36:35.408Z"
+          "verified_at": "2026-07-15T15:35:33.417Z"
         }
       },
       "receipt": {
@@ -2514,10 +2514,10 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
-            "merged": false,
-            "accepted_as_submitted": null,
-            "time_to_close_ms": null,
+            "ci_state": "success",
+            "merged": true,
+            "accepted_as_submitted": true,
+            "time_to_close_ms": 7872000,
             "released": null,
             "deployed": null,
             "business_result_observed": null
@@ -2528,7 +2528,7 @@
             "attempt_lineage": "complete",
             "usage": "partial",
             "cost": "unpriced",
-            "external_outcome": "partial",
+            "external_outcome": "complete",
             "business_value": "not_observed"
           },
           "provenance": {
@@ -2562,20 +2562,20 @@
         "publication": {
           "schema_version": 1,
           "mission_id": "M-031",
-          "state": "open",
+          "state": "merged",
           "pr_number": 226,
           "pr_url": "https://github.com/goptics/vizb/pull/226",
           "pr_head_oid": "689279e546d071f37a8e1219898dd8ee693586ef",
           "base_branch": "main",
           "head_drift": false,
-          "ci_state": "pending",
-          "merge_commit_oid": null,
-          "review_decision": "review_required",
+          "ci_state": "success",
+          "merge_commit_oid": "4664a6bf8b83e319d1e487e90a3047de72c40e64",
+          "review_decision": "approved",
           "decision_url": "https://github.com/goptics/vizb/pull/226",
           "opened_at": "2026-07-15T12:36:33Z",
-          "closed_at": null,
-          "updated_at": "2026-07-15T12:36:33Z",
-          "observed_at": "2026-07-15T12:36:35.407Z",
+          "closed_at": "2026-07-15T14:47:45Z",
+          "updated_at": "2026-07-15T14:47:45Z",
+          "observed_at": "2026-07-15T15:35:33.417Z",
           "correction_note": null,
           "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
           "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -2587,13 +2587,13 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
-            "verified_at": "2026-07-15T12:36:35.408Z"
+            "verified_at": "2026-07-15T15:35:33.417Z"
           }
         },
         "live_outcome": {
-          "status": "open",
+          "status": "merged",
           "link": "https://github.com/goptics/vizb/pull/226",
-          "attribution": "Live upstream pull request"
+          "attribution": "Linked maintainer review"
         }
       }
     }

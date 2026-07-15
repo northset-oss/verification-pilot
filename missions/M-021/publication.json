@@ -13,8 +13,8 @@
   "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
   "opened_at": "2026-07-14T20:08:31Z",
   "closed_at": null,
-  "updated_at": "2026-07-14T20:13:21Z",
-  "observed_at": "2026-07-14T23:05:54.049Z",
+  "updated_at": "2026-07-15T11:39:57Z",
+  "observed_at": "2026-07-15T15:35:30.250Z",
   "correction_note": null,
   "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
   "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -26,6 +26,6 @@
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-    "verified_at": "2026-07-14T23:05:54.049Z"
+    "verified_at": "2026-07-15T15:35:30.250Z"
   }
 }

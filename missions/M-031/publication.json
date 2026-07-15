@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "mission_id": "M-031",
-  "state": "open",
+  "state": "merged",
   "pr_number": 226,
   "pr_url": "https://github.com/goptics/vizb/pull/226",
   "pr_head_oid": "689279e546d071f37a8e1219898dd8ee693586ef",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "pending",
-  "merge_commit_oid": null,
-  "review_decision": "review_required",
+  "ci_state": "success",
+  "merge_commit_oid": "4664a6bf8b83e319d1e487e90a3047de72c40e64",
+  "review_decision": "approved",
   "decision_url": "https://github.com/goptics/vizb/pull/226",
   "opened_at": "2026-07-15T12:36:33Z",
-  "closed_at": null,
-  "updated_at": "2026-07-15T12:36:33Z",
-  "observed_at": "2026-07-15T12:36:35.407Z",
+  "closed_at": "2026-07-15T14:47:45Z",
+  "updated_at": "2026-07-15T14:47:45Z",
+  "observed_at": "2026-07-15T15:35:33.417Z",
   "correction_note": null,
   "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
   "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -26,6 +26,6 @@
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
-    "verified_at": "2026-07-15T12:36:35.408Z"
+    "verified_at": "2026-07-15T15:35:33.417Z"
   }
 }
