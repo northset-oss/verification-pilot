@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-15T15:55:01.973Z",
+  "generated_at": "2026-07-15T15:59:57.513Z",
   "receipt_id": "M-021",
   "receipt_result": "PASS — 4/4 declared commands",
   "passed_commands": 4,
@@ -83,6 +83,6 @@
     "link": "https://github.com/KaotoIO/kaoto/pull/3487",
     "attribution": "Live upstream pull request",
     "head_drift": true,
-    "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988"
+    "pr_head_oid": "b2c4327c9afc578192a3f497951a0a135b395cda"
   }
 }
