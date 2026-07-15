@@ -277,7 +277,7 @@ function assertSecurityArgs(args) {
     ['--pids-limit', '512'],
     ['--memory', '4096m'],
     ['--cpus', '2'],
-    ['--tmpfs', '/tmp:size=512m'],
+    ['--tmpfs', '/tmp:rw,exec,nosuid,nodev,size=512m,uid=1000,gid=1000,mode=1777'],
     ['--workdir', '/workspace'],
   ]) {
     const index = args.indexOf(flag);
