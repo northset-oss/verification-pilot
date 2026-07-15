@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-15T15:59:57.513Z",
+  "generated_at": "2026-07-15T21:34:12.916Z",
   "receipt_id": "M-011",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -62,7 +62,7 @@
   "correction": null,
   "scope_note": "The declared network-off check runs the prom-client jest unit suite on node:22 after a disclosed online phase-A npm ci. It does not run lint, prettier, or the TypeScript type-check gates that upstream CI also runs.",
   "upstream_outcome": {
-    "status": "approved",
+    "status": "merged",
     "link": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4689926060",
     "attribution": "Linked maintainer review",
     "head_drift": true,

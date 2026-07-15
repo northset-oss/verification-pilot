@@ -160,7 +160,7 @@ test('outcome attribution follows recorded state and decision evidence, never UR
     ['M-020', ['merged', 'Linked maintainer review']],
     ['M-019', ['merged', 'Recorded upstream outcome']],
     ['M-009', ['closed_unmerged', 'Recorded upstream outcome']],
-    ['M-011', ['approved', 'Linked maintainer review']],
+    ['M-011', ['merged', 'Linked maintainer review']],
     ['M-012', ['changes_requested', 'Linked maintainer review']],
   ]);
   for (const [missionId, [status, attribution]] of expected) {
