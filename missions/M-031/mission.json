@@ -1,0 +1,52 @@
+{
+  "mission_id": "M-031",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "goptics maintainers",
+  "target_repo": "https://github.com/goptics/vizb",
+  "issue_or_task": "https://github.com/goptics/vizb/issues/204",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/goptics/vizb/blob/487ab430e17b0aa2868b33b9667c1676e6efd3be/CONTRIBUTING.md",
+    "checked_at": "2026-07-15T11:20:03.758Z",
+    "ai_policy_summary": "Vizb explicitly accommodates Codex and other agents. Contributors must use a fork and focused branch, add tests where appropriate, run task test and task lint, build the embedded UI before Go commands after UI changes without committing the generated embed, use Conventional Commits, and open a focused pull request describing what changed and why with the related issue linked."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "487ab430e17b0aa2868b33b9667c1676e6efd3be",
+  "patch_commit": "689279e546d071f37a8e1219898dd8ee693586ef",
+  "patch_diff_hash": "sha256:4a1d0e072bc383e95a7307d2955d2d8e6215e7fe73e7c28fee67c845e40a1352",
+  "commands_declared": [
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test",
+    "EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./...",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ]
+}

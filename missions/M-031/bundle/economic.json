@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "task": {
+    "task_id": "TASK-OSS-974F612F87373753",
+    "attempt_id": "M-031",
+    "attempt_sequence": 10,
+    "work_category": "defect_fix",
+    "external_demand": {
+      "source": "public_github_issue",
+      "issue_url": "https://github.com/goptics/vizb/issues/204",
+      "acceptance_contract_digest": "sha256:b73d85a0ba191219d87d6705a7046dfcbf3b91a406df3a121e0826eed4cf4673",
+      "invitation_type": "label",
+      "invitation_url": "https://github.com/goptics/vizb/issues/204"
+    }
+  },
+  "funding": {
+    "program": "Northset OSS Fund",
+    "initiative": "OSS mission experimentation",
+    "budget_id": null,
+    "financial_cap": null,
+    "currency": null
+  },
+  "attempt_lineage": {
+    "attempts_total": 10,
+    "successful_attempt_id": "M-031",
+    "attempts": [
+      {
+        "attempt_id": "M-022",
+        "attempt_sequence": 1,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-023",
+        "attempt_sequence": 2,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-024",
+        "attempt_sequence": 3,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-025",
+        "attempt_sequence": 4,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-026",
+        "attempt_sequence": 5,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-027",
+        "attempt_sequence": 6,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-028",
+        "attempt_sequence": 7,
+        "state": "FAILED_AUTHOR",
+        "terminal_reason_class": "authoring"
+      },
+      {
+        "attempt_id": "M-029",
+        "attempt_sequence": 8,
+        "state": "STALE",
+        "terminal_reason_class": "precondition_drift"
+      },
+      {
+        "attempt_id": "M-030",
+        "attempt_sequence": 9,
+        "state": "FAILED_AUTHOR",
+        "terminal_reason_class": "authoring"
+      },
+      {
+        "attempt_id": "M-031",
+        "attempt_sequence": 10,
+        "state": "READY",
+        "terminal_reason_class": null
+      }
+    ]
+  },
+  "usage": {
+    "discovery": {
+      "finder_run_id": "60cf6309-291a-4982-9f7a-35086087d83d",
+      "candidate_rank": 1,
+      "elapsed_ms": 1087062
+    },
+    "qualification": {
+      "review_id": "sha256:74639dfa58f3f09926de6842c0225a428ab81de8bbb990cd02b75cc009b4beec",
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 123876,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "authoring": {
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 247600,
+      "bootstrap_duration_ms": 201758,
+      "bootstrap_retry_count": 0,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "preparation": {
+      "total_duration_ms": 506681,
+      "stages": [
+        {
+          "stage": "prepare_recheck",
+          "duration_ms": 3655
+        },
+        {
+          "stage": "executor_image",
+          "duration_ms": 731
+        },
+        {
+          "stage": "clone",
+          "duration_ms": 8982
+        },
+        {
+          "stage": "author",
+          "duration_ms": 449573
+        },
+        {
+          "stage": "canonical_commit",
+          "duration_ms": 513
+        },
+        {
+          "stage": "differential_oracle",
+          "duration_ms": 43227
+        }
+      ]
+    },
+    "verification": {
+      "executor_elapsed_ms": 342652,
+      "networked_setup_elapsed_ms": 190939,
+      "dependency_install_ms": null,
+      "declared_commands_ms": 100705,
+      "unclassified_executor_ms": 51008,
+      "cpu_ms": null,
+      "peak_rss_bytes": null,
+      "measurement_status": "partial"
+    },
+    "resource_envelope": {
+      "cpus": 6,
+      "memory_mb": 6144,
+      "pids": 512,
+      "wall_clock_seconds_per_command": 2700,
+      "output_bytes_per_stream": 2000000
+    }
+  },
+  "work_scope": {
+    "files_changed": 2,
+    "changed_lines": 123,
+    "production_files": 1,
+    "test_files": 1,
+    "checks_declared": 7,
+    "checks_not_run": [
+      "Docs production build",
+      "Manual browser reproduction across every chart caller",
+      "Local GitHub Actions emulation with act"
+    ]
+  },
+  "costs": {
+    "status": "partial",
+    "currency": null,
+    "lines": [
+      {
+        "component": "maintainer_payment",
+        "measurement_class": "observed_quantity_unpriced",
+        "quantity": "0",
+        "unit": "external_transfer",
+        "unit_rate": null,
+        "amount": null,
+        "currency": null,
+        "source_refs": [
+          {
+            "artifact": "bundle/mission.json",
+            "artifact_sha256": "sha256:c62926d7ed1b5d366641a2f87785e878577b6d122df47b7002fe4fc75dee8a5b",
+            "json_pointer": "/payment/maintainer_payment"
+          }
+        ],
+        "rate_card_digest": null,
+        "allocation_method": null,
+        "finality": "final",
+        "visibility": "public"
+      }
+    ],
+    "known_direct_cost": null,
+    "allocated_shared_cost": null,
+    "human_standard_cost": null,
+    "total_economic_cost": null,
+    "missing_components": [
+      "model_inference",
+      "actual_host_compute",
+      "human_review",
+      "shared_tooling"
+    ]
+  },
+  "completeness": {
+    "task_identity": "complete",
+    "technical_execution": "complete",
+    "attempt_lineage": "complete",
+    "usage": "partial",
+    "cost": "unpriced",
+    "external_outcome": "partial",
+    "business_value": "not_observed"
+  },
+  "provenance": {
+    "spec_sha256": "sha256:d194a065557296ba06d21e85a99d980e2776ce65e6b0a17107fefc9d8a730873",
+    "qualification_evidence_sha256": "sha256:fb2996e396b8a2d7748800e855c2e2688753f4e8b123406ce57f4c5faeeea706",
+    "issue_snapshot_sha256": "sha256:7139851564a7e9f015ca65fcf4842fafdacd72d39f126e93751f394ae0af4587"
+  }
+}

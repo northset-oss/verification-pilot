@@ -1,0 +1,11 @@
+{
+  "commands": [
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test",
+    "EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./...",
+    "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run"
+  ]
+}

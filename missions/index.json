@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-14T23:05:57.244Z",
+  "generated_at": "2026-07-15T12:12:35.269Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -2133,6 +2133,453 @@
           "status": "open",
           "link": "https://github.com/KaotoIO/kaoto/pull/3487",
           "attribution": "Live upstream pull request"
+        }
+      }
+    },
+    {
+      "mission_id": "M-031",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/goptics/vizb",
+      "issue_or_task": "https://github.com/goptics/vizb/issues/204",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-031",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-031",
+        "canonical_path": "receipts/M-031/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/goptics/vizb",
+        "issue_or_task": "https://github.com/goptics/vizb/issues/204",
+        "issue_title": "[bug]: Tooltip donut legend omits zero-value series (should show n/a)",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "487ab430e17b0aa2868b33b9667c1676e6efd3be",
+          "recorded_patch_commit": "689279e546d071f37a8e1219898dd8ee693586ef",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:4a1d0e072bc383e95a7307d2955d2d8e6215e7fe73e7c28fee67c845e40a1352",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-15T11:56:44.165Z",
+        "finished_at": "2026-07-15T12:02:26.817Z",
+        "environment": {
+          "container_image_ref": "node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37",
+          "container_image_digest": "node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37",
+          "container_image_id": "sha256:466e07e7ea13241d68674fadda868d14d923336eb2f4fa0022be0d866230d8b4",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "487ab430e17b0aa2868b33b9667c1676e6efd3be",
+          "install_commands": [
+            "mkdir -p /workspace/.northset/bootstrap-home/bin /workspace/.northset/bootstrap-home/go",
+            "cp /usr/local/bin/node /workspace/.northset/bootstrap-home/bin/node",
+            "curl -fsSL https://go.dev/dl/go1.26.5.linux-arm64.tar.gz | tar -xz --strip-components=1 -C /workspace/.northset/bootstrap-home/go",
+            "npm install --global --prefix /workspace/.northset/bootstrap-home --no-audit --no-fund pnpm@10.33.2",
+            "mkdir -p /workspace/.northset/bootstrap-home/linter-go-tmp",
+            "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOBIN=/workspace/.northset/bootstrap-home/bin GOMODCACHE=/workspace/.northset/bootstrap-home/linter-go-mod GOCACHE=/workspace/.northset/bootstrap-home/linter-go-build GOTMPDIR=/workspace/.northset/bootstrap-home/linter-go-tmp /workspace/.northset/bootstrap-home/go/bin/go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.7.2",
+            "test -x /workspace/.northset/bootstrap-home/bin/golangci-lint",
+            "rm -r /workspace/.northset/bootstrap-home/linter-go-mod /workspace/.northset/bootstrap-home/linter-go-build /workspace/.northset/bootstrap-home/linter-go-tmp",
+            "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go mod download",
+            "PATH=/workspace/.northset/bootstrap-home/bin:$PATH pnpm --dir ui install --frozen-lockfile"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts",
+            "exit_code": 0,
+            "duration_ms": 5028,
+            "timed_out": false
+          },
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck",
+            "exit_code": 0,
+            "duration_ms": 19475,
+            "timed_out": false
+          },
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check",
+            "exit_code": 0,
+            "duration_ms": 9184,
+            "timed_out": false
+          },
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test",
+            "exit_code": 0,
+            "duration_ms": 8022,
+            "timed_out": false
+          },
+          {
+            "cmd": "EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build",
+            "exit_code": 0,
+            "duration_ms": 15258,
+            "timed_out": false
+          },
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./...",
+            "exit_code": 0,
+            "duration_ms": 28993,
+            "timed_out": false
+          },
+          {
+            "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run",
+            "exit_code": 0,
+            "duration_ms": 14745,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 7,
+        "successful_checks": 7,
+        "result": "PASS — 7/7 declared commands",
+        "execution_summary": "7/7 declared commands returned exit 0 in the recorded environment",
+        "wall_duration_ms": 342652,
+        "setup_install_duration_ms": 241947,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-974F612F87373753",
+            "attempt_id": "M-031",
+            "attempt_sequence": 10,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/goptics/vizb/issues/204",
+              "acceptance_contract_digest": "sha256:b73d85a0ba191219d87d6705a7046dfcbf3b91a406df3a121e0826eed4cf4673",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/goptics/vizb/issues/204"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:43a058008fcc6314133ef97971251a3858806f817890e4da6c4e31bccc862667",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-15T12:12:27.268Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 10,
+            "successful_attempt_id": "M-031",
+            "attempts": [
+              {
+                "attempt_id": "M-022",
+                "attempt_sequence": 1,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-023",
+                "attempt_sequence": 2,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-024",
+                "attempt_sequence": 3,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-025",
+                "attempt_sequence": 4,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-026",
+                "attempt_sequence": 5,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-027",
+                "attempt_sequence": 6,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-028",
+                "attempt_sequence": 7,
+                "state": "FAILED_AUTHOR",
+                "terminal_reason_class": "authoring"
+              },
+              {
+                "attempt_id": "M-029",
+                "attempt_sequence": 8,
+                "state": "STALE",
+                "terminal_reason_class": "precondition_drift"
+              },
+              {
+                "attempt_id": "M-030",
+                "attempt_sequence": 9,
+                "state": "FAILED_AUTHOR",
+                "terminal_reason_class": "authoring"
+              },
+              {
+                "attempt_id": "M-031",
+                "attempt_sequence": 10,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": "60cf6309-291a-4982-9f7a-35086087d83d",
+              "candidate_rank": 1,
+              "elapsed_ms": 1087062
+            },
+            "qualification": {
+              "review_id": "sha256:74639dfa58f3f09926de6842c0225a428ab81de8bbb990cd02b75cc009b4beec",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 123876,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 247600,
+              "bootstrap_duration_ms": 201758,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 506681,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 3655
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 731
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 8982
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 449573
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 513
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 43227
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 342652,
+              "networked_setup_elapsed_ms": 190939,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 100705,
+              "unclassified_executor_ms": 51008,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 6,
+              "memory_mb": 6144,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 2700,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 2,
+            "changed_lines": 123,
+            "production_files": 1,
+            "test_files": 1,
+            "checks_declared": 7,
+            "checks_not_run": [
+              "Docs production build",
+              "Manual browser reproduction across every chart caller",
+              "Local GitHub Actions emulation with act"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:c62926d7ed1b5d366641a2f87785e878577b6d122df47b7002fe4fc75dee8a5b",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:d194a065557296ba06d21e85a99d980e2776ce65e6b0a17107fefc9d8a730873",
+            "qualification_evidence_sha256": "sha256:fb2996e396b8a2d7748800e855c2e2688753f4e8b123406ce57f4c5faeeea706",
+            "issue_snapshot_sha256": "sha256:7139851564a7e9f015ca65fcf4842fafdacd72d39f126e93751f394ae0af4587"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+        ],
+        "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/ui/src/composables/charts/shared/chartConfig.test.ts b/ui/src/composables/charts/shared/chartConfig.test.ts\nindex 9c8bc6b351beca587a1a9553d95a0f03e15ddd54..71e417dc2dc291a1307318ef1278140fcaebc6ed 100644\n--- a/ui/src/composables/charts/shared/chartConfig.test.ts\n+++ b/ui/src/composables/charts/shared/chartConfig.test.ts\n@@ -4,6 +4,7 @@ import {\n   createValueAxisConfig,\n   createDataZoomConfig,\n   createGridConfig,\n+  createTooltipConfig,\n   createValueModeGridConfig,\n   VALUE_MODE_GRID_TOP,\n   createHeatmapLayoutConfig,\n@@ -18,6 +19,7 @@ import {\n   HEATMAP_Y_ZOOM_INSET,\n   formatRadarItemTooltip,\n   hasRotatedXLabels,\n+  renderDonutSvg,\n   renderTooltipLegendColumns,\n   TOOLTIP_LEGEND_MAX_ROWS_PER_COL,\n   getTooltipTheme,\n@@ -193,6 +195,71 @@ describe('renderTooltipLegendColumns', () => {\n   })\n })\n \n+describe('renderDonutSvg', () => {\n+  it('includes zero-valued slices in the legend without drawing their arcs', () => {\n+    const html = renderDonutSvg([\n+      { name: 'A', value: 10, color: '#a00' },\n+      { name: 'B', value: 0, color: '#0b0' },\n+      { name: 'C', value: 5, color: '#00c' },\n+    ])\n+\n+    expect(html).toContain('<span>A</span><b style=\"margin-left:6px\">66.7%</b>')\n+    expect(html).toContain('<span>B</span><b style=\"margin-left:6px\">n/a</b>')\n+    expect(html).toContain('<span>C</span><b style=\"margin-left:6px\">33.3%</b>')\n+    expect(html.match(/<path /g) ?? []).toHaveLength(2)\n+    expect(html).toMatch(/<path [^>]*fill=\"#a00\"\\/>/)\n+    expect(html).not.toMatch(/<path [^>]*fill=\"#0b0\"\\/>/)\n+    expect(html).toMatch(/<path [^>]*fill=\"#00c\"\\/>/)\n+  })\n+\n+  it('returns empty when fewer than two positive slices are present', () => {\n+    expect(\n+      renderDonutSvg([\n+        { name: 'A', value: 10, color: '#a00' },\n+        { name: 'B', value: 0, color: '#0b0' },\n+      ])\n+    ).toBe('')\n+  })\n+})\n+\n+describe('createTooltipConfig', () => {\n+  it('keeps missing and nonnumeric values out of the donut while showing numeric zero as n/a', () => {\n+    const tooltip = createTooltipConfig(true, false) as any\n+    const html = tooltip.formatter([\n+      { name: 'X', seriesName: 'A', value: 10, color: '#a00', marker: 'A-marker' },\n+      { name: 'X', seriesName: 'Zero', value: 0, color: '#0b0', marker: 'Zero-marker' },\n+      { name: 'X', seriesName: 'Null', value: null, color: '#ccc', marker: 'Null-marker' },\n+      {\n+        name: 'X',\n+        seriesName: 'Undefined',\n+        value: undefined,\n+        color: '#ddd',\n+        marker: 'Undefined-marker',\n+      },\n+      {\n+        name: 'X',\n+        seriesName: 'Text',\n+        value: 'not-a-number',\n+        color: '#eee',\n+        marker: 'Text-marker',\n+      },\n+      { name: 'X', seriesName: 'C', value: 5, color: '#00c', marker: 'C-marker' },\n+    ])\n+\n+    expect(html).toContain('Zero-marker Zero: 0')\n+    expect(html).toContain('Text-marker Text: not-a-number')\n+    expect(html).not.toContain('Null-marker')\n+    expect(html).not.toContain('Undefined-marker')\n+\n+    const donut = html.slice(html.indexOf('<svg'))\n+    expect(donut).toContain('<span>Zero</span><b style=\"margin-left:6px\">n/a</b>')\n+    expect(donut.match(/>n\\/a<\\/b>/g) ?? []).toHaveLength(1)\n+    expect(donut).not.toContain('<span>Null</span>')\n+    expect(donut).not.toContain('<span>Undefined</span>')\n+    expect(donut).not.toContain('<span>Text</span>')\n+  })\n+})\n+\n describe('formatRadarItemTooltip', () => {\n   it('returns empty string when params.data is missing', () => {\n     expect(formatRadarItemTooltip({}, indicators, false)).toBe('')\n@@ -243,4 +310,18 @@ describe('formatRadarItemTooltip', () => {\n     expect(html).toContain('display:grid')\n     expect(html).toContain('grid-auto-flow:column')\n   })\n+\n+  it('omits an indicator without a corresponding numeric value from the donut', () => {\n+    const html = formatRadarItemTooltip(\n+      { data: { name: 'Series', value: [10, 5] } },\n+      indicators,\n+      false\n+    )\n+    const donut = html.slice(html.indexOf('<svg'))\n+\n+    expect(donut).toContain('<span>A</span>')\n+    expect(donut).toContain('<span>B</span>')\n+    expect(donut).not.toContain('<span>C</span>')\n+    expect(donut).not.toContain('n/a')\n+  })\n })\ndiff --git a/ui/src/composables/charts/shared/chartConfig.ts b/ui/src/composables/charts/shared/chartConfig.ts\nindex 9e5995b43874494fd3b5cf7d1a7c7dadade5ce85..aa1e5127b3377ec5c9ff984f1c322163fc86aa4e 100644\n--- a/ui/src/composables/charts/shared/chartConfig.ts\n+++ b/ui/src/composables/charts/shared/chartConfig.ts\n@@ -534,11 +534,10 @@ export function formatRadarItemTooltip(\n   const spread = tooltipSpreadRows(vals, isDark)\n \n   const donut = renderDonutSvg(\n-    indicatorNames.map((name, i) => ({\n-      name,\n-      value: typeof vals[i] === 'number' ? vals[i]! : 0,\n-      color: color(name),\n-    }))\n+    indicatorNames.flatMap((name, i) => {\n+      const value = vals[i]\n+      return typeof value === 'number' ? [{ name, value, color: color(name) }] : []\n+    })\n   )\n   const donutBlock = donut ? `${tooltipDivider(isDark)}${donut}` : ''\n \n@@ -582,9 +581,9 @@ export function tooltipSpreadRows(values: number[], isDark: boolean): string {\n   )\n }\n \n-// Inline SVG donut + side legend (swatch, name, %) for tooltips. Non-positive\n-// slices are dropped (can't show negative share). Returns '' when fewer than 2\n-// positive slices — nothing to compare.\n+// Inline SVG donut + side legend (swatch, name, %) for tooltips. Only positive\n+// slices draw arcs; zero slices remain in the legend as n/a. Returns '' when\n+// fewer than 2 positive slices are present — nothing to compare.\n export function renderDonutSvg(\n   slices: { value: number; color: string; name: string }[],\n   size = 96\n@@ -634,11 +633,13 @@ export function renderDonutSvg(\n \n   // Side legend: one row per slice (swatch + name + share %). Scrolls with the\n   // tooltip when there are many slices.\n-  const legendRows = pos.map((s) => {\n-    const pct = ((s.value / total) * 100).toFixed(1)\n-    const swatch = `<span style=\"display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none\"></span>`\n-    return `${swatch}<span>${s.name}</span><b style=\"margin-left:6px\">${pct}%</b>`\n-  })\n+  const legendRows = slices\n+    .filter((s) => s.value >= 0)\n+    .map((s) => {\n+      const share = s.value === 0 ? 'n/a' : `${((s.value / total) * 100).toFixed(1)}%`\n+      const swatch = `<span style=\"display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none\"></span>`\n+      return `${swatch}<span>${s.name}</span><b style=\"margin-left:6px\">${share}</b>`\n+    })\n   const legend = renderTooltipLegendColumns(\n     legendRows,\n     TOOLTIP_LEGEND_MAX_ROWS_PER_COL,\n@@ -719,11 +720,16 @@ export function createTooltipConfig(\n           isDark\n         )\n         const donut = renderDonutSvg(\n-          params.map((p) => ({\n-            value: typeof p.value === 'number' ? p.value : 0,\n-            color: typeof p.color === 'string' ? p.color : String(p.color),\n-            name: p.seriesName ?? '',\n-          }))\n+          params.flatMap((p) => {\n+            if (typeof p.value !== 'number') return []\n+            return [\n+              {\n+                value: p.value,\n+                color: typeof p.color === 'string' ? p.color : String(p.color),\n+                name: p.seriesName ?? '',\n+              },\n+            ]\n+          })\n         )\n         return `${body}${sumLine}${spread}${donut ? tooltipDivider(isDark) + donut : ''}`\n       },\n",
+        "stdout_redacted": "=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.9 \u001b[39m\u001b[90m/workspace/ui\u001b[39m\n\n \u001b[32m✓\u001b[39m src/composables/charts/shared/chartConfig.test.ts \u001b[2m(\u001b[22m\u001b[2m30 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 13\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m1 passed\u001b[39m\u001b[22m\u001b[90m (1)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m30 passed\u001b[39m\u001b[22m\u001b[90m (30)\u001b[39m\n\u001b[2m   Start at \u001b[22m 12:00:18\n\u001b[2m   Duration \u001b[22m 2.00s\u001b[2m (transform 1.35s, setup 0ms, import 1.62s, tests 13ms, environment 0ms)\u001b[22m\n\n=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===\n\n> ui@0.0.0 typecheck /workspace/ui\n> vue-tsc -b --noEmit\n\n=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===\n\n> ui@0.0.0 format:check /workspace/ui\n> prettier --check .\n\nChecking formatting...\nAll matched files use Prettier code style!\n=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===\n\n> ui@0.0.0 test /workspace/ui\n> vitest run\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.9 \u001b[39m\u001b[90m/workspace/ui\u001b[39m\n\n \u001b[32m✓\u001b[39m src/lib/stats.test.ts \u001b[2m(\u001b[22m\u001b[2m79 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 51\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/settings/fieldRegistry.test.ts \u001b[2m(\u001b[22m\u001b[2m28 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 14\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/transform.test.ts \u001b[2m(\u001b[22m\u001b[2m57 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 24\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/shared/chartConfig.test.ts \u001b[2m(\u001b[22m\u001b[2m30 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 11\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/shared/3d.test.ts \u001b[2m(\u001b[22m\u001b[2m41 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 12\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/utils.test.ts \u001b[2m(\u001b[22m\u001b[2m38 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/workers/transform.worker.test.ts \u001b[2m(\u001b[22m\u001b[2m20 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 262\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/SettingsPanel.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useChartPipeline.test.ts \u001b[2m(\u001b[22m\u001b[2m14 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 31\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useScatterChartOptions.test.ts \u001b[2m(\u001b[22m\u001b[2m22 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 16\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useStatsWorker.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useBarChartOptions.test.ts \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 15\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useUrlRouter.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 73\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useSettingsStore.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 51\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useLineChartOptions.test.ts \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 18\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useScatter3DChartOptions.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 13\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/workers/stats.worker.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 29\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useActiveChartShape.test.ts \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 66\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/descriptiveColumns.test.ts \u001b[2m(\u001b[22m\u001b[2m10 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useGrouped3DZAxisLabel.test.ts \u001b[2m(\u001b[22m\u001b[2m6 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 9\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/swap.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 6\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/csv.test.ts \u001b[2m(\u001b[22m\u001b[2m12 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/baseChartOptions.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 4\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m embed-build/go-codegen.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 22\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/themes.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 10\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/useDataPoint.normalize.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/shared/visualMap.test.ts \u001b[2m(\u001b[22m\u001b[2m3 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/composables/charts/useCorrelationOption.test.ts \u001b[2m(\u001b[22m\u001b[2m3 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 10\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/filterDataSetSettings.test.ts \u001b[2m(\u001b[22m\u001b[2m3 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/pickerRule.test.ts \u001b[2m(\u001b[22m\u001b[2m3 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 2\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m30 passed\u001b[39m\u001b[22m\u001b[90m (30)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m462 passed\u001b[39m\u001b[22m\u001b[90m (462)\u001b[39m\n\u001b[2m   Start at \u001b[22m 12:00:59\n\u001b[2m   Duration \u001b[22m 6.17s\u001b[2m (transform 2.68s, setup 0ms, import 8.91s, tests 786ms, environment 2ms)\u001b[22m\n\n=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===\n\n> ui@0.0.0 build /workspace/ui\n> vue-tsc -b && vite build\n\n[info] EMBED_UI env var: True\n[log] \u001b[36mvite v8.1.0 \u001b[32mbuilding client environment for production...\u001b[36m\u001b[39m\n\u001b[2K\rtransforming...✓ 795 modules transformed.\nrendering chunks...\ncomputing gzip size...\n[log] dist/index.html                                 2.34 kB │ gzip:   0.89 kB\ndist/assets/style-CBsyy9YK.css                 18.98 kB │ gzip:   4.52 kB\ndist/assets/CoordinateSystem-CQYdir-d.js        0.04 kB │ gzip:   0.06 kB\ndist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ gzip:   0.21 kB\ndist/assets/labelHelper-B3dLspwy.js             0.45 kB │ gzip:   0.29 kB\ndist/assets/ChartScatter-BuAtWAHX.js            0.66 kB │ gzip:   0.39 kB\ndist/assets/LegendVisualProvider-nnn8ZDeM.js    0.96 kB │ gzip:   0.49 kB\ndist/assets/dataSample-Ds2J_ejG.js              1.98 kB │ gzip:   0.96 kB\ndist/assets/labelGuideHelper-CIDrUKMP.js        5.38 kB │ gzip:   2.41 kB\ndist/assets/install-BUAhqOuF.js                 6.29 kB │ gzip:   2.37 kB\ndist/assets/ChartHeatmap-CK4EAREd.js            6.90 kB │ gzip:   2.92 kB\ndist/assets/points-DHZDpxxX.js                  7.06 kB │ gzip:   2.82 kB\ndist/assets/axisAlignTicks-CIyXe2Zs.js          8.38 kB │ gzip:   3.25 kB\ndist/assets/ChartRadar-BLNtE45G.js             11.86 kB │ gzip:   4.61 kB\ndist/assets/ChartPie-BPbpp0FQ.js               13.10 kB │ gzip:   5.55 kB\ndist/assets/ChartBar-nJSlSRgV.js               17.43 kB │ gzip:   6.51 kB\ndist/assets/install-CeV-OgWo.js                17.50 kB │ gzip:   6.09 kB\ndist/assets/ChartLine-DFGW10Eq.js              20.33 kB │ gzip:   8.26 kB\ndist/assets/base-IPePAI0l.js                   21.82 kB │ gzip:   7.65 kB\ndist/assets/install-BajAoG8-.js                35.63 kB │ gzip:  11.60 kB\ndist/assets/index-QdWSoSdn.js                 372.32 kB │ gzip: 119.38 kB\ndist/assets/Chart3D-DzAh8MrT.js               464.88 kB │ gzip: 129.03 kB\ndist/assets/dist-DX1-RU5m.js                  490.63 kB │ gzip: 164.76 kB\n\n[log] \u001b[32m✓ built in 3.15s\u001b[39m\n[info] [embed-ui] 21 chunks\n  dist/assets/dist-DX1-RU5m.js                  479.13 kB │ encoded: 212.32 kB\n  dist/assets/Chart3D-DzAh8MrT.js               453.99 kB │ encoded: 166.63 kB\n  dist/assets/index-QdWSoSdn.js                 363.59 kB │ encoded: 153.69 kB\n  dist/assets/install-BajAoG8-.js                34.80 kB │ encoded:  14.95 kB\n  dist/assets/base-IPePAI0l.js                   21.32 kB │ encoded:   9.89 kB\n  dist/assets/ChartLine-DFGW10Eq.js              19.86 kB │ encoded:  10.70 kB\n  dist/assets/install-CeV-OgWo.js                17.09 kB │ encoded:   7.89 kB\n  dist/assets/ChartBar-nJSlSRgV.js               17.03 kB │ encoded:   8.45 kB\n  dist/assets/ChartPie-BPbpp0FQ.js               12.80 kB │ encoded:   7.21 kB\n  dist/assets/ChartRadar-BLNtE45G.js             11.59 kB │ encoded:   5.97 kB\n  dist/assets/axisAlignTicks-CIyXe2Zs.js          8.19 kB │ encoded:   4.21 kB\n  dist/assets/points-DHZDpxxX.js                  6.90 kB │ encoded:   3.66 kB\n  dist/assets/ChartHeatmap-CK4EAREd.js            6.74 kB │ encoded:   3.80 kB\n  dist/assets/install-BUAhqOuF.js                 6.15 kB │ encoded:   3.09 kB\n  dist/assets/labelGuideHelper-CIDrUKMP.js        5.26 kB │ encoded:   3.14 kB\n  dist/assets/dataSample-Ds2J_ejG.js              1.94 kB │ encoded:   1.26 kB\n  dist/assets/LegendVisualProvider-nnn8ZDeM.js    0.94 kB │ encoded:   0.64 kB\n  dist/assets/ChartScatter-BuAtWAHX.js            0.65 kB │ encoded:   0.52 kB\n  dist/assets/labelHelper-B3dLspwy.js             0.44 kB │ encoded:   0.39 kB\n  dist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ encoded:   0.28 kB\n  dist/assets/CoordinateSystem-CQYdir-d.js        0.05 kB │ encoded:   0.09 kB\n\n  HTML template (placeholder): 21.33 kB\n\n=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===\n?   \tgithub.com/goptics/vizb\t[no test files]\nok  \tgithub.com/goptics/vizb/cmd\t0.169s\n?   \tgithub.com/goptics/vizb/cmd/charts/bar\t[no test files]\n?   \tgithub.com/goptics/vizb/cmd/charts/heatmap\t[no test files]\n?   \tgithub.com/goptics/vizb/cmd/charts/line\t[no test files]\n?   \tgithub.com/goptics/vizb/cmd/charts/pie\t[no test files]\n?   \tgithub.com/goptics/vizb/cmd/charts/radar\t[no test files]\n?   \tgithub.com/goptics/vizb/cmd/charts/scatter\t[no test files]\nok  \tgithub.com/goptics/vizb/cmd/cli\t0.190s\nok  \tgithub.com/goptics/vizb/internal/charts\t0.036s\n?   \tgithub.com/goptics/vizb/internal/charts/bar\t[no test files]\n?   \tgithub.com/goptics/vizb/internal/charts/heatmap\t[no test files]\n?   \tgithub.com/goptics/vizb/internal/charts/line\t[no test files]\n?   \tgithub.com/goptics/vizb/internal/charts/pie\t[no test files]\n?   \tgithub.com/goptics/vizb/internal/charts/radar\t[no test files]\n?   \tgithub.com/goptics/vizb/internal/charts/scatter\t[no test files]\nok  \tgithub.com/goptics/vizb/internal/flags\t0.027s\nok  \tgithub.com/goptics/vizb/pkg/parser\t0.023s\nok  \tgithub.com/goptics/vizb/pkg/parser/csv\t0.040s\nok  \tgithub.com/goptics/vizb/pkg/parser/golang\t0.021s\nok  \tgithub.com/goptics/vizb/pkg/parser/javascript\t0.017s\nok  \tgithub.com/goptics/vizb/pkg/parser/json\t0.067s\nok  \tgithub.com/goptics/vizb/pkg/parser/rust\t0.025s\n?   \tgithub.com/goptics/vizb/pkg/style\t[no test files]\nok  \tgithub.com/goptics/vizb/pkg/template\t0.069s\nok  \tgithub.com/goptics/vizb/shared\t0.029s\nok  \tgithub.com/goptics/vizb/shared/utils\t0.021s\nok  \tgithub.com/goptics/vizb/testutil\t0.008s\n?   \tgithub.com/goptics/vizb/version\t[no test files]\n=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===\n0 issues.\n",
+        "stderr_redacted": "=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===\n=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===\n=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===\n=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===\n=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===\n[warn] Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme\n[warn] \u001b[33m\u001b[33m[PLUGIN_TIMINGS] \u001b[0mYour build spent significant time in plugins. Here is a breakdown:\n  - vite:vue (78%)\n  - vite:worker (6%)\n  - vite:css (5%)\n  - rolldown:vite-resolve (5%)\nSee https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.\n\u001b[39m\n=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===\n=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-031",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
         }
       }
     }

@@ -1,0 +1,185 @@
+diff --git a/ui/src/composables/charts/shared/chartConfig.test.ts b/ui/src/composables/charts/shared/chartConfig.test.ts
+index 9c8bc6b351beca587a1a9553d95a0f03e15ddd54..71e417dc2dc291a1307318ef1278140fcaebc6ed 100644
+--- a/ui/src/composables/charts/shared/chartConfig.test.ts
++++ b/ui/src/composables/charts/shared/chartConfig.test.ts
+@@ -4,6 +4,7 @@ import {
+   createValueAxisConfig,
+   createDataZoomConfig,
+   createGridConfig,
++  createTooltipConfig,
+   createValueModeGridConfig,
+   VALUE_MODE_GRID_TOP,
+   createHeatmapLayoutConfig,
+@@ -18,6 +19,7 @@ import {
+   HEATMAP_Y_ZOOM_INSET,
+   formatRadarItemTooltip,
+   hasRotatedXLabels,
++  renderDonutSvg,
+   renderTooltipLegendColumns,
+   TOOLTIP_LEGEND_MAX_ROWS_PER_COL,
+   getTooltipTheme,
+@@ -193,6 +195,71 @@ describe('renderTooltipLegendColumns', () => {
+   })
+ })
+ 
++describe('renderDonutSvg', () => {
++  it('includes zero-valued slices in the legend without drawing their arcs', () => {
++    const html = renderDonutSvg([
++      { name: 'A', value: 10, color: '#a00' },
++      { name: 'B', value: 0, color: '#0b0' },
++      { name: 'C', value: 5, color: '#00c' },
++    ])
++
++    expect(html).toContain('<span>A</span><b style="margin-left:6px">66.7%</b>')
++    expect(html).toContain('<span>B</span><b style="margin-left:6px">n/a</b>')
++    expect(html).toContain('<span>C</span><b style="margin-left:6px">33.3%</b>')
++    expect(html.match(/<path /g) ?? []).toHaveLength(2)
++    expect(html).toMatch(/<path [^>]*fill="#a00"\/>/)
++    expect(html).not.toMatch(/<path [^>]*fill="#0b0"\/>/)
++    expect(html).toMatch(/<path [^>]*fill="#00c"\/>/)
++  })
++
++  it('returns empty when fewer than two positive slices are present', () => {
++    expect(
++      renderDonutSvg([
++        { name: 'A', value: 10, color: '#a00' },
++        { name: 'B', value: 0, color: '#0b0' },
++      ])
++    ).toBe('')
++  })
++})
++
++describe('createTooltipConfig', () => {
++  it('keeps missing and nonnumeric values out of the donut while showing numeric zero as n/a', () => {
++    const tooltip = createTooltipConfig(true, false) as any
++    const html = tooltip.formatter([
++      { name: 'X', seriesName: 'A', value: 10, color: '#a00', marker: 'A-marker' },
++      { name: 'X', seriesName: 'Zero', value: 0, color: '#0b0', marker: 'Zero-marker' },
++      { name: 'X', seriesName: 'Null', value: null, color: '#ccc', marker: 'Null-marker' },
++      {
++        name: 'X',
++        seriesName: 'Undefined',
++        value: undefined,
++        color: '#ddd',
++        marker: 'Undefined-marker',
++      },
++      {
++        name: 'X',
++        seriesName: 'Text',
++        value: 'not-a-number',
++        color: '#eee',
++        marker: 'Text-marker',
++      },
++      { name: 'X', seriesName: 'C', value: 5, color: '#00c', marker: 'C-marker' },
++    ])
++
++    expect(html).toContain('Zero-marker Zero: 0')
++    expect(html).toContain('Text-marker Text: not-a-number')
++    expect(html).not.toContain('Null-marker')
++    expect(html).not.toContain('Undefined-marker')
++
++    const donut = html.slice(html.indexOf('<svg'))
++    expect(donut).toContain('<span>Zero</span><b style="margin-left:6px">n/a</b>')
++    expect(donut.match(/>n\/a<\/b>/g) ?? []).toHaveLength(1)
++    expect(donut).not.toContain('<span>Null</span>')
++    expect(donut).not.toContain('<span>Undefined</span>')
++    expect(donut).not.toContain('<span>Text</span>')
++  })
++})
++
+ describe('formatRadarItemTooltip', () => {
+   it('returns empty string when params.data is missing', () => {
+     expect(formatRadarItemTooltip({}, indicators, false)).toBe('')
+@@ -243,4 +310,18 @@ describe('formatRadarItemTooltip', () => {
+     expect(html).toContain('display:grid')
+     expect(html).toContain('grid-auto-flow:column')
+   })
++
++  it('omits an indicator without a corresponding numeric value from the donut', () => {
++    const html = formatRadarItemTooltip(
++      { data: { name: 'Series', value: [10, 5] } },
++      indicators,
++      false
++    )
++    const donut = html.slice(html.indexOf('<svg'))
++
++    expect(donut).toContain('<span>A</span>')
++    expect(donut).toContain('<span>B</span>')
++    expect(donut).not.toContain('<span>C</span>')
++    expect(donut).not.toContain('n/a')
++  })
+ })
+diff --git a/ui/src/composables/charts/shared/chartConfig.ts b/ui/src/composables/charts/shared/chartConfig.ts
+index 9e5995b43874494fd3b5cf7d1a7c7dadade5ce85..aa1e5127b3377ec5c9ff984f1c322163fc86aa4e 100644
+--- a/ui/src/composables/charts/shared/chartConfig.ts
++++ b/ui/src/composables/charts/shared/chartConfig.ts
+@@ -534,11 +534,10 @@ export function formatRadarItemTooltip(
+   const spread = tooltipSpreadRows(vals, isDark)
+ 
+   const donut = renderDonutSvg(
+-    indicatorNames.map((name, i) => ({
+-      name,
+-      value: typeof vals[i] === 'number' ? vals[i]! : 0,
+-      color: color(name),
+-    }))
++    indicatorNames.flatMap((name, i) => {
++      const value = vals[i]
++      return typeof value === 'number' ? [{ name, value, color: color(name) }] : []
++    })
+   )
+   const donutBlock = donut ? `${tooltipDivider(isDark)}${donut}` : ''
+ 
+@@ -582,9 +581,9 @@ export function tooltipSpreadRows(values: number[], isDark: boolean): string {
+   )
+ }
+ 
+-// Inline SVG donut + side legend (swatch, name, %) for tooltips. Non-positive
+-// slices are dropped (can't show negative share). Returns '' when fewer than 2
+-// positive slices — nothing to compare.
++// Inline SVG donut + side legend (swatch, name, %) for tooltips. Only positive
++// slices draw arcs; zero slices remain in the legend as n/a. Returns '' when
++// fewer than 2 positive slices are present — nothing to compare.
+ export function renderDonutSvg(
+   slices: { value: number; color: string; name: string }[],
+   size = 96
+@@ -634,11 +633,13 @@ export function renderDonutSvg(
+ 
+   // Side legend: one row per slice (swatch + name + share %). Scrolls with the
+   // tooltip when there are many slices.
+-  const legendRows = pos.map((s) => {
+-    const pct = ((s.value / total) * 100).toFixed(1)
+-    const swatch = `<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none"></span>`
+-    return `${swatch}<span>${s.name}</span><b style="margin-left:6px">${pct}%</b>`
+-  })
++  const legendRows = slices
++    .filter((s) => s.value >= 0)
++    .map((s) => {
++      const share = s.value === 0 ? 'n/a' : `${((s.value / total) * 100).toFixed(1)}%`
++      const swatch = `<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none"></span>`
++      return `${swatch}<span>${s.name}</span><b style="margin-left:6px">${share}</b>`
++    })
+   const legend = renderTooltipLegendColumns(
+     legendRows,
+     TOOLTIP_LEGEND_MAX_ROWS_PER_COL,
+@@ -719,11 +720,16 @@ export function createTooltipConfig(
+           isDark
+         )
+         const donut = renderDonutSvg(
+-          params.map((p) => ({
+-            value: typeof p.value === 'number' ? p.value : 0,
+-            color: typeof p.color === 'string' ? p.color : String(p.color),
+-            name: p.seriesName ?? '',
+-          }))
++          params.flatMap((p) => {
++            if (typeof p.value !== 'number') return []
++            return [
++              {
++                value: p.value,
++                color: typeof p.color === 'string' ? p.color : String(p.color),
++                name: p.seriesName ?? '',
++              },
++            ]
++          })
+         )
+         return `${body}${sumLine}${spread}${donut ? tooltipDivider(isDark) + donut : ''}`
+       },
