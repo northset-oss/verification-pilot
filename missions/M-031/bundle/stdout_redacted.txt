@@ -1,0 +1,159 @@
+=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/workspace/ui[39m
+
+ [32m✓[39m src/composables/charts/shared/chartConfig.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m30 passed[39m[22m[90m (30)[39m
+[2m   Start at [22m 12:00:18
+[2m   Duration [22m 2.00s[2m (transform 1.35s, setup 0ms, import 1.62s, tests 13ms, environment 0ms)[22m
+
+=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===
+
+> ui@0.0.0 typecheck /workspace/ui
+> vue-tsc -b --noEmit
+
+=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===
+
+> ui@0.0.0 format:check /workspace/ui
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===
+
+> ui@0.0.0 test /workspace/ui
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/workspace/ui[39m
+
+ [32m✓[39m src/lib/stats.test.ts [2m([22m[2m79 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m src/composables/settings/fieldRegistry.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m src/lib/transform.test.ts [2m([22m[2m57 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/chartConfig.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/3d.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/lib/utils.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/workers/transform.worker.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 262[2mms[22m[39m
+ [32m✓[39m src/components/SettingsPanel.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/useChartPipeline.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useScatterChartOptions.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/composables/useStatsWorker.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useBarChartOptions.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/composables/useUrlRouter.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+ [32m✓[39m src/composables/useSettingsStore.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useLineChartOptions.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useScatter3DChartOptions.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/workers/stats.worker.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m src/composables/useActiveChartShape.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32m✓[39m src/lib/descriptiveColumns.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useGrouped3DZAxisLabel.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/lib/swap.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csv.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/baseChartOptions.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m embed-build/go-codegen.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/lib/themes.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/composables/useDataPoint.normalize.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/visualMap.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useCorrelationOption.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/lib/filterDataSetSettings.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/lib/pickerRule.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m30 passed[39m[22m[90m (30)[39m
+[2m      Tests [22m [1m[32m462 passed[39m[22m[90m (462)[39m
+[2m   Start at [22m 12:00:59
+[2m   Duration [22m 6.17s[2m (transform 2.68s, setup 0ms, import 8.91s, tests 786ms, environment 2ms)[22m
+
+=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===
+
+> ui@0.0.0 build /workspace/ui
+> vue-tsc -b && vite build
+
+[info] EMBED_UI env var: True
+[log] [36mvite v8.1.0 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 795 modules transformed.
+rendering chunks...
+computing gzip size...
+[log] dist/index.html                                 2.34 kB │ gzip:   0.89 kB
+dist/assets/style-CBsyy9YK.css                 18.98 kB │ gzip:   4.52 kB
+dist/assets/CoordinateSystem-CQYdir-d.js        0.04 kB │ gzip:   0.06 kB
+dist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ gzip:   0.21 kB
+dist/assets/labelHelper-B3dLspwy.js             0.45 kB │ gzip:   0.29 kB
+dist/assets/ChartScatter-BuAtWAHX.js            0.66 kB │ gzip:   0.39 kB
+dist/assets/LegendVisualProvider-nnn8ZDeM.js    0.96 kB │ gzip:   0.49 kB
+dist/assets/dataSample-Ds2J_ejG.js              1.98 kB │ gzip:   0.96 kB
+dist/assets/labelGuideHelper-CIDrUKMP.js        5.38 kB │ gzip:   2.41 kB
+dist/assets/install-BUAhqOuF.js                 6.29 kB │ gzip:   2.37 kB
+dist/assets/ChartHeatmap-CK4EAREd.js            6.90 kB │ gzip:   2.92 kB
+dist/assets/points-DHZDpxxX.js                  7.06 kB │ gzip:   2.82 kB
+dist/assets/axisAlignTicks-CIyXe2Zs.js          8.38 kB │ gzip:   3.25 kB
+dist/assets/ChartRadar-BLNtE45G.js             11.86 kB │ gzip:   4.61 kB
+dist/assets/ChartPie-BPbpp0FQ.js               13.10 kB │ gzip:   5.55 kB
+dist/assets/ChartBar-nJSlSRgV.js               17.43 kB │ gzip:   6.51 kB
+dist/assets/install-CeV-OgWo.js                17.50 kB │ gzip:   6.09 kB
+dist/assets/ChartLine-DFGW10Eq.js              20.33 kB │ gzip:   8.26 kB
+dist/assets/base-IPePAI0l.js                   21.82 kB │ gzip:   7.65 kB
+dist/assets/install-BajAoG8-.js                35.63 kB │ gzip:  11.60 kB
+dist/assets/index-QdWSoSdn.js                 372.32 kB │ gzip: 119.38 kB
+dist/assets/Chart3D-DzAh8MrT.js               464.88 kB │ gzip: 129.03 kB
+dist/assets/dist-DX1-RU5m.js                  490.63 kB │ gzip: 164.76 kB
+
+[log] [32m✓ built in 3.15s[39m
+[info] [embed-ui] 21 chunks
+  dist/assets/dist-DX1-RU5m.js                  479.13 kB │ encoded: 212.32 kB
+  dist/assets/Chart3D-DzAh8MrT.js               453.99 kB │ encoded: 166.63 kB
+  dist/assets/index-QdWSoSdn.js                 363.59 kB │ encoded: 153.69 kB
+  dist/assets/install-BajAoG8-.js                34.80 kB │ encoded:  14.95 kB
+  dist/assets/base-IPePAI0l.js                   21.32 kB │ encoded:   9.89 kB
+  dist/assets/ChartLine-DFGW10Eq.js              19.86 kB │ encoded:  10.70 kB
+  dist/assets/install-CeV-OgWo.js                17.09 kB │ encoded:   7.89 kB
+  dist/assets/ChartBar-nJSlSRgV.js               17.03 kB │ encoded:   8.45 kB
+  dist/assets/ChartPie-BPbpp0FQ.js               12.80 kB │ encoded:   7.21 kB
+  dist/assets/ChartRadar-BLNtE45G.js             11.59 kB │ encoded:   5.97 kB
+  dist/assets/axisAlignTicks-CIyXe2Zs.js          8.19 kB │ encoded:   4.21 kB
+  dist/assets/points-DHZDpxxX.js                  6.90 kB │ encoded:   3.66 kB
+  dist/assets/ChartHeatmap-CK4EAREd.js            6.74 kB │ encoded:   3.80 kB
+  dist/assets/install-BUAhqOuF.js                 6.15 kB │ encoded:   3.09 kB
+  dist/assets/labelGuideHelper-CIDrUKMP.js        5.26 kB │ encoded:   3.14 kB
+  dist/assets/dataSample-Ds2J_ejG.js              1.94 kB │ encoded:   1.26 kB
+  dist/assets/LegendVisualProvider-nnn8ZDeM.js    0.94 kB │ encoded:   0.64 kB
+  dist/assets/ChartScatter-BuAtWAHX.js            0.65 kB │ encoded:   0.52 kB
+  dist/assets/labelHelper-B3dLspwy.js             0.44 kB │ encoded:   0.39 kB
+  dist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ encoded:   0.28 kB
+  dist/assets/CoordinateSystem-CQYdir-d.js        0.05 kB │ encoded:   0.09 kB
+
+  HTML template (placeholder): 21.33 kB
+
+=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===
+?   	github.com/goptics/vizb	[no test files]
+ok  	github.com/goptics/vizb/cmd	0.169s
+?   	github.com/goptics/vizb/cmd/charts/bar	[no test files]
+?   	github.com/goptics/vizb/cmd/charts/heatmap	[no test files]
+?   	github.com/goptics/vizb/cmd/charts/line	[no test files]
+?   	github.com/goptics/vizb/cmd/charts/pie	[no test files]
+?   	github.com/goptics/vizb/cmd/charts/radar	[no test files]
+?   	github.com/goptics/vizb/cmd/charts/scatter	[no test files]
+ok  	github.com/goptics/vizb/cmd/cli	0.190s
+ok  	github.com/goptics/vizb/internal/charts	0.036s
+?   	github.com/goptics/vizb/internal/charts/bar	[no test files]
+?   	github.com/goptics/vizb/internal/charts/heatmap	[no test files]
+?   	github.com/goptics/vizb/internal/charts/line	[no test files]
+?   	github.com/goptics/vizb/internal/charts/pie	[no test files]
+?   	github.com/goptics/vizb/internal/charts/radar	[no test files]
+?   	github.com/goptics/vizb/internal/charts/scatter	[no test files]
+ok  	github.com/goptics/vizb/internal/flags	0.027s
+ok  	github.com/goptics/vizb/pkg/parser	0.023s
+ok  	github.com/goptics/vizb/pkg/parser/csv	0.040s
+ok  	github.com/goptics/vizb/pkg/parser/golang	0.021s
+ok  	github.com/goptics/vizb/pkg/parser/javascript	0.017s
+ok  	github.com/goptics/vizb/pkg/parser/json	0.067s
+ok  	github.com/goptics/vizb/pkg/parser/rust	0.025s
+?   	github.com/goptics/vizb/pkg/style	[no test files]
+ok  	github.com/goptics/vizb/pkg/template	0.069s
+ok  	github.com/goptics/vizb/shared	0.029s
+ok  	github.com/goptics/vizb/shared/utils	0.021s
+ok  	github.com/goptics/vizb/testutil	0.008s
+?   	github.com/goptics/vizb/version	[no test files]
+=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===
+0 issues.

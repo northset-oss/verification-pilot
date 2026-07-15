@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>M-031 Proof-of-Pass Receipt</title>
+  <style>
+    :root { color-scheme:dark; --bg:#182323; --ink:#edf3ed; --muted:#b8c7bf; --paper:#fffdf7; --paper-ink:#1b211e; --rule:#d5d0c2; --green:#087f55; --green-pale:#d9f0e4; --rehearsal:#e6e2db; --self:#e3f0ec; --line:#4d615a; --focus:#ffcd57; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    * { box-sizing:border-box; }
+    html { background:var(--bg); }
+    body { margin:0; min-width:0; background:var(--bg); color:var(--ink); font:16px/1.5 var(--mono); }
+    main { width:min(1120px,100%); margin:auto; padding:clamp(1.1rem,4vw,3.5rem) 1rem 4rem; }
+    h1,h2,h3,p { margin-top:0; } h1 { max-width:18ch; margin-bottom:.65rem; font-size:clamp(2rem,7vw,4.8rem); line-height:1.02; letter-spacing:-.06em; } h2 { line-height:1.15; } h3,.eyebrow { font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; }
+    a { color:inherit; overflow-wrap:anywhere; text-decoration-thickness:1px; text-underline-offset:3px; } a:focus-visible,button:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    .mast { max-width:68ch; margin-bottom:2rem; } .mast > p:last-child { color:var(--muted); } .mast-cta { margin:1.2rem 0 .8rem; }
+    .northset-brand { display:block; width:min(100%,32rem); margin-bottom:.2rem; color:var(--ink); line-height:0; text-decoration:none; } .northset-wordmark { display:block; width:min(100%,32rem); height:auto; } .northset-domain { margin:0 0 1.75rem; font-size:clamp(1.15rem,3vw,1.5rem); font-weight:800; letter-spacing:.04em; } .northset-domain a { color:#b5edce; text-decoration:none; } .northset-domain a:hover { text-decoration:underline; }
+    .eyebrow { margin-bottom:.45rem; color:#9dd9bd; font-weight:700; } .hero { display:grid; grid-template-columns:minmax(15rem,1fr) minmax(0,34rem); gap:1rem 3rem; align-items:start; } .hero-intro { grid-column:1; grid-row:1 / span 3; max-width:38rem; } .hero-intro h2 { font-size:clamp(1.2rem,3vw,1.8rem); } .hero > .receipt { grid-column:2; grid-row:1; margin-top:0; } .hero > .outcome-stub { grid-column:2; grid-row:2; } .hero > .verify-ledger { grid-column:2; grid-row:3; } .hero-notes { width:100%; margin:2rem 0 0; padding:0; display:grid; gap:.6rem; list-style:none; } .hero-note { padding:.7rem; border:1px solid var(--line); color:var(--muted); font-size:.76rem; } .hero-note strong,.hero-note span { display:block; } .hero-note strong { color:#b5edce; margin-bottom:.2rem; text-transform:uppercase; letter-spacing:.06em; }
+    .receipt { width:min(100%, 34rem); margin:1rem auto; padding:1.15rem; overflow:hidden; background:var(--paper); color:var(--paper-ink); border:1px solid var(--rule); box-shadow:0 1.2rem 2.8rem #0006; position:relative; transform:rotate(-.18deg); }
+    .receipt--economic { width:min(100%,58rem); padding:clamp(1rem,3vw,2rem); transform:none; border-top:8px solid #0b6849; box-shadow:0 1.6rem 4rem #0007; }
+    .receipt::before,.receipt::after { content:""; position:absolute; left:0; right:0; height:7px; background:linear-gradient(135deg,transparent 4px,var(--paper) 0) 0 0/8px 8px repeat-x; } .receipt::before { top:0; } .receipt::after { bottom:0; transform:rotate(180deg); }
+    .receipt--rehearsal { --paper:#f0ede7; filter:saturate(.45); } .receipt--self-run .receipt-head { border-left:5px solid #207f6a; padding-left:.7rem; } .receipt--verification .receipt-head { border-left:5px solid var(--green); padding-left:.7rem; } .receipt--declared { --paper:#f5f0e1; border-top:5px solid #9b6c18; }
+    .receipt-head { border-bottom:1px dashed var(--rule); padding:1rem 0 .8rem; } .brand { margin-bottom:.2rem; letter-spacing:.34em; font-weight:800; } .receipt-head h1,.receipt-head h2 { max-width:none; margin-bottom:.65rem; font-size:1.35rem; line-height:1.15; letter-spacing:normal; } .receipt-id { white-space:nowrap; } .class-stamp { display:inline-block; margin:0; padding:.18rem .35rem; border:2px solid currentColor; font-size:.68rem; font-weight:800; letter-spacing:.04em; transform:rotate(-1deg); } .consent-artifact { margin:.65rem 0 0; font-size:.72rem; }
+    .receipt--economic .receipt-head { display:grid; grid-template-columns:minmax(19rem,1fr) minmax(23rem,1fr); gap:.55rem 2rem; align-items:end; padding:.7rem 0 1.2rem; border-bottom:1px solid #b9c5ba; }
+    .receipt--economic .receipt-head .brand,.receipt--economic .receipt-head h1,.receipt--economic .receipt-head h2,.receipt--economic .receipt-head .class-stamp { grid-column:1; }
+    .receipt--economic .receipt-meta { grid-column:2; grid-row:1 / span 4; margin:0; align-self:center; }
+    .receipt--economic .receipt-meta dd { font-size:.78rem; }
+    .receipt--rehearsal .class-stamp { color:#5c625d; } .receipt--self-run .class-stamp { color:#155e4c; } .receipt--verification .class-stamp { color:var(--green); } .receipt--declared .class-stamp { color:#79520e; }
+    .receipt-meta,.facts { margin:1rem 0 0; display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.3rem .8rem; } .receipt-meta { grid-template-columns:1fr 1fr; } .receipt-meta div { min-width:0; } dt { color:#59635d; font-size:.72rem; text-transform:uppercase; } dd { margin:0; min-width:0; overflow-wrap:anywhere; } code { font:inherit; overflow-wrap:anywhere; white-space:pre-wrap; }
+    .receipt-section { padding:.9rem 0; border-bottom:1px dashed var(--rule); } .receipt-section h2,.receipt-section h3,.correction h2,.correction h3 { margin-bottom:.55rem; font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; } .receipt-section p:last-child { margin-bottom:0; } .commands { margin:0; padding-left:1.2rem; } .commands li+li { margin-top:.8rem; } pre { max-width:100%; margin:.35rem 0; padding:.6rem; overflow:auto; background:#f2eee4; color:#1b211e; border:1px solid #ded8c9; font:inherit; white-space:pre-wrap; overflow-wrap:anywhere; } .command-result { margin:.25rem 0 0; color:#4d5751; font-size:.85rem; }
+    .duration-line { display:flex; justify-content:space-between; gap:1rem; color:#4d5751; font-size:.85rem; } .total { margin:.85rem 0 .35rem; padding:.6rem; background:var(--green-pale); color:#075238; font-weight:800; } .scope-note { color:#3f4d46; font-size:.82rem; }
+    .limitations ul { margin:0; padding-left:1.15rem; } .limitations li+li { margin-top:.4rem; } .correction { margin:.9rem 0; padding:.8rem; border:2px solid #9d503a; background:#fff1e8; color:#5b271b; } .correction h2,.correction h3 { margin-bottom:.35rem; } .correction p { margin:0; }
+    .button-link,button { display:inline-block; padding:.48rem .65rem; border:1px solid #37685a; border-radius:0; background:#e7f3ed; color:#064b34; font:inherit; font-size:.78rem; cursor:pointer; } button:hover,.button-link:hover { background:#ccebdc; }
+    .verify-command { display:grid; gap:.45rem; margin-top:.7rem; } .verify-command pre { font-size:.72rem; } .qr-link { display:flex; align-items:center; gap:.65rem; margin-top:1rem; color:#33443c; font-size:.72rem; text-decoration:none; } .qr-link svg { width:4.5rem; height:4.5rem; flex:none; border:4px solid #fff; } .receipt-disclosure { margin-top:.9rem; padding-top:.8rem; border-top:1px dashed var(--rule); font-size:.8rem; } .receipt-disclosure p { margin:.4rem 0 0; color:#4d5751; }
+    .receipt-open { margin:.9rem 0 0; font-weight:800; } .patch,.evidence-output { margin-top:1rem; } .patch summary,.evidence-output summary { cursor:pointer; font-weight:700; } .patch pre,.evidence-output pre { max-height:24rem; font-size:.72rem; }
+    .section-kicker { margin:0 0 .35rem; color:#27604c; font-size:.67rem; font-weight:900; letter-spacing:.13em; text-transform:uppercase; }
+    .economic-overview { padding:1.35rem 0 1.15rem; border-bottom:1px solid #b9c5ba; }
+    .economic-overview h2,.economic-identity h2,.economic-unknowns h2 { margin-bottom:.8rem; font-size:clamp(1.1rem,2.5vw,1.45rem); letter-spacing:-.02em; }
+    .glance-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.65rem; }
+    .glance-card { min-height:7.4rem; padding:.8rem; display:flex; flex-direction:column; border:1px solid #c9c7ba; background:#f5f1e7; }
+    .glance-card span { color:#5c645e; font-size:.65rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+    .glance-card strong { margin:auto 0 .25rem; font-size:1.05rem; line-height:1.14; }
+    .glance-card small { color:#5c645e; font-size:.68rem; }
+    .glance-card--pass { color:#064a34; border-color:#9bbdad; background:#dff1e7; }
+    .glance-card--cost { border-color:#d5b765; background:#fff6d9; }
+    .economic-identity { padding:1.45rem 0 1.25rem; border-bottom:1px solid #b9c5ba; }
+    .section-heading { display:grid; grid-template-columns:minmax(12rem,1fr) minmax(16rem,1.2fr); gap:1rem 2rem; align-items:end; }
+    .section-heading > p { margin-bottom:.8rem; color:#4b5750; font-size:.82rem; }
+    .identity-grid { margin:.35rem 0 0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid #c9c7ba; border-left:1px solid #c9c7ba; }
+    .identity-grid > div { min-width:0; padding:.8rem; border-right:1px solid #c9c7ba; border-bottom:1px solid #c9c7ba; }
+    .identity-grid dt { margin-bottom:.35rem; }
+    .identity-grid dd { font-weight:800; }
+    .identity-grid dd span { display:block; margin-top:.28rem; color:#56615a; font-size:.72rem; font-weight:400; }
+    .effort-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; margin-top:.85rem; background:#aebbb2; border:1px solid #aebbb2; }
+    .effort-strip div { padding:.7rem; background:#17352d; color:#eff6ef; }
+    .effort-strip span,.effort-strip strong { display:block; }
+    .effort-strip span { color:#b9d4c8; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; }
+    .effort-strip strong { margin-top:.25rem; font-size:.95rem; }
+    .economic-unknowns { display:grid; grid-template-columns:1.25fr .9fr; gap:1.2rem 2rem; padding:1.35rem; margin:1.15rem 0; border-left:5px solid #b88b19; background:#fff6d9; }
+    .economic-unknowns p { margin-bottom:.45rem; font-size:.82rem; }
+    .economic-unknowns h3 { margin:.1rem 0 .45rem; color:#6a4b05; }
+    .economic-unknowns ul { margin:0; padding-left:1.1rem; font-size:.78rem; }
+    .evidence-drawer { margin:.7rem 0 0; border:1px solid #b9c5ba; background:#f8f5ed; }
+    .evidence-drawer > summary { padding:.9rem 1rem; display:flex; justify-content:space-between; gap:1rem; align-items:center; cursor:pointer; list-style:none; color:#17352d; font-weight:900; }
+    .evidence-drawer > summary::-webkit-details-marker { display:none; }
+    .evidence-drawer > summary::after { content:'+'; width:1.4rem; height:1.4rem; display:grid; place-items:center; flex:none; border:1px solid #6f8278; }
+    .evidence-drawer[open] > summary::after { content:'−'; }
+    .evidence-drawer > summary span { font-size:.88rem; letter-spacing:.03em; }
+    .evidence-drawer > summary small { margin-left:auto; color:#66736c; font-size:.68rem; font-weight:400; }
+    .drawer-body,.drawer-grid { padding:0 1rem 1rem; border-top:1px solid #d3d3c8; }
+    .drawer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 1.4rem; }
+    .drawer-grid > section { min-width:0; padding:1rem 0; border-bottom:1px dashed #c9c7ba; }
+    .drawer-grid h3 { margin-bottom:.55rem; }
+    .attempt-list,.cost-lines { margin:0; padding:0; list-style:none; }
+    .attempt-list li,.cost-lines li { display:grid; grid-template-columns:minmax(5rem,.5fr) minmax(0,1fr); gap:.5rem; padding:.45rem 0; border-bottom:1px solid #dedbcf; }
+    .attempt-list li span,.cost-lines li span { color:#56615a; font-size:.72rem; }
+    .receipt--economic .receipt-disclosure { margin-top:1.3rem; padding:1rem; border:0; background:#17352d; color:#f2f6f2; }
+    .receipt--economic .receipt-disclosure p { color:#c5d4cc; }
+    .outcome-stub { width:min(100%,34rem); margin:-1rem auto 1rem; padding:1.2rem 1.15rem 1rem; color:#ecf4ef; border:1px dashed #b7cbc0; background:#254039; text-align:center; } .outcome-stub h2 { margin-bottom:.5rem; font-size:1rem; text-transform:uppercase; letter-spacing:.08em; } .outcome-stub strong { font-size:1.15rem; } .outcome-stub p { margin:.3rem 0 0; font-size:.78rem; } .stub-cut { color:#b7cbc0; letter-spacing:.05em; }
+    .verify-ledger { width:min(100%,34rem); margin:1.6rem auto 2.5rem; padding:1rem; border-left:4px solid #9dd9bd; background:#223831; } .verify-ledger h2 { font-size:1rem; } .verify-ledger p { color:var(--muted); font-size:.86rem; } .verify-ledger pre { font-size:.72rem; }
+    .counts { display:flex; flex-wrap:wrap; gap:.6rem; margin:2rem 0; } .counts p { margin:0; padding:.35rem .6rem; border:1px solid var(--line); color:var(--muted); font-size:.78rem; } .counts strong { color:#b5edce; }
+    .gallery { margin-top:3rem; } .gallery-head { display:flex; gap:1rem; justify-content:space-between; align-items:end; flex-wrap:wrap; } .gallery-head h2 { margin-bottom:0; } .filters { display:flex; flex-wrap:wrap; gap:.4rem; } .filters button { color:var(--ink); border-color:var(--line); background:transparent; } .filters button[aria-pressed="true"] { color:#082d20; background:#b5edce; }
+    .preview-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1rem; margin-top:1rem; } .receipt-preview { min-width:0; padding:1rem; border:1px solid var(--line); background:#21342f; } .receipt-preview[hidden] { display:none; } .receipt-preview.receipt--rehearsal { background:#3d4641; } .receipt-preview.receipt--self-run { border-top:5px solid #3c9b80; } .receipt-preview.receipt--verification { border:3px double #4ed18e; border-top-width:7px; } .receipt-preview.receipt--declared { border-top:5px dashed #d4aa5e; } .preview-id,.preview-class,.preview-issue,.preview-result,.preview-scope,.preview-attestation,.preview-outcome { margin-bottom:.5rem; } .preview-id { font-size:inherit; font-weight:800; letter-spacing:normal; text-transform:none; } .preview-result { padding:.55rem; background:#d9f0e4; color:#075238; font-weight:800; } .preview-class,.preview-scope,.preview-attestation,.preview-outcome { color:var(--muted); font-size:.75rem; } .preview-issue { font-size:.82rem; } .preview-link { display:inline-block; margin-top:.4rem; color:#b5edce; font-weight:800; }.noscript { color:var(--muted); }
+    .rehearsal-archive { margin:3rem 0 0; padding:1rem; border:1px solid var(--line); color:var(--muted); } .rehearsal-archive > summary { color:var(--ink); cursor:pointer; font-weight:800; } .rehearsal-archive > p { margin:.8rem 0 0; font-size:.82rem; }
+    .request-run { max-width:58rem; margin:3.5rem 0 0; padding:clamp(1rem,3vw,1.6rem); border:1px solid #689781; border-left:6px solid #9dd9bd; background:#21342f; } .receipt-page > .request-run { width:min(100%,58rem); margin:2.4rem auto 0; } .request-run h2 { margin-bottom:.75rem; font-size:clamp(1.35rem,4vw,2rem); } .request-run > p { max-width:68ch; } .request-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.15rem 0 .9rem; } .request-primary { font-weight:800; } .request-secondary { background:transparent; color:var(--ink); } .request-secondary:hover { color:#064b34; } .request-public-note,.request-onboarded { margin-bottom:.5rem; color:var(--muted); font-size:.78rem; } .request-onboarded code { color:#b5edce; }
+    .claims { max-width:58rem; margin:3.5rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); }.claims h2 { color:var(--ink); }.site-footer { max-width:58rem; margin:2rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.78rem; }.page-nav { width:min(100%,58rem); margin:0 auto 1rem; color:var(--muted); font-size:.78rem; }.page-nav p { margin:.5rem 0 0; overflow-wrap:anywhere; }.page-actions,.page-action-buttons { display:flex; align-items:center; gap:.6rem; }.page-actions { justify-content:space-between; }.page-action-buttons { justify-content:flex-end; flex-wrap:wrap; }
+    @media (max-width:58rem) { .hero { grid-template-columns:1fr; } .hero-intro,.hero > .receipt,.hero > .outcome-stub,.hero > .verify-ledger { grid-column:1; grid-row:auto; } .hero-notes { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:48rem) { .receipt--economic .receipt-head { grid-template-columns:1fr; } .receipt--economic .receipt-meta { grid-column:1; grid-row:auto; } .glance-grid,.identity-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .section-heading,.economic-unknowns { grid-template-columns:1fr; } .effort-strip { grid-template-columns:repeat(2,minmax(0,1fr)); } .drawer-grid { grid-template-columns:1fr; } }
+    @media (max-width:34rem) { .receipt { margin-left:0; margin-right:0; padding:.85rem; } .receipt-meta { grid-template-columns:1fr; } .facts { grid-template-columns:1fr; gap:.15rem; } .hero-notes,.glance-grid,.identity-grid,.effort-strip { grid-template-columns:1fr; } .economic-unknowns { padding:1rem; } .evidence-drawer > summary { align-items:flex-start; } .evidence-drawer > summary small { display:none; } .page-actions { align-items:flex-start; flex-direction:column; } .page-action-buttons { justify-content:flex-start; } dd { margin-bottom:.55rem; } }
+    @media print { @page { margin:8mm; } :root,html,body { color-scheme:light; background:#fff; color:#000; } body { font-size:9pt; } main,.receipt-page { width:auto; padding:0; margin:0; } .mast,.counts,.gallery,.claims,.site-footer,.page-nav,.verify-ledger,.receipt-open,.outcome-stub,.request-run { display:none !important; } .patch,.evidence-output { display:none !important; } .receipt { display:block; width:auto; max-width:100%; margin:0; box-shadow:none; transform:none; } .receipt:not(.receipt--economic) { width:72mm; } .facts,.receipt-meta { grid-template-columns:1fr; gap:.15rem; } .facts dd,.receipt-meta dd { margin-bottom:.45rem; } .receipt .button-link,.receipt button { display:none; } .proof-scope,.limitations,.verification,.receipt-disclosure,.qr-link,.glance-card,.identity-grid>div { break-inside:avoid; page-break-inside:avoid; } .qr-link { display:flex; } .evidence-drawer:not([open]) > :not(summary) { display:block; } a { color:inherit; text-decoration:none; } }
+  </style>
+</head>
+<body>
+<main class="receipt-page"><header class="page-nav"><div class="page-actions"><a href="../../index.html">← All Proof-of-Pass Receipts</a><span class="page-action-buttons"><a class="button-link" href="receipt.json" download>Download receipt.json</a><button type="button" data-print>Print / Save receipt</button></span></div><p>Canonical receipt · https://northset-oss.github.io/verification-pilot/receipts/M-031/</p><p>Generated at 2026-07-15T12:13:15.904Z</p></header><article class="receipt receipt--self-run receipt--economic">
+  <header class="receipt-head">
+    <p class="brand">NORTHSET</p>
+    <h1>Proof-of-Pass Receipt — <span class="receipt-id">M-031</span></h1>
+    <p class="class-stamp">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
+
+    <dl class="receipt-meta"><div><dt>Receipt ID</dt><dd>M-031</dd></div><div><dt>Run start</dt><dd>2026-07-15T11:56:44.165Z</dd></div><div><dt>Run finish</dt><dd>2026-07-15T12:02:26.817Z</dd></div></dl>
+  </header>
+  <section class="economic-overview" aria-labelledby="economic-overview-title">
+  <p class="section-kicker">ONE RECEIPT · THREE EVIDENCE LAYERS</p>
+  <h2 id="economic-overview-title">At a glance</h2>
+  <div class="glance-grid">
+    <div class="glance-card glance-card--pass"><span>Technical</span><strong>PASS — 7/7 declared commands</strong><small>7 declared checks</small></div>
+    <div class="glance-card"><span>Upstream outcome</span><strong>PREPARED</strong><small>mutable external observation</small></div>
+    <div class="glance-card"><span>Attempts</span><strong>10</strong><small>task-bound attempts</small></div>
+    <div class="glance-card glance-card--cost"><span>Economic cost</span><strong>Not fully priced</strong><small>partial evidence</small></div>
+  </div>
+</section>
+<section class="economic-identity" aria-labelledby="economic-identity-title">
+  <div class="section-heading"><div><p class="section-kicker">ECONOMIC LAYER</p><h2 id="economic-identity-title">Economic identity</h2></div><p>Observed sponsorship, authorization, scope, usage, and outcome. No estimates or inferred value.</p></div>
+  <dl class="identity-grid">
+    <div><dt>Stable task</dt><dd><code>TASK-OSS-974F612F87373753</code><span>defect fix · attempt 10</span></dd></div>
+    <div><dt>External demand</dt><dd><a class="" href="https://github.com/goptics/vizb/issues/204">Issue #204</a><span>label invitation</span></dd></div>
+    <div><dt>Sponsor</dt><dd>Northset OSS Fund<span>OSS mission experimentation</span></dd></div>
+    <div><dt>Authorization</dt><dd>internal-user:aeziz<span>2026-07-15T12:12:27.268Z</span></dd></div>
+    <div><dt>External transfer</dt><dd>none<span>not merge contingent</span></dd></div>
+    <div><dt>Observed scope</dt><dd>2 files · 123 changed lines<span>1 production · 1 test files; scope, not value</span></dd></div>
+  </dl>
+  <div class="effort-strip" aria-label="Recorded stage durations">
+    <div><span>Discovery</span><strong>18m07s</strong></div>
+    <div><span>Qualification</span><strong>2m03s</strong></div>
+    <div><span>Authoring</span><strong>4m07s</strong></div>
+    <div><span>Verification</span><strong>5m42s</strong></div>
+  </div>
+</section>
+<section class="economic-unknowns" aria-labelledby="economic-unknowns-title">
+  <div><p class="section-kicker">COST COMPLETENESS</p><h2 id="economic-unknowns-title">Known, unknown, and unpriced</h2><p><strong>Known:</strong> maintainer payment was none. A known zero external transfer is not a zero total cost.</p><p><strong>Total economic cost:</strong> unavailable while components remain missing.</p></div>
+  <div><h3>Missing or unpriced components</h3><ul><li>model inference</li><li>actual host compute</li><li>human review</li><li>shared tooling</li></ul></div>
+</section>
+<details class="evidence-drawer">
+  <summary><span>Economic evidence</span><small>Lineage, usage, caps, and cost provenance</small></summary>
+  <div class="drawer-grid">
+    <section><h3>Attempt lineage</h3><ul class="attempt-list"><li><code>M-022</code><span>attempt 1 · FAILED ORACLE · verification</span></li><li><code>M-023</code><span>attempt 2 · FAILED ORACLE · verification</span></li><li><code>M-024</code><span>attempt 3 · FAILED ORACLE · verification</span></li><li><code>M-025</code><span>attempt 4 · FAILED ORACLE · verification</span></li><li><code>M-026</code><span>attempt 5 · FAILED ORACLE · verification</span></li><li><code>M-027</code><span>attempt 6 · FAILED ORACLE · verification</span></li><li><code>M-028</code><span>attempt 7 · FAILED AUTHOR · authoring</span></li><li><code>M-029</code><span>attempt 8 · STALE · precondition drift</span></li><li><code>M-030</code><span>attempt 9 · FAILED AUTHOR · authoring</span></li><li><code>M-031</code><span>attempt 10 · READY</span></li></ul></section>
+    <section><h3>Recorded usage</h3><dl class="facts"><dt>requested reviewer model</dt><dd>gpt-5.6-sol</dd><dt>actual reviewer model</dt><dd>not captured</dd><dt>requested author model</dt><dd>gpt-5.6-sol</dd><dt>actual author model</dt><dd>not captured</dd><dt>networked setup phase</dt><dd>3m10s</dd><dt>install-only duration</dt><dd>not captured</dd><dt>declared commands</dt><dd>1m40s</dd><dt>unclassified executor time</dt><dd>51s</dd><dt>CPU time</dt><dd>not captured</dd><dt>peak RSS</dt><dd>not captured</dd></dl></section>
+    <section><h3>Configured resource envelope</h3><dl class="facts"><dt>CPU cap</dt><dd>6</dd><dt>memory cap</dt><dd>6144 MB</dd><dt>PID cap</dt><dd>512</dd><dt>command wall cap</dt><dd>2700s</dd><dt>output cap / stream</dt><dd>2000000 bytes</dd></dl><p class="scope-note">Configured limits are an envelope, not observed consumption.</p></section>
+    <section><h3>Cost lines</h3><ul class="cost-lines"><li><strong>maintainer payment</strong><span>observed quantity unpriced · 0 external transfer · amount unavailable</span></li></ul><p class="scope-note">Cost status: partial. Values without source-backed quantities and rates remain null.</p></section>
+    <section><h3>Outcome facts</h3><dl class="facts"><dt>technical checks passed</dt><dd>true</dd><dt>PR opened</dt><dd>false</dd><dt>CI</dt><dd>not observed</dd><dt>merged</dt><dd>false</dd><dt>accepted as submitted</dt><dd>not established</dd><dt>external cycle time</dt><dd>not captured</dd><dt>released</dt><dd>not observed</dd><dt>deployed</dt><dd>not observed</dd><dt>business result</dt><dd>not observed</dd></dl></section>
+  </div>
+</details>
+  <details class="evidence-drawer technical-evidence"><summary><span>Technical evidence</span><small>Code, environment, exact commands, and outputs</small></summary><div class="drawer-body"><section class="receipt-section"><h2>Project</h2><p><a class="" href="https://github.com/goptics/vizb">goptics/vizb</a></p><h2>Work</h2><p><a class="" href="https://github.com/goptics/vizb/issues/204">[bug]: Tooltip donut legend omits zero-value series (should show n/a)</a></p><h2>Verification execution</h2><p>runtime: northset-oss executor v1<br>human operator: aeziz</p></section><section class="receipt-section"><h2>Code</h2><dl class="facts"><dt>base</dt><dd><code>487ab430e17b0aa2868b33b9667c1676e6efd3be</code></dd><dt>recorded patch commit</dt><dd><code>689279e546d071f37a8e1219898dd8ee693586ef</code><br><span>declared metadata; not execution-bound</span></dd><dt>patch diff SHA-256</dt><dd><code>sha256:4a1d0e072bc383e95a7307d2955d2d8e6215e7fe73e7c28fee67c845e40a1352</code><br><span>bound to executed patch bytes</span></dd></dl></section><section class="receipt-section"><h2>Environment</h2><dl class="facts"><dt>image reference</dt><dd>node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37</dd><dt>repository digest</dt><dd><code>node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37</code></dd><dt>immutable image ID</dt><dd><code>sha256:466e07e7ea13241d68674fadda868d14d923336eb2f4fa0022be0d866230d8b4</code></dd><dt>platform</dt><dd>linux/arm64</dd><dt>network</dt><dd>phaseA:bridge,phaseB:none</dd></dl></section><section class="receipt-section proof-scope"><h2>Declared checks</h2><p><strong>Execution summary</strong><br>7/7 declared commands returned exit 0 in the recorded environment</p><ol class="commands"><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts</code></pre><p class="command-result">exit 0 · 5s</p></li><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck</code></pre><p class="command-result">exit 0 · 19.5s</p></li><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check</code></pre><p class="command-result">exit 0 · 9.2s</p></li><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test</code></pre><p class="command-result">exit 0 · 8s</p></li><li><pre><code>EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build</code></pre><p class="command-result">exit 0 · 15.3s</p></li><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./...</code></pre><p class="command-result">exit 0 · 29s</p></li><li><pre><code>PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run</code></pre><p class="command-result">exit 0 · 14.7s</p></li></ol><p class="duration-line">run wall (derived from recorded timestamps) <span>5m42s</span></p><p class="total">PASS — 7/7 declared commands</p><p class="scope-note">Every command listed returned exit 0 in the declared environment. Only the listed commands are in scope. Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded.</p></section><details class="patch"><summary>Committed patch.diff</summary><pre><code>diff --git a/ui/src/composables/charts/shared/chartConfig.test.ts b/ui/src/composables/charts/shared/chartConfig.test.ts
+index 9c8bc6b351beca587a1a9553d95a0f03e15ddd54..71e417dc2dc291a1307318ef1278140fcaebc6ed 100644
+--- a/ui/src/composables/charts/shared/chartConfig.test.ts
++++ b/ui/src/composables/charts/shared/chartConfig.test.ts
+@@ -4,6 +4,7 @@ import {
+   createValueAxisConfig,
+   createDataZoomConfig,
+   createGridConfig,
++  createTooltipConfig,
+   createValueModeGridConfig,
+   VALUE_MODE_GRID_TOP,
+   createHeatmapLayoutConfig,
+@@ -18,6 +19,7 @@ import {
+   HEATMAP_Y_ZOOM_INSET,
+   formatRadarItemTooltip,
+   hasRotatedXLabels,
++  renderDonutSvg,
+   renderTooltipLegendColumns,
+   TOOLTIP_LEGEND_MAX_ROWS_PER_COL,
+   getTooltipTheme,
+@@ -193,6 +195,71 @@ describe(&#39;renderTooltipLegendColumns&#39;, () =&gt; {
+   })
+ })
+&#32;
++describe(&#39;renderDonutSvg&#39;, () =&gt; {
++  it(&#39;includes zero-valued slices in the legend without drawing their arcs&#39;, () =&gt; {
++    const html = renderDonutSvg([
++      { name: &#39;A&#39;, value: 10, color: &#39;#a00&#39; },
++      { name: &#39;B&#39;, value: 0, color: &#39;#0b0&#39; },
++      { name: &#39;C&#39;, value: 5, color: &#39;#00c&#39; },
++    ])
++
++    expect(html).toContain(&#39;&lt;span&gt;A&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;66.7%&lt;/b&gt;&#39;)
++    expect(html).toContain(&#39;&lt;span&gt;B&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;n/a&lt;/b&gt;&#39;)
++    expect(html).toContain(&#39;&lt;span&gt;C&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;33.3%&lt;/b&gt;&#39;)
++    expect(html.match(/&lt;path /g) ?? []).toHaveLength(2)
++    expect(html).toMatch(/&lt;path [^&gt;]*fill=&quot;#a00&quot;\/&gt;/)
++    expect(html).not.toMatch(/&lt;path [^&gt;]*fill=&quot;#0b0&quot;\/&gt;/)
++    expect(html).toMatch(/&lt;path [^&gt;]*fill=&quot;#00c&quot;\/&gt;/)
++  })
++
++  it(&#39;returns empty when fewer than two positive slices are present&#39;, () =&gt; {
++    expect(
++      renderDonutSvg([
++        { name: &#39;A&#39;, value: 10, color: &#39;#a00&#39; },
++        { name: &#39;B&#39;, value: 0, color: &#39;#0b0&#39; },
++      ])
++    ).toBe(&#39;&#39;)
++  })
++})
++
++describe(&#39;createTooltipConfig&#39;, () =&gt; {
++  it(&#39;keeps missing and nonnumeric values out of the donut while showing numeric zero as n/a&#39;, () =&gt; {
++    const tooltip = createTooltipConfig(true, false) as any
++    const html = tooltip.formatter([
++      { name: &#39;X&#39;, seriesName: &#39;A&#39;, value: 10, color: &#39;#a00&#39;, marker: &#39;A-marker&#39; },
++      { name: &#39;X&#39;, seriesName: &#39;Zero&#39;, value: 0, color: &#39;#0b0&#39;, marker: &#39;Zero-marker&#39; },
++      { name: &#39;X&#39;, seriesName: &#39;Null&#39;, value: null, color: &#39;#ccc&#39;, marker: &#39;Null-marker&#39; },
++      {
++        name: &#39;X&#39;,
++        seriesName: &#39;Undefined&#39;,
++        value: undefined,
++        color: &#39;#ddd&#39;,
++        marker: &#39;Undefined-marker&#39;,
++      },
++      {
++        name: &#39;X&#39;,
++        seriesName: &#39;Text&#39;,
++        value: &#39;not-a-number&#39;,
++        color: &#39;#eee&#39;,
++        marker: &#39;Text-marker&#39;,
++      },
++      { name: &#39;X&#39;, seriesName: &#39;C&#39;, value: 5, color: &#39;#00c&#39;, marker: &#39;C-marker&#39; },
++    ])
++
++    expect(html).toContain(&#39;Zero-marker Zero: 0&#39;)
++    expect(html).toContain(&#39;Text-marker Text: not-a-number&#39;)
++    expect(html).not.toContain(&#39;Null-marker&#39;)
++    expect(html).not.toContain(&#39;Undefined-marker&#39;)
++
++    const donut = html.slice(html.indexOf(&#39;&lt;svg&#39;))
++    expect(donut).toContain(&#39;&lt;span&gt;Zero&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;n/a&lt;/b&gt;&#39;)
++    expect(donut.match(/&gt;n\/a&lt;\/b&gt;/g) ?? []).toHaveLength(1)
++    expect(donut).not.toContain(&#39;&lt;span&gt;Null&lt;/span&gt;&#39;)
++    expect(donut).not.toContain(&#39;&lt;span&gt;Undefined&lt;/span&gt;&#39;)
++    expect(donut).not.toContain(&#39;&lt;span&gt;Text&lt;/span&gt;&#39;)
++  })
++})
++
+ describe(&#39;formatRadarItemTooltip&#39;, () =&gt; {
+   it(&#39;returns empty string when params.data is missing&#39;, () =&gt; {
+     expect(formatRadarItemTooltip({}, indicators, false)).toBe(&#39;&#39;)
+@@ -243,4 +310,18 @@ describe(&#39;formatRadarItemTooltip&#39;, () =&gt; {
+     expect(html).toContain(&#39;display:grid&#39;)
+     expect(html).toContain(&#39;grid-auto-flow:column&#39;)
+   })
++
++  it(&#39;omits an indicator without a corresponding numeric value from the donut&#39;, () =&gt; {
++    const html = formatRadarItemTooltip(
++      { data: { name: &#39;Series&#39;, value: [10, 5] } },
++      indicators,
++      false
++    )
++    const donut = html.slice(html.indexOf(&#39;&lt;svg&#39;))
++
++    expect(donut).toContain(&#39;&lt;span&gt;A&lt;/span&gt;&#39;)
++    expect(donut).toContain(&#39;&lt;span&gt;B&lt;/span&gt;&#39;)
++    expect(donut).not.toContain(&#39;&lt;span&gt;C&lt;/span&gt;&#39;)
++    expect(donut).not.toContain(&#39;n/a&#39;)
++  })
+ })
+diff --git a/ui/src/composables/charts/shared/chartConfig.ts b/ui/src/composables/charts/shared/chartConfig.ts
+index 9e5995b43874494fd3b5cf7d1a7c7dadade5ce85..aa1e5127b3377ec5c9ff984f1c322163fc86aa4e 100644
+--- a/ui/src/composables/charts/shared/chartConfig.ts
++++ b/ui/src/composables/charts/shared/chartConfig.ts
+@@ -534,11 +534,10 @@ export function formatRadarItemTooltip(
+   const spread = tooltipSpreadRows(vals, isDark)
+&#32;
+   const donut = renderDonutSvg(
+-    indicatorNames.map((name, i) =&gt; ({
+-      name,
+-      value: typeof vals[i] === &#39;number&#39; ? vals[i]! : 0,
+-      color: color(name),
+-    }))
++    indicatorNames.flatMap((name, i) =&gt; {
++      const value = vals[i]
++      return typeof value === &#39;number&#39; ? [{ name, value, color: color(name) }] : []
++    })
+   )
+   const donutBlock = donut ? `${tooltipDivider(isDark)}${donut}` : &#39;&#39;
+&#32;
+@@ -582,9 +581,9 @@ export function tooltipSpreadRows(values: number[], isDark: boolean): string {
+   )
+ }
+&#32;
+-// Inline SVG donut + side legend (swatch, name, %) for tooltips. Non-positive
+-// slices are dropped (can&#39;t show negative share). Returns &#39;&#39; when fewer than 2
+-// positive slices — nothing to compare.
++// Inline SVG donut + side legend (swatch, name, %) for tooltips. Only positive
++// slices draw arcs; zero slices remain in the legend as n/a. Returns &#39;&#39; when
++// fewer than 2 positive slices are present — nothing to compare.
+ export function renderDonutSvg(
+   slices: { value: number; color: string; name: string }[],
+   size = 96
+@@ -634,11 +633,13 @@ export function renderDonutSvg(
+&#32;
+   // Side legend: one row per slice (swatch + name + share %). Scrolls with the
+   // tooltip when there are many slices.
+-  const legendRows = pos.map((s) =&gt; {
+-    const pct = ((s.value / total) * 100).toFixed(1)
+-    const swatch = `&lt;span style=&quot;display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none&quot;&gt;&lt;/span&gt;`
+-    return `${swatch}&lt;span&gt;${s.name}&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;${pct}%&lt;/b&gt;`
+-  })
++  const legendRows = slices
++    .filter((s) =&gt; s.value &gt;= 0)
++    .map((s) =&gt; {
++      const share = s.value === 0 ? &#39;n/a&#39; : `${((s.value / total) * 100).toFixed(1)}%`
++      const swatch = `&lt;span style=&quot;display:inline-block;width:10px;height:10px;border-radius:2px;background:${s.color};margin-right:6px;flex:none&quot;&gt;&lt;/span&gt;`
++      return `${swatch}&lt;span&gt;${s.name}&lt;/span&gt;&lt;b style=&quot;margin-left:6px&quot;&gt;${share}&lt;/b&gt;`
++    })
+   const legend = renderTooltipLegendColumns(
+     legendRows,
+     TOOLTIP_LEGEND_MAX_ROWS_PER_COL,
+@@ -719,11 +720,16 @@ export function createTooltipConfig(
+           isDark
+         )
+         const donut = renderDonutSvg(
+-          params.map((p) =&gt; ({
+-            value: typeof p.value === &#39;number&#39; ? p.value : 0,
+-            color: typeof p.color === &#39;string&#39; ? p.color : String(p.color),
+-            name: p.seriesName ?? &#39;&#39;,
+-          }))
++          params.flatMap((p) =&gt; {
++            if (typeof p.value !== &#39;number&#39;) return []
++            return [
++              {
++                value: p.value,
++                color: typeof p.color === &#39;string&#39; ? p.color : String(p.color),
++                name: p.seriesName ?? &#39;&#39;,
++              },
++            ]
++          })
+         )
+         return `${body}${sumLine}${spread}${donut ? tooltipDivider(isDark) + donut : &#39;&#39;}`
+       },
+</code></pre></details><details class="evidence-output"><summary>Redacted stdout</summary><pre><code>=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/workspace/ui[39m
+
+ [32m✓[39m src/composables/charts/shared/chartConfig.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m30 passed[39m[22m[90m (30)[39m
+[2m   Start at [22m 12:00:18
+[2m   Duration [22m 2.00s[2m (transform 1.35s, setup 0ms, import 1.62s, tests 13ms, environment 0ms)[22m
+
+=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===
+
+&gt; ui@0.0.0 typecheck /workspace/ui
+&gt; vue-tsc -b --noEmit
+
+=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===
+
+&gt; ui@0.0.0 format:check /workspace/ui
+&gt; prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===
+
+&gt; ui@0.0.0 test /workspace/ui
+&gt; vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/workspace/ui[39m
+
+ [32m✓[39m src/lib/stats.test.ts [2m([22m[2m79 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m src/composables/settings/fieldRegistry.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m src/lib/transform.test.ts [2m([22m[2m57 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/chartConfig.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/3d.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/lib/utils.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/workers/transform.worker.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 262[2mms[22m[39m
+ [32m✓[39m src/components/SettingsPanel.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/useChartPipeline.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useScatterChartOptions.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/composables/useStatsWorker.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useBarChartOptions.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/composables/useUrlRouter.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+ [32m✓[39m src/composables/useSettingsStore.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useLineChartOptions.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useScatter3DChartOptions.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/workers/stats.worker.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m src/composables/useActiveChartShape.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32m✓[39m src/lib/descriptiveColumns.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useGrouped3DZAxisLabel.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/lib/swap.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csv.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/composables/charts/baseChartOptions.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m embed-build/go-codegen.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/lib/themes.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/composables/useDataPoint.normalize.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/composables/charts/shared/visualMap.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/composables/charts/useCorrelationOption.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/lib/filterDataSetSettings.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/lib/pickerRule.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m30 passed[39m[22m[90m (30)[39m
+[2m      Tests [22m [1m[32m462 passed[39m[22m[90m (462)[39m
+[2m   Start at [22m 12:00:59
+[2m   Duration [22m 6.17s[2m (transform 2.68s, setup 0ms, import 8.91s, tests 786ms, environment 2ms)[22m
+
+=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===
+
+&gt; ui@0.0.0 build /workspace/ui
+&gt; vue-tsc -b &amp;&amp; vite build
+
+[info] EMBED_UI env var: True
+[log] [36mvite v8.1.0 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 795 modules transformed.
+rendering chunks...
+computing gzip size...
+[log] dist/index.html                                 2.34 kB │ gzip:   0.89 kB
+dist/assets/style-CBsyy9YK.css                 18.98 kB │ gzip:   4.52 kB
+dist/assets/CoordinateSystem-CQYdir-d.js        0.04 kB │ gzip:   0.06 kB
+dist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ gzip:   0.21 kB
+dist/assets/labelHelper-B3dLspwy.js             0.45 kB │ gzip:   0.29 kB
+dist/assets/ChartScatter-BuAtWAHX.js            0.66 kB │ gzip:   0.39 kB
+dist/assets/LegendVisualProvider-nnn8ZDeM.js    0.96 kB │ gzip:   0.49 kB
+dist/assets/dataSample-Ds2J_ejG.js              1.98 kB │ gzip:   0.96 kB
+dist/assets/labelGuideHelper-CIDrUKMP.js        5.38 kB │ gzip:   2.41 kB
+dist/assets/install-BUAhqOuF.js                 6.29 kB │ gzip:   2.37 kB
+dist/assets/ChartHeatmap-CK4EAREd.js            6.90 kB │ gzip:   2.92 kB
+dist/assets/points-DHZDpxxX.js                  7.06 kB │ gzip:   2.82 kB
+dist/assets/axisAlignTicks-CIyXe2Zs.js          8.38 kB │ gzip:   3.25 kB
+dist/assets/ChartRadar-BLNtE45G.js             11.86 kB │ gzip:   4.61 kB
+dist/assets/ChartPie-BPbpp0FQ.js               13.10 kB │ gzip:   5.55 kB
+dist/assets/ChartBar-nJSlSRgV.js               17.43 kB │ gzip:   6.51 kB
+dist/assets/install-CeV-OgWo.js                17.50 kB │ gzip:   6.09 kB
+dist/assets/ChartLine-DFGW10Eq.js              20.33 kB │ gzip:   8.26 kB
+dist/assets/base-IPePAI0l.js                   21.82 kB │ gzip:   7.65 kB
+dist/assets/install-BajAoG8-.js                35.63 kB │ gzip:  11.60 kB
+dist/assets/index-QdWSoSdn.js                 372.32 kB │ gzip: 119.38 kB
+dist/assets/Chart3D-DzAh8MrT.js               464.88 kB │ gzip: 129.03 kB
+dist/assets/dist-DX1-RU5m.js                  490.63 kB │ gzip: 164.76 kB
+
+[log] [32m✓ built in 3.15s[39m
+[info] [embed-ui] 21 chunks
+  dist/assets/dist-DX1-RU5m.js                  479.13 kB │ encoded: 212.32 kB
+  dist/assets/Chart3D-DzAh8MrT.js               453.99 kB │ encoded: 166.63 kB
+  dist/assets/index-QdWSoSdn.js                 363.59 kB │ encoded: 153.69 kB
+  dist/assets/install-BajAoG8-.js                34.80 kB │ encoded:  14.95 kB
+  dist/assets/base-IPePAI0l.js                   21.32 kB │ encoded:   9.89 kB
+  dist/assets/ChartLine-DFGW10Eq.js              19.86 kB │ encoded:  10.70 kB
+  dist/assets/install-CeV-OgWo.js                17.09 kB │ encoded:   7.89 kB
+  dist/assets/ChartBar-nJSlSRgV.js               17.03 kB │ encoded:   8.45 kB
+  dist/assets/ChartPie-BPbpp0FQ.js               12.80 kB │ encoded:   7.21 kB
+  dist/assets/ChartRadar-BLNtE45G.js             11.59 kB │ encoded:   5.97 kB
+  dist/assets/axisAlignTicks-CIyXe2Zs.js          8.19 kB │ encoded:   4.21 kB
+  dist/assets/points-DHZDpxxX.js                  6.90 kB │ encoded:   3.66 kB
+  dist/assets/ChartHeatmap-CK4EAREd.js            6.74 kB │ encoded:   3.80 kB
+  dist/assets/install-BUAhqOuF.js                 6.15 kB │ encoded:   3.09 kB
+  dist/assets/labelGuideHelper-CIDrUKMP.js        5.26 kB │ encoded:   3.14 kB
+  dist/assets/dataSample-Ds2J_ejG.js              1.94 kB │ encoded:   1.26 kB
+  dist/assets/LegendVisualProvider-nnn8ZDeM.js    0.94 kB │ encoded:   0.64 kB
+  dist/assets/ChartScatter-BuAtWAHX.js            0.65 kB │ encoded:   0.52 kB
+  dist/assets/labelHelper-B3dLspwy.js             0.44 kB │ encoded:   0.39 kB
+  dist/assets/sectorHelper-DH3hWBQK.js            0.26 kB │ encoded:   0.28 kB
+  dist/assets/CoordinateSystem-CQYdir-d.js        0.05 kB │ encoded:   0.09 kB
+
+  HTML template (placeholder): 21.33 kB
+
+=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===
+?   &#9;github.com/goptics/vizb&#9;[no test files]
+ok  &#9;github.com/goptics/vizb/cmd&#9;0.169s
+?   &#9;github.com/goptics/vizb/cmd/charts/bar&#9;[no test files]
+?   &#9;github.com/goptics/vizb/cmd/charts/heatmap&#9;[no test files]
+?   &#9;github.com/goptics/vizb/cmd/charts/line&#9;[no test files]
+?   &#9;github.com/goptics/vizb/cmd/charts/pie&#9;[no test files]
+?   &#9;github.com/goptics/vizb/cmd/charts/radar&#9;[no test files]
+?   &#9;github.com/goptics/vizb/cmd/charts/scatter&#9;[no test files]
+ok  &#9;github.com/goptics/vizb/cmd/cli&#9;0.190s
+ok  &#9;github.com/goptics/vizb/internal/charts&#9;0.036s
+?   &#9;github.com/goptics/vizb/internal/charts/bar&#9;[no test files]
+?   &#9;github.com/goptics/vizb/internal/charts/heatmap&#9;[no test files]
+?   &#9;github.com/goptics/vizb/internal/charts/line&#9;[no test files]
+?   &#9;github.com/goptics/vizb/internal/charts/pie&#9;[no test files]
+?   &#9;github.com/goptics/vizb/internal/charts/radar&#9;[no test files]
+?   &#9;github.com/goptics/vizb/internal/charts/scatter&#9;[no test files]
+ok  &#9;github.com/goptics/vizb/internal/flags&#9;0.027s
+ok  &#9;github.com/goptics/vizb/pkg/parser&#9;0.023s
+ok  &#9;github.com/goptics/vizb/pkg/parser/csv&#9;0.040s
+ok  &#9;github.com/goptics/vizb/pkg/parser/golang&#9;0.021s
+ok  &#9;github.com/goptics/vizb/pkg/parser/javascript&#9;0.017s
+ok  &#9;github.com/goptics/vizb/pkg/parser/json&#9;0.067s
+ok  &#9;github.com/goptics/vizb/pkg/parser/rust&#9;0.025s
+?   &#9;github.com/goptics/vizb/pkg/style&#9;[no test files]
+ok  &#9;github.com/goptics/vizb/pkg/template&#9;0.069s
+ok  &#9;github.com/goptics/vizb/shared&#9;0.029s
+ok  &#9;github.com/goptics/vizb/shared/utils&#9;0.021s
+ok  &#9;github.com/goptics/vizb/testutil&#9;0.008s
+?   &#9;github.com/goptics/vizb/version&#9;[no test files]
+=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===
+0 issues.
+</code></pre></details><details class="evidence-output"><summary>Redacted stderr</summary><pre><code>=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===
+=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===
+=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===
+=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===
+=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===
+[warn] Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[warn] [33m[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vite:vue (78%)
+  - vite:worker (6%)
+  - vite:css (5%)
+  - rolldown:vite-resolve (5%)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+[39m
+=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===
+=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===
+</code></pre></details></div></details>
+  <details class="evidence-drawer provenance-evidence"><summary><span>Evidence &amp; limitations</span><small>Bundle identity, attestation, and claims boundary</small></summary><div class="drawer-body"><section class="receipt-section"><h2>Record details</h2><dl class="facts"><dt>payment</dt><dd>none · not merge-contingent</dd><dt>redactions</dt><dd>none recorded</dd><dt>Bundle contents digest</dt><dd><code>sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584</code></dd><dt>Signed asset SHA-256</dt><dd><code>not recorded</code></dd><dt>Signed provenance recorded</dt><dd>not verified</dd></dl></section><section class="receipt-section limitations"><h2>NOT INCLUDED</h2><ul><li>Does not prove code quality</li><li>Does not prove security</li><li>The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.</li><li>Contributor self-run record of Northset&#39;s own contribution; not the maintainer&#39;s verification.</li></ul></section><section class="receipt-section verification"><h2>Signed bundle</h2><p>Attestation URL was not recorded.</p><a class="qr-link" href="./index.html" aria-label="Canonical receipt page for M-031"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" role="img" aria-label="QR code for https://northset-oss.github.io/verification-pilot/receipts/M-031/" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h45v45H0z"/><path fill="#111" transform="translate(4 4)" d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM23,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM33,0h1v1h-1zM34,0h1v1h-1zM35,0h1v1h-1zM36,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM9,1h1v1h-1zM13,1h1v1h-1zM17,1h1v1h-1zM23,1h1v1h-1zM24,1h1v1h-1zM25,1h1v1h-1zM26,1h1v1h-1zM27,1h1v1h-1zM30,1h1v1h-1zM36,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM15,2h1v1h-1zM19,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM27,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM36,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM9,3h1v1h-1zM12,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM26,3h1v1h-1zM27,3h1v1h-1zM28,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM36,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM36,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM35,6h1v1h-1zM36,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM15,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM0,8h1v1h-1zM1,8h1v1h-1zM2,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM20,8h1v1h-1zM21,8h1v1h-1zM25,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM34,8h1v1h-1zM2,9h1v1h-1zM3,9h1v1h-1zM4,9h1v1h-1zM7,9h1v1h-1zM8,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM24,9h1v1h-1zM30,9h1v1h-1zM33,9h1v1h-1zM34,9h1v1h-1zM36,9h1v1h-1zM3,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM26,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM36,10h1v1h-1zM2,11h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM30,11h1v1h-1zM32,11h1v1h-1zM33,11h1v1h-1zM36,11h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM6,12h1v1h-1zM7,12h1v1h-1zM8,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM36,12h1v1h-1zM0,13h1v1h-1zM1,13h1v1h-1zM2,13h1v1h-1zM4,13h1v1h-1zM5,13h1v1h-1zM7,13h1v1h-1zM8,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM34,13h1v1h-1zM36,13h1v1h-1zM0,14h1v1h-1zM1,14h1v1h-1zM2,14h1v1h-1zM6,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM17,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM0,15h1v1h-1zM7,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM35,15h1v1h-1zM1,16h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM16,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM36,16h1v1h-1zM1,17h1v1h-1zM2,17h1v1h-1zM7,17h1v1h-1zM8,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM34,17h1v1h-1zM36,17h1v1h-1zM1,18h1v1h-1zM3,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM8,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM18,18h1v1h-1zM22,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM32,18h1v1h-1zM33,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM0,19h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM35,19h1v1h-1zM6,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM18,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM31,20h1v1h-1zM35,20h1v1h-1zM36,20h1v1h-1zM1,21h1v1h-1zM3,21h1v1h-1zM5,21h1v1h-1zM7,21h1v1h-1zM8,21h1v1h-1zM9,21h1v1h-1zM10,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM36,21h1v1h-1zM0,22h1v1h-1zM1,22h1v1h-1zM2,22h1v1h-1zM4,22h1v1h-1zM5,22h1v1h-1zM6,22h1v1h-1zM13,22h1v1h-1zM17,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM35,22h1v1h-1zM36,22h1v1h-1zM0,23h1v1h-1zM1,23h1v1h-1zM2,23h1v1h-1zM3,23h1v1h-1zM5,23h1v1h-1zM7,23h1v1h-1zM8,23h1v1h-1zM9,23h1v1h-1zM10,23h1v1h-1zM11,23h1v1h-1zM15,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM35,23h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM6,24h1v1h-1zM8,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM16,24h1v1h-1zM21,24h1v1h-1zM25,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM35,24h1v1h-1zM36,24h1v1h-1zM2,25h1v1h-1zM3,25h1v1h-1zM4,25h1v1h-1zM7,25h1v1h-1zM10,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM0,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM7,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM20,26h1v1h-1zM26,26h1v1h-1zM31,26h1v1h-1zM33,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM1,27h1v1h-1zM2,27h1v1h-1zM3,27h1v1h-1zM5,27h1v1h-1zM8,27h1v1h-1zM9,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM31,27h1v1h-1zM35,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM6,28h1v1h-1zM8,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM18,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM8,29h1v1h-1zM9,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM35,29h1v1h-1zM36,29h1v1h-1zM0,30h1v1h-1zM1,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM13,30h1v1h-1zM17,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM35,30h1v1h-1zM36,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM0,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM12,32h1v1h-1zM16,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM0,33h1v1h-1zM2,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM11,33h1v1h-1zM12,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM17,33h1v1h-1zM24,33h1v1h-1zM27,33h1v1h-1zM32,33h1v1h-1zM35,33h1v1h-1zM0,34h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM26,34h1v1h-1zM29,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM34,34h1v1h-1zM35,34h1v1h-1zM36,34h1v1h-1zM0,35h1v1h-1zM6,35h1v1h-1zM8,35h1v1h-1zM9,35h1v1h-1zM10,35h1v1h-1zM12,35h1v1h-1zM13,35h1v1h-1zM14,35h1v1h-1zM16,35h1v1h-1zM17,35h1v1h-1zM18,35h1v1h-1zM19,35h1v1h-1zM20,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM31,35h1v1h-1zM35,35h1v1h-1zM0,36h1v1h-1zM1,36h1v1h-1zM2,36h1v1h-1zM3,36h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM8,36h1v1h-1zM10,36h1v1h-1zM11,36h1v1h-1zM14,36h1v1h-1zM15,36h1v1h-1zM18,36h1v1h-1zM19,36h1v1h-1zM20,36h1v1h-1zM23,36h1v1h-1zM24,36h1v1h-1zM25,36h1v1h-1zM27,36h1v1h-1zM28,36h1v1h-1zM30,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1z"/></svg><span>QR → receipt page</span></a></section></div></details>
+  <footer class="receipt-disclosure"><strong>Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.</strong><p>Evidence of what ran — not a verdict that the code is good.</p><p><strong>SELF-FUNDED FIELD-TESTING.</strong></p></footer>
+
+
+</article><section class="request-run" aria-labelledby="request-run-title">
+  <p class="eyebrow">FOR MAINTAINERS</p>
+  <h2 id="request-run-title">Request a private run</h2>
+  <p><strong>Maintain an open-source project?</strong> Send Northset a PR already in your queue. We run its repository-declared checks in an isolated container and return the run record privately. We do not modify the PR. Nothing is published without your approval. Free during the pilot.</p>
+  <div class="request-actions"><a class="button-link request-primary" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Email a private request</a><a class="button-link request-secondary" href="https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml">Open a public request</a></div>
+  <p class="request-public-note">The issue form is public. Do not include secrets or private repository details there; use email instead.</p>
+  <p class="request-onboarded"><strong>Already onboarded?</strong> Add <code>northset-verify</code> to a PR to request a run on that PR.</p>
+</section><section class="claims receipt-page-claims" aria-labelledby="receipt-claims-boundary"><h2 id="receipt-claims-boundary">Claims boundary</h2><p>This page reports scoped proof-of-pass receipt evidence. It does not prove code quality, security, full CI coverage, production readiness, or maintainer approval. An attestation confirms bundle provenance; it does not broaden the receipt's claim.</p><p>Read the full <a href="https://github.com/northset-oss/verification-pilot/blob/main/policies/claims_boundary.md">Claims Boundary policy</a>.</p></section><footer class="site-footer receipt-page-footer">A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment. Maintainer outcome is reported separately and remains fully outside Northset’s control. Source: <a href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a>.</footer></main>
+<script>
+  (() => {
+    for (const button of document.querySelectorAll('[data-copy]')) {
+      button.addEventListener('click', async () => {
+        const text = button.dataset.copy;
+        try { await navigator.clipboard.writeText(text); button.textContent = 'Copied'; }
+        catch { button.textContent = 'Copy unavailable'; }
+      });
+    }
+    for (const button of document.querySelectorAll('[data-print]')) {
+      button.addEventListener('click', () => window.print());
+    }
+    const filters = document.querySelectorAll('[data-filter]');
+    const cards = document.querySelectorAll('.external-receipts .receipt-preview');
+    for (const button of filters) button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      for (const candidate of filters) candidate.setAttribute('aria-pressed', String(candidate === button));
+      for (const card of cards) {
+        const matches = filter === 'all'
+          || (filter === 'changes_requested'
+            ? card.dataset.reviewDecision === 'changes_requested'
+            : card.dataset.publicationState === filter);
+        card.hidden = !matches;
+      }
+    });
+  })();
+</script>
+</body>
+</html>
