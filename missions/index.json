@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-15T15:55:01.973Z",
+  "generated_at": "2026-07-15T15:59:57.513Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1062,14 +1062,14 @@
         "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
         "base_branch": "main",
         "head_drift": true,
-        "ci_state": "pending",
+        "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "changes_requested",
         "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
-        "updated_at": "2026-07-15T15:54:30Z",
-        "observed_at": "2026-07-15T15:54:49.314Z",
+        "updated_at": "2026-07-15T15:55:38Z",
+        "observed_at": "2026-07-15T15:59:48.453Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1160,14 +1160,14 @@
           "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
           "base_branch": "main",
           "head_drift": true,
-          "ci_state": "pending",
+          "ci_state": "success",
           "merge_commit_oid": null,
           "review_decision": "changes_requested",
           "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "opened_at": "2026-07-12T22:22:09Z",
           "closed_at": null,
-          "updated_at": "2026-07-15T15:54:30Z",
-          "observed_at": "2026-07-15T15:54:49.314Z",
+          "updated_at": "2026-07-15T15:55:38Z",
+          "observed_at": "2026-07-15T15:59:48.453Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
           "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1974,17 +1974,17 @@
         "state": "open",
         "pr_number": 3487,
         "pr_url": "https://github.com/KaotoIO/kaoto/pull/3487",
-        "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988",
+        "pr_head_oid": "b2c4327c9afc578192a3f497951a0a135b395cda",
         "base_branch": "main",
         "head_drift": true,
-        "ci_state": "pending",
+        "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": "review_required",
         "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
         "opened_at": "2026-07-14T20:08:31Z",
         "closed_at": null,
-        "updated_at": "2026-07-15T15:54:38Z",
-        "observed_at": "2026-07-15T15:54:55.127Z",
+        "updated_at": "2026-07-15T15:59:40Z",
+        "observed_at": "2026-07-15T15:59:53.594Z",
         "correction_note": null,
         "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
         "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -1996,7 +1996,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-          "verified_at": "2026-07-15T15:54:55.127Z"
+          "verified_at": "2026-07-15T15:59:53.594Z"
         }
       },
       "receipt": {
@@ -2106,17 +2106,17 @@
           "state": "open",
           "pr_number": 3487,
           "pr_url": "https://github.com/KaotoIO/kaoto/pull/3487",
-          "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988",
+          "pr_head_oid": "b2c4327c9afc578192a3f497951a0a135b395cda",
           "base_branch": "main",
           "head_drift": true,
-          "ci_state": "pending",
+          "ci_state": "success",
           "merge_commit_oid": null,
           "review_decision": "review_required",
           "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
           "opened_at": "2026-07-14T20:08:31Z",
           "closed_at": null,
-          "updated_at": "2026-07-15T15:54:38Z",
-          "observed_at": "2026-07-15T15:54:55.127Z",
+          "updated_at": "2026-07-15T15:59:40Z",
+          "observed_at": "2026-07-15T15:59:53.594Z",
           "correction_note": null,
           "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
           "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -2128,7 +2128,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-            "verified_at": "2026-07-15T15:54:55.127Z"
+            "verified_at": "2026-07-15T15:59:53.594Z"
           }
         },
         "live_outcome": {
@@ -2136,7 +2136,7 @@
           "link": "https://github.com/KaotoIO/kaoto/pull/3487",
           "attribution": "Live upstream pull request",
           "head_drift": true,
-          "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988"
+          "pr_head_oid": "b2c4327c9afc578192a3f497951a0a135b395cda"
         }
       }
     },
