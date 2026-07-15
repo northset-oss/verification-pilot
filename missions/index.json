@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-15T15:35:37.626Z",
+  "generated_at": "2026-07-15T15:55:01.973Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1059,17 +1059,17 @@
         "state": "open",
         "pr_number": 901,
         "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-        "pr_head_oid": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+        "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
         "base_branch": "main",
-        "head_drift": false,
-        "ci_state": "success",
+        "head_drift": true,
+        "ci_state": "pending",
         "merge_commit_oid": null,
         "review_decision": "changes_requested",
         "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
-        "updated_at": "2026-07-13T21:13:48Z",
-        "observed_at": "2026-07-14T23:05:48.808Z",
+        "updated_at": "2026-07-15T15:54:30Z",
+        "observed_at": "2026-07-15T15:54:49.314Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1157,17 +1157,17 @@
           "state": "open",
           "pr_number": 901,
           "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-          "pr_head_oid": "a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751",
+          "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
           "base_branch": "main",
-          "head_drift": false,
-          "ci_state": "success",
+          "head_drift": true,
+          "ci_state": "pending",
           "merge_commit_oid": null,
           "review_decision": "changes_requested",
           "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "opened_at": "2026-07-12T22:22:09Z",
           "closed_at": null,
-          "updated_at": "2026-07-13T21:13:48Z",
-          "observed_at": "2026-07-14T23:05:48.808Z",
+          "updated_at": "2026-07-15T15:54:30Z",
+          "observed_at": "2026-07-15T15:54:49.314Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
           "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1178,7 +1178,9 @@
         "live_outcome": {
           "status": "changes_requested",
           "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
-          "attribution": "Linked maintainer review"
+          "attribution": "Linked maintainer review",
+          "head_drift": true,
+          "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb"
         }
       }
     },
@@ -1972,17 +1974,17 @@
         "state": "open",
         "pr_number": 3487,
         "pr_url": "https://github.com/KaotoIO/kaoto/pull/3487",
-        "pr_head_oid": "19be9992371505fcddf498cdd93c59a08c0bb152",
+        "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988",
         "base_branch": "main",
-        "head_drift": false,
-        "ci_state": "success",
+        "head_drift": true,
+        "ci_state": "pending",
         "merge_commit_oid": null,
         "review_decision": "review_required",
         "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
         "opened_at": "2026-07-14T20:08:31Z",
         "closed_at": null,
-        "updated_at": "2026-07-15T11:39:57Z",
-        "observed_at": "2026-07-15T15:35:30.250Z",
+        "updated_at": "2026-07-15T15:54:38Z",
+        "observed_at": "2026-07-15T15:54:55.127Z",
         "correction_note": null,
         "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
         "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -1994,7 +1996,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-          "verified_at": "2026-07-15T15:35:30.250Z"
+          "verified_at": "2026-07-15T15:54:55.127Z"
         }
       },
       "receipt": {
@@ -2104,17 +2106,17 @@
           "state": "open",
           "pr_number": 3487,
           "pr_url": "https://github.com/KaotoIO/kaoto/pull/3487",
-          "pr_head_oid": "19be9992371505fcddf498cdd93c59a08c0bb152",
+          "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988",
           "base_branch": "main",
-          "head_drift": false,
-          "ci_state": "success",
+          "head_drift": true,
+          "ci_state": "pending",
           "merge_commit_oid": null,
           "review_decision": "review_required",
           "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487",
           "opened_at": "2026-07-14T20:08:31Z",
           "closed_at": null,
-          "updated_at": "2026-07-15T11:39:57Z",
-          "observed_at": "2026-07-15T15:35:30.250Z",
+          "updated_at": "2026-07-15T15:54:38Z",
+          "observed_at": "2026-07-15T15:54:55.127Z",
           "correction_note": null,
           "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
           "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -2126,13 +2128,15 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-021/",
-            "verified_at": "2026-07-15T15:35:30.250Z"
+            "verified_at": "2026-07-15T15:54:55.127Z"
           }
         },
         "live_outcome": {
           "status": "open",
           "link": "https://github.com/KaotoIO/kaoto/pull/3487",
-          "attribution": "Live upstream pull request"
+          "attribution": "Live upstream pull request",
+          "head_drift": true,
+          "pr_head_oid": "1d014d7088488fe94986d645f1b3a6a54d14e988"
         }
       }
     },
@@ -2167,8 +2171,8 @@
         "decision_url": "https://github.com/goptics/vizb/pull/226",
         "opened_at": "2026-07-15T12:36:33Z",
         "closed_at": "2026-07-15T14:47:45Z",
-        "updated_at": "2026-07-15T14:47:45Z",
-        "observed_at": "2026-07-15T15:35:33.417Z",
+        "updated_at": "2026-07-15T15:35:36Z",
+        "observed_at": "2026-07-15T15:54:58.854Z",
         "correction_note": null,
         "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
         "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -2180,7 +2184,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
-          "verified_at": "2026-07-15T15:35:33.417Z"
+          "verified_at": "2026-07-15T15:54:58.854Z"
         }
       },
       "receipt": {
@@ -2574,8 +2578,8 @@
           "decision_url": "https://github.com/goptics/vizb/pull/226",
           "opened_at": "2026-07-15T12:36:33Z",
           "closed_at": "2026-07-15T14:47:45Z",
-          "updated_at": "2026-07-15T14:47:45Z",
-          "observed_at": "2026-07-15T15:35:33.417Z",
+          "updated_at": "2026-07-15T15:35:36Z",
+          "observed_at": "2026-07-15T15:54:58.854Z",
           "correction_note": null,
           "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
           "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
@@ -2587,7 +2591,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
-            "verified_at": "2026-07-15T15:35:33.417Z"
+            "verified_at": "2026-07-15T15:54:58.854Z"
           }
         },
         "live_outcome": {
