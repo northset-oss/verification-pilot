@@ -649,6 +649,9 @@ test('render creates a permanent printable receipt for every committed mission a
     .filter((entry) => entry.isDirectory() && /^M-/.test(entry.name))
     .map((entry) => entry.name)
     .sort();
+  const receiptVersions = new Map(
+    build.index.missions.map(({ mission_id: missionId, receipt }) => [missionId, receipt.version]),
+  );
   for (const missionId of missionIds) {
     const page = await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'index.html'), 'utf8');
     const publication = JSON.parse(await readFile(
@@ -672,7 +675,7 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.match(page, /Print \/ Save receipt/);
     assert.match(page, /Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded\./);
     const receiptJson = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'receipt.json'), 'utf8'));
-    assert.equal(receiptJson.schema_version, 1);
+    assert.equal(receiptJson.schema_version, receiptVersions.get(missionId), missionId);
     assert.equal(receiptJson.receipt_id, missionId);
     assert.match(receiptJson.receipt_result, /^PASS — \d+\/\d+ declared command/);
     assert.equal(receiptJson.passed_commands, receiptJson.declared_commands);

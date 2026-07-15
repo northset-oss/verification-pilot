@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { mkdtemp, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
+import { mkdtemp, readFile, readdir, rm, writeFile, mkdir } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -388,41 +388,88 @@ test('synchronizer is read-only by default and apply requires the exact confirme
 });
 
 test('repository audit checks committed receipts without network access', async () => {
-  const publication = JSON.parse(readFileSync(path.join(repositoryRoot, 'missions/M-021/publication.json'), 'utf8'));
+  const committedPolicy = JSON.parse(await readFile(
+    path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
+    'utf8',
+  ));
+  const missionEntries = (await readdir(path.join(repositoryRoot, 'missions'), { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory() && /^M-/.test(entry.name))
+    .sort((left, right) => left.name.localeCompare(right.name));
+  const records = [];
+  for (const entry of missionEntries) {
+    const missionRecord = JSON.parse(await readFile(
+      path.join(repositoryRoot, 'missions', entry.name, 'mission.json'),
+      'utf8',
+    ));
+    if (missionRecord.variant !== 'author_contribution') continue;
+    records.push({
+      mission: missionRecord,
+      publication: JSON.parse(await readFile(
+        path.join(repositoryRoot, 'missions', entry.name, 'publication.json'),
+        'utf8',
+      )),
+    });
+  }
+  const expected = {
+    prepared: records
+      .filter(({ publication: source }) => source.state === 'prepared')
+      .map(({ mission: source }) => source.mission_id),
+    historical_exempt: records
+      .filter(({ mission: source, publication: envelope }) => (
+        envelope.state !== 'prepared'
+        && committedPolicy.historical_exempt_mission_ids.includes(source.mission_id)
+      ))
+      .map(({ mission: source }) => source.mission_id),
+    verified: records
+      .filter(({ mission: source, publication: envelope }) => (
+        envelope.state !== 'prepared'
+        && !committedPolicy.historical_exempt_mission_ids.includes(source.mission_id)
+      ))
+      .map(({ mission: source }) => source.mission_id),
+  };
   const routes = new Map();
-  if (publication.state !== 'prepared') {
-    const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
-    const parsedPrUrl = new URL(publication.pr_url);
+  for (const { mission: source, publication: envelope } of records) {
+    if (!expected.verified.includes(source.mission_id)) continue;
+    const receiptUrl = canonicalReceiptUrl(committedPolicy, source.mission_id);
+    const parsedPrUrl = new URL(envelope.pr_url);
     const [owner, repository, resource, number] = parsedPrUrl.pathname.split('/').filter(Boolean);
     assert.equal(resource, 'pull');
-    assert.equal(Number(number), publication.pr_number);
+    assert.equal(Number(number), envelope.pr_number);
     const prApi = `https://api.github.com/repos/${owner}/${repository}/pulls/${number}`;
     const commentsApi = `https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments?per_page=100`;
     routes.set(`GET ${receiptUrl}`, response(200));
     routes.set(`GET ${prApi}`, response(200, {
-      number: publication.pr_number,
-      html_url: publication.pr_url,
+      number: envelope.pr_number,
+      html_url: envelope.pr_url,
       body: renderDisclosureBlock({
-        missionId: 'M-021',
+        missionId: source.mission_id,
         receiptUrl,
-        publicationState: publication.state,
+        publicationState: envelope.state,
       }),
     }));
     routes.set(`GET ${commentsApi}`, response(200, []));
   }
+  const request = fakeRequest(routes);
   const report = await auditAllDisclosures({
     missionsDir: path.join(repositoryRoot, 'missions'),
-    policy,
-    request: fakeRequest(routes),
+    policy: committedPolicy,
+    request,
   });
-  const expectedStatus = publication.state === 'prepared' ? 'prepared' : 'verified';
-  assert.equal(report.checked, expectedStatus === 'verified' ? 1 : 0);
-  assert.equal(report.historical_exempt, 10);
-  assert.equal(report.prepared, expectedStatus === 'prepared' ? 1 : 0);
-  assert.deepEqual(
-    report.reports.filter(({ status }) => status === expectedStatus).map(({ mission_id: missionId }) => missionId),
-    ['M-021'],
-  );
+  assert.equal(report.checked, expected.verified.length);
+  assert.equal(report.historical_exempt, expected.historical_exempt.length);
+  assert.equal(report.prepared, expected.prepared.length);
+  for (const status of ['historical_exempt', 'prepared', 'verified']) {
+    assert.deepEqual(
+      report.reports.filter((entry) => entry.status === status).map((entry) => entry.mission_id),
+      expected[status],
+    );
+  }
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-021')?.status, 'verified');
+  for (const missionId of expected.prepared) {
+    const receiptUrl = canonicalReceiptUrl(committedPolicy, missionId);
+    assert.equal(routes.has(`GET ${receiptUrl}`), false, missionId);
+    assert.equal(request.calls.some(({ url }) => url === receiptUrl), false, missionId);
+  }
 });
 
 test('committed policy freezes the historical cutover and active Northset actors', async () => {
