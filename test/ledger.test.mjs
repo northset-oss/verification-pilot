@@ -635,10 +635,22 @@ test('render creates a permanent printable receipt for every committed mission a
     .filter((receipt) => receipt.variant === 'own_repo_rehearsal')
     .map((receipt) => receipt.mission_id);
   for (const missionId of rehearsalIds) assert.doesNotMatch(externalGallery, new RegExp(`>${missionId}<`));
-  assert.equal((externalGallery.match(/data-publication-state="open"/g) ?? []).length, 5);
-  assert.equal((externalGallery.match(/data-review-decision="changes_requested"/g) ?? []).length, 2);
-  assert.equal((externalGallery.match(/data-publication-state="merged"/g) ?? []).length, 3);
-  assert.equal((externalGallery.match(/data-publication-state="closed_unmerged"/g) ?? []).length, 3);
+  for (const state of ['open', 'merged', 'closed_unmerged']) {
+    const expectedCount = externalReceipts.filter(({ publication }) => publication?.state === state).length;
+    assert.equal(
+      (externalGallery.match(new RegExp(`data-publication-state="${state}"`, 'g')) ?? []).length,
+      expectedCount,
+      state,
+    );
+  }
+  const changesRequestedCount = externalReceipts
+    .filter(({ publication }) => publication?.review_decision === 'changes_requested')
+    .length;
+  assert.equal(
+    (externalGallery.match(/data-review-decision="changes_requested"/g) ?? []).length,
+    changesRequestedCount,
+    'changes_requested',
+  );
   for (const preview of externalGallery.match(/<article class="receipt-preview[\s\S]*?<\/article>/g) ?? []) {
     const labelledBy = preview.match(/aria-labelledby="([^"]+)"/)?.[1];
     assert.ok(labelledBy, 'preview must have aria-labelledby');
