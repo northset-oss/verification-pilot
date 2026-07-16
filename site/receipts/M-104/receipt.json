@@ -1,0 +1,281 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-07-16T17:14:30.109Z",
+  "receipt_id": "M-104",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-16T16:51:52.604Z",
+    "finished_at": "2026-07-16T16:52:30.868Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- js/components/__tests__/sidebar.test.js",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 2384
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "28f89c9f1bab65ff32207074cfe3f97f997caf1a",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "code": {
+    "base_commit": "28f89c9f1bab65ff32207074cfe3f97f997caf1a",
+    "recorded_patch_commit": "5814010590032e00998e91e83e0824c05254e867",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:71720c13a69b3efb5346a22894318b5e438484a217e857c1f7c42b4502f14980",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:c7487c916022512cc06f650dae319af4a58570865a01f1728209918c73482634",
+    "signed_asset_sha256": null,
+    "attestation_uri": null,
+    "attestation_verified_at": null,
+    "provenance": "Signed provenance has not been verified."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-104/",
+    "target_repo": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms",
+    "issue_or_task": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
+    "publication_pr": null
+  },
+  "issue_title": "[Bug] Course progression calculation fails for dynamically added lessons",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ],
+  "correction": null,
+  "scope_note": null,
+  "upstream_outcome": {
+    "status": "prepared",
+    "link": null,
+    "attribution": "Recorded upstream outcome"
+  },
+  "economic_identity": {
+    "scope": "end_to_end_task",
+    "task": {
+      "task_id": "TASK-OSS-537E5B9D6393F36D",
+      "attempt_id": "M-104",
+      "attempt_sequence": 2,
+      "work_category": "defect_fix",
+      "external_demand": {
+        "source": "public_github_issue",
+        "issue_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
+        "acceptance_contract_digest": "sha256:524a8e8ed814f0cf08660b442e9534836437690695ae7f438b1f411a18c3fce2",
+        "invitation_type": "label",
+        "invitation_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56"
+      }
+    },
+    "funding": {
+      "program": "Northset OSS Fund",
+      "initiative": "OSS mission experimentation",
+      "budget_id": null,
+      "financial_cap": null,
+      "currency": null
+    },
+    "external_transfers": {
+      "maintainer_payment": "none",
+      "merge_contingent": false
+    },
+    "authorization": {
+      "approved_manifest_digest": "sha256:1859fd1ef933eaf4ae2c41fb60bb0ebf4200620fa5870402b8f7a27fe6fb48ad",
+      "approved_by": "internal-user:aeziz",
+      "approved_at": "2026-07-16T17:14:22.601Z",
+      "operational_caps": {
+        "finder_wall_seconds": 1200,
+        "qualification_wall_seconds": 300,
+        "prepare_wall_seconds": 3600,
+        "ship_wall_seconds": 3600,
+        "maximum_attempts": null
+      }
+    },
+    "attempt_lineage": {
+      "attempts_total": 2,
+      "successful_attempt_id": "M-104",
+      "attempts": [
+        {
+          "attempt_id": "M-101",
+          "attempt_sequence": 1,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-104",
+          "attempt_sequence": 2,
+          "state": "READY",
+          "terminal_reason_class": null
+        }
+      ]
+    },
+    "usage": {
+      "discovery": {
+        "finder_run_id": null,
+        "candidate_rank": 15,
+        "elapsed_ms": null
+      },
+      "qualification": {
+        "review_id": "sha256:e0ab2f01542251d0629f3cb59afd5f18770bcb6b611aef110a98350c4518c6fc",
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 153737,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "authoring": {
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 163028,
+        "bootstrap_duration_ms": 56678,
+        "bootstrap_retry_count": 0,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "preparation": {
+        "total_duration_ms": 265901,
+        "stages": [
+          {
+            "stage": "prepare_recheck",
+            "duration_ms": 2655
+          },
+          {
+            "stage": "executor_image",
+            "duration_ms": 36
+          },
+          {
+            "stage": "clone",
+            "duration_ms": 465
+          },
+          {
+            "stage": "author",
+            "duration_ms": 242405
+          },
+          {
+            "stage": "canonical_commit",
+            "duration_ms": 464
+          },
+          {
+            "stage": "differential_oracle",
+            "duration_ms": 19876
+          }
+        ]
+      },
+      "verification": {
+        "executor_elapsed_ms": 38264,
+        "networked_setup_elapsed_ms": 24365,
+        "dependency_install_ms": null,
+        "declared_commands_ms": 2384,
+        "unclassified_executor_ms": 11515,
+        "cpu_ms": null,
+        "peak_rss_bytes": null,
+        "measurement_status": "partial"
+      },
+      "resource_envelope": {
+        "cpus": 2,
+        "memory_mb": 4096,
+        "pids": 512,
+        "wall_clock_seconds_per_command": 1800,
+        "output_bytes_per_stream": 2000000
+      }
+    },
+    "work_scope": {
+      "files_changed": 2,
+      "changed_lines": 38,
+      "production_files": 1,
+      "test_files": 1,
+      "checks_declared": 1,
+      "checks_not_run": [
+        "Repository-wide lint: the base repository installs ESLint 9 while retaining an incompatible legacy .eslintrc configuration",
+        "Repository-wide format check: the base repository contains widespread existing format drift and an invalid JSON file",
+        "Production build: the base repository has an existing unresolved ../store/store.js import in admin-dashboard.js",
+        "Full test suite beyond the focused sidebar regression",
+        "Manual Light and Dark mode validation",
+        "Manual browser console inspection"
+      ]
+    },
+    "costs": {
+      "status": "partial",
+      "currency": null,
+      "lines": [
+        {
+          "component": "maintainer_payment",
+          "measurement_class": "observed_quantity_unpriced",
+          "quantity": "0",
+          "unit": "external_transfer",
+          "unit_rate": null,
+          "amount": null,
+          "currency": null,
+          "source_refs": [
+            {
+              "artifact": "bundle/mission.json",
+              "artifact_sha256": "sha256:1b41bb9ef620d31fb27a0b8ff1d803dde1a472e91a62580d062801f8848142c9",
+              "json_pointer": "/payment/maintainer_payment"
+            }
+          ],
+          "rate_card_digest": null,
+          "allocation_method": null,
+          "finality": "final",
+          "visibility": "public"
+        }
+      ],
+      "known_direct_cost": null,
+      "allocated_shared_cost": null,
+      "human_standard_cost": null,
+      "total_economic_cost": null,
+      "missing_components": [
+        "model_inference",
+        "actual_host_compute",
+        "human_review",
+        "shared_tooling"
+      ]
+    },
+    "outcome": {
+      "technical_checks_passed": true,
+      "pr_opened": false,
+      "ci_state": null,
+      "merged": false,
+      "accepted_as_submitted": null,
+      "time_to_close_ms": null,
+      "released": null,
+      "deployed": null,
+      "business_result_observed": null
+    },
+    "completeness": {
+      "task_identity": "complete",
+      "technical_execution": "complete",
+      "attempt_lineage": "complete",
+      "usage": "partial",
+      "cost": "unpriced",
+      "external_outcome": "partial",
+      "business_value": "not_observed"
+    },
+    "provenance": {
+      "spec_sha256": "sha256:8c4471af05bf39098085590020dcf6b06e7153c64f98cc1f12418f4c07f1c37a",
+      "qualification_evidence_sha256": "sha256:de01ce9951cd4b6f60f4589c3ae20894a1f548ce13a885c92b67b96817e9f999",
+      "issue_snapshot_sha256": "sha256:80a3700c51ff7e2f7bc2de293f23c5041ce1b6bb057b913fbdcd74b6c1c0bf5e"
+    }
+  }
+}

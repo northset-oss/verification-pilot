@@ -1,0 +1,139 @@
+diff --git a/packages/quicktype-core/src/language/JavaScript/JavaScriptRenderer.ts b/packages/quicktype-core/src/language/JavaScript/JavaScriptRenderer.ts
+index f03e41f27fba43e2705016fb5fe06bd267132056..bdb064caef1a8631007cf2c7ba5640ac09e5c6ce 100644
+--- a/packages/quicktype-core/src/language/JavaScript/JavaScriptRenderer.ts
++++ b/packages/quicktype-core/src/language/JavaScript/JavaScriptRenderer.ts
+@@ -493,15 +493,15 @@ function r(name${stringAnnotation}) {
+ 
+     protected emitTypes(): void {}
+ 
+-    protected emitUsageImportComment(): void {
++    protected emitUsageImportComment(_givenOutputFilename: string): void {
+         this.emitLine('//   const Convert = require("./file");');
+     }
+ 
+-    protected emitUsageComments(): void {
++    protected emitUsageComments(givenOutputFilename: string): void {
+         this.emitMultiline(`// To parse this data:
+ //`);
+ 
+-        this.emitUsageImportComment();
++        this.emitUsageImportComment(givenOutputFilename);
+         this.emitLine("//");
+         this.forEachTopLevel("none", (_t, name) => {
+             const camelCaseName = modifySource(camelCase, name);
+@@ -537,11 +537,11 @@ function r(name${stringAnnotation}) {
+         });
+     }
+ 
+-    protected emitSourceStructure(): void {
++    protected emitSourceStructure(givenOutputFilename: string): void {
+         if (this.leadingComments !== undefined) {
+             this.emitComments(this.leadingComments);
+         } else {
+-            this.emitUsageComments();
++            this.emitUsageComments(givenOutputFilename);
+         }
+ 
+         this.emitTypes();
+diff --git a/packages/quicktype-core/src/language/TypeScriptFlow/FlowRenderer.ts b/packages/quicktype-core/src/language/TypeScriptFlow/FlowRenderer.ts
+index 76446d9b34571434c2d9e719a0b4801589a5469f..a0a3bfaee24364824c60178bdd65a340c4172742 100644
+--- a/packages/quicktype-core/src/language/TypeScriptFlow/FlowRenderer.ts
++++ b/packages/quicktype-core/src/language/TypeScriptFlow/FlowRenderer.ts
+@@ -39,9 +39,9 @@ export class FlowRenderer extends TypeScriptFlowBaseRenderer {
+         });
+     }
+ 
+-    protected emitSourceStructure(): void {
++    protected emitSourceStructure(givenOutputFilename: string): void {
+         this.emitLine("// @flow");
+         this.ensureBlankLine();
+-        super.emitSourceStructure();
++        super.emitSourceStructure(givenOutputFilename);
+     }
+ }
+diff --git a/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptFlowBaseRenderer.ts b/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptFlowBaseRenderer.ts
+index d4c2393d3809435029303e3e69eecba3976f944b..d20f56c19cdedc6757a5fe711f5d3834c5c54065 100644
+--- a/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptFlowBaseRenderer.ts
++++ b/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptFlowBaseRenderer.ts
+@@ -191,9 +191,9 @@ export abstract class TypeScriptFlowBaseRenderer extends JavaScriptRenderer {
+         );
+     }
+ 
+-    protected emitUsageComments(): void {
++    protected emitUsageComments(givenOutputFilename: string): void {
+         if (this._tsFlowOptions.justTypes) return;
+-        super.emitUsageComments();
++        super.emitUsageComments(givenOutputFilename);
+     }
+ 
+     protected deserializerFunctionLine(t: Type, name: Name): Sourcelike {
+diff --git a/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptRenderer.ts b/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptRenderer.ts
+index 43537b1464c5869a3a1a16252d28180395bf395e..f413b05106f4ecf8cc74bf28ab66c20a2fc598dd 100644
+--- a/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptRenderer.ts
++++ b/packages/quicktype-core/src/language/TypeScriptFlow/TypeScriptRenderer.ts
+@@ -50,7 +50,7 @@ export class TypeScriptRenderer extends TypeScriptFlowBaseRenderer {
+ 
+     protected emitModuleExports(): void {}
+ 
+-    protected emitUsageImportComment(): void {
++    protected emitUsageImportComment(givenOutputFilename: string): void {
+         const topLevelNames: Sourcelike[] = [];
+         this.forEachTopLevel(
+             "none",
+@@ -59,10 +59,18 @@ export class TypeScriptRenderer extends TypeScriptFlowBaseRenderer {
+             },
+             isNamedType,
+         );
++        const moduleName =
++            givenOutputFilename === "stdout"
++                ? "file"
++                : givenOutputFilename
++                      .replace(/^.*[/\\]/, "")
++                      .replace(/\.[^.]+$/, "");
+         this.emitLine(
+             "//   import { Convert",
+             topLevelNames,
+-            ' } from "./file";',
++            ' } from "./',
++            moduleName,
++            '";',
+         );
+     }
+ 
+diff --git a/test/unit/typescript-output-filename.test.ts b/test/unit/typescript-output-filename.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..1abd877109391822d39ae1501dab139019325a48
+--- /dev/null
++++ b/test/unit/typescript-output-filename.test.ts
+@@ -0,0 +1,31 @@
++import { describe, expect, test } from "vitest";
++
++import {
++    InputData,
++    jsonInputForTargetLanguage,
++    quicktype,
++} from "../../packages/quicktype-core/src/index.js";
++
++describe("TypeScript output filename", () => {
++    test("uses output filename in TypeScript usage imports", async () => {
++        const jsonInput = jsonInputForTargetLanguage("typescript");
++        await jsonInput.addSource({
++            name: "ExperimentCounts",
++            samples: ['{"experiments": 3}'],
++        });
++
++        const inputData = new InputData();
++        inputData.addInput(jsonInput);
++        const result = await quicktype({
++            inputData,
++            lang: "typescript",
++            outputFilename: "src/cli/ExperimentCounts.ts",
++        });
++        const output = result.lines.join("\n");
++
++        expect(output).toContain(
++            '//   import { Convert, ExperimentCounts } from "./ExperimentCounts";',
++        );
++        expect(output).not.toContain('from "./file"');
++    });
++});

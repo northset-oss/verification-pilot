@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T17:04:39.381Z",
+  "finished_at": "2026-07-16T17:07:02.015Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "99bafe8e5f1082c32f247f13749a44f468a0577a",
+    "base_tree_digest": "sha256:04f68422cba37fc7aaf17d8e5b4ee1976c87d19acee9954fdc9d48f9139089f0",
+    "pre_check_tree_digest": "sha256:9c68c71588f2448e167debd91d3215f1bbe99bb0f82371403d74e1beed9626b2",
+    "approved_tracked_tree_digest": "sha256:4c70c024e02d3139882eb05ceda4fdd6bb8252612c4aa2d895a0785f2910c11d",
+    "post_check_tree_digest": "sha256:98d40755bd356411b5d422887c4a896ea40f6f07fab5e135ee65d1f551cb7e8a",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:f5bd8c175799a7292f673035d31129d5bbf7510c823e7267f37a8d93f68b4e60",
+    "install_commands": [
+      "corepack pnpm@8.15.5 --dir client install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "corepack pnpm@8.15.5 --dir client test:unit -- src/__tests__/utils/fetchWithTimeout.test.ts",
+      "exit_code": 0,
+      "duration_ms": 18000
+    },
+    {
+      "cmd": "corepack pnpm@8.15.5 --dir client exec tsc --noEmit",
+      "exit_code": 0,
+      "duration_ms": 20129
+    },
+    {
+      "cmd": "corepack pnpm@8.15.5 --dir client build:client",
+      "exit_code": 0,
+      "duration_ms": 11073
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 64603,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 49202,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

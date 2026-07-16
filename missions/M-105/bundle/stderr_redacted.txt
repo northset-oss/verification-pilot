@@ -1,0 +1,5 @@
+=== cmd 1: npm run test:unit -- test/unit/typescript-output-filename.test.ts ===
+[33mTesting types with tsc and vue-tsc is an experimental feature.
+Breaking changes might not follow SemVer, please pin Vitest's version when using it.[39m
+=== cmd 2: npm run lint ===
+=== cmd 3: npm run build ===

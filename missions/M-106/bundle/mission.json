@@ -1,0 +1,48 @@
+{
+  "mission_id": "M-106",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "chipmates maintainers",
+  "target_repo": "https://github.com/chipmates/agoracosmica",
+  "issue_or_task": "https://github.com/chipmates/agoracosmica/issues/17",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/chipmates/agoracosmica/blob/99bafe8e5f1082c32f247f13749a44f468a0577a/CONTRIBUTING.md",
+    "checked_at": "2026-07-16T16:20:00.752Z",
+    "ai_policy_summary": "Contributions use Node 20 or newer and pnpm 8 or newer, must follow the Code of Conduct, and should be small, focused, tested, built, and type-checked. No AI-assistance prohibition, CLA, or DCO requirement was found in the inspected instructions."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "99bafe8e5f1082c32f247f13749a44f468a0577a",
+  "patch_commit": "5fbd2c8e324385c49f04b26ad92a6b082b89369d",
+  "patch_diff_hash": "sha256:f5bd8c175799a7292f673035d31129d5bbf7510c823e7267f37a8d93f68b4e60",
+  "commands_declared": [
+    "corepack pnpm@8.15.5 --dir client test:unit -- src/__tests__/utils/fetchWithTimeout.test.ts",
+    "corepack pnpm@8.15.5 --dir client exec tsc --noEmit",
+    "corepack pnpm@8.15.5 --dir client build:client"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ]
+}

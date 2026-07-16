@@ -1,0 +1,55 @@
+diff --git a/js/components/__tests__/sidebar.test.js b/js/components/__tests__/sidebar.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..843eacb92570ac159b498cf29c011f60a070bde9
+--- /dev/null
++++ b/js/components/__tests__/sidebar.test.js
+@@ -0,0 +1,36 @@
++import { describe, expect, it, vi } from 'vitest';
++import { SidebarComponent } from '../sidebar.js';
++
++vi.mock('../../services/storage.js', () => ({
++  storage: {
++    getCourseProgress: vi.fn(() => ({
++      completedLessons: ['lesson-1', 'lesson-2'],
++      completedModules: [],
++    })),
++  },
++}));
++
++describe('SidebarComponent', () => {
++  it('uses loaded lesson count for progress', () => {
++    const container = {
++      innerHTML: '',
++      querySelectorAll: vi.fn(() => []),
++    };
++    const course = {
++      id: 'course-1',
++      title: 'Course 1',
++      totalLessons: 1,
++    };
++    const lessons = [
++      { id: 'lesson-1', title: 'Lesson 1', type: 'theory' },
++      { id: 'lesson-2', title: 'Lesson 2', type: 'practice' },
++    ];
++
++    new SidebarComponent(container, course, lessons, 'lesson-1');
++
++    expect(container.innerHTML).toContain('<span>2/2 lessons</span>');
++    expect(container.innerHTML).toContain('<span>100%</span>');
++    expect(container.innerHTML).toContain('style="width:100%"');
++    expect(course.totalLessons).toBe(1);
++  });
++});
+diff --git a/js/components/sidebar.js b/js/components/sidebar.js
+index fd226ee94885163676901f944cfadf14d156120e..f82f53300fa0b341cd8bc5fe7ca19b25fe6a3d49 100644
+--- a/js/components/sidebar.js
++++ b/js/components/sidebar.js
+@@ -33,7 +33,7 @@ export class SidebarComponent {
+     render() {
+         const courseProgress = storage.getCourseProgress(this.course.id);
+         const completedCount = courseProgress.completedLessons.length;
+-        const totalLessons = this.course.totalLessons;
++        const totalLessons = this.lessons.length;
+         const percent = Math.round((completedCount / totalLessons) * 100);
+ 
+         // build module + lesson list if modules provided

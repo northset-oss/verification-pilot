@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "task": {
+    "task_id": "TASK-OSS-537E5B9D6393F36D",
+    "attempt_id": "M-104",
+    "attempt_sequence": 2,
+    "work_category": "defect_fix",
+    "external_demand": {
+      "source": "public_github_issue",
+      "issue_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
+      "acceptance_contract_digest": "sha256:524a8e8ed814f0cf08660b442e9534836437690695ae7f438b1f411a18c3fce2",
+      "invitation_type": "label",
+      "invitation_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56"
+    }
+  },
+  "funding": {
+    "program": "Northset OSS Fund",
+    "initiative": "OSS mission experimentation",
+    "budget_id": null,
+    "financial_cap": null,
+    "currency": null
+  },
+  "attempt_lineage": {
+    "attempts_total": 2,
+    "successful_attempt_id": "M-104",
+    "attempts": [
+      {
+        "attempt_id": "M-101",
+        "attempt_sequence": 1,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-104",
+        "attempt_sequence": 2,
+        "state": "READY",
+        "terminal_reason_class": null
+      }
+    ]
+  },
+  "usage": {
+    "discovery": {
+      "finder_run_id": null,
+      "candidate_rank": 15,
+      "elapsed_ms": null
+    },
+    "qualification": {
+      "review_id": "sha256:e0ab2f01542251d0629f3cb59afd5f18770bcb6b611aef110a98350c4518c6fc",
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 153737,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "authoring": {
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 163028,
+      "bootstrap_duration_ms": 56678,
+      "bootstrap_retry_count": 0,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "preparation": {
+      "total_duration_ms": 265901,
+      "stages": [
+        {
+          "stage": "prepare_recheck",
+          "duration_ms": 2655
+        },
+        {
+          "stage": "executor_image",
+          "duration_ms": 36
+        },
+        {
+          "stage": "clone",
+          "duration_ms": 465
+        },
+        {
+          "stage": "author",
+          "duration_ms": 242405
+        },
+        {
+          "stage": "canonical_commit",
+          "duration_ms": 464
+        },
+        {
+          "stage": "differential_oracle",
+          "duration_ms": 19876
+        }
+      ]
+    },
+    "verification": {
+      "executor_elapsed_ms": 38264,
+      "networked_setup_elapsed_ms": 24365,
+      "dependency_install_ms": null,
+      "declared_commands_ms": 2384,
+      "unclassified_executor_ms": 11515,
+      "cpu_ms": null,
+      "peak_rss_bytes": null,
+      "measurement_status": "partial"
+    },
+    "resource_envelope": {
+      "cpus": 2,
+      "memory_mb": 4096,
+      "pids": 512,
+      "wall_clock_seconds_per_command": 1800,
+      "output_bytes_per_stream": 2000000
+    }
+  },
+  "work_scope": {
+    "files_changed": 2,
+    "changed_lines": 38,
+    "production_files": 1,
+    "test_files": 1,
+    "checks_declared": 1,
+    "checks_not_run": [
+      "Repository-wide lint: the base repository installs ESLint 9 while retaining an incompatible legacy .eslintrc configuration",
+      "Repository-wide format check: the base repository contains widespread existing format drift and an invalid JSON file",
+      "Production build: the base repository has an existing unresolved ../store/store.js import in admin-dashboard.js",
+      "Full test suite beyond the focused sidebar regression",
+      "Manual Light and Dark mode validation",
+      "Manual browser console inspection"
+    ]
+  },
+  "costs": {
+    "status": "partial",
+    "currency": null,
+    "lines": [
+      {
+        "component": "maintainer_payment",
+        "measurement_class": "observed_quantity_unpriced",
+        "quantity": "0",
+        "unit": "external_transfer",
+        "unit_rate": null,
+        "amount": null,
+        "currency": null,
+        "source_refs": [
+          {
+            "artifact": "bundle/mission.json",
+            "artifact_sha256": "sha256:1b41bb9ef620d31fb27a0b8ff1d803dde1a472e91a62580d062801f8848142c9",
+            "json_pointer": "/payment/maintainer_payment"
+          }
+        ],
+        "rate_card_digest": null,
+        "allocation_method": null,
+        "finality": "final",
+        "visibility": "public"
+      }
+    ],
+    "known_direct_cost": null,
+    "allocated_shared_cost": null,
+    "human_standard_cost": null,
+    "total_economic_cost": null,
+    "missing_components": [
+      "model_inference",
+      "actual_host_compute",
+      "human_review",
+      "shared_tooling"
+    ]
+  },
+  "completeness": {
+    "task_identity": "complete",
+    "technical_execution": "complete",
+    "attempt_lineage": "complete",
+    "usage": "partial",
+    "cost": "unpriced",
+    "external_outcome": "partial",
+    "business_value": "not_observed"
+  },
+  "provenance": {
+    "spec_sha256": "sha256:8c4471af05bf39098085590020dcf6b06e7153c64f98cc1f12418f4c07f1c37a",
+    "qualification_evidence_sha256": "sha256:de01ce9951cd4b6f60f4589c3ae20894a1f548ce13a885c92b67b96817e9f999",
+    "issue_snapshot_sha256": "sha256:80a3700c51ff7e2f7bc2de293f23c5041ce1b6bb057b913fbdcd74b6c1c0bf5e"
+  }
+}
