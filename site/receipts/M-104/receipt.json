@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T17:14:30.109Z",
+  "generated_at": "2026-07-16T17:16:31.225Z",
   "receipt_id": "M-104",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:c7487c916022512cc06f650dae319af4a58570865a01f1728209918c73482634",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:864a3e0b85d5a1b07b025e87ca9e57a36de69b5a5a2b00a24c099b578be02090",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-104-c7487c916022/run-record-M-104-c7487c916022.tar.gz",
+    "attestation_verified_at": "2026-07-16T17:16:19.272Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-104/",
     "target_repo": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms",
     "issue_or_task": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
-    "publication_pr": null
+    "publication_pr": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/125"
   },
   "issue_title": "[Bug] Course progression calculation fails for dynamically added lessons",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/125",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -254,8 +254,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

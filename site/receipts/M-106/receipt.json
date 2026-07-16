@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T17:14:30.109Z",
+  "generated_at": "2026-07-16T17:16:31.225Z",
   "receipt_id": "M-106",
   "receipt_result": "PASS — 3/3 declared commands",
   "passed_commands": 3,
@@ -51,17 +51,17 @@
   "execution_summary": "3/3 declared commands returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:9306fe04bc177379f12143e2c91427f6f69c3071b82b2110802e5ec31d9c0167",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:5dc6578b9845068bda4685b1a189e09ce97153cd69c21e979d621f7591c5e7a8",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-106-9306fe04bc17/run-record-M-106-9306fe04bc17.tar.gz",
+    "attestation_verified_at": "2026-07-16T17:16:19.522Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-106/",
     "target_repo": "https://github.com/chipmates/agoracosmica",
     "issue_or_task": "https://github.com/chipmates/agoracosmica/issues/17",
-    "publication_pr": null
+    "publication_pr": "https://github.com/chipmates/agoracosmica/pull/19"
   },
   "issue_title": "fetchWithTimeout may ignore a caller signal that's already aborted",
   "limitations": [
@@ -71,11 +71,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/chipmates/agoracosmica/pull/19",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -269,8 +269,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

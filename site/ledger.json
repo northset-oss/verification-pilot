@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T17:14:30.109Z",
+  "generated_at": "2026-07-16T17:16:31.225Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -549,7 +549,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -617,7 +617,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -685,7 +685,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -752,7 +752,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -820,7 +820,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -908,7 +908,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -996,7 +996,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1367,7 +1367,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1406,17 +1406,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:c7487c916022512cc06f650dae319af4a58570865a01f1728209918c73482634",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:864a3e0b85d5a1b07b025e87ca9e57a36de69b5a5a2b00a24c099b578be02090",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-104-c7487c916022/run-record-M-104-c7487c916022.tar.gz",
+        "attestation_verified_at": "2026-07-16T17:16:19.272Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-104/",
         "target_repo": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms",
         "issue_or_task": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
-        "publication_pr": null
+        "publication_pr": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/125"
       },
       "issue_title": "[Bug] Course progression calculation fails for dynamically added lessons",
       "limitations": [
@@ -1426,11 +1426,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/125",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -1621,8 +1621,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -1648,7 +1648,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1700,17 +1700,17 @@
       "execution_summary": "3/3 declared commands returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:c6ce05ab14819b3e2efa00c0a0189720d4f404f5813e9a44ea5244888724b385",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-105-ac1b5673f442/run-record-M-105-ac1b5673f442.tar.gz",
+        "attestation_verified_at": "2026-07-16T17:16:19.585Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
         "target_repo": "https://github.com/glideapps/quicktype",
         "issue_or_task": "https://github.com/glideapps/quicktype/issues/971",
-        "publication_pr": null
+        "publication_pr": "https://github.com/glideapps/quicktype/pull/2948"
       },
       "issue_title": "Incorrect filename in comment in TS output",
       "limitations": [
@@ -1720,11 +1720,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/glideapps/quicktype/pull/2948",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -1911,8 +1911,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -1938,7 +1938,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T17:14:30.109Z",
+      "generated_at": "2026-07-16T17:16:31.225Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1989,17 +1989,17 @@
       "execution_summary": "3/3 declared commands returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:9306fe04bc177379f12143e2c91427f6f69c3071b82b2110802e5ec31d9c0167",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:5dc6578b9845068bda4685b1a189e09ce97153cd69c21e979d621f7591c5e7a8",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-106-9306fe04bc17/run-record-M-106-9306fe04bc17.tar.gz",
+        "attestation_verified_at": "2026-07-16T17:16:19.522Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-106/",
         "target_repo": "https://github.com/chipmates/agoracosmica",
         "issue_or_task": "https://github.com/chipmates/agoracosmica/issues/17",
-        "publication_pr": null
+        "publication_pr": "https://github.com/chipmates/agoracosmica/pull/19"
       },
       "issue_title": "fetchWithTimeout may ignore a caller signal that's already aborted",
       "limitations": [
@@ -2009,11 +2009,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/chipmates/agoracosmica/pull/19",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -2207,8 +2207,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
