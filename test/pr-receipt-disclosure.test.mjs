@@ -503,3 +503,43 @@ test('HTTP request adapter sends GitHub credentials only to the GitHub API origi
     /write.*GitHub API origin/i,
   );
 });
+
+test('HTTP request adapter falls back to authenticated GraphQL for GitHub PR REST 503s', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    if (url !== 'https://api.github.com/graphql') {
+      return { status: 503, headers: new Headers({ 'content-type': 'text/html' }) };
+    }
+    const payload = JSON.parse(options.body);
+    const comments = payload.query.includes('comments(first:100');
+    return {
+      status: 200,
+      headers: new Headers({ 'content-type': 'application/json' }),
+      async json() {
+        return comments
+          ? { data: { repository: { pullRequest: { comments: {
+            nodes: [{ body: 'No receipt link.', author: { login: 'maintainer' } }],
+            pageInfo: { hasNextPage: false, endCursor: null },
+          } } } } }
+          : { data: { repository: { pullRequest: {
+            number: 21,
+            url: 'https://github.com/example/project/pull/21',
+            body: 'PR body',
+          } } } };
+      },
+    };
+  };
+  const request = createFetchRequest({ fetchImpl, token: 'secret-token' });
+  const pr = await request('https://api.github.com/repos/example/project/pulls/21');
+  assert.deepEqual(pr.json, {
+    number: 21,
+    html_url: 'https://github.com/example/project/pull/21',
+    body: 'PR body',
+  });
+  const comments = await request('https://api.github.com/repos/example/project/issues/21/comments?per_page=100');
+  assert.deepEqual(comments.json, [{ body: 'No receipt link.', user: { login: 'maintainer' } }]);
+  assert.equal(calls.filter(({ url }) => url === 'https://api.github.com/graphql').length, 2);
+  assert.ok(calls.filter(({ url }) => url === 'https://api.github.com/graphql')
+    .every(({ options }) => options.headers.Authorization === 'Bearer secret-token'));
+});
