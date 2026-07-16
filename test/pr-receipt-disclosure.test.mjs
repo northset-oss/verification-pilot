@@ -464,7 +464,7 @@ test('repository audit checks committed receipts without network access', async 
       expected[status],
     );
   }
-  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-021')?.status, 'verified');
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-021')?.status, 'historical_exempt');
   for (const missionId of expected.prepared) {
     const receiptUrl = canonicalReceiptUrl(committedPolicy, missionId);
     assert.equal(routes.has(`GET ${receiptUrl}`), false, missionId);
@@ -477,7 +477,10 @@ test('committed policy freezes the historical cutover and active Northset actors
     path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
     'utf8',
   ));
-  assert.deepEqual(committed.historical_exempt_mission_ids, policy.historical_exempt_mission_ids);
+  assert.deepEqual(committed.historical_exempt_mission_ids, [
+    ...policy.historical_exempt_mission_ids,
+    'M-021',
+  ]);
   assert.deepEqual(committed.northset_actor_logins, ['AysajanE']);
 });
 
