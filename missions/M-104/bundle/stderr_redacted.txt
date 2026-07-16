@@ -1,0 +1,2 @@
+=== cmd 1: npm test -- js/components/__tests__/sidebar.test.js ===
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m

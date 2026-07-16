@@ -1,0 +1,115 @@
+=== cmd 1: corepack pnpm@8.15.5 --dir client test:unit -- src/__tests__/utils/fetchWithTimeout.test.ts ===
+
+> agoracosmica-client@1.1.2 test:unit /workspace/client
+> vitest run "--" "src/__tests__/utils/fetchWithTimeout.test.ts"
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.8 [39m[90m/workspace/client[39m
+
+ [32m✓[39m src/__tests__/services/audioFocus.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[90mstdout[2m | src/__tests__/adapters/seedAdapter.test.tsx
+[22m[39m[uiStore] Hydrated from localStorage: {
+  modals: {
+    menuOpen: [33mfalse[39m,
+    figureCarouselOpen: [33mfalse[39m,
+    historyOpen: [33mfalse[39m,
+    seedsOpen: [33mfalse[39m,
+    modeSelectorOpen: [33mfalse[39m,
+    onboardingOpen: [33mfalse[39m,
+    wisdomGalleryOpen: [33mfalse[39m,
+    councilSetupOpen: [33mfalse[39m
+  },
+  helpDismissedKeys: []
+}
+
+[90mstdout[2m | src/__tests__/adapters/seedAdapter.test.tsx
+[22m[39m[AudioQueue] module instance [33m1[39m
+
+ [2m[90m↓[39m[22m src/__tests__/adapters/seedAdapter.test.tsx [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/__tests__/critical/translationSystem.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[32m 184[2mms[22m[39m
+ [32m✓[39m src/__tests__/critical/seedLoading.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+[90mstdout[2m | src/__tests__/utils/modeStateManager.test.ts
+[22m[39m[uiStore] Hydrated from localStorage: {
+  modals: {
+    menuOpen: [33mfalse[39m,
+    figureCarouselOpen: [33mfalse[39m,
+    historyOpen: [33mfalse[39m,
+    seedsOpen: [33mfalse[39m,
+    modeSelectorOpen: [33mfalse[39m,
+    onboardingOpen: [33mfalse[39m,
+    wisdomGalleryOpen: [33mfalse[39m,
+    councilSetupOpen: [33mfalse[39m
+  },
+  helpDismissedKeys: []
+}
+
+ [32m✓[39m src/__tests__/utils/modeStateManager.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/__tests__/critical/figureSelection.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+[90mstdout[2m | src/__tests__/services/SeedStateManager.test.ts[2m > [22m[2mSeedStateManager[2m > [22m[2mdetects gathered seeds via LocalStorageAdapter
+[22m[39mSeed gathered: plato/42
+
+[90mstdout[2m | src/__tests__/services/SeedStateManager.test.ts[2m > [22m[2mSeedStateManager[2m > [22m[2mdumps completion records using adapter accessors
+[22m[39m=== SEED COMPLETION RECORDS ===
+completion_plato_1 = true
+Total completion records: 1
+==============================
+
+ [32m✓[39m src/__tests__/services/SeedStateManager.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/__tests__/utils/fetchWithTimeout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m7 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (8)[39m
+[2m      Tests [22m [1m[32m38 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (40)[39m
+[2m   Start at [22m 17:06:00
+[2m   Duration [22m 15.41s[2m (transform 3.15s, setup 1.97s, import 4.89s, tests 261ms, environment 6.33s)[22m
+
+=== cmd 2: corepack pnpm@8.15.5 --dir client exec tsc --noEmit ===
+=== cmd 3: corepack pnpm@8.15.5 --dir client build:client ===
+
+> agoracosmica-client@1.1.2 build:client /workspace/client
+> vite build
+
+[vite/audio-proxy] target=http://localhost:8800 bearer=MISSING adminToken=MISSING
+[36mvite v7.3.5 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 5006 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mbuild/[22m[32mindex.html                                  [39m[1m[2m  7.06 kB[22m[1m[22m[2m │ gzip:   2.45 kB[22m
+[2mbuild/[22m[2massets/[22m[35mindex-B15wYv-9.css                   [39m[1m[2m  3.12 kB[22m[1m[22m[2m │ gzip:   0.99 kB[22m
+[2mbuild/[22m[2massets/[22m[35mindex-BTURdDUJ.css                   [39m[1m[2m  4.58 kB[22m[1m[22m[2m │ gzip:   1.14 kB[22m
+[2mbuild/[22m[2massets/[22m[35mindex-DNT4t31o.css                   [39m[1m[2m  4.65 kB[22m[1m[22m[2m │ gzip:   1.59 kB[22m
+[2mbuild/[22m[2massets/[22m[35mPrismPlayer-BoKTCWVy.css             [39m[1m[2m 10.74 kB[22m[1m[22m[2m │ gzip:   2.43 kB[22m
+[2mbuild/[22m[2massets/[22m[35mWelcomeDisclosureModal-B6138XpU.css  [39m[1m[2m 17.12 kB[22m[1m[22m[2m │ gzip:   3.95 kB[22m
+[2mbuild/[22m[2massets/[22m[35mindex-BvtZ_1YX.css                   [39m[1m[2m 20.88 kB[22m[1m[22m[2m │ gzip:   4.47 kB[22m
+[2mbuild/[22m[2massets/[22m[35mWisdomGalleryModal-BzTa-CaT.css      [39m[1m[2m 21.51 kB[22m[1m[22m[2m │ gzip:   4.40 kB[22m
+[2mbuild/[22m[2massets/[22m[35mStoryPlayer-RLictRzs.css             [39m[1m[2m 25.60 kB[22m[1m[22m[2m │ gzip:   4.87 kB[22m
+[2mbuild/[22m[2massets/[22m[35mSettingsModal-0IbRe1hN.css           [39m[1m[2m 36.97 kB[22m[1m[22m[2m │ gzip:   6.80 kB[22m
+[2mbuild/[22m[2massets/[22m[35mindex-BepB4aGm.css                   [39m[1m[2m119.75 kB[22m[1m[22m[2m │ gzip:  20.99 kB[22m
+[2mbuild/[22m[2massets/[22m[35mHomePage-B52D2oeb.css                [39m[1m[2m400.40 kB[22m[1m[22m[2m │ gzip:  61.75 kB[22m
+[2mbuild/[22m[2massets/[22m[36muserState-BkfjtOFD.js                [39m[1m[2m  1.01 kB[22m[1m[22m[2m │ gzip:   0.49 kB[22m
+[2mbuild/[22m[2massets/[22m[36mFigureController-CKRy-uzg.js         [39m[1m[2m  1.12 kB[22m[1m[22m[2m │ gzip:   0.55 kB[22m
+[2mbuild/[22m[2massets/[22m[36mWarningCircle.es-C6UINtAk.js         [39m[1m[2m  1.84 kB[22m[1m[22m[2m │ gzip:   0.64 kB[22m
+[2mbuild/[22m[2massets/[22m[36mselfHostedTTS-D6s3LV-W.js            [39m[1m[2m  2.24 kB[22m[1m[22m[2m │ gzip:   1.19 kB[22m
+[2mbuild/[22m[2massets/[22m[36museAudio-ghT1Gmdt.js                 [39m[1m[2m  3.20 kB[22m[1m[22m[2m │ gzip:   1.31 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-ChtyRdLD.js                    [39m[1m[2m  3.87 kB[22m[1m[22m[2m │ gzip:   2.08 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-B5zTWrTf.js                    [39m[1m[2m  4.34 kB[22m[1m[22m[2m │ gzip:   1.81 kB[22m
+[2mbuild/[22m[2massets/[22m[36mparser--xEah0jm.js                   [39m[1m[2m  5.00 kB[22m[1m[22m[2m │ gzip:   1.83 kB[22m
+[2mbuild/[22m[2massets/[22m[36men-Bd_DRCC5.js                       [39m[1m[2m  5.80 kB[22m[1m[22m[2m │ gzip:   2.53 kB[22m
+[2mbuild/[22m[2massets/[22m[36mde-DigxyS7v.js                       [39m[1m[2m  6.53 kB[22m[1m[22m[2m │ gzip:   2.98 kB[22m
+[2mbuild/[22m[2massets/[22m[36mhistoryClearService-B9ioXapB.js      [39m[1m[2m  6.74 kB[22m[1m[22m[2m │ gzip:   1.91 kB[22m
+[2mbuild/[22m[2massets/[22m[36men-CagRTBXx.js                       [39m[1m[2m  8.06 kB[22m[1m[22m[2m │ gzip:   3.35 kB[22m
+[2mbuild/[22m[2massets/[22m[36mde-DKVtMOS7.js                       [39m[1m[2m  8.80 kB[22m[1m[22m[2m │ gzip:   3.71 kB[22m
+[2mbuild/[22m[2massets/[22m[36mWelcomeDisclosureModal-B50W8SFE.js   [39m[1m[2m  8.82 kB[22m[1m[22m[2m │ gzip:   3.01 kB[22m
+[2mbuild/[22m[2massets/[22m[36mui-en-D-d7OL0J.js                    [39m[1m[2m  9.60 kB[22m[1m[22m[2m │ gzip:   4.23 kB[22m
+[2mbuild/[22m[2massets/[22m[36mui-de-C2rt6OkN.js                    [39m[1m[2m 10.51 kB[22m[1m[22m[2m │ gzip:   4.63 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-teaMivPW.js                    [39m[1m[2m 11.36 kB[22m[1m[22m[2m │ gzip:   3.57 kB[22m
+[2mbuild/[22m[2massets/[22m[36mWisdomGalleryModal-DmerJKxA.js       [39m[1m[2m 15.28 kB[22m[1m[22m[2m │ gzip:   5.83 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-IA5_bqg1.js                    [39m[1m[2m 21.85 kB[22m[1m[22m[2m │ gzip:   7.54 kB[22m
+[2mbuild/[22m[2massets/[22m[36mStoryPlayer-wVXbKij2.js              [39m[1m[2m 32.76 kB[22m[1m[22m[2m │ gzip:   9.56 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-Bivp0FNE.js                    [39m[1m[2m 43.67 kB[22m[1m[22m[2m │ gzip:  14.34 kB[22m
+[2mbuild/[22m[2massets/[22m[36mui-en-BkZuBSJN.js                    [39m[1m[2m 72.03 kB[22m[1m[22m[2m │ gzip:  26.76 kB[22m
+[2mbuild/[22m[2massets/[22m[36mui-de-BB4putMa.js                    [39m[1m[2m 80.58 kB[22m[1m[22m[2m │ gzip:  29.69 kB[22m
+[2mbuild/[22m[2massets/[22m[36mSettingsModal-BIbpfHvw.js            [39m[1m[2m176.81 kB[22m[1m[22m[2m │ gzip:  42.19 kB[22m
+[2mbuild/[22m[2massets/[22m[36mindex-vMcxIQW-.js                    [39m[1m[33m587.85 kB[39m[22m[2m │ gzip: 187.22 kB[22m
+[2mbuild/[22m[2massets/[22m[36mHomePage-DgapNi-5.js                 [39m[1m[33m691.15 kB[39m[22m[2m │ gzip: 188.03 kB[22m
+[32m✓ built in 9.20s[39m

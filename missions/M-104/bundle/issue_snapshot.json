@@ -1,0 +1,627 @@
+{
+  "fetched_at": "2026-07-16T16:47:28Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "OWNER",
+    "body": "﻿### Description\nCurrently, course progression percentages are calculated using a hardcoded \"totalLessons\" integer property on the course object. When an instructor uses the CMS to dynamically add a new lesson to a course, the \"totalLessons\" count does not update globally, resulting in progression extending beyond 100% (e.g., 11/10 lessons = 110%).\n\n### Why it matters\nA reliable LMS must accurately report progress to students. Going over 100% causes visual UI bugs and misrepresents completion status.\n\n### Steps to fix (Beginner Friendly!)\n1. Open js/services/storage.js and js/app.js.\n2. Locate the logic calculating the completion percentage: percent = completed / course.totalLessons.\n3. Instead of using course.totalLessons, dynamically calculate the denominator by filtering the loaded lessons: lessonsData.filter(l => l.courseId === course.id).length.\n4. Test by completing a dynamically added lesson to ensure the bar caps perfectly at 100%.\n\n### Skills needed\n- Basic JavaScript (Array filtering)\n- Understanding of state calculation\r\n",
+    "created_at": "2026-03-24T08:10:17Z",
+    "html_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/issues/56",
+    "labels": [
+      "bug",
+      "good first issue"
+    ],
+    "number": 56,
+    "state": "open",
+    "title": "[Bug] Course progression calculation fails for dynamically added lessons",
+    "updated_at": "2026-03-24T08:10:17Z",
+    "user": "soghayarmahmoud"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "main",
+    "fork": false,
+    "html_url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms"
+  },
+  "default_branch_head": "28f89c9f1bab65ff32207074cfe3f97f997caf1a",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "- Created professional API documentation for ProCode EduPulse, detailing endpoints, authentication methods, data models, error handling, and best practices.\r\n- Introduced a bug report and fixes document outlining critical, high, medium, and security issues, along with implementation guides for fixes.\r\n",
+      "closedAt": "2026-05-05T03:55:41Z",
+      "createdAt": "2026-05-04T04:43:55Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-05-05T03:55:41Z",
+      "number": 124,
+      "state": "MERGED",
+      "title": "Add comprehensive API documentation and bug report",
+      "updatedAt": "2026-05-05T03:55:42Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/124"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "- Updated navbar styles for improved aesthetics and responsiveness, including background, box-shadow, and transition effects.\r\n- Introduced new light and dark theme variations for navbar elements.\r\n- Enhanced brand colors and gradients in variables for a more vibrant appearance.\r\n- Adjusted spacing, border radius, and typography for better consistency and readability.\r\n- Improved sidebar styles, including user card and link interactions, for a more modern look.\r\n- Refined transition effects and hover states across various components for smoother user experience.",
+      "closedAt": "2026-04-17T01:29:37Z",
+      "createdAt": "2026-04-17T01:28:25Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-17T01:29:37Z",
+      "number": 123,
+      "state": "MERGED",
+      "title": "Enhance Navbar and Variables Styles",
+      "updatedAt": "2026-04-17T01:29:37Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/123"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "- Created DEPLOYMENT_REPORT.txt detailing project status and deliverables\r\n- Added INTEGRATION_GUIDE.js for Cloudinary setup and troubleshooting\r\n- Implemented cloudinary-config.js for secure Cloudinary API configuration\r\n- Enhanced media-service.js for video and image upload functionalities\r\n- Updated instructor and admin dashboards with new features and analytics\r\n- Established Firestore schema updates for dynamic courses and lessons\r\n- Conducted comprehensive testing and quality assurance checks\r\n",
+      "closedAt": "2026-04-10T22:24:27Z",
+      "createdAt": "2026-04-10T22:24:13Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-10T22:24:27Z",
+      "number": 122,
+      "state": "MERGED",
+      "title": "Add Cloudinary integration and enhance instructor/admin dashboards",
+      "updatedAt": "2026-04-10T22:24:27Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/122"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "- Added CourseReviewsComponent for displaying paginated, filterable reviews.\r\n- Introduced RatingDistributionChart for visualizing rating distribution.\r\n- Enhanced FirestoreService with methods for fetching course reviews and rating distribution.\r\n- Implemented progress tracking for video timestamps in Firestore.\r\n- Created AppHydrationService to initialize app state from Firestore.\r\n- Developed ProgressSyncService to handle debounced writes to Firestore.\r\n- Updated Firestore rules to manage user progress and video timestamps securely.\r\n",
+      "closedAt": "2026-04-10T15:55:25Z",
+      "createdAt": "2026-04-10T15:55:11Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-10T15:55:25Z",
+      "number": 120,
+      "state": "MERGED",
+      "title": " Implement course reviews and ratings system",
+      "updatedAt": "2026-04-10T15:55:28Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/120"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-08T23:53:49Z",
+      "createdAt": "2026-04-08T23:42:06Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-08T23:53:49Z",
+      "number": 119,
+      "state": "MERGED",
+      "title": " implement authentication pages, page transition utilities, and data …",
+      "updatedAt": "2026-04-08T23:53:49Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/119"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "### Beginner-Friendly Improvement Plan & Architecture Recommendations\r\n\r\n\r\n- **Architecture Recommendations:** A brutally honest assessment of your current 4,600+ line app.js file, highlighting the urgent need to migrate to a framework like React (Next.js/Vite) to handle complex, reactive platform states cleanly.\r\n\r\n- **Code Quality Refactoring:** A senior-engineer breakdown of how to modularize your code, abandon global state, implement standard routing, and ensure basic web security.\r\n\r\n- **Bonus & Missing Features:** A roadmap of Udemy-tier features like abandoned cart emails, complete HLS video playback (rather than raw MP4 files), and secure content delivery.\r\n\r\n\r\n",
+      "closedAt": "2026-04-07T10:59:03Z",
+      "createdAt": "2026-04-07T10:56:41Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-07T10:59:03Z",
+      "number": 112,
+      "state": "MERGED",
+      "title": "Create  A Full Implementation Plan To complete the missing Features and Bugs Fix",
+      "updatedAt": "2026-04-07T10:59:03Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/112"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-07T10:46:54Z",
+      "createdAt": "2026-04-07T10:46:39Z",
+      "headRefName": "main",
+      "mergedAt": "2026-04-07T10:46:54Z",
+      "number": 109,
+      "state": "MERGED",
+      "title": "Sync the Changes in Main Branch",
+      "updatedAt": "2026-04-07T10:47:02Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/109"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "##  Summary\r\nThis PR introduces critical enhancements to the platform's authentication and Role-Based Access Control (RBAC) systems. It automatically grants Super-Admin and Instructor privileges to specific core team emails upon sign-in. Additionally, it significantly upgrades the Admin Dashboard by adding dedicated interfaces to promote users to Instructors or Admins directly from the UI.\r\n\r\n##  Key Changes\r\n* **Authentication & Role Assignment:** * Auto-assigned `Admin` and `Instructor` roles to `m*********by@gmail.com` and `m***************84@gmail.com` upon login.\r\n    * Updated role-checking logic across `auth-service.js`, `navbar.js`, `app.js`, and `admin-dashboard.js`.\r\n* **UI/Navigation Enhancements:**\r\n    * Enabled conditional visibility for the **Instructor Dashboard** in `navbar.js` based on user roles.\r\n* **Admin Dashboard Upgrades:**\r\n    * Added functionality to promote existing users to `Instructor` or `Admin` via email or UID.\r\n    * Implemented inline role toggles (Admin/Instructor) directly within the user management table for faster access.\r\n* **Testing:**\r\n    * Added and verified unit tests for the new role detection behavior in `auth-service.test.js`.\r\n\r\n##  How to Test\r\n1. Sign in using one of the predefined super-admin emails.\r\n2. Verify that both the Admin Panel and Instructor Panel are accessible from the Navbar.\r\n3. Navigate to the Admin Dashboard -> Users Tab.\r\n4. Try promoting a standard user to an Instructor or Admin using both the input form and the table toggles.",
+      "closedAt": "2026-04-05T15:31:57Z",
+      "createdAt": "2026-04-05T15:29:42Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-05T15:31:57Z",
+      "number": 107,
+      "state": "MERGED",
+      "title": "feat: enhance role assignment and admin panel controls",
+      "updatedAt": "2026-04-05T15:31:57Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/107"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-04T23:18:40Z",
+      "createdAt": "2026-04-04T15:06:55Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-04T23:18:40Z",
+      "number": 103,
+      "state": "MERGED",
+      "title": "Enhance Admin Dashboard with Course Content Studio and Media Manageme…",
+      "updatedAt": "2026-04-04T23:18:41Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/103"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-03T15:33:02Z",
+      "createdAt": "2026-04-03T15:32:50Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-03T15:33:02Z",
+      "number": 102,
+      "state": "MERGED",
+      "title": "implement core application structure with lesson commenting, data loa…",
+      "updatedAt": "2026-04-03T15:33:03Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/102"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-03T15:31:17Z",
+      "createdAt": "2026-04-03T15:31:03Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-03T15:31:17Z",
+      "number": 101,
+      "state": "MERGED",
+      "title": "implement instructor dashboard for course and lesson management with …",
+      "updatedAt": "2026-04-03T15:31:18Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/101"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-03T15:12:13Z",
+      "createdAt": "2026-04-03T15:11:00Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-03T15:12:13Z",
+      "number": 100,
+      "state": "MERGED",
+      "title": "Fix security issues: XSS sanitization, remove hardcoded API key, crea…",
+      "updatedAt": "2026-04-03T15:12:13Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/100"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "## Overview\r\nThis PR introduces a major feature update to the ProCode EduPulse LMS, focusing on robust platform management and enhanced content creation tools. Key additions include a fully integrated Cloudinary Media Service for video hosting, a comprehensive Admin Management Suite, and advanced Instructor Revenue/Interaction Tracking.\r\n\r\n1. **Key Features**\r\n- Enhanced Media Service (Cloudinary)\r\n- Video Upload Support: Implemented a secure upload widget with a 500MB limit.\r\n- Adaptive Streaming: Automatic generation of HD, SD, and Mobile quality versions.\r\n- Dynamic Thumbnails: Auto-generating video thumbnails with Cloudinary transformations.\r\n- Metadata Extraction: Capture video duration and dimensions upon upload.\r\n\r\n2. **Admin Dashboard (v2.0)**\r\n- Real-time Analytics: Track total revenue, platform growth, and enrollment metrics.\r\n- Content Moderation Hub: A dedicated queue for approving/rejecting courses and managing flagged content.\r\n- System Configuration: Dynamic control over subscription pricing, promotional banners, and platform announcements.\r\n\r\n3. **Instructor Dashboard (v2.0):**\r\n- Revenue Tracking: Detailed breakdown of earnings by course and student.\r\n- Course Interactions: A centralized system to view and reply to student reviews and comments.\r\n- Builder Enhancements: Improved UI for lesson and course management.\r\n\r\n4. **Documentation & Setup:**\r\n- Added CONFIGURATION_CHECKLIST.md for Firestore/Cloudinary environment setup.\r\n- Added SETUP_GUIDE.md for full implementation walkthrough.\r\n- Added IMPLEMENTATION_SUMMARY.md for architectural overview.\r\n\r\n### Technical Changes\r\n- **New Services:** Created admin-management-service.js and instructor-service.js.\r\n- **Firestore**: Defined structures for new collections: transactions, moderation_queue, announcements, and system/settings.\r\n- **Components**: Major updates to admin-dashboard.js and instructor-dashboard.js with modular tab rendering.\r\n- **Security**: Prepared new Firestore security rules for admin-only and instructor-only access.\r\n\r\n\r\n### How to Test\r\n1. Configure Cloudinary credentials in the System Settings tab (Admin).\r\n1. Try uploading a video as an Instructor in the Lesson Builder.\r\n1. Check if the video thumbnail and adaptive links are generated.\r\n1. Verify revenue data in the Revenue Tracking tab after a simulated transaction.",
+      "closedAt": "2026-04-03T14:51:25Z",
+      "createdAt": "2026-04-03T14:45:18Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-03T14:51:25Z",
+      "number": 99,
+      "state": "MERGED",
+      "title": "implement Cloudinary media service with video upload support and add …",
+      "updatedAt": "2026-04-03T14:51:26Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/99"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-01T22:32:16Z",
+      "createdAt": "2026-04-01T22:32:05Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-01T22:32:16Z",
+      "number": 98,
+      "state": "MERGED",
+      "title": "configure Vite build pipeline with asset copying, Firebase integratio…",
+      "updatedAt": "2026-04-01T22:32:23Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/98"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-04-01T00:01:26Z",
+      "createdAt": "2026-03-31T23:59:16Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-04-01T00:01:26Z",
+      "number": 97,
+      "state": "MERGED",
+      "title": " implement Firestore data service and integrate with core application…",
+      "updatedAt": "2026-04-01T00:01:26Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/97"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-31T23:07:46Z",
+      "createdAt": "2026-03-31T23:07:06Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-31T23:07:46Z",
+      "number": 96,
+      "state": "MERGED",
+      "title": "overhauled the backend and frontend of the Admin Dashboard",
+      "updatedAt": "2026-03-31T23:07:46Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/96"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-30T22:10:16Z",
+      "createdAt": "2026-03-30T22:09:17Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-30T22:10:16Z",
+      "number": 95,
+      "state": "MERGED",
+      "title": "Update Security Rules , and  implement Vite module-bundling",
+      "updatedAt": "2026-03-30T22:10:16Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/95"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "## **Description**\r\nThis PR introduces several UI/UX improvements to the Hero section and navigation, alongside critical fixes for the authentication system and layout consistency.\r\n\r\n## **Key Changes**\r\n### **1. Navigation & UI Refinement**\r\nProfile Access: Improved user flow by making the initials circle in the navbar and the user card in the menu clickable, directing users to their profile.\r\n\r\nSidebar Update: Added a dedicated \"My Profile\" link to the sidebar for better accessibility.\r\n\r\nHero Section: Enhanced readability of the code snippet in Light Mode by implementing higher-contrast colors.\r\n\r\nTheme Toggle: Updated the sun icon to pure white for better visibility.\r\n\r\n### **2. Bug Fixes & Refactoring**\r\n- Auth Feedback: Resolved an issue where Firebase error messages were hidden. Replaced manual display: none styles with a dynamic .visible CSS class.\r\n\r\n- Footer Cleanup: Removed the duplicate hardcoded footer from the landing page. The platform now consistently uses the global renderFooter() function.\r\n\r\n- Dynamic Icons: Fixed the desktop theme toggle icon to dynamically switch colors between Black (Light Mode) and White (Dark Mode) using CSS variables (var(--text-primary)).\r\n\r\n **How to Verify**\r\n- Navigation: Click on the user avatar or the new \"My Profile\" sidebar item to ensure they redirect correctly.\r\n\r\n- Theme Switch: Toggle between Light and Dark modes.\r\n\r\n- Verify the code snippet contrast in Light Mode.\r\n\r\n- Check that the theme toggle icon color updates correctly on desktop.\r\n\r\n- Authentication: Trigger an auth error (e.g., wrong password) to verify that the error alert is now visible.\r\n\r\n- Layout: Ensure only one footer is visible at the bottom of the landing page.",
+      "closedAt": "2026-03-30T10:40:53Z",
+      "createdAt": "2026-03-30T10:39:52Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-30T10:40:53Z",
+      "number": 84,
+      "state": "MERGED",
+      "title": "UI Enhancements, Navigation Updates, and Critical Bug Fixes",
+      "updatedAt": "2026-03-30T10:40:53Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/84"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "## Overview\r\nThis PR focuses on initializing and refining our Design System through a comprehensive overhaul of the Dark Mode UI. The goal was to move away from basic dark colors to a sophisticated, modern, and high-contrast theme that provides a superior user experience compared to the initial implementation.\r\n\r\n### Key Changes\r\n**1. Core Design System (CSS Variables)**\r\n- **Richer Palette**: Updated variables.css with deeper backgrounds (transitioned from #0F0F1A to #0A0B0F).\r\n\r\n- **Improved Typography**: Enhanced readability using #F8FAFC for primary text and #CBD5E1 for secondary text.\r\n\r\n- **Semantic Colors**: Refined Brand, Success, Warning, and Error colors to ensure harmony across both light and dark themes.\r\n\r\n **2. Visual Enhancements**\r\n**Depth & Hierarchy**: Added subtle radial gradients and realistic shadows to create a sense of layering.\r\n\r\n**Glassmorphism**: Improved backdrop filters and border highlights for a modern \"glass\" effect on containers.\r\n\r\n**Refined Borders**: Transitioned to subtle rgba(255, 255, 255, 0.06) borders for a cleaner look.\r\n\r\n **3. Component Updates**\r\n- **Navbar:** Enhanced glass effect with better blur and navigation link active states.\r\n\r\n- **Buttons:** Modernized with blue-to-purple gradients (#3B82F6 to #8B5CF6) and improved hover feedback.\r\n\r\n- **Cards**: Added gradient backgrounds and enhanced border highlights to make them \"pop.\"\r\n\r\n- **Forms & Modals**: Redesigned input focus states with glow effects and adjusted modal overlays for better focus.\r\n\r\n### Files Modified\r\n\r\n1. **variables.css:** Core color system and semantic tokens.\r\n\r\n1. **global.css:** Global dark mode styling and transitions.\r\n\r\n1. **navbar.css:** Navigation-specific UI improvements.\r\n\r\n1. **components.css**: Overhaul of Buttons, Cards, Modals, and Inputs.\r\n\r\n\r\n## Screenshots:\r\n\r\n<img width=\"960\" height=\"422\" alt=\"E1\" src=\"https://github.com/user-attachments/assets/7d49fb27-4d13-442c-86dc-054bddad48a5\" />\r\n\r\n<img width=\"949\" height=\"413\" alt=\"E2\" src=\"https://github.com/user-attachments/assets/34af1360-21cf-4495-b0e5-87b1d84d3511\" />\r\n\r\n",
+      "closedAt": "2026-03-30T09:27:06Z",
+      "createdAt": "2026-03-30T09:25:43Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-30T09:27:06Z",
+      "number": 83,
+      "state": "MERGED",
+      "title": "initialize design system with CSS variables and reusable UI components",
+      "updatedAt": "2026-03-30T09:27:06Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/83"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-29T13:09:35Z",
+      "createdAt": "2026-03-29T13:09:19Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-29T13:09:35Z",
+      "number": 82,
+      "state": "MERGED",
+      "title": "docs: update README with enhanced project overview, feature tables, a…",
+      "updatedAt": "2026-03-29T13:09:35Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/82"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-29T12:10:38Z",
+      "createdAt": "2026-03-29T12:10:01Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-29T12:10:38Z",
+      "number": 81,
+      "state": "MERGED",
+      "title": "Add Missing HTML Tag",
+      "updatedAt": "2026-03-29T12:10:39Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/81"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-29T11:50:47Z",
+      "createdAt": "2026-03-29T11:49:16Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-29T11:50:47Z",
+      "number": 80,
+      "state": "MERGED",
+      "title": "chore: initialize project with ESLint, Prettier, and CI workflow conf…",
+      "updatedAt": "2026-03-29T11:50:47Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/80"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "### **Overview**\r\nThis PR introduces the core layout components (Navbar and Footer) to ensure a consistent UI across the platform. It also refactors the PWA installation logic and expands the initial lesson dataset for the ProCode platform.\r\n\r\n### **Key Changes**\r\n\r\n- **Modular UI Components:** Created standalone JavaScript components for the Navbar and Footer to improve code reusability.\r\n\r\n- **PWA Logic Migration:** Moved the PWA \"Install App\" logic from index.html to footer.js for better state management and cleaner entry files.\r\n\r\n- **Responsive Design:** Added dedicated CSS files (footer.css, navbar.css) and updated components.css to support a sidebar menu and mobile-first responsiveness.\r\n\r\n- **Data Integrity**: Implemented a validate_json.js utility script to ensure lessons.json follows the correct structure before deployment.\r\n\r\n- **Content Update**: Expanded lessons.json with new structured content for HTML elements and JavaScript fundamentals.\r\n\r\n### **_Technical Details_**\r\n**CSS**: Integrated a grid-based footer and a dynamic navigation bar with visibility utilities.",
+      "closedAt": "2026-03-28T20:15:06Z",
+      "createdAt": "2026-03-28T20:13:31Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-28T20:15:06Z",
+      "number": 79,
+      "state": "MERGED",
+      "title": "implement global UI components, PWA logic migration, and lesson data expansion",
+      "updatedAt": "2026-03-28T20:15:06Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/79"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "# Overview\r\n**This PR represents a significant milestone in the ProCode EduPulse evolution. It focuses on transforming the platform into a professional-grade Learning Management System (LMS) by introducing advanced UI components, enhancing mobile responsiveness, and implementing full PWA (Progressive Web App) capabilities for an offline-first experience.**\r\n\r\n## Key Changes\r\n**1. UI/UX & Gamification**\r\n\r\n- New Components: Introduced Gamification, Collaborative Coding, and AI Recommendations modules to increase student engagement.\r\n\r\n- Advanced Analytics: Added a dedicated analytics dashboard (js/components/analytics.js) to help users track their learning progress visually.\r\n\r\n- Responsive Design: Massive overhaul of css/global.css with advanced media queries, touch-target optimizations (44px min), and safe-area handling for modern mobile devices.\r\n\r\n- Dark/Light Mode: Implemented refined system-level theme detection and high-DPI (Retina) display optimizations.\r\n\r\n2. PWA & Technical Performance\r\nService Worker (v2): Implemented a robust sw.js featuring:\r\n\r\n- Cache-First strategy for static assets.\r\n\r\n- Network-First strategy for dynamic content.\r\n\r\n- Background Sync for offline progress saving.\r\n\r\n- Manifest V3: Fully configured manifest.json including PWA shortcuts, screenshots for app stores, and web_accessible_resources for secure asset loading.\r\n\r\n3. Bug Fixes & Stability\r\n\r\n- Asset Loading: Resolved \"Denying load\" errors by correctly configuring web-accessible resources.\r\n\r\n- Chart.js Integration: Optimized analytics.js to handle Chart.js as a local module/content script, preventing CDN-related SyntaxErrors and CSP issues.\r\n\r\n- App Logic: Improved routing and data management in js/app.js with versioned script loading to prevent browser caching issues.\r\n\r\n\r\n🛠️ Technical Debt & Tooling\r\nAdded a PowerShell automation script (scripts/create_professional_issues.ps1) to streamline the creation of GitHub labels and issues for professional project tracking.\r\n\r\n✅ Checklist\r\n\r\n- [x] PWA passes Lighthouse audit.\r\n\r\n- [x] Mobile responsiveness tested on iOS/Android viewports.\r\n\r\n- [x] Service Worker correctly handles offline mode and skip-waiting.\r\n\r\n- [x] All \"Denying load\" console errors are resolved.",
+      "closedAt": "2026-03-27T13:01:09Z",
+      "createdAt": "2026-03-27T13:00:39Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-27T13:01:09Z",
+      "number": 76,
+      "state": "MERGED",
+      "title": "comprehensive UI/UX evolution, PWA integration, and advanced analytics modules",
+      "updatedAt": "2026-03-27T13:01:09Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/76"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "# Description\r\n\r\nThis PR introduces a specialized PowerShell automation script designed to streamline the project's roadmap by automatically generating high-level \"Evolution\" issues. These issues outline the transition of ProCode EduPulse from a basic LMS to a professional-grade platform with monetization and certification capabilities.\r\n\r\n## Key Changes\r\n\r\n- New Script: Created scripts/create_professional_issues.ps1.\r\n\r\n- Automation: Uses GitHub CLI (gh) to programmatically create 5 core architectural issues:\r\n\r\n- 1. Monetization Engine: Integration of Stripe/PayPal and paid course logic.\r\n\r\n- 2. Certification Center: Dynamic digital credential generation and verification.\r\n\r\n- 3. Membership Model: Multi-tiered subscription system (Free vs. Pro).\r\n\r\n- 4. Partner Program: Infrastructure for corporate sponsorships and branded content.\r\n\r\n- 5. Admin Panel 3.0: Advanced financial reporting and membership operations.\r\n\r\n**_Why this is important?_**\r\n\r\n- Standardization: Each issue comes with a predefined Objective, Key Features, Roadmap for Beginners, and Required Skills.\r\n\r\n- Scalability: Makes it easier for new contributors to understand the professional vision of the project.\r\n\r\n- Efficiency: Saves time by avoiding manual entry of complex issue templates.\r\n\r\n**_How to use_**\r\n\r\n1. Ensure GitHub CLI is installed and authenticated.\r\n\r\n1. Run the script from the root directory:\r\n\r\n```\r\n./scripts/create_professional_issues.ps1\r\n\r\n```\r\n**_Related Issues_**\r\nPart of the general project documentation and community health initiative.",
+      "closedAt": "2026-03-27T09:31:05Z",
+      "createdAt": "2026-03-27T09:30:42Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-27T09:31:05Z",
+      "number": 68,
+      "state": "MERGED",
+      "title": "add automated script for professional evolution issues",
+      "updatedAt": "2026-03-27T09:31:05Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/68"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-27T09:10:40Z",
+      "createdAt": "2026-03-27T09:03:17Z",
+      "headRefName": "v0",
+      "mergedAt": "2026-03-27T09:10:40Z",
+      "number": 66,
+      "state": "MERGED",
+      "title": "Create a style guide / component library page #17",
+      "updatedAt": "2026-03-27T09:10:40Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/66"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBg7whQ",
+        "is_bot": false,
+        "login": "soghayarmahmoud",
+        "name": "Mahmoud El-Soghayar"
+      },
+      "body": "",
+      "closedAt": "2026-03-27T08:05:08Z",
+      "createdAt": "2026-03-26T18:47:28Z",
+      "headRefName": "main",
+      "mergedAt": "2026-03-27T08:05:08Z",
+      "number": 65,
+      "state": "MERGED",
+      "title": "Update v0 branch with the latest code version",
+      "updatedAt": "2026-03-27T08:05:08Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/65"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCi0nSQ",
+        "is_bot": false,
+        "login": "GoldenBoy13420",
+        "name": "Mahmoud Abdelrauf"
+      },
+      "body": "",
+      "closedAt": "2026-03-25T16:40:07Z",
+      "createdAt": "2026-03-25T15:09:58Z",
+      "headRefName": "VF0",
+      "mergedAt": "2026-03-25T16:40:07Z",
+      "number": 64,
+      "state": "MERGED",
+      "title": "Enhancement the Platform  ",
+      "updatedAt": "2026-03-25T16:40:07Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/64"
+    },
+    {
+      "author": {
+        "id": "U_kgDOC82jlg",
+        "is_bot": false,
+        "login": "suresh-jakhar",
+        "name": "Suresh Jakhar"
+      },
+      "body": "## Summary\r\nFixes two bugs affecting the lesson page.\r\n\r\n### Bug 1 – Cheat sheet HTML rendering\r\nCheat sheet examples from `data/lessons.json` were injected directly into the DOM without escaping.\r\n\r\nExamples like:\r\n`<a href=\"url\">`\r\n`<img src=\"url\">`\r\n\r\nwere interpreted as real HTML elements instead of displaying as text.\r\n\r\n**Fix:** Escape the cheatSheet string before rendering so HTML tags appear as plain text.\r\n\r\n---\r\n\r\n### Bug 2 – Live preview iframe not rendering\r\nThe preview iframe used:\r\n\r\nsandbox=\"allow-scripts\"\r\n\r\nThe `updatePreview()` function writes HTML using:\r\n\r\niframe.contentDocument.open()\r\niframe.contentDocument.write()\r\n\r\nWithout `allow-same-origin`, browsers block access to `contentDocument`, causing the preview to stay blank.\r\n\r\n**Fix:** Updated sandbox attribute to:\r\n\r\nsandbox=\"allow-scripts allow-same-origin\"\r\n\r\n---\r\n\r\n## Result\r\n- Cheat sheet examples render correctly as text\r\n- Preview iframe updates correctly when clicking Run\r\n\r\nCloses #31",
+      "closedAt": "2026-03-11T16:49:22Z",
+      "createdAt": "2026-03-11T11:31:28Z",
+      "headRefName": "fix/cheatsheet-preview-bugs",
+      "mergedAt": "2026-03-11T16:49:22Z",
+      "number": 32,
+      "state": "MERGED",
+      "title": "fix: escape cheatSheet HTML and enable iframe preview rendering (#31)",
+      "updatedAt": "2026-03-11T16:59:43Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/32"
+    },
+    {
+      "author": {
+        "id": "U_kgDOD1-jww",
+        "is_bot": false,
+        "login": "krish-patel-code",
+        "name": ""
+      },
+      "body": "This PR implements the onboarding experience for first-time users.\r\n\r\nChanges:\r\n- Added welcome modal for first-time visitors\r\n- Implemented guided tour logic\r\n- Added local storage flag to track onboarding completion\r\n\r\nTesting:\r\n- Verified modal appears only on first visit\r\n- Verified tour does not repeat after completion",
+      "closedAt": "2026-03-11T16:51:58Z",
+      "createdAt": "2026-03-11T07:39:47Z",
+      "headRefName": "feature/onboarding-experience",
+      "mergedAt": "2026-03-11T16:51:58Z",
+      "number": 30,
+      "state": "MERGED",
+      "title": "feat: implement first-time visitor welcome modal and tour logic",
+      "updatedAt": "2026-03-11T16:51:59Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/30"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCSSYLQ",
+        "is_bot": false,
+        "login": "Ashusf90",
+        "name": "Harshit Gupta"
+      },
+      "body": "## Description\r\nThis PR adds smooth animated transitions between routes.\r\n\r\n### Changes made\r\n- Added a transitionPage() helper function in app.js\r\n- Wrapped all router render functions with the transition helper\r\n- Added CSS transition for #app opacity\r\n\r\n### Result\r\nWhen navigating between pages, the content now fades out and fades in smoothly (200–300ms), improving the user experience.\r\n\r\n### Files Modified\r\n- js/app.js\r\n- css/global.css",
+      "closedAt": "2026-03-11T16:54:06Z",
+      "createdAt": "2026-03-11T05:44:10Z",
+      "headRefName": "main",
+      "mergedAt": "2026-03-11T16:54:06Z",
+      "number": 29,
+      "state": "MERGED",
+      "title": "Add animated page transitions between routes",
+      "updatedAt": "2026-03-11T16:54:06Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/29"
+    },
+    {
+      "author": {
+        "id": "U_kgDOC82jlg",
+        "is_bot": false,
+        "login": "suresh-jakhar",
+        "name": "Suresh Jakhar"
+      },
+      "body": "## Summary\r\nAdds a floating **Back to Top** button that appears after scrolling down the page.\r\n\r\n## Features\r\n- Button appears after scrolling **400px**\r\n- Smooth scroll to the top when clicked\r\n- Works in both **dark and light themes**\r\n- Styled using existing component styles\r\n\r\n## Files Modified\r\n- `index.html` — added Back to Top button element\r\n- `css/components.css` — added styles for the button\r\n- `js/app.js` — added scroll detection and smooth scroll behavior\r\n\r\n",
+      "closedAt": "2026-03-11T16:55:23Z",
+      "createdAt": "2026-03-11T05:03:54Z",
+      "headRefName": "feature/back-to-top-button",
+      "mergedAt": "2026-03-11T16:55:23Z",
+      "number": 28,
+      "state": "MERGED",
+      "title": "feat(ui): add back-to-top scroll button (#23)",
+      "updatedAt": "2026-03-11T16:59:30Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/28"
+    },
+    {
+      "author": {
+        "id": "U_kgDOD7nNCw",
+        "is_bot": false,
+        "login": "itniuma2026",
+        "name": "itniuma"
+      },
+      "body": "## Summary\n\nAdd a floating 'Back to Top' button that appears after scrolling 400px, with smooth scroll behavior, by modifying index.html, css/components.css, and js/app.js.\n\n## Approach\n\n1. In index.html, add a `<button id='back-to-top' class='back-to-top' title='Back to top'>↑</button>` element just before the closing `</body>` tag. 2. In css/components.css, append the `.back-to-top` styles (fixed positioning, circular shape, gradient background, hidden by default with opacity 0 and pointer-events none, and a `.visible` modifier class that makes it appear). 3. In js/app.js, inside the `initApp()` function, add a scroll event listener that toggles the `visible` class on the button when `window.scrollY > 400`, and attach an onclick handler that calls `window.scrollTo({ top: 0, behavior: 'smooth' })`.\n\n## Files Changed\n\n- `index.html`\n- `css/components.css`\n- `js/app.js`\n\n## Related Issue\n\nFixes #23\n\n## Testing\n\nNo tests were added with this change. Happy to add them if needed.\n",
+      "closedAt": "2026-03-14T23:47:10Z",
+      "createdAt": "2026-03-11T02:15:10Z",
+      "headRefName": "fix/issue-23",
+      "mergedAt": null,
+      "number": 27,
+      "state": "CLOSED",
+      "title": "Fix #23: Create a Back to Top scroll button",
+      "updatedAt": "2026-03-14T23:47:10Z",
+      "url": "https://github.com/soghayarmahmoud/procode-edu-pulse-lms/pull/27"
+    }
+  ]
+}

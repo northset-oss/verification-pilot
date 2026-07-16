@@ -1,0 +1,42 @@
+diff --git a/client/src/__tests__/utils/fetchWithTimeout.test.ts b/client/src/__tests__/utils/fetchWithTimeout.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf7ef5dc03a87fd503ac1f27ff46e17506ad64d2
+--- /dev/null
++++ b/client/src/__tests__/utils/fetchWithTimeout.test.ts
+@@ -0,0 +1,24 @@
++import { describe, expect, it, vi } from 'vitest';
++
++import { fetchWithTimeout } from '@/utils/fetchWithTimeout';
++
++describe('fetchWithTimeout', () => {
++  it('handles a signal already aborted before fetch', async () => {
++    const fetchMock = vi.fn((_input: RequestInfo | URL, init?: RequestInit) => {
++      if (!init?.signal?.aborted) {
++        return Promise.reject(new Error('fetch started with a live signal'));
++      }
++
++      return Promise.reject(new DOMException('The operation was aborted.', 'AbortError'));
++    });
++    vi.stubGlobal('fetch', fetchMock);
++
++    const controller = new AbortController();
++    controller.abort();
++
++    await expect(fetchWithTimeout('/test', { signal: controller.signal })).rejects.toMatchObject({
++      name: 'AbortError',
++    });
++    expect(fetchMock).toHaveBeenCalledOnce();
++  });
++});
+diff --git a/client/src/utils/fetchWithTimeout.ts b/client/src/utils/fetchWithTimeout.ts
+index 8f5c59fe1a68a645a5a9b9115ec2b4da8dc82ce2..392056feac456f5975ea99594667531271d546ea 100644
+--- a/client/src/utils/fetchWithTimeout.ts
++++ b/client/src/utils/fetchWithTimeout.ts
+@@ -22,6 +22,7 @@ export async function fetchWithTimeout(
+   // If caller provided a signal, abort our controller when theirs fires
+   const onExternalAbort = () => controller.abort();
+   externalSignal?.addEventListener('abort', onExternalAbort, { once: true });
++  if (externalSignal?.aborted) onExternalAbort();
+ 
+   try {
+     const response = await fetch(url, {

@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm test -- js/components/__tests__/sidebar.test.js"
+  ]
+}

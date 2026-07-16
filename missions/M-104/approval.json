@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-104",
+  "task_id": "TASK-OSS-537E5B9D6393F36D",
+  "attempt_id": "M-104",
+  "approved_manifest_digest": "sha256:1859fd1ef933eaf4ae2c41fb60bb0ebf4200620fa5870402b8f7a27fe6fb48ad",
+  "approved_by": "internal-user:aeziz",
+  "approved_at": "2026-07-16T17:14:22.601Z",
+  "funding_program": "Northset OSS Fund",
+  "initiative": "OSS mission experimentation",
+  "budget_id": null,
+  "financial_cap": null,
+  "operational_caps": {
+    "finder_wall_seconds": 1200,
+    "qualification_wall_seconds": 300,
+    "prepare_wall_seconds": 3600,
+    "ship_wall_seconds": 3600,
+    "maximum_attempts": null
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "commands": [
+    "corepack pnpm@8.15.5 --dir client test:unit -- src/__tests__/utils/fetchWithTimeout.test.ts",
+    "corepack pnpm@8.15.5 --dir client exec tsc --noEmit",
+    "corepack pnpm@8.15.5 --dir client build:client"
+  ]
+}

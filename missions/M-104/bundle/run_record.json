@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T16:51:52.604Z",
+  "finished_at": "2026-07-16T16:52:30.868Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "28f89c9f1bab65ff32207074cfe3f97f997caf1a",
+    "base_tree_digest": "sha256:44b7a164978825704f783d146ca661e72394e181e05f837858e23e785fbfbb73",
+    "pre_check_tree_digest": "sha256:2cb0cf5e72ab52f9d416db19614b9d27c39c07c2daebc0fe6b3c98a0f98cd79e",
+    "approved_tracked_tree_digest": "sha256:4776ec26bdf23b580e7fcd427d2ea624c97269dc182483c6c80b8cf832c89db7",
+    "post_check_tree_digest": "sha256:d8ed87bb74a6409c3b39ee55eff3ab0df1e17ff939f184465b67912d00a6694c",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:71720c13a69b3efb5346a22894318b5e438484a217e857c1f7c42b4502f14980",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- js/components/__tests__/sidebar.test.js",
+      "exit_code": 0,
+      "duration_ms": 2384
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 24365,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 2384,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}
