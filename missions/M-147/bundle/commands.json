@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm test -- src/lib/analysis/analyzers/shared.test.ts"
+  ]
+}

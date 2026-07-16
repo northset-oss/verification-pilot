@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T22:13:39.653Z",
+  "finished_at": "2026-07-16T22:17:04.132Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "e2da7a951cb1ca69448f0ebd539a505984167548",
+    "base_tree_digest": "sha256:a489563dddcb850c34178c774da056b727942b376456295a1acaac773d2f6f43",
+    "pre_check_tree_digest": "sha256:26ec9b381129c6bab81165a67a5c25a5316f28ace47f7320d49f074c891e2d91",
+    "approved_tracked_tree_digest": "sha256:0ed5962d4784d8dee04f761382869b78c690e552bb985e624f263256dfc6b052",
+    "post_check_tree_digest": "sha256:26ec9b381129c6bab81165a67a5c25a5316f28ace47f7320d49f074c891e2d91",
+    "check_tree_changed": false,
+    "patch_sha256": "sha256:ddb51482eeef45b4f033021e60d53824df644555de4ac480015688815dd35be9",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "node node_modules/mocha/bin/mocha.js --require ./tests/bootstrap.js tests/unit/models/addon-test.js --fgrep 'does not require a JavaScript preprocessor for an addon tree containing only .gitkeep files'",
+      "exit_code": 0,
+      "duration_ms": 3977
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 142249,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 3977,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

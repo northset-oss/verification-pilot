@@ -1,0 +1,62 @@
+{
+  "version": "0",
+  "created_at": "2026-07-16T22:32:31.628Z",
+  "files": [
+    {
+      "path": "base_commit.txt",
+      "sha256": "5ed50c35a06909ca9806bc20e395cd7fa21433e8300840ecfe4bd41a4eeb8cf7",
+      "bytes": 40
+    },
+    {
+      "path": "claims_tier.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "commands.json",
+      "sha256": "461fcdc41460a9773a0cdc21818f8b08845622a21b9cd9b033a75388bc31ceb0",
+      "bytes": 79
+    },
+    {
+      "path": "economic.json",
+      "sha256": "7bfba4dc977862e7f983c8835e9e5435d8056272c756cb039ddb729fb3dcf8ff",
+      "bytes": 5010
+    },
+    {
+      "path": "issue_snapshot.json",
+      "sha256": "ecffb779e45bd9ef2905a4ecf78a1b99a962f802544c15e80b97cf268587d726",
+      "bytes": 571164
+    },
+    {
+      "path": "maintainer_outcome.json",
+      "sha256": "5b9fc140d604f8dfd264d0afea07fe8186656ce5c7b63cbdd0d7628c77e3bf53",
+      "bytes": 64
+    },
+    {
+      "path": "mission.json",
+      "sha256": "edfbff754edfa099bb3828a85cda7826c5213e5774730920392d8785e921db1b",
+      "bytes": 1873
+    },
+    {
+      "path": "patch.diff",
+      "sha256": "c94ba3d9a8d05706f251446af82c90bf1ec3c46b18a16a7fe88c70797b460b05",
+      "bytes": 1130
+    },
+    {
+      "path": "run_record.json",
+      "sha256": "0ab379b5f475cf4aa0fa578de51352b59ebff6aedd48f5240182fe594ca4c2e9",
+      "bytes": 1623
+    },
+    {
+      "path": "stderr_redacted.txt",
+      "sha256": "984690522d3ecb136f16bbe2d4904e39105b11890403e81518e08f05d736c49f",
+      "bytes": 64
+    },
+    {
+      "path": "stdout_redacted.txt",
+      "sha256": "f36b76679e5d2ee16ef28bbbb5458337a2ec38f9f8dfb0263a99c24209010e3b",
+      "bytes": 212
+    }
+  ],
+  "bundle_digest": "sha256:4336cf789521039384d0a61c7ad4b6a3b8c644aa503a3d564a40ae5eace87f5a"
+}

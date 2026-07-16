@@ -1,0 +1,289 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-07-16T22:34:15.511Z",
+  "receipt_id": "M-161",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-16T21:56:45.497Z",
+    "finished_at": "2026-07-16T22:04:18.578Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm --prefix apps/frontend test -- --runInBand --runTestsByPath 'app/(protected)/note/[id]/page.test.tsx' --moduleNameMapper '{\"^react$\":\"<rootDir>/node_modules/react\",\"^react-dom$\":\"<rootDir>/node_modules/react-dom\",\"^@/(.*)$\":\"<rootDir>/$1\"}'",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 10577
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "7682cf39969b1cee4914ff1ed6b8cfd4489f1d7c",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "code": {
+    "base_commit": "7682cf39969b1cee4914ff1ed6b8cfd4489f1d7c",
+    "recorded_patch_commit": "8cf5d7102c774242e69da2a06493f0b00899e464",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:b5f36fabd914b65751e92ba8890d758aef05c5321ac5ef44f0e594154b0f12e4",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:d0d9dfc467c2718a53a961c2b686d639503b7ca63f3615b8895fb126196e0634",
+    "signed_asset_sha256": null,
+    "attestation_uri": null,
+    "attestation_verified_at": null,
+    "provenance": "Signed provenance has not been verified."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-161/",
+    "target_repo": "https://github.com/ahmed-175/notion-clone-nestjs",
+    "issue_or_task": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25",
+    "publication_pr": null
+  },
+  "issue_title": "[Bug] Tab label changes incorrectly when switching tabs",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ],
+  "correction": null,
+  "scope_note": null,
+  "upstream_outcome": {
+    "status": "prepared",
+    "link": null,
+    "attribution": "Recorded upstream outcome"
+  },
+  "economic_identity": {
+    "scope": "end_to_end_task",
+    "task": {
+      "task_id": "TASK-OSS-2B17CFAA63BE9CF5",
+      "attempt_id": "M-161",
+      "attempt_sequence": 4,
+      "work_category": "defect_fix",
+      "external_demand": {
+        "source": "public_github_issue",
+        "issue_url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25",
+        "acceptance_contract_digest": "sha256:a204ea3c58ae5626073300925bd1a2604f4553919da582dad7f2bcb10e7ef367",
+        "invitation_type": "label",
+        "invitation_url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25"
+      }
+    },
+    "funding": {
+      "program": "Northset OSS Fund",
+      "initiative": "OSS mission experimentation",
+      "budget_id": null,
+      "financial_cap": null,
+      "currency": null
+    },
+    "external_transfers": {
+      "maintainer_payment": "none",
+      "merge_contingent": false
+    },
+    "authorization": {
+      "approved_manifest_digest": "sha256:02ac19c59436efba6518eb51b2383bb9cf1406ecd91df5dc7bedf7069467a54d",
+      "approved_by": "internal-user:aeziz",
+      "approved_at": "2026-07-16T22:34:04.736Z",
+      "operational_caps": {
+        "finder_wall_seconds": 1200,
+        "qualification_wall_seconds": 300,
+        "prepare_wall_seconds": 3600,
+        "ship_wall_seconds": 3600,
+        "maximum_attempts": null
+      }
+    },
+    "attempt_lineage": {
+      "attempts_total": 4,
+      "successful_attempt_id": "M-161",
+      "attempts": [
+        {
+          "attempt_id": "M-124",
+          "attempt_sequence": 1,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-134",
+          "attempt_sequence": 2,
+          "state": "FAILED_INFRA_TERMINAL",
+          "terminal_reason_class": "infrastructure"
+        },
+        {
+          "attempt_id": "M-146",
+          "attempt_sequence": 3,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-161",
+          "attempt_sequence": 4,
+          "state": "READY",
+          "terminal_reason_class": null
+        }
+      ]
+    },
+    "usage": {
+      "discovery": {
+        "finder_run_id": null,
+        "candidate_rank": 2,
+        "elapsed_ms": null
+      },
+      "qualification": {
+        "review_id": "sha256:c5d98367f89545fcd7ddf47693c5be1fb3abd694908839e9680ebbf55e3de2cb",
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 186324,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "authoring": {
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 247443,
+        "bootstrap_duration_ms": 232392,
+        "bootstrap_retry_count": 0,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "preparation": {
+        "total_duration_ms": 824675,
+        "stages": [
+          {
+            "stage": "prepare_recheck",
+            "duration_ms": 2688
+          },
+          {
+            "stage": "executor_image",
+            "duration_ms": 45
+          },
+          {
+            "stage": "clone",
+            "duration_ms": 654
+          },
+          {
+            "stage": "author",
+            "duration_ms": 631387
+          },
+          {
+            "stage": "canonical_commit",
+            "duration_ms": 889
+          },
+          {
+            "stage": "differential_oracle",
+            "duration_ms": 189012
+          }
+        ]
+      },
+      "verification": {
+        "executor_elapsed_ms": 453081,
+        "networked_setup_elapsed_ms": 308003,
+        "dependency_install_ms": null,
+        "declared_commands_ms": 10577,
+        "unclassified_executor_ms": 134501,
+        "cpu_ms": null,
+        "peak_rss_bytes": null,
+        "measurement_status": "partial"
+      },
+      "resource_envelope": {
+        "cpus": 2,
+        "memory_mb": 4096,
+        "pids": 512,
+        "wall_clock_seconds_per_command": 1800,
+        "output_bytes_per_stream": 2000000
+      }
+    },
+    "work_scope": {
+      "files_changed": 2,
+      "changed_lines": 63,
+      "production_files": 1,
+      "test_files": 1,
+      "checks_declared": 1,
+      "checks_not_run": [
+        "Full frontend Jest suite",
+        "Backend tests and full monorepo build"
+      ]
+    },
+    "costs": {
+      "status": "partial",
+      "currency": null,
+      "lines": [
+        {
+          "component": "maintainer_payment",
+          "measurement_class": "observed_quantity_unpriced",
+          "quantity": "0",
+          "unit": "external_transfer",
+          "unit_rate": null,
+          "amount": null,
+          "currency": null,
+          "source_refs": [
+            {
+              "artifact": "bundle/mission.json",
+              "artifact_sha256": "sha256:cc5a14aa48b0cf27700d2701366894a49bfda128fbd9ee60db26497b8fee3e99",
+              "json_pointer": "/payment/maintainer_payment"
+            }
+          ],
+          "rate_card_digest": null,
+          "allocation_method": null,
+          "finality": "final",
+          "visibility": "public"
+        }
+      ],
+      "known_direct_cost": null,
+      "allocated_shared_cost": null,
+      "human_standard_cost": null,
+      "total_economic_cost": null,
+      "missing_components": [
+        "model_inference",
+        "actual_host_compute",
+        "human_review",
+        "shared_tooling"
+      ]
+    },
+    "outcome": {
+      "technical_checks_passed": true,
+      "pr_opened": false,
+      "ci_state": null,
+      "merged": false,
+      "accepted_as_submitted": null,
+      "time_to_close_ms": null,
+      "released": null,
+      "deployed": null,
+      "business_result_observed": null
+    },
+    "completeness": {
+      "task_identity": "complete",
+      "technical_execution": "complete",
+      "attempt_lineage": "complete",
+      "usage": "partial",
+      "cost": "unpriced",
+      "external_outcome": "partial",
+      "business_value": "not_observed"
+    },
+    "provenance": {
+      "spec_sha256": "sha256:8550d89fd5ec723059322effa3a46fcf1b418ab086d297328a8f168bc417cf0d",
+      "qualification_evidence_sha256": "sha256:730a51684329c889478bbc6b5c85ff35cf9098518d8d793ff42af90b01ba6d24",
+      "issue_snapshot_sha256": "sha256:5083fbfcb2f9ee5fe5be1273bc3cd66995b948dea0c16bf1ee5fe2b498001b00"
+    }
+  }
+}

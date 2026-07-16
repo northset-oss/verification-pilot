@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "task": {
+    "task_id": "TASK-OSS-36EE216D3C896C5D",
+    "attempt_id": "M-170",
+    "attempt_sequence": 2,
+    "work_category": "defect_fix",
+    "external_demand": {
+      "source": "public_github_issue",
+      "issue_url": "https://github.com/andrewgari/starbunk-js/issues/604",
+      "acceptance_contract_digest": "sha256:a67c21afec8108a75454a983cf34ab4a3c83d5295de948a90709ec02ba9d63f9",
+      "invitation_type": "label",
+      "invitation_url": "https://github.com/andrewgari/starbunk-js/issues/604"
+    }
+  },
+  "funding": {
+    "program": "Northset OSS Fund",
+    "initiative": "OSS mission experimentation",
+    "budget_id": null,
+    "financial_cap": null,
+    "currency": null
+  },
+  "attempt_lineage": {
+    "attempts_total": 2,
+    "successful_attempt_id": "M-170",
+    "attempts": [
+      {
+        "attempt_id": "M-162",
+        "attempt_sequence": 1,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-170",
+        "attempt_sequence": 2,
+        "state": "READY",
+        "terminal_reason_class": null
+      }
+    ]
+  },
+  "usage": {
+    "discovery": {
+      "finder_run_id": null,
+      "candidate_rank": null,
+      "elapsed_ms": null
+    },
+    "qualification": {
+      "review_id": "sha256:2a2217e829254047be12a40b0d7d2e0b5c13e57c0e874573be375b2035f50a1e",
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 178576,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "authoring": {
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 87919,
+      "bootstrap_duration_ms": 153262,
+      "bootstrap_retry_count": 0,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "preparation": {
+      "total_duration_ms": 341611,
+      "stages": [
+        {
+          "stage": "prepare_recheck",
+          "duration_ms": 6257
+        },
+        {
+          "stage": "executor_image",
+          "duration_ms": 34
+        },
+        {
+          "stage": "clone",
+          "duration_ms": 630
+        },
+        {
+          "stage": "author",
+          "duration_ms": 282577
+        },
+        {
+          "stage": "canonical_commit",
+          "duration_ms": 605
+        },
+        {
+          "stage": "differential_oracle",
+          "duration_ms": 51508
+        }
+      ]
+    },
+    "verification": {
+      "executor_elapsed_ms": 204817,
+      "networked_setup_elapsed_ms": 132808,
+      "dependency_install_ms": null,
+      "declared_commands_ms": 4618,
+      "unclassified_executor_ms": 67391,
+      "cpu_ms": null,
+      "peak_rss_bytes": null,
+      "measurement_status": "partial"
+    },
+    "resource_envelope": {
+      "cpus": 2,
+      "memory_mb": 4096,
+      "pids": 512,
+      "wall_clock_seconds_per_command": 1800,
+      "output_bytes_per_stream": 2000000
+    }
+  },
+  "work_scope": {
+    "files_changed": 3,
+    "changed_lines": 22,
+    "production_files": 1,
+    "test_files": 1,
+    "checks_declared": 1,
+    "checks_not_run": [
+      "Full repository check:ci suite",
+      "Repository wiki update",
+      "Manual Discord interaction validation"
+    ]
+  },
+  "costs": {
+    "status": "partial",
+    "currency": null,
+    "lines": [
+      {
+        "component": "maintainer_payment",
+        "measurement_class": "observed_quantity_unpriced",
+        "quantity": "0",
+        "unit": "external_transfer",
+        "unit_rate": null,
+        "amount": null,
+        "currency": null,
+        "source_refs": [
+          {
+            "artifact": "bundle/mission.json",
+            "artifact_sha256": "sha256:85fb1e009d660389a3f74b953dac2333ba5bb520f23c754ebb4c5cd21d18de77",
+            "json_pointer": "/payment/maintainer_payment"
+          }
+        ],
+        "rate_card_digest": null,
+        "allocation_method": null,
+        "finality": "final",
+        "visibility": "public"
+      }
+    ],
+    "known_direct_cost": null,
+    "allocated_shared_cost": null,
+    "human_standard_cost": null,
+    "total_economic_cost": null,
+    "missing_components": [
+      "model_inference",
+      "actual_host_compute",
+      "human_review",
+      "shared_tooling"
+    ]
+  },
+  "completeness": {
+    "task_identity": "complete",
+    "technical_execution": "complete",
+    "attempt_lineage": "complete",
+    "usage": "partial",
+    "cost": "unpriced",
+    "external_outcome": "partial",
+    "business_value": "not_observed"
+  },
+  "provenance": {
+    "spec_sha256": "sha256:cdb4b66797d5ce02f728045e4256a427fdce5395bdd972a79b0b415f992e94d6",
+    "qualification_evidence_sha256": "sha256:3f64012693db7e5ed5d16509acdbf3ac0e4fc919f843a6eaa94c79d67b1317e6",
+    "issue_snapshot_sha256": "sha256:516a7a125bcc64f45a4f1d2d91bd27358ae10381b3c8b0b1d12c645ae22a8174"
+  }
+}

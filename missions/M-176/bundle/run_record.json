@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T22:32:31.633Z",
+  "finished_at": "2026-07-16T22:32:44.944Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "64182013ac77df26d96dce3ba49a008015a9a600",
+    "base_tree_digest": "sha256:1770f65f075c0d1738cb69ce878ae193857f6ad93cbff9b7355e090b1aac7eef",
+    "pre_check_tree_digest": "sha256:83d6b8fdbae30b6a3b38d44d65e2dcabb694378e19f64f9f7acd3583048bc280",
+    "approved_tracked_tree_digest": "sha256:b86f62b081cc8a61f488141666101e98a56e72cd8608a9f466ab1aed66317989",
+    "post_check_tree_digest": "sha256:8e7cdb2f7ec3651a4c7702242f9afb6e8f29e83a879f44ffd7a28359ad67f440",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:c94ba3d9a8d05706f251446af82c90bf1ec3c46b18a16a7fe88c70797b460b05",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "./node_modules/.bin/ava test/constructor.test.js",
+      "exit_code": 0,
+      "duration_ms": 1388
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 7946,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 1388,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

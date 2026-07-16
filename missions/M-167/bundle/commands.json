@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "ln -s \"$PWD/node_modules\" /tmp/node_modules && cp vitest.config.ts /tmp/vitest.config.ts && npm test -- --config /tmp/vitest.config.ts --root \"$PWD\" --no-cache tests/loader.test.ts"
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "task": {
+    "task_id": "TASK-OSS-3E5A90F9877F15B8",
+    "attempt_id": "M-150",
+    "attempt_sequence": 3,
+    "work_category": "defect_fix",
+    "external_demand": {
+      "source": "public_github_issue",
+      "issue_url": "https://github.com/davidtkramer/typical-data/issues/35",
+      "acceptance_contract_digest": "sha256:29ed6ece874a694aab722fae8e021dd348cbca94c78411a2292b30ce8ec54d7d",
+      "invitation_type": "label",
+      "invitation_url": "https://github.com/davidtkramer/typical-data/issues/35"
+    }
+  },
+  "funding": {
+    "program": "Northset OSS Fund",
+    "initiative": "OSS mission experimentation",
+    "budget_id": null,
+    "financial_cap": null,
+    "currency": null
+  },
+  "attempt_lineage": {
+    "attempts_total": 3,
+    "successful_attempt_id": "M-150",
+    "attempts": [
+      {
+        "attempt_id": "M-128",
+        "attempt_sequence": 1,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-138",
+        "attempt_sequence": 2,
+        "state": "FAILED_INFRA_TERMINAL",
+        "terminal_reason_class": "infrastructure"
+      },
+      {
+        "attempt_id": "M-150",
+        "attempt_sequence": 3,
+        "state": "READY",
+        "terminal_reason_class": null
+      }
+    ]
+  },
+  "usage": {
+    "discovery": {
+      "finder_run_id": null,
+      "candidate_rank": null,
+      "elapsed_ms": null
+    },
+    "qualification": {
+      "review_id": "sha256:df063d6cde81017e5d7db2414ebd38ea4c2aad31b2c64f3eac4ca908dfccc2f8",
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 99204,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "authoring": {
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 111578,
+      "bootstrap_duration_ms": 139898,
+      "bootstrap_retry_count": 0,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "preparation": {
+      "total_duration_ms": 316305,
+      "stages": [
+        {
+          "stage": "prepare_recheck",
+          "duration_ms": 2656
+        },
+        {
+          "stage": "executor_image",
+          "duration_ms": 16
+        },
+        {
+          "stage": "clone",
+          "duration_ms": 543
+        },
+        {
+          "stage": "author",
+          "duration_ms": 281833
+        },
+        {
+          "stage": "canonical_commit",
+          "duration_ms": 378
+        },
+        {
+          "stage": "differential_oracle",
+          "duration_ms": 30879
+        }
+      ]
+    },
+    "verification": {
+      "executor_elapsed_ms": 104545,
+      "networked_setup_elapsed_ms": 78745,
+      "dependency_install_ms": null,
+      "declared_commands_ms": 9265,
+      "unclassified_executor_ms": 16535,
+      "cpu_ms": null,
+      "peak_rss_bytes": null,
+      "measurement_status": "partial"
+    },
+    "resource_envelope": {
+      "cpus": 2,
+      "memory_mb": 4096,
+      "pids": 512,
+      "wall_clock_seconds_per_command": 1800,
+      "output_bytes_per_stream": 2000000
+    }
+  },
+  "work_scope": {
+    "files_changed": 2,
+    "changed_lines": 31,
+    "production_files": 1,
+    "test_files": 1,
+    "checks_declared": 1,
+    "checks_not_run": [
+      "Full Vitest suite and package build"
+    ]
+  },
+  "costs": {
+    "status": "partial",
+    "currency": null,
+    "lines": [
+      {
+        "component": "maintainer_payment",
+        "measurement_class": "observed_quantity_unpriced",
+        "quantity": "0",
+        "unit": "external_transfer",
+        "unit_rate": null,
+        "amount": null,
+        "currency": null,
+        "source_refs": [
+          {
+            "artifact": "bundle/mission.json",
+            "artifact_sha256": "sha256:bcf54a2199a55618a161c1639088beeb66b5be18959441e72d0aeb1d5583a385",
+            "json_pointer": "/payment/maintainer_payment"
+          }
+        ],
+        "rate_card_digest": null,
+        "allocation_method": null,
+        "finality": "final",
+        "visibility": "public"
+      }
+    ],
+    "known_direct_cost": null,
+    "allocated_shared_cost": null,
+    "human_standard_cost": null,
+    "total_economic_cost": null,
+    "missing_components": [
+      "model_inference",
+      "actual_host_compute",
+      "human_review",
+      "shared_tooling"
+    ]
+  },
+  "completeness": {
+    "task_identity": "complete",
+    "technical_execution": "complete",
+    "attempt_lineage": "complete",
+    "usage": "partial",
+    "cost": "unpriced",
+    "external_outcome": "partial",
+    "business_value": "not_observed"
+  },
+  "provenance": {
+    "spec_sha256": "sha256:8569621c5f97dcca1b534316d8a0a4ac1205eab3d153bc4ed05f8711612639f4",
+    "qualification_evidence_sha256": "sha256:3b47dfc2ab76f772dbc7ecda85674a7e3f33c6dbfbbff5f616a701fdb78ecb1c",
+    "issue_snapshot_sha256": "sha256:5cf0c1ff36d6cc3235b2c34a605f20ab153284da59a2a659e31a5dfc0e703027"
+  }
+}

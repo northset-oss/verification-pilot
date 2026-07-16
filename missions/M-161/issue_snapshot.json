@@ -1,0 +1,196 @@
+{
+  "fetched_at": "2026-07-16T21:43:02Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "OWNER",
+    "body": "Steps to Reproduce:\n\n1. Open the Notes tab.\n2. Switch to another tab.\n3. Observe the label of the previously opened tab.\n\nExpected Behavior:\nThe previous tab should keep its original label.\n\nActual Behavior:\nThe label of the previous tab changes to match the currently selected tab.\n",
+    "created_at": "2026-06-24T06:33:48Z",
+    "html_url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25",
+    "labels": [
+      "bug",
+      "enhancement",
+      "good first issue"
+    ],
+    "number": 25,
+    "state": "open",
+    "title": "[Bug] Tab label changes incorrectly when switching tabs",
+    "updated_at": "2026-06-24T06:33:48Z",
+    "user": "Ahmed-175"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "main",
+    "fork": false,
+    "html_url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs"
+  },
+  "default_branch_head": "7682cf39969b1cee4914ff1ed6b8cfd4489f1d7c",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "- Move pnpm/action-setup before setup-node so node cache can detect pnpm\r\n- Replace fragile sleep 10 with proper Docker health checks for MongoDB and Redis\r\n- Add --forceExit to backend tests to prevent hanging open connections\r\n- Add --passWithNoTests to frontend tests to avoid failure with no test files\r\n- Add shamefully-hoist=true and strict-peer-dependencies=false to .npmrc for NestJS monorepo compatibility\r\n- Remove ui:tui from turbo.json (crashes in non-interactive CI terminals)\r\n- Add test task to turbo.json with cache disabled (tests use live services)",
+      "closedAt": "2026-06-26T12:32:23Z",
+      "createdAt": "2026-06-26T12:32:12Z",
+      "headRefName": "fix/ci-pipeline-and-pnpm",
+      "mergedAt": "2026-06-26T12:32:23Z",
+      "number": 30,
+      "state": "MERGED",
+      "title": "fix(ci): fix pnpm setup order, service health checks, and turbo config",
+      "updatedAt": "2026-06-26T12:32:23Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/30"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "",
+      "closedAt": "2026-06-26T09:20:49Z",
+      "createdAt": "2026-06-26T09:20:35Z",
+      "headRefName": "feat/note",
+      "mergedAt": "2026-06-26T09:20:49Z",
+      "number": 29,
+      "state": "MERGED",
+      "title": "[testing] : updates in users.service.spec",
+      "updatedAt": "2026-06-26T09:20:49Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/29"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "…testing",
+      "closedAt": "2026-06-25T20:48:24Z",
+      "createdAt": "2026-06-25T20:48:15Z",
+      "headRefName": "feat/note",
+      "mergedAt": "2026-06-25T20:48:24Z",
+      "number": 28,
+      "state": "MERGED",
+      "title": "[testing] make in very module folder called test contiune unit , 2e2 …",
+      "updatedAt": "2026-06-25T20:48:25Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/28"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "",
+      "closedAt": "2026-06-25T20:15:01Z",
+      "createdAt": "2026-06-25T19:33:13Z",
+      "headRefName": "feat/note",
+      "mergedAt": "2026-06-25T20:15:01Z",
+      "number": 27,
+      "state": "MERGED",
+      "title": "Feat/note",
+      "updatedAt": "2026-06-25T20:15:02Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/27"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "",
+      "closedAt": "2026-06-17T11:38:49Z",
+      "createdAt": "2026-06-17T11:38:39Z",
+      "headRefName": "feat/note",
+      "mergedAt": "2026-06-17T11:38:49Z",
+      "number": 24,
+      "state": "MERGED",
+      "title": "refactor(menu): separate menu feature into its own module",
+      "updatedAt": "2026-06-17T11:38:49Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/24"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "…d to get the current noteId",
+      "closedAt": "2026-06-12T12:22:46Z",
+      "createdAt": "2026-06-12T12:22:37Z",
+      "headRefName": "feature/note-stragety",
+      "mergedAt": "2026-06-12T12:22:46Z",
+      "number": 23,
+      "state": "MERGED",
+      "title": "feat(workspace) : add state into the context of workspace ^GctiveNoteI…",
+      "updatedAt": "2026-06-16T08:33:50Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/23"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCIlSgg",
+        "is_bot": false,
+        "login": "Ahmed-175",
+        "name": "Ahmed Farag"
+      },
+      "body": "",
+      "closedAt": "2026-06-11T18:09:55Z",
+      "createdAt": "2026-06-11T18:09:42Z",
+      "headRefName": "feature/note-stragety",
+      "mergedAt": "2026-06-11T18:09:55Z",
+      "number": 21,
+      "state": "MERGED",
+      "title": "Feature/note stragety",
+      "updatedAt": "2026-06-11T18:09:55Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/21"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjMxMzI0Nzkx",
+        "is_bot": false,
+        "login": "iamayushtiwari",
+        "name": "Ayush Tiwari"
+      },
+      "body": "## Description\r\nCompleted the missing CRUD operations, soft delete, and favorite toggle functionalities inside the `Nodes` module as requested. \r\n\r\n### Changes Made:\r\n- **Controller Fix:** Resolved a recursive stack overflow bug in the `@Delete(':id')` endpoint by correctly routing it to call the service's `sortDelete` method instead of self-invoking.\r\n- **Toggle Favorite Functionality:** Implemented a new `@Patch(':id/favorite')` endpoint in the controller and added corresponding logic in `NodesService.handlefavorite()` to dynamically toggle the favorite status of a node document in Mongoose.\r\n\r\n## Verification & Testing\r\n- Verified compilation and server start via `npm run start:dev`.\r\n- Created and tested a complete Postman collection verifying that all updated endpoints work correctly with JWT authentication middleware.\r\n\r\nCloses #11",
+      "closedAt": "2026-06-07T11:45:25Z",
+      "createdAt": "2026-06-07T10:42:17Z",
+      "headRefName": "feature/nodes-crud-endpoints",
+      "mergedAt": "2026-06-07T11:45:25Z",
+      "number": 15,
+      "state": "MERGED",
+      "title": "Feature/nodes crud endpoints",
+      "updatedAt": "2026-06-07T13:19:13Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/15"
+    },
+    {
+      "author": {
+        "id": "U_kgDOC1JjsQ",
+        "is_bot": false,
+        "login": "gilangabdian",
+        "name": "Gilang Abdian Anggara"
+      },
+      "body": "- Add custom Modal component for UI consistency\r\n- Prompt user for node title upon creation (note/folder)\r\n- Enable renaming nodes directly from sidebar and main view context menus\r\n- Implement PUT /nodes/:id endpoint in backend for title updates\r\nCloses #4",
+      "closedAt": "2026-05-30T19:07:30Z",
+      "createdAt": "2026-05-30T17:44:52Z",
+      "headRefName": "feature/naming-the-node",
+      "mergedAt": "2026-05-30T19:07:30Z",
+      "number": 8,
+      "state": "MERGED",
+      "title": "feat: implement node naming and renaming via custom modal (#4)",
+      "updatedAt": "2026-05-30T19:11:02Z",
+      "url": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/8"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-171",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "meilisearch maintainers",
+  "target_repo": "https://github.com/meilisearch/meilisearch-js-plugins",
+  "issue_or_task": "https://github.com/meilisearch/meilisearch-js-plugins/issues/1365",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/meilisearch/meilisearch-js-plugins/blob/ea68e406775b5b2378678c78fc614fd9e486a3ef/CONTRIBUTING.md",
+    "checked_at": "2026-07-16T21:48:12.686Z",
+    "ai_policy_summary": "The repository permits disclosed AI assistance and requires pnpm, focused validation, and a changeset for package behavior changes."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "ea68e406775b5b2378678c78fc614fd9e486a3ef",
+  "patch_commit": "92e0d82d5bea6a93d8947ff63ee7ea4652591ec5",
+  "patch_diff_hash": "sha256:dc2fbcaf48dbff7060e616710d128ce9fdccba3afbe1a9138f0751a28a8edbd8",
+  "commands_declared": [
+    "npm test -- --configLoader runner --no-cache packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ]
+}

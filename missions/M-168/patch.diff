@@ -1,0 +1,72 @@
+diff --git a/lib/models/addon.js b/lib/models/addon.js
+index 58f3fb054b958afac2370737482d1e567a4ea6ae..fc8e15d51942b654ac59ae6da17d54bfa4c21afe 100644
+--- a/lib/models/addon.js
++++ b/lib/models/addon.js
+@@ -1240,6 +1240,24 @@ let addonProto = {
+     @return {Tree} Processed javascript file tree
+   */
+   processedAddonJsFiles(inputTree) {
++    let files = this._getAddonTreeFiles();
++    let addonTreePath = this._treePathFor('addon');
++    let addonTemplatesTreePath = this._treePathFor('addon-templates');
++    let addonTemplatesTreeInAddonTree =
++      addonTemplatesTreePath === addonTreePath || addonTemplatesTreePath.indexOf(`${addonTreePath}/`) === 0;
++
++    if (!addonTemplatesTreeInAddonTree) {
++      files = files.concat(this._getAddonTemplatesTreeFiles());
++    }
++
++    let addonFiles = files.filter((file) => !file.endsWith('/'));
++    let containsOnlyGitkeepFiles =
++      addonFiles.length > 0 && addonFiles.every((file) => path.basename(file) === '.gitkeep');
++
++    if (containsOnlyGitkeepFiles) {
++      return inputTree;
++    }
++
+     let preprocessedAddonJS = this._addonPreprocessTree('js', inputTree);
+ 
+     let processedAddonJS = this.preprocessJs(preprocessedAddonJS, '/', this.name, {
+diff --git a/tests/unit/models/addon-test.js b/tests/unit/models/addon-test.js
+index e4ee3eccfe82e588924e66469e17021454e48412..2cf41496baad54cea721b27e7e72fbdac65a9080 100644
+--- a/tests/unit/models/addon-test.js
++++ b/tests/unit/models/addon-test.js
+@@ -555,6 +555,38 @@ describe('models/addon.js', function () {
+     });
+   });
+ 
++  describe('compileAddon', function () {
++    beforeEach(function () {
++      projectPath = path.resolve(fixturePath, 'simple');
++      const packageContents = require(path.join(projectPath, 'package.json'));
++      let cli = new MockCLI();
++
++      project = new Project(projectPath, packageContents, cli.ui, cli);
++
++      project.initializeAddons();
++
++      addon = project.addons.find((addon) => addon.name === 'ember-generated-with-export-addon');
++    });
++
++    it('does not require a JavaScript preprocessor for an addon tree containing only .gitkeep files', async function () {
++      const { path: addonRoot } = await tmp.dir({ unsafeCleanup: true });
++      let addonPath = path.join(addonRoot, 'addon');
++
++      fs.outputFileSync(path.join(addonPath, '.gitkeep'), '');
++      fs.outputFileSync(path.join(addonPath, 'templates', '.gitkeep'), '');
++
++      addon.root = addonRoot;
++      let addonTree = addon.treeGenerator(addonPath);
++
++      expect(() => addon.treeForAddon(addonTree)).not.to.throw();
++
++      fs.outputFileSync(path.join(addonPath, 'index.js'), '');
++      delete addon._cachedFileSystemInfo;
++
++      expect(() => addon.treeForAddon(addonTree)).to.throw(/no JavaScript preprocessor/);
++    });
++  });
++
+   describe('_fileSystemInfo', function () {
+     beforeEach(function () {
+       projectPath = path.resolve(fixturePath, 'simple');

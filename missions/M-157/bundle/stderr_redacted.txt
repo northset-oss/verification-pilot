@@ -1,0 +1,61 @@
+=== cmd 1: npm test -- tests/plugins/manager.test.ts ===
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mloads enabled valid plugins, skips invalid and disabled ones
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mloads enabled valid plugins, skips invalid and disabled ones
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mloads enabled valid plugins, skips invalid and disabled ones
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mregisters plugin tools into the tool registry and they execute
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mregisters plugin tools into the tool registry and they execute
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mregisters plugin tools into the tool registry and they execute
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mruns beforePrompt and afterResponse hook chains
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mruns beforePrompt and afterResponse hook chains
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mruns beforePrompt and afterResponse hook chains
+[22m[39m[33m[21:41:29] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2mruns beforePrompt and afterResponse hook chains
+[22m[39m[33m[21:41:31] [WARN ] [plugins][0m slow-hook.beforePrompt failed: timed out after 2000ms
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2ma timing-out hook falls back to the previous value and bumps failures
+[22m[39m[33m[21:41:31] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2ma timing-out hook falls back to the previous value and bumps failures
+[22m[39m[33m[21:41:31] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2ma timing-out hook falls back to the previous value and bumps failures
+[22m[39m[33m[21:41:31] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2ma timing-out hook falls back to the previous value and bumps failures
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m slow-hook.beforePrompt failed: timed out after 2000ms
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2munload removes tools; reload restores them
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2munload removes tools; reload restores them
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2munload removes tools; reload restores them
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2msetEnabled(false) persists to plugin.json
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m rejected broken-manifest: invalid name (kebab-case required): BAD NAME!!
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2msetEnabled(false) persists to plugin.json
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m throws-on-init.initialize failed: boom
+
+[90mstderr[2m | tests/plugins/manager.test.ts[2m > [22m[2mPluginManager[2m > [22m[2msetEnabled(false) persists to plugin.json
+[22m[39m[33m[21:41:33] [WARN ] [plugins][0m ⚠ Plugin throws-on-init failed: initialize: boom
+

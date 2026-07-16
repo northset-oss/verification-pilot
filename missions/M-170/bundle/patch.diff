@@ -1,0 +1,56 @@
+diff --git a/.changeset/fix-djcova-stop-error.md b/.changeset/fix-djcova-stop-error.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c28cfda86a632dae7104cb3cc027f4d2acec03f
+--- /dev/null
++++ b/.changeset/fix-djcova-stop-error.md
+@@ -0,0 +1,5 @@
++---
++"@starbunk/djcova": patch
++---
++
++Return stop command error messages to users while retaining a generic fallback for non-Error failures.
+diff --git a/src/djcova/src/commands/stop.ts b/src/djcova/src/commands/stop.ts
+index a8790d532590b3a07d6322a159eb81e69b560546..583408028249349caf336b52c098e494b49b4389 100644
+--- a/src/djcova/src/commands/stop.ts
++++ b/src/djcova/src/commands/stop.ts
+@@ -34,7 +34,10 @@ export default {
+       logger
+         .withError(error instanceof Error ? error : new Error(String(error)))
+         .error('Error executing stop command');
+-      await sendErrorResponse(interaction, 'An error occurred while stopping the music.');
++      const errorMessage =
++        error instanceof Error ? error.message : 'An error occurred while stopping the music.';
++
++      await sendErrorResponse(interaction, errorMessage);
+     }
+   },
+ };
+diff --git a/src/djcova/tests/music-commands.test.ts b/src/djcova/tests/music-commands.test.ts
+index f824373fbc24bfc7d9f0783ce2a6f127112b8488..2ecb69d4576346a28e34160b0a269bd6d019d68e 100644
+--- a/src/djcova/tests/music-commands.test.ts
++++ b/src/djcova/tests/music-commands.test.ts
+@@ -204,13 +204,23 @@ describe('Music Commands Tests', () => {
+       );
+     });
+ 
+-    it('should handle service errors during stop', async () => {
++    it('returns the stop failure message to the user', async () => {
+       mockService.stop.mockImplementation(() => {
+         throw new Error('Stop failed');
+       });
+ 
+       await stopCommand.execute(mockInteraction as ChatInputCommandInteraction);
+ 
++      expect(mockedSendErrorResponse).toHaveBeenCalledWith(mockInteraction, 'Stop failed');
++    });
++
++    it('uses the generic stop failure message for non-Error throws', async () => {
++      mockService.stop.mockImplementation(() => {
++        throw 'Sensitive non-Error value';
++      });
++
++      await stopCommand.execute(mockInteraction as ChatInputCommandInteraction);
++
+       expect(mockedSendErrorResponse).toHaveBeenCalledWith(
+         mockInteraction,
+         'An error occurred while stopping the music.',
