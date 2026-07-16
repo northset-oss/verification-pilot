@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:34:15.511Z",
+  "generated_at": "2026-07-16T22:49:40.312Z",
   "receipt_id": "M-161",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:d0d9dfc467c2718a53a961c2b686d639503b7ca63f3615b8895fb126196e0634",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:f4ffc0fde0e11c5ba3ddc89c12d981a3220cc6b6b44b5a72ac198cd83f6acf34",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-161-d0d9dfc467c2/run-record-M-161-d0d9dfc467c2.tar.gz",
+    "attestation_verified_at": "2026-07-16T22:49:28.186Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-161/",
     "target_repo": "https://github.com/ahmed-175/notion-clone-nestjs",
     "issue_or_task": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25",
-    "publication_pr": null
+    "publication_pr": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/31"
   },
   "issue_title": "[Bug] Tab label changes incorrectly when switching tabs",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/31",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -262,8 +262,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

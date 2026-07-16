@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:34:15.511Z",
+  "generated_at": "2026-07-16T22:49:40.312Z",
   "receipt_id": "M-170",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:50b732ed85a295b042b3a1ac42d4a93aa4d29e0d5ff7b84fcdc26770515793e1",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:36d047dae3cfe12356a68d0398c7702d5ae38b6f4e694eb0ff108da5cab8fcf8",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-170-50b732ed85a2/run-record-M-170-50b732ed85a2.tar.gz",
+    "attestation_verified_at": "2026-07-16T22:49:26.091Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-170/",
     "target_repo": "https://github.com/andrewgari/starbunk-js",
     "issue_or_task": "https://github.com/andrewgari/starbunk-js/issues/604",
-    "publication_pr": null
+    "publication_pr": "https://github.com/andrewgari/starbunk-js/pull/729"
   },
   "issue_title": "DJCova /stop command lacks specific error context",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/andrewgari/starbunk-js/pull/729",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -251,8 +251,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
