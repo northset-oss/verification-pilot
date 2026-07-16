@@ -1,0 +1,32 @@
+=== cmd 1: npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts ===
+
+> krl-parser@1.5.0 test
+> ava reset-cache && ava test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts
+
+
+✔ No cache files to remove
+
+  ✔ postlude-declaration-errors › rejects declarations in rule postludes
+  ✔ postludeStatements › ClearPersistentVariable
+  ✔ postludeStatements › LastStatement
+  ✔ postludeStatements › LogStatement
+  ✔ postludeStatements › ErrorStatement
+  ✔ postludeStatements › raise event
+  ✔ postludeStatements › schedule event
+  ✔ postludeStatements › GuardCondition
+  ✔ postludeStatements › PersistentVariableAssignment
+  ✔ ruleset › ruleset
+  ✔ ruleset › rulesetID
+  ✔ ruleset › Ruleset meta
+  ✔ ruleset › with
+  ✔ ruleset › Rule
+  ✔ ruleset › select when
+  ✔ ruleset › select where ...
+  ✔ ruleset › select when ... within
+  ✔ ruleset › select when ... foreach ...
+  ✔ ruleset › ActionBlock
+  ✔ ruleset › Action setting
+  ✔ ruleset › RulePostlude
+  ─
+
+  21 tests passed

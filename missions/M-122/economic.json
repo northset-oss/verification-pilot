@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "task": {
+    "task_id": "TASK-OSS-1D84161CAE1E9EBC",
+    "attempt_id": "M-122",
+    "attempt_sequence": 4,
+    "work_category": "defect_fix",
+    "external_demand": {
+      "source": "public_github_issue",
+      "issue_url": "https://github.com/Picolab/pico-engine/issues/595",
+      "acceptance_contract_digest": "sha256:f62e4814033712a22b0b7e3669b120c406050880cac555850955877d85647709",
+      "invitation_type": "label",
+      "invitation_url": "https://github.com/Picolab/pico-engine/issues/595"
+    }
+  },
+  "funding": {
+    "program": "Northset OSS Fund",
+    "initiative": "OSS mission experimentation",
+    "budget_id": null,
+    "financial_cap": null,
+    "currency": null
+  },
+  "attempt_lineage": {
+    "attempts_total": 4,
+    "successful_attempt_id": "M-122",
+    "attempts": [
+      {
+        "attempt_id": "M-108",
+        "attempt_sequence": 1,
+        "state": "FAILED_ORACLE",
+        "terminal_reason_class": "verification"
+      },
+      {
+        "attempt_id": "M-113",
+        "attempt_sequence": 2,
+        "state": "FAILED_INFRA_TERMINAL",
+        "terminal_reason_class": "infrastructure"
+      },
+      {
+        "attempt_id": "M-117",
+        "attempt_sequence": 3,
+        "state": "FAILED_INFRA_TERMINAL",
+        "terminal_reason_class": "infrastructure"
+      },
+      {
+        "attempt_id": "M-122",
+        "attempt_sequence": 4,
+        "state": "READY",
+        "terminal_reason_class": null
+      }
+    ]
+  },
+  "usage": {
+    "discovery": {
+      "finder_run_id": null,
+      "candidate_rank": 4,
+      "elapsed_ms": null
+    },
+    "qualification": {
+      "review_id": "sha256:5b39a6aae8ce40d47f4365ebee92392a53a349c935425f2be926c158bfcd7629",
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 207363,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "authoring": {
+      "requested_model": "gpt-5.6-sol",
+      "actual_model": null,
+      "reasoning_effort": "xhigh",
+      "service_tier": "fast",
+      "duration_ms": 221294,
+      "bootstrap_duration_ms": 21859,
+      "bootstrap_retry_count": 0,
+      "model_requests": null,
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null
+    },
+    "preparation": {
+      "total_duration_ms": 263338,
+      "stages": [
+        {
+          "stage": "prepare_recheck",
+          "duration_ms": 3187
+        },
+        {
+          "stage": "executor_image",
+          "duration_ms": 34
+        },
+        {
+          "stage": "clone",
+          "duration_ms": 673
+        },
+        {
+          "stage": "author",
+          "duration_ms": 245655
+        },
+        {
+          "stage": "canonical_commit",
+          "duration_ms": 488
+        },
+        {
+          "stage": "differential_oracle",
+          "duration_ms": 13301
+        }
+      ]
+    },
+    "verification": {
+      "executor_elapsed_ms": 35930,
+      "networked_setup_elapsed_ms": 19764,
+      "dependency_install_ms": null,
+      "declared_commands_ms": 10121,
+      "unclassified_executor_ms": 6045,
+      "cpu_ms": null,
+      "peak_rss_bytes": null,
+      "measurement_status": "partial"
+    },
+    "resource_envelope": {
+      "cpus": 2,
+      "memory_mb": 4096,
+      "pids": 512,
+      "wall_clock_seconds_per_command": 1800,
+      "output_bytes_per_stream": 2000000
+    }
+  },
+  "work_scope": {
+    "files_changed": 4,
+    "changed_lines": 80,
+    "production_files": 1,
+    "test_files": 3,
+    "checks_declared": 1,
+    "checks_not_run": [
+      "Full krl-parser suite beyond the new regression and the two directly affected existing test files",
+      "Full pico-engine monorepo test suite",
+      "Generated parser specification comparison",
+      "Runtime integration outside krl-parser"
+    ]
+  },
+  "costs": {
+    "status": "partial",
+    "currency": null,
+    "lines": [
+      {
+        "component": "maintainer_payment",
+        "measurement_class": "observed_quantity_unpriced",
+        "quantity": "0",
+        "unit": "external_transfer",
+        "unit_rate": null,
+        "amount": null,
+        "currency": null,
+        "source_refs": [
+          {
+            "artifact": "bundle/mission.json",
+            "artifact_sha256": "sha256:b5ba779314048bbeb42fb5692e539cc4fd42c831489b8a7d44c3d448795624cc",
+            "json_pointer": "/payment/maintainer_payment"
+          }
+        ],
+        "rate_card_digest": null,
+        "allocation_method": null,
+        "finality": "final",
+        "visibility": "public"
+      }
+    ],
+    "known_direct_cost": null,
+    "allocated_shared_cost": null,
+    "human_standard_cost": null,
+    "total_economic_cost": null,
+    "missing_components": [
+      "model_inference",
+      "actual_host_compute",
+      "human_review",
+      "shared_tooling"
+    ]
+  },
+  "completeness": {
+    "task_identity": "complete",
+    "technical_execution": "complete",
+    "attempt_lineage": "complete",
+    "usage": "partial",
+    "cost": "unpriced",
+    "external_outcome": "partial",
+    "business_value": "not_observed"
+  },
+  "provenance": {
+    "spec_sha256": "sha256:dff97cdc3a1882978ea3a74134512e490379ec69c669a8838a099f582e053b4f",
+    "qualification_evidence_sha256": "sha256:3b96381750571f391c3f703fa65c5a504e0eaf594602ab799c657879637f8a2a",
+    "issue_snapshot_sha256": "sha256:471e2fc4fd15f7682600a5a9d7d440930bb8d40f84155b0d68f019cc0d4bc376"
+  }
+}

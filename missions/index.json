@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-16T19:25:17.953Z",
+  "generated_at": "2026-07-16T19:30:24.937Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -4104,6 +4104,1432 @@
           "status": "open",
           "link": "https://github.com/Dreamstick9/filedrop/pull/160",
           "attribution": "Live upstream pull request"
+        }
+      }
+    },
+    {
+      "mission_id": "M-114",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/node-fetch/node-fetch",
+      "issue_or_task": "https://github.com/node-fetch/node-fetch/issues/1509",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-114",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-114",
+        "canonical_path": "receipts/M-114/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-114/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/node-fetch/node-fetch",
+        "issue_or_task": "https://github.com/node-fetch/node-fetch/issues/1509",
+        "issue_title": "abort and correct the error message when `body.formData()` fails",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "8b3320d2a7c07bce4afc6b2bf6c3bbddda85b01f",
+          "recorded_patch_commit": "56531be33fda3097c6541a7b987fa7f525489987",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:4e0b253daa4007befcc64821ab107700155ba5cc08676b8132a74470676ee032",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-16T18:36:59.367Z",
+        "finished_at": "2026-07-16T18:39:32.236Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "8b3320d2a7c07bce4afc6b2bf6c3bbddda85b01f",
+          "install_commands": [
+            "npm install --ignore-scripts --no-package-lock"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm test -- test/form-data-invalid-content-type.js",
+            "exit_code": 0,
+            "duration_ms": 2513,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+        "wall_duration_ms": 152869,
+        "setup_install_duration_ms": 150356,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-1A93B151032FFEA3",
+            "attempt_id": "M-114",
+            "attempt_sequence": 2,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/node-fetch/node-fetch/issues/1509",
+              "acceptance_contract_digest": "sha256:bb6d12f5d867111b8807aa871744a4676b88b36ba184e7cac702afb5a46a7994",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/node-fetch/node-fetch/issues/1509"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-16T19:30:19.949Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 2,
+            "successful_attempt_id": "M-114",
+            "attempts": [
+              {
+                "attempt_id": "M-109",
+                "attempt_sequence": 1,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-114",
+                "attempt_sequence": 2,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": null,
+              "candidate_rank": 5,
+              "elapsed_ms": null
+            },
+            "qualification": {
+              "review_id": "sha256:e7ea127067c13bb77bc4077a6f1777c806548481d087859a8135acdb4840b39e",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 165650,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 242465,
+              "bootstrap_duration_ms": 133139,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 457405,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 5733
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 0
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 812
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 399579
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 897
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 50384
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 152869,
+              "networked_setup_elapsed_ms": 123344,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 2513,
+              "unclassified_executor_ms": 27012,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 2,
+              "memory_mb": 4096,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 1800,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 2,
+            "changed_lines": 46,
+            "production_files": 1,
+            "test_files": 1,
+            "checks_declared": 1,
+            "checks_not_run": [
+              "Repository-wide lint because the pinned XO toolchain calls a Node utility removed from the executor runtime",
+              "Full node-fetch test suite beyond the focused form-data regression",
+              "Type declaration tests",
+              "Cross-version Node validation"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:72ffcd5c5e989632d52e34ab6e8f1d018efeb7c95492f46c1b17febdda96c59f",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:eb860d8eadcc7402c445012c2b21155f0015f626e2ccc03d00b07b770dfed5dd",
+            "qualification_evidence_sha256": "sha256:5d8a9cc50f142d24bd08b3bf2e799fe2791774ff4ceedb9f1ff35a812538a705",
+            "issue_snapshot_sha256": "sha256:1e088b2cd0f39631dff1db6bf71ce1bf773e677ed794dae19f5918dfed4053f4"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+        ],
+        "bundle_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/src/body.js b/src/body.js\nindex 714e27ec4aa74103a246480cf2bbcd9ae2103823..7226a0ccdac7439d66ecdca2271cc974d44b2134 100644\n--- a/src/body.js\n+++ b/src/body.js\n@@ -109,8 +109,9 @@ export default class Body {\n \n \tasync formData() {\n \t\tconst ct = this.headers.get('content-type');\n+\t\tconst contentType = ct?.split(';', 1)[0].trim().toLowerCase();\n \n-\t\tif (ct.startsWith('application/x-www-form-urlencoded')) {\n+\t\tif (contentType === 'application/x-www-form-urlencoded') {\n \t\t\tconst formData = new FormData();\n \t\t\tconst parameters = new URLSearchParams(await this.text());\n \n@@ -121,6 +122,11 @@ export default class Body {\n \t\t\treturn formData;\n \t\t}\n \n+\t\tif (contentType !== 'multipart/form-data') {\n+\t\t\tthis.body?.destroy();\n+\t\t\tthrow new TypeError('Failed to fetch');\n+\t\t}\n+\n \t\tconst {toFormData} = await import('./utils/multipart-parser.js');\n \t\treturn toFormData(this.body, ct);\n \t}\ndiff --git a/test/form-data-invalid-content-type.js b/test/form-data-invalid-content-type.js\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0620afe7ea05b017f58ddb4ed310ae966caa2d90\n--- /dev/null\n+++ b/test/form-data-invalid-content-type.js\n@@ -0,0 +1,38 @@\n+import {PassThrough} from 'node:stream';\n+\n+import chai from 'chai';\n+import {Request, Response} from '../src/index.js';\n+\n+const {expect} = chai;\n+\n+describe('Body.formData', () => {\n+\tit('destroys body for invalid form data content type', async () => {\n+\t\tconst createBodies = [\n+\t\t\t(body, headers) => new Response(body, {headers}),\n+\t\t\t(body, headers) => new Request('https://example.com', {\n+\t\t\t\tmethod: 'POST',\n+\t\t\t\tbody,\n+\t\t\t\theaders\n+\t\t\t})\n+\t\t];\n+\n+\t\tfor (const contentType of [undefined, 'text/plain']) {\n+\t\t\tfor (const createBody of createBodies) {\n+\t\t\t\tconst stream = new PassThrough();\n+\t\t\t\tconst headers = contentType === undefined ? {} : {'content-type': contentType};\n+\t\t\t\tconst body = createBody(stream, headers);\n+\t\t\t\tlet error;\n+\n+\t\t\t\ttry {\n+\t\t\t\t\tawait body.formData();\n+\t\t\t\t} catch (error_) {\n+\t\t\t\t\terror = error_;\n+\t\t\t\t}\n+\n+\t\t\t\texpect(error).to.be.instanceOf(TypeError);\n+\t\t\t\texpect(error.message).to.equal('Failed to fetch');\n+\t\t\t\texpect(stream.destroyed).to.be.true;\n+\t\t\t}\n+\t\t}\n+\t});\n+});\n",
+        "stdout_redacted": "=== cmd 1: npm test -- test/form-data-invalid-content-type.js ===\n\n> node-fetch@3.1.1 test\n> mocha test/form-data-invalid-content-type.js\n\n\n\n  Body.formData\n    ✔ destroys body for invalid form data content type\n\n\n  1 passing (7ms)\n\n",
+        "stderr_redacted": "=== cmd 1: npm test -- test/form-data-invalid-content-type.js ===\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-114",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
+        }
+      }
+    },
+    {
+      "mission_id": "M-115",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/rokucommunity/bslint",
+      "issue_or_task": "https://github.com/rokucommunity/bslint/issues/61",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-115",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-115",
+        "canonical_path": "receipts/M-115/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-115/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/rokucommunity/bslint",
+        "issue_or_task": "https://github.com/rokucommunity/bslint/issues/61",
+        "issue_title": "Incorrect usage of CreateObject for component usage",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "56b4e8e82d81b574a56f70d8e4708e4e44e8a318",
+          "recorded_patch_commit": "4de9666cb9885e9fc9737a055c5bdd2b5ca1997c",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:ec6eb86a39c0305609f34e98e9ba3ba9bedcc87fc607c442b489a1a81eadcf35",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-16T18:38:16.931Z",
+        "finished_at": "2026-07-16T18:39:40.439Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "56b4e8e82d81b574a56f70d8e4708e4e44e8a318",
+          "install_commands": [
+            "npm ci"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npx mocha --no-config --require ts-node/register --require source-map-support/register src/plugins/checkUsage/createObjectUsage.spec.ts",
+            "exit_code": 0,
+            "duration_ms": 6699,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+        "wall_duration_ms": 83508,
+        "setup_install_duration_ms": 76809,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-BFEDFC322D8563A2",
+            "attempt_id": "M-115",
+            "attempt_sequence": 2,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/rokucommunity/bslint/issues/61",
+              "acceptance_contract_digest": "sha256:64df991de456e51db2701493e18a8be859154192a14dc185edc5b9a276e178dc",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/rokucommunity/bslint/issues/61"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-16T19:30:19.962Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 2,
+            "successful_attempt_id": "M-115",
+            "attempts": [
+              {
+                "attempt_id": "M-111",
+                "attempt_sequence": 1,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-115",
+                "attempt_sequence": 2,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": null,
+              "candidate_rank": 7,
+              "elapsed_ms": null
+            },
+            "qualification": {
+              "review_id": "sha256:d2ce83e741bf0f564bb8a9ae7bb6d290249174e32209cb23b2888c3094d1c70b",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 135371,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 364771,
+              "bootstrap_duration_ms": 69914,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 535370,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 3519
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 0
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 606
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 478895
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 1066
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 51284
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 83508,
+              "networked_setup_elapsed_ms": 54495,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 6699,
+              "unclassified_executor_ms": 22314,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 2,
+              "memory_mb": 4096,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 1800,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 2,
+            "changed_lines": 97,
+            "production_files": 1,
+            "test_files": 1,
+            "checks_declared": 1,
+            "checks_not_run": [
+              "Full repository test suite because existing tests mutate fixture files and cannot run in the read-only verifier",
+              "Full coverage-instrumented test suite",
+              "Package audit",
+              "Manual Roku project validation"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:6d9fa110f4e17fc348a11deaa27957eeb75f65c64df0b305872dbb994441eafd",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:572b7dae0881ce1f92402a9c2ed25cdcfb2072ffc270c3494925b2c15e62d75d",
+            "qualification_evidence_sha256": "sha256:cd61a2966b72851d5ce0690ee17f35701d58c2b45da2ac6991f5c9dbfb12666d",
+            "issue_snapshot_sha256": "sha256:4ab216178a0ab0e70eff70661e7545341bff451b4015636b60338ebc4cce7531"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+        ],
+        "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/src/plugins/checkUsage/createObjectUsage.spec.ts b/src/plugins/checkUsage/createObjectUsage.spec.ts\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..7b5633ce5819e68b94e49ee34ca77678230b14d9\n--- /dev/null\n+++ b/src/plugins/checkUsage/createObjectUsage.spec.ts\n@@ -0,0 +1,61 @@\n+import { Program } from 'brighterscript';\n+import * as path from 'path';\n+import Linter from '../../Linter';\n+import { expectDiagnostics } from '../../testHelpers.spec';\n+import { createContext } from '../../util';\n+import CheckUsage, { UnusedCode } from './index';\n+\n+describe('checkUsage CreateObject usage', () => {\n+    it('counts only roSGNode CreateObject component usage', async () => {\n+        const linter = new Linter();\n+        linter.builder.plugins.add({\n+            name: 'test',\n+            afterProgramCreate: (program: Program) => {\n+                program.setFile('source/main.brs', `\n+                    sub main()\n+                        invalidNode = CreateObject(\"Parent\")\n+                        validNode = CreateObject(\"roSGNode\", \"Used\")\n+                        print \"Unrelated\"\n+                    end sub\n+                `);\n+\n+                for (const name of ['Parent', 'Used', 'Unrelated']) {\n+                    program.setFile(`components/${name.toLowerCase()}.brs`, 'sub init()\\nend sub');\n+                    program.setFile(`components/${name.toLowerCase()}.xml`, `\n+                        <component name=\"${name}\" extends=\"Group\">\n+                            <script uri=\"pkg:/components/${name.toLowerCase()}.brs\" />\n+                        </component>\n+                    `);\n+                }\n+\n+                program.plugins.add(new CheckUsage(createContext(program)));\n+            }\n+        });\n+\n+        const diagnostics = await linter.run({\n+            rootDir: 'test/project1',\n+            files: [],\n+            rules: {},\n+            diagnosticFilters: [1129]\n+        } as any);\n+\n+        expectDiagnostics(diagnostics, [\n+            {\n+                code: UnusedCode.UnusedComponent,\n+                message: `Component 'components${path.sep}parent.xml' does not seem to be used`\n+            },\n+            {\n+                code: UnusedCode.UnusedComponent,\n+                message: `Component 'components${path.sep}unrelated.xml' does not seem to be used`\n+            },\n+            {\n+                code: UnusedCode.UnusedScript,\n+                message: `Script 'components${path.sep}parent.brs' does not seem to be used`\n+            },\n+            {\n+                code: UnusedCode.UnusedScript,\n+                message: `Script 'components${path.sep}unrelated.brs' does not seem to be used`\n+            }\n+        ]);\n+    });\n+});\ndiff --git a/src/plugins/checkUsage/index.ts b/src/plugins/checkUsage/index.ts\nindex 23b5166b3871b041ed1fec9315222e65fca86f6d..263e1e389eac57afba3dbdc9a988d53548a6b417 100644\n--- a/src/plugins/checkUsage/index.ts\n+++ b/src/plugins/checkUsage/index.ts\n@@ -1,4 +1,4 @@\n-import { BscFile, CallableContainerMap, createVisitor, DiagnosticSeverity, isBrsFile, isXmlFile, Program, Range, Scope, TokenKind, WalkMode, XmlFile } from 'brighterscript';\n+import { BscFile, CallableContainerMap, createVisitor, DiagnosticSeverity, isBrsFile, isLiteralExpression, isVariableExpression, isXmlFile, Program, Range, Scope, TokenKind, WalkMode, XmlFile } from 'brighterscript';\n import { SGNode } from 'brighterscript/dist/parser/SGTypes';\n import { PluginContext } from '../../util';\n \n@@ -156,22 +156,28 @@ export default class CheckUsage {\n             if (pkgPath === 'source/main.brs' || pkgPath === 'source/main.bs') {\n                 this.main = fv;\n             }\n-            // find strings that look like referring to component names\n+            // find component names passed to CreateObject(\"roSGNode\", componentName)\n             file.parser.references.functionExpressions.forEach(fun => {\n                 fun.body.walk(createVisitor({\n-                    LiteralExpression: (e) => {\n-                        const { kind } = e.token;\n-                        if (kind === TokenKind.StringLiteral) {\n-                            const { text } = e.token;\n-                            if (text !== '\"\"') {\n-                                const name = text.toLowerCase();\n-                                if (map.has(name)) {\n-                                    fv.edges.push({\n-                                        name,\n-                                        range: e.token.range,\n-                                        file\n-                                    });\n-                                }\n+                    CallExpression: (e) => {\n+                        const componentType = e.args[0];\n+                        const componentName = e.args[1];\n+                        if (\n+                            isVariableExpression(e.callee) &&\n+                            e.callee.name.text.toLowerCase() === 'createobject' &&\n+                            isLiteralExpression(componentType) &&\n+                            componentType.token.kind === TokenKind.StringLiteral &&\n+                            componentType.token.text.toLowerCase() === '\"rosgnode\"' &&\n+                            isLiteralExpression(componentName) &&\n+                            componentName.token.kind === TokenKind.StringLiteral\n+                        ) {\n+                            const name = componentName.token.text.toLowerCase();\n+                            if (map.has(name)) {\n+                                fv.edges.push({\n+                                    name,\n+                                    range: componentName.token.range,\n+                                    file\n+                                });\n                             }\n                         }\n                     }\n",
+        "stdout_redacted": "=== cmd 1: npx mocha --no-config --require ts-node/register --require source-map-support/register src/plugins/checkUsage/createObjectUsage.spec.ts ===\n\n\n  checkUsage CreateObject usage\n[\u001b[90m06:39:29:152 PM\u001b[39m] No bsconfig.json file found, using default options\n[\u001b[90m06:39:29:154 PM\u001b[39m] Loading 0 plugins for cwd \"/workspace\" []\n[\u001b[90m06:39:29:187 PM\u001b[39m] Parsing files\n[\u001b[90m06:39:29:195 PM\u001b[39m] Parsing files finished. (\u001b[34m7.726ms\u001b[39m)\n[\u001b[90m06:39:29:196 PM\u001b[39m] Validating project\n[\u001b[90m06:39:29:201 PM\u001b[39m] Validating project finished. (\u001b[34m5.103ms\u001b[39m)\n\ntest/project1/components/parent.brs:1:1 - warning BSLINT4002: Script 'components/parent.brs' does not seem to be used\n\n 1  sub init()\n    ~~~~~~~~~~\n\n\ntest/project1/components/parent.xml:2:42 - warning BSLINT4001: Component 'components/parent.xml' does not seem to be used\n\n 2                          <component name=\"Parent\" extends=\"Group\">\n                                             ~~~~~~                  \n\n\ntest/project1/components/unrelated.brs:1:1 - warning BSLINT4002: Script 'components/unrelated.brs' does not seem to be used\n\n 1  sub init()\n    ~~~~~~~~~~\n\n\ntest/project1/components/unrelated.xml:2:42 - warning BSLINT4001: Component 'components/unrelated.xml' does not seem to be used\n\n 2                          <component name=\"Unrelated\" extends=\"Group\">\n                                             ~~~~~~~~~                  \n\n    ✔ counts only roSGNode CreateObject component usage (57ms)\n\n\n  1 passing (73ms)\n\n",
+        "stderr_redacted": "=== cmd 1: npx mocha --no-config --require ts-node/register --require source-map-support/register src/plugins/checkUsage/createObjectUsage.spec.ts ===\n(node:23) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/src/plugins/checkUsage/createObjectUsage.spec.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-115",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
+        }
+      }
+    },
+    {
+      "mission_id": "M-116",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/thepants999/yellowscribe",
+      "issue_or_task": "https://github.com/ThePants999/Yellowscribe/issues/9",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-116",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-116",
+        "canonical_path": "receipts/M-116/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-116/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/thepants999/yellowscribe",
+        "issue_or_task": "https://github.com/ThePants999/Yellowscribe/issues/9",
+        "issue_title": "Empty detachment breaks parsing",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "583de2e48cf1e176829f3bda7c4da8e0cc7f7ee5",
+          "recorded_patch_commit": "ce1598c2a53bd53606f8ee3db31a08b28d8f9f99",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:7540c6047b18ba9624478b93ff775a81f80ae2c2a23f5134c6cb86bb8c98dd3a",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-16T19:28:03.641Z",
+        "finished_at": "2026-07-16T19:29:24.451Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "583de2e48cf1e176829f3bda7c4da8e0cc7f7ee5",
+          "install_commands": [
+            "npm install --ignore-scripts --no-package-lock"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm test -- --runInBand tests/empty-detachment.test.js",
+            "exit_code": 0,
+            "duration_ms": 5151,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+        "wall_duration_ms": 80810,
+        "setup_install_duration_ms": 75659,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-A8D324739CC8F8B5",
+            "attempt_id": "M-116",
+            "attempt_sequence": 1,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/ThePants999/Yellowscribe/issues/9",
+              "acceptance_contract_digest": "sha256:a44ffdedfc0fd9108844d2cb2bba98e6f314be88bd801aee088998e6554ce200",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/ThePants999/Yellowscribe/issues/9"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-16T19:30:19.923Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 1,
+            "successful_attempt_id": "M-116",
+            "attempts": [
+              {
+                "attempt_id": "M-116",
+                "attempt_sequence": 1,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": null,
+              "candidate_rank": 7,
+              "elapsed_ms": null
+            },
+            "qualification": {
+              "review_id": "sha256:56705b395ef669da801e7b5d91df18b7e8017c448d7d01bf6a57f5d6b79c3927",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 185195,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 139418,
+              "bootstrap_duration_ms": 93318,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 276145,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 4090
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 125
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 658
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 248831
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 330
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 22111
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 80810,
+              "networked_setup_elapsed_ms": 63830,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 5151,
+              "unclassified_executor_ms": 11829,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 2,
+              "memory_mb": 4096,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 1800,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 2,
+            "changed_lines": 24,
+            "production_files": 1,
+            "test_files": 1,
+            "checks_declared": 1,
+            "checks_not_run": [
+              "Full Jest suite beyond the focused empty-detachment regression",
+              "Application and browser integration",
+              "Roster formats outside the 9th-edition parser"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:b5bd79af6d22eaada2b679768d7fd9860974c2ecbe6051baa64961e0e40f36be",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:d5771c75aad27d6cb2161c822e20673e573b6495ed57e23b85fdb28b164d6cf7",
+            "qualification_evidence_sha256": "sha256:bb24b954101c78ea0cd3d6067950af5f4a25a58e292153d0e0abe04c686e8f27",
+            "issue_snapshot_sha256": "sha256:94eb4b4b73c02fdb76b2c95b400c3e625fd0afb2232c039d8b5d8c79983fdbc0"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+        ],
+        "bundle_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/bin/9eRoster.js b/bin/9eRoster.js\nindex f83bac5d78d9769f3af4ec24b2a284782b080137..1f5925e38996536c5c45af30b890f5b752165d95 100644\n--- a/bin/9eRoster.js\n+++ b/bin/9eRoster.js\n@@ -11,7 +11,7 @@ module.exports.parse = (data) => {\n \n     for (const force of data[0].force) {\n         if (force.selections === undefined || force.selections.length !== 1) {\n-            break;\n+            continue;\n         }\n \n         let armyUnitData = force.selections[0].selection.filter(hasUnitSomewhereRecursive);\n@@ -69,4 +69,4 @@ function replacer(key, value) {\n \n module.exports.serialize = (roster, spaces = 0) =>  {\n     return JSON.stringify(roster, replacer, spaces)\n-}\n\\ No newline at end of file\n+}\ndiff --git a/tests/empty-detachment.test.js b/tests/empty-detachment.test.js\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..756638e289fc81f6d5b3f17032b12b778a59520c\n--- /dev/null\n+++ b/tests/empty-detachment.test.js\n@@ -0,0 +1,20 @@\n+const fs = require(\"fs\");\n+const path = require(\"path\");\n+const {roszParse} = require(\"../bin/roszParser\");\n+\n+test(\"continues after an empty detachment\", () => {\n+    const populatedRoster = fs.readFileSync(\n+        path.join(__dirname, \"../samples/sample-hemlock.ros\"),\n+        \"utf8\"\n+    );\n+    const rosterWithLeadingEmptyDetachment = populatedRoster.replace(\n+        \"<forces>\",\n+        '<forces><force id=\"empty-detachment\" name=\"Empty Detachment\" />'\n+    );\n+\n+    const roster = roszParse(Buffer.from(rosterWithLeadingEmptyDetachment));\n+\n+    expect([...roster.units.values()].map(unit => unit.name)).toStrictEqual([\n+        \"Hemlock Wraithfighter\"\n+    ]);\n+});\n",
+        "stdout_redacted": "=== cmd 1: npm test -- --runInBand tests/empty-detachment.test.js ===\n\n> Elastic-Beanstalk-Sample-App@0.50.0 test\n> jest --runInBand tests/empty-detachment.test.js\n\n",
+        "stderr_redacted": "=== cmd 1: npm test -- --runInBand tests/empty-detachment.test.js ===\nPASS tests/empty-detachment.test.js\n  ✓ continues after an empty detachment (23 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        1.034 s\nRan all test suites matching /tests\\/empty-detachment.test.js/i.\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-116",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
+        }
+      }
+    },
+    {
+      "mission_id": "M-122",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/picolab/pico-engine",
+      "issue_or_task": "https://github.com/Picolab/pico-engine/issues/595",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-122",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-122",
+        "canonical_path": "receipts/M-122/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-122/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/picolab/pico-engine",
+        "issue_or_task": "https://github.com/Picolab/pico-engine/issues/595",
+        "issue_title": "Need a better parser/compile error message for mis-placed bindings/assignments",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+          "recorded_patch_commit": "b81d5d7afc2d307ae42be3a78829ef33a37e4c82",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:52ce76e720d47080055d72c2591a01e9316c431e010e35ac6238fcca58707119",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-16T19:28:03.641Z",
+        "finished_at": "2026-07-16T19:28:39.571Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+          "install_commands": [
+            "npm --prefix packages/krl-parser install --ignore-scripts --no-package-lock"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts",
+            "exit_code": 0,
+            "duration_ms": 10121,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+        "wall_duration_ms": 35930,
+        "setup_install_duration_ms": 25809,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-1D84161CAE1E9EBC",
+            "attempt_id": "M-122",
+            "attempt_sequence": 4,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/Picolab/pico-engine/issues/595",
+              "acceptance_contract_digest": "sha256:f62e4814033712a22b0b7e3669b120c406050880cac555850955877d85647709",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/Picolab/pico-engine/issues/595"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-16T19:30:19.923Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 4,
+            "successful_attempt_id": "M-122",
+            "attempts": [
+              {
+                "attempt_id": "M-108",
+                "attempt_sequence": 1,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-113",
+                "attempt_sequence": 2,
+                "state": "FAILED_INFRA_TERMINAL",
+                "terminal_reason_class": "infrastructure"
+              },
+              {
+                "attempt_id": "M-117",
+                "attempt_sequence": 3,
+                "state": "FAILED_INFRA_TERMINAL",
+                "terminal_reason_class": "infrastructure"
+              },
+              {
+                "attempt_id": "M-122",
+                "attempt_sequence": 4,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": null,
+              "candidate_rank": 4,
+              "elapsed_ms": null
+            },
+            "qualification": {
+              "review_id": "sha256:5b39a6aae8ce40d47f4365ebee92392a53a349c935425f2be926c158bfcd7629",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 207363,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 221294,
+              "bootstrap_duration_ms": 21859,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 263338,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 3187
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 34
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 673
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 245655
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 488
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 13301
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 35930,
+              "networked_setup_elapsed_ms": 19764,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 10121,
+              "unclassified_executor_ms": 6045,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 2,
+              "memory_mb": 4096,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 1800,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 4,
+            "changed_lines": 80,
+            "production_files": 1,
+            "test_files": 3,
+            "checks_declared": 1,
+            "checks_not_run": [
+              "Full krl-parser suite beyond the new regression and the two directly affected existing test files",
+              "Full pico-engine monorepo test suite",
+              "Generated parser specification comparison",
+              "Runtime integration outside krl-parser"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:b5ba779314048bbeb42fb5692e539cc4fd42c831489b8a7d44c3d448795624cc",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:dff97cdc3a1882978ea3a74134512e490379ec69c669a8838a099f582e053b4f",
+            "qualification_evidence_sha256": "sha256:3b96381750571f391c3f703fa65c5a504e0eaf594602ab799c657879637f8a2a",
+            "issue_snapshot_sha256": "sha256:471e2fc4fd15f7682600a5a9d7d440930bb8d40f84155b0d68f019cc0d4bc376"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+          "Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk."
+        ],
+        "bundle_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/packages/krl-parser/src/krl.ts b/packages/krl-parser/src/krl.ts\nindex 163e379d4664d63145ffaf4839e7a26fe5645b05..ba499d28735b43f3f04133066c3990df825d4a59 100644\n--- a/packages/krl-parser/src/krl.ts\n+++ b/packages/krl-parser/src/krl.ts\n@@ -1511,6 +1511,13 @@ function postludeStatementCore(state: State): ast.PostludeStatement {\n     };\n   }\n \n+  if (easyLookahead(state, 2) === \"SYMBOL=\") {\n+    throw new ParseError(\n+      \"Declarations are not allowed in rule postludes\",\n+      state.curr.token\n+    );\n+  }\n+\n   return declaration(state);\n }\n \ndiff --git a/packages/krl-parser/test/postlude-declaration-errors.ts b/packages/krl-parser/test/postlude-declaration-errors.ts\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..c37ff45151ecf6881c62a5f12b83f4a4504117cf\n--- /dev/null\n+++ b/packages/krl-parser/test/postlude-declaration-errors.ts\n@@ -0,0 +1,16 @@\n+import test from \"ava\";\n+import { ParseError } from \"../src/ParseError\";\n+import { parseRuleset } from \"../src/krl\";\n+import tokenizer from \"../src/tokenizer\";\n+\n+test(\"rejects declarations in rule postludes\", t => {\n+  const error = t.throws(\n+    () =>\n+      parseRuleset(\n+        tokenizer(\"ruleset a { rule b { always { x = 3 } } }\")\n+      ),\n+    { instanceOf: ParseError }\n+  ) as ParseError;\n+\n+  t.is(error.message, \"Declarations are not allowed in rule postludes\");\n+});\ndiff --git a/packages/krl-parser/test/postludeStatements.ts b/packages/krl-parser/test/postludeStatements.ts\nindex 96c49824709b11119d6f8784538bc0a05ba56ea8..8553ec62c83d44599b11f7a2447c40b2c3763b30 100644\n--- a/packages/krl-parser/test/postludeStatements.ts\n+++ b/packages/krl-parser/test/postludeStatements.ts\n@@ -398,22 +398,6 @@ test(\"GuardCondition\", t => {\n     }\n   ]);\n \n-  testPost(\"foo = bar on final\", [\n-    {\n-      type: \"GuardCondition\",\n-      condition: \"on final\",\n-      statement: mk.declare(\"=\", mk.id(\"foo\"), mk.id(\"bar\"))\n-    }\n-  ]);\n-\n-  testPost(\"foo = bar if baz > 0\", [\n-    {\n-      type: \"GuardCondition\",\n-      condition: mk.op(\">\", mk.id(\"baz\"), mk(0)),\n-      statement: mk.declare(\"=\", mk.id(\"foo\"), mk.id(\"bar\"))\n-    }\n-  ]);\n-\n   testPost(\"ent:foo := bar if baz > 0\", [\n     {\n       type: \"GuardCondition\",\ndiff --git a/packages/krl-parser/test/ruleset.ts b/packages/krl-parser/test/ruleset.ts\nindex d10873256d62ca9de55eeaab2218017d5d067da8..157bd9dc1177a9a667fef92acc2ba8d518ea56a3 100644\n--- a/packages/krl-parser/test/ruleset.ts\n+++ b/packages/krl-parser/test/ruleset.ts\n@@ -843,56 +843,61 @@ test(\"RulePostlude\", t => {\n   };\n \n   // test location\n-  var src = \"ruleset rs{rule r1{always{aaa=one();bbb=two()}}}\";\n+  var src =\n+    \"ruleset rs{rule r1{always{ent:aaa:=one();app:bbb:=two()}}}\";\n   t.deepEqual(parseRuleset(tokenizer(src)).rules[0].postlude, {\n-    loc: { start: 19, end: 46 },\n+    loc: { start: 19, end: 56 },\n     type: \"RulePostlude\",\n     fired: null,\n     notfired: null,\n     always: [\n       {\n-        loc: { start: 26, end: 35 },\n-        type: \"Declaration\",\n-        op: \"=\",\n+        loc: { start: 33, end: 35 },\n+        type: \"PersistentVariableAssignment\",\n+        op: \":=\",\n         left: {\n-          loc: { start: 26, end: 29 },\n-          type: \"Identifier\",\n+          loc: { start: 26, end: 33 },\n+          type: \"DomainIdentifier\",\n+          domain: \"ent\",\n           value: \"aaa\"\n         },\n+        path_expression: null,\n         right: {\n-          loc: { start: 30, end: 35 },\n+          loc: { start: 35, end: 40 },\n           type: \"Application\",\n           callee: {\n-            loc: { start: 30, end: 33 },\n+            loc: { start: 35, end: 38 },\n             type: \"Identifier\",\n             value: \"one\"\n           },\n           args: {\n-            loc: { start: 33, end: 35 },\n+            loc: { start: 38, end: 40 },\n             type: \"Arguments\",\n             args: []\n           }\n         }\n       },\n       {\n-        loc: { start: 36, end: 45 },\n-        type: \"Declaration\",\n-        op: \"=\",\n+        loc: { start: 48, end: 50 },\n+        type: \"PersistentVariableAssignment\",\n+        op: \":=\",\n         left: {\n-          loc: { start: 36, end: 39 },\n-          type: \"Identifier\",\n+          loc: { start: 41, end: 48 },\n+          type: \"DomainIdentifier\",\n+          domain: \"app\",\n           value: \"bbb\"\n         },\n+        path_expression: null,\n         right: {\n-          loc: { start: 40, end: 45 },\n+          loc: { start: 50, end: 55 },\n           type: \"Application\",\n           callee: {\n-            loc: { start: 40, end: 43 },\n+            loc: { start: 50, end: 53 },\n             type: \"Identifier\",\n             value: \"two\"\n           },\n           args: {\n-            loc: { start: 43, end: 45 },\n+            loc: { start: 53, end: 55 },\n             type: \"Arguments\",\n             args: []\n           }\n",
+        "stdout_redacted": "=== cmd 1: npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts ===\n\n> krl-parser@1.5.0 test\n> ava reset-cache && ava test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts\n\n\n✔ No cache files to remove\n\n  ✔ postlude-declaration-errors › rejects declarations in rule postludes\n  ✔ postludeStatements › ClearPersistentVariable\n  ✔ postludeStatements › LastStatement\n  ✔ postludeStatements › LogStatement\n  ✔ postludeStatements › ErrorStatement\n  ✔ postludeStatements › raise event\n  ✔ postludeStatements › schedule event\n  ✔ postludeStatements › GuardCondition\n  ✔ postludeStatements › PersistentVariableAssignment\n  ✔ ruleset › ruleset\n  ✔ ruleset › rulesetID\n  ✔ ruleset › Ruleset meta\n  ✔ ruleset › with\n  ✔ ruleset › Rule\n  ✔ ruleset › select when\n  ✔ ruleset › select where ...\n  ✔ ruleset › select when ... within\n  ✔ ruleset › select when ... foreach ...\n  ✔ ruleset › ActionBlock\n  ✔ ruleset › Action setting\n  ✔ ruleset › RulePostlude\n  ─\n\n  21 tests passed\n",
+        "stderr_redacted": "=== cmd 1: npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts ===\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-122",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
         }
       }
     }

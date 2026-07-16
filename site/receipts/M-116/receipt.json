@@ -1,0 +1,272 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-07-16T19:30:24.937Z",
+  "receipt_id": "M-116",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-16T19:28:03.641Z",
+    "finished_at": "2026-07-16T19:29:24.451Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- --runInBand tests/empty-detachment.test.js",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 5151
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "583de2e48cf1e176829f3bda7c4da8e0cc7f7ee5",
+    "install_commands": [
+      "npm install --ignore-scripts --no-package-lock"
+    ]
+  },
+  "code": {
+    "base_commit": "583de2e48cf1e176829f3bda7c4da8e0cc7f7ee5",
+    "recorded_patch_commit": "ce1598c2a53bd53606f8ee3db31a08b28d8f9f99",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:7540c6047b18ba9624478b93ff775a81f80ae2c2a23f5134c6cb86bb8c98dd3a",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
+    "signed_asset_sha256": null,
+    "attestation_uri": null,
+    "attestation_verified_at": null,
+    "provenance": "Signed provenance has not been verified."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-116/",
+    "target_repo": "https://github.com/thepants999/yellowscribe",
+    "issue_or_task": "https://github.com/ThePants999/Yellowscribe/issues/9",
+    "publication_pr": null
+  },
+  "issue_title": "Empty detachment breaks parsing",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ],
+  "correction": null,
+  "scope_note": null,
+  "upstream_outcome": {
+    "status": "prepared",
+    "link": null,
+    "attribution": "Recorded upstream outcome"
+  },
+  "economic_identity": {
+    "scope": "end_to_end_task",
+    "task": {
+      "task_id": "TASK-OSS-A8D324739CC8F8B5",
+      "attempt_id": "M-116",
+      "attempt_sequence": 1,
+      "work_category": "defect_fix",
+      "external_demand": {
+        "source": "public_github_issue",
+        "issue_url": "https://github.com/ThePants999/Yellowscribe/issues/9",
+        "acceptance_contract_digest": "sha256:a44ffdedfc0fd9108844d2cb2bba98e6f314be88bd801aee088998e6554ce200",
+        "invitation_type": "label",
+        "invitation_url": "https://github.com/ThePants999/Yellowscribe/issues/9"
+      }
+    },
+    "funding": {
+      "program": "Northset OSS Fund",
+      "initiative": "OSS mission experimentation",
+      "budget_id": null,
+      "financial_cap": null,
+      "currency": null
+    },
+    "external_transfers": {
+      "maintainer_payment": "none",
+      "merge_contingent": false
+    },
+    "authorization": {
+      "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+      "approved_by": "internal-user:aeziz",
+      "approved_at": "2026-07-16T19:30:19.923Z",
+      "operational_caps": {
+        "finder_wall_seconds": 1200,
+        "qualification_wall_seconds": 300,
+        "prepare_wall_seconds": 3600,
+        "ship_wall_seconds": 3600,
+        "maximum_attempts": null
+      }
+    },
+    "attempt_lineage": {
+      "attempts_total": 1,
+      "successful_attempt_id": "M-116",
+      "attempts": [
+        {
+          "attempt_id": "M-116",
+          "attempt_sequence": 1,
+          "state": "READY",
+          "terminal_reason_class": null
+        }
+      ]
+    },
+    "usage": {
+      "discovery": {
+        "finder_run_id": null,
+        "candidate_rank": 7,
+        "elapsed_ms": null
+      },
+      "qualification": {
+        "review_id": "sha256:56705b395ef669da801e7b5d91df18b7e8017c448d7d01bf6a57f5d6b79c3927",
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 185195,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "authoring": {
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 139418,
+        "bootstrap_duration_ms": 93318,
+        "bootstrap_retry_count": 0,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "preparation": {
+        "total_duration_ms": 276145,
+        "stages": [
+          {
+            "stage": "prepare_recheck",
+            "duration_ms": 4090
+          },
+          {
+            "stage": "executor_image",
+            "duration_ms": 125
+          },
+          {
+            "stage": "clone",
+            "duration_ms": 658
+          },
+          {
+            "stage": "author",
+            "duration_ms": 248831
+          },
+          {
+            "stage": "canonical_commit",
+            "duration_ms": 330
+          },
+          {
+            "stage": "differential_oracle",
+            "duration_ms": 22111
+          }
+        ]
+      },
+      "verification": {
+        "executor_elapsed_ms": 80810,
+        "networked_setup_elapsed_ms": 63830,
+        "dependency_install_ms": null,
+        "declared_commands_ms": 5151,
+        "unclassified_executor_ms": 11829,
+        "cpu_ms": null,
+        "peak_rss_bytes": null,
+        "measurement_status": "partial"
+      },
+      "resource_envelope": {
+        "cpus": 2,
+        "memory_mb": 4096,
+        "pids": 512,
+        "wall_clock_seconds_per_command": 1800,
+        "output_bytes_per_stream": 2000000
+      }
+    },
+    "work_scope": {
+      "files_changed": 2,
+      "changed_lines": 24,
+      "production_files": 1,
+      "test_files": 1,
+      "checks_declared": 1,
+      "checks_not_run": [
+        "Full Jest suite beyond the focused empty-detachment regression",
+        "Application and browser integration",
+        "Roster formats outside the 9th-edition parser"
+      ]
+    },
+    "costs": {
+      "status": "partial",
+      "currency": null,
+      "lines": [
+        {
+          "component": "maintainer_payment",
+          "measurement_class": "observed_quantity_unpriced",
+          "quantity": "0",
+          "unit": "external_transfer",
+          "unit_rate": null,
+          "amount": null,
+          "currency": null,
+          "source_refs": [
+            {
+              "artifact": "bundle/mission.json",
+              "artifact_sha256": "sha256:b5bd79af6d22eaada2b679768d7fd9860974c2ecbe6051baa64961e0e40f36be",
+              "json_pointer": "/payment/maintainer_payment"
+            }
+          ],
+          "rate_card_digest": null,
+          "allocation_method": null,
+          "finality": "final",
+          "visibility": "public"
+        }
+      ],
+      "known_direct_cost": null,
+      "allocated_shared_cost": null,
+      "human_standard_cost": null,
+      "total_economic_cost": null,
+      "missing_components": [
+        "model_inference",
+        "actual_host_compute",
+        "human_review",
+        "shared_tooling"
+      ]
+    },
+    "outcome": {
+      "technical_checks_passed": true,
+      "pr_opened": false,
+      "ci_state": null,
+      "merged": false,
+      "accepted_as_submitted": null,
+      "time_to_close_ms": null,
+      "released": null,
+      "deployed": null,
+      "business_result_observed": null
+    },
+    "completeness": {
+      "task_identity": "complete",
+      "technical_execution": "complete",
+      "attempt_lineage": "complete",
+      "usage": "partial",
+      "cost": "unpriced",
+      "external_outcome": "partial",
+      "business_value": "not_observed"
+    },
+    "provenance": {
+      "spec_sha256": "sha256:d5771c75aad27d6cb2161c822e20673e573b6495ed57e23b85fdb28b164d6cf7",
+      "qualification_evidence_sha256": "sha256:bb24b954101c78ea0cd3d6067950af5f4a25a58e292153d0e0abe04c686e8f27",
+      "issue_snapshot_sha256": "sha256:94eb4b4b73c02fdb76b2c95b400c3e625fd0afb2232c039d8b5d8c79983fdbc0"
+    }
+  }
+}
