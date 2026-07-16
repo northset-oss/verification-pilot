@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>M-011 Proof-of-Pass Receipt</title>
+  <title>M-112 Proof-of-Pass Receipt</title>
   <style>
     :root { color-scheme:dark; --bg:#182323; --ink:#edf3ed; --muted:#b8c7bf; --paper:#fffdf7; --paper-ink:#1b211e; --rule:#d5d0c2; --green:#087f55; --green-pale:#d9f0e4; --rehearsal:#e6e2db; --self:#e3f0ec; --line:#4d615a; --focus:#ffcd57; --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
     * { box-sizing:border-box; }
@@ -268,136 +268,193 @@
   </style>
 </head>
 <body>
-<main class="receipt-page"><header class="page-nav"><div class="page-actions"><a href="../../index.html">← All Proof-of-Pass Receipts</a><span class="page-action-buttons"><a class="button-link" href="receipt.json" download>Download receipt.json</a><button type="button" data-print>Print / Save receipt</button></span></div><p>Canonical receipt · https://northset-oss.github.io/verification-pilot/receipts/M-011/</p><p>Generated at 2026-07-16T19:23:33.213Z</p></header><article class="receipt receipt--self-run">
+<main class="receipt-page"><header class="page-nav"><div class="page-actions"><a href="../../index.html">← Receipts</a><span class="page-action-buttons"><a class="button-link" href="receipt.json" download aria-label="Download receipt.json">JSON</a><button type="button" data-print aria-label="Print / Save receipt">Print / Save</button></span></div></header><article class="receipt receipt--self-run receipt--economic">
   <header class="receipt-head">
-    <p class="brand">NORTHSET</p>
-    <h1>Proof-of-Pass Receipt — <span class="receipt-id">M-011</span></h1>
+    <span class="folio-watermark" aria-hidden="true">112</span>
+    <div class="folio-title"><p class="brand">NORTHSET</p><h1>Proof-of-Pass Receipt</h1><p class="folio-receipt-id"><span>Receipt ID</span> <code>M-112</code></p></div>
+    <p class="folio-work"><span>ISSUE / WORK</span><a class="" href="https://github.com/Dreamstick9/filedrop/issues/85">[Easy] errors.js: The comment &quot;Clear any in-progress terminal state (rest…</a></p>
     <p class="class-stamp">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
-    <dl class="receipt-meta"><div><dt>Receipt ID</dt><dd>M-011</dd></div><div><dt>Run start</dt><dd>2026-07-12T20:03:40.048Z</dd></div><div><dt>Run finish</dt><dd>2026-07-12T20:04:34.428Z</dd></div></dl>
+    <p class="run-interval" aria-label="Run interval from 2026-07-16T19:21:16.236Z to 2026-07-16T19:21:29.635Z"><span>RUN</span><time datetime="2026-07-16T19:21:16.236Z">2026-07-16 19:21:16.236Z</time><b aria-hidden="true">→</b><time datetime="2026-07-16T19:21:29.635Z">19:21:29.635Z</time></p>
   </header>
-
-  <section class="receipt-section"><h2>Project</h2><p><a class="" href="https://github.com/prometheus/client_js">prometheus/client_js</a></p><h2>Work</h2><p><a class="" href="https://github.com/prometheus/client_js/issues/539">Cluster should always aggregate metrics in a same order</a> · <a class="" href="https://github.com/prometheus/client_js/pull/771">PR #771</a></p><h2>Verification execution</h2><p>runtime: northset-oss executor v0<br>human operator: aeziz</p></section><section class="receipt-section"><h2>Code</h2><dl class="facts"><dt>base</dt><dd><code>c51c2cd36f6a14e32fa305a164ccded7c250612a</code></dd><dt>recorded patch commit</dt><dd><code>e345d993c4d2e1ad54e7367e38e07bcc283ccbca</code><br><span>declared metadata; not execution-bound</span></dd><dt>patch diff SHA-256</dt><dd><code>sha256:a42626ab3db4f7f1e5ab68068b2818e3f4c522092c54b786c671a3e969c3ebbf</code><br><span>bound to executed patch bytes</span></dd></dl></section><section class="receipt-section"><h2>Environment</h2><dl class="facts"><dt>image reference</dt><dd>node:22-bookworm</dd><dt>repository digest</dt><dd><code>node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365</code></dd><dt>network</dt><dd>phaseA:bridge,phaseB:none</dd></dl></section><section class="receipt-section proof-scope"><h2>Declared checks</h2><p><strong>Execution summary</strong><br>1/1 declared command returned exit 0 in the recorded environment</p><ol class="commands"><li><pre><code>npm run test-unit</code></pre><p class="command-result">exit 0 · 5.9s</p></li></ol><p class="duration-line">unclassified executor time (derived residual) <span>48.5s</span></p><p class="duration-line">run wall (derived from recorded timestamps) <span>54.4s</span></p><p class="total">PASS — 1/1 declared command</p><p class="scope-note">Every command listed returned exit 0 in the declared environment. Only the listed commands are in scope. Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded.</p></section><section class="receipt-section public-scope-interpretation"><h2>Public scope interpretation</h2><p>The declared network-off check runs the prom-client jest unit suite on node:22 after a disclosed online phase-A npm ci. It does not run lint, prettier, or the TypeScript type-check gates that upstream CI also runs.</p></section><section class="receipt-section"><h2>Record details</h2><dl class="facts"><dt>payment</dt><dd>none · not merge-contingent</dd><dt>redactions</dt><dd>1 email</dd><dt>Bundle contents digest</dt><dd><code>sha256:553f6250fb4c7ced453ec2e9bba65dd6634be17e0608f8ab8480893b4e67bc72</code></dd><dt>Signed asset SHA-256</dt><dd><code>sha256:5b5e4910280b590f9669865161086644cf9f04178229e4f7c25be20d331f7935</code></dd><dt>Signed provenance recorded</dt><dd>verified 2026-07-14T14:21:48Z</dd></dl></section><section class="receipt-section limitations"><h2>NOT INCLUDED</h2><ul><li>Does not prove code quality</li><li>Does not prove security</li><li>Contributor self-run record of Northset&#39;s own contribution; not the maintainer&#39;s verification.</li><li>The declared network-off check runs the prom-client jest unit suite on node:22 after a disclosed online phase-A npm ci. It does not run lint, prettier, or the TypeScript type-check gates that upstream CI also runs.</li></ul></section><section class="receipt-section verification"><h2>Signed bundle</h2><p><a class="button-link" href="https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-011/run-record-M-011.tar.gz">Download signed bundle</a></p><div class="verify-command"><p><strong>Verify this receipt</strong></p><pre><code>gh attestation verify run-record-M-011.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml</code></pre><button type="button" data-copy="gh attestation verify run-record-M-011.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml">Copy verify command</button></div><p class="attestation-scope">Attestation confirms that Northset's signing workflow produced this exact bundle. The signer does not witness the recorded run, and verification does not turn it into maintainer verification.</p><a class="qr-link" href="./index.html" aria-label="Canonical receipt page for M-011"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" role="img" aria-label="QR code for https://northset-oss.github.io/verification-pilot/receipts/M-011/" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h45v45H0z"/><path fill="#111" transform="translate(4 4)" d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM23,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM33,0h1v1h-1zM34,0h1v1h-1zM35,0h1v1h-1zM36,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM9,1h1v1h-1zM13,1h1v1h-1zM17,1h1v1h-1zM23,1h1v1h-1zM24,1h1v1h-1zM25,1h1v1h-1zM26,1h1v1h-1zM27,1h1v1h-1zM30,1h1v1h-1zM36,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM15,2h1v1h-1zM19,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM27,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM36,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM9,3h1v1h-1zM12,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM26,3h1v1h-1zM27,3h1v1h-1zM28,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM36,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM36,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM35,6h1v1h-1zM36,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM15,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM0,8h1v1h-1zM1,8h1v1h-1zM2,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM20,8h1v1h-1zM21,8h1v1h-1zM25,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM34,8h1v1h-1zM2,9h1v1h-1zM4,9h1v1h-1zM7,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM24,9h1v1h-1zM30,9h1v1h-1zM33,9h1v1h-1zM34,9h1v1h-1zM36,9h1v1h-1zM0,10h1v1h-1zM1,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM26,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM36,10h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM7,11h1v1h-1zM9,11h1v1h-1zM10,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM30,11h1v1h-1zM32,11h1v1h-1zM33,11h1v1h-1zM36,11h1v1h-1zM0,12h1v1h-1zM2,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM36,12h1v1h-1zM4,13h1v1h-1zM7,13h1v1h-1zM10,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM34,13h1v1h-1zM36,13h1v1h-1zM0,14h1v1h-1zM3,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM13,14h1v1h-1zM17,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM2,15h1v1h-1zM4,15h1v1h-1zM8,15h1v1h-1zM10,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM35,15h1v1h-1zM1,16h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM6,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM12,16h1v1h-1zM16,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM36,16h1v1h-1zM0,17h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM34,17h1v1h-1zM36,17h1v1h-1zM0,18h1v1h-1zM1,18h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM7,18h1v1h-1zM9,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM18,18h1v1h-1zM22,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM32,18h1v1h-1zM33,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM0,19h1v1h-1zM1,19h1v1h-1zM2,19h1v1h-1zM3,19h1v1h-1zM4,19h1v1h-1zM7,19h1v1h-1zM8,19h1v1h-1zM10,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM19,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM35,19h1v1h-1zM1,20h1v1h-1zM2,20h1v1h-1zM3,20h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM18,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM31,20h1v1h-1zM35,20h1v1h-1zM36,20h1v1h-1zM0,21h1v1h-1zM2,21h1v1h-1zM5,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM36,21h1v1h-1zM2,22h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM10,22h1v1h-1zM13,22h1v1h-1zM17,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM35,22h1v1h-1zM36,22h1v1h-1zM0,23h1v1h-1zM4,23h1v1h-1zM5,23h1v1h-1zM7,23h1v1h-1zM11,23h1v1h-1zM15,23h1v1h-1zM19,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM35,23h1v1h-1zM0,24h1v1h-1zM2,24h1v1h-1zM4,24h1v1h-1zM6,24h1v1h-1zM10,24h1v1h-1zM12,24h1v1h-1zM16,24h1v1h-1zM21,24h1v1h-1zM25,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM35,24h1v1h-1zM36,24h1v1h-1zM1,25h1v1h-1zM2,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM7,25h1v1h-1zM9,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM0,26h1v1h-1zM3,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM10,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM20,26h1v1h-1zM26,26h1v1h-1zM31,26h1v1h-1zM33,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM1,27h1v1h-1zM3,27h1v1h-1zM8,27h1v1h-1zM10,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM31,27h1v1h-1zM35,27h1v1h-1zM0,28h1v1h-1zM2,28h1v1h-1zM3,28h1v1h-1zM5,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM9,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM18,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM8,29h1v1h-1zM9,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM35,29h1v1h-1zM36,29h1v1h-1zM0,30h1v1h-1zM1,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM10,30h1v1h-1zM13,30h1v1h-1zM17,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM35,30h1v1h-1zM36,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM9,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM0,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM16,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM0,33h1v1h-1zM2,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM9,33h1v1h-1zM11,33h1v1h-1zM12,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM17,33h1v1h-1zM24,33h1v1h-1zM27,33h1v1h-1zM32,33h1v1h-1zM35,33h1v1h-1zM0,34h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM26,34h1v1h-1zM29,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM34,34h1v1h-1zM35,34h1v1h-1zM36,34h1v1h-1zM0,35h1v1h-1zM6,35h1v1h-1zM8,35h1v1h-1zM12,35h1v1h-1zM13,35h1v1h-1zM14,35h1v1h-1zM16,35h1v1h-1zM17,35h1v1h-1zM18,35h1v1h-1zM19,35h1v1h-1zM20,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM31,35h1v1h-1zM35,35h1v1h-1zM0,36h1v1h-1zM1,36h1v1h-1zM2,36h1v1h-1zM3,36h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM8,36h1v1h-1zM10,36h1v1h-1zM11,36h1v1h-1zM14,36h1v1h-1zM15,36h1v1h-1zM18,36h1v1h-1zM19,36h1v1h-1zM20,36h1v1h-1zM23,36h1v1h-1zM24,36h1v1h-1zM25,36h1v1h-1zM27,36h1v1h-1zM28,36h1v1h-1zM30,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1z"/></svg><span>QR → receipt page</span></a></section>
-  <footer class="receipt-disclosure"><strong>Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.</strong><p>Evidence of what ran — not a verdict that the code is good.</p><p><strong>SELF-FUNDED FIELD-TESTING.</strong></p></footer>
-  <details class="patch"><summary>Committed patch.diff</summary><pre><code>diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 74bd4a5..da34780 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -37,6 +37,7 @@ This release marks our first release under the Prometheus umbrella.
- - AggregatorRegistry renamed to ClusterRegistry, old name deprecated
- - chore: update faceoff to 1.1
- - perf: Stat aggregation uses similar strategy to collection. 60% faster aggregation
-+- Make cluster metric aggregation independent of worker response order
+  <section class="economic-overview" aria-labelledby="economic-overview-title">
+  <p class="section-kicker">01 / TECHNICAL RESULT</p>
+  <h2 class="visually-hidden" id="economic-overview-title">Technical result</h2>
+  <div class="proof-hero">
+    <div class="proof-result">
+      <div class="proof-score">1/1</div>
+      <p class="proof-statement"><strong>declared commands passed</strong></p>
+      <p>Recorded on the named code in the named execution environment. The evidence annex carries the exact scope.</p>
+    </div>
+    <dl class="proof-status-rail">
+      <div><dt>Upstream</dt><dd><strong>PREPARED</strong><span>mutable external state</span></dd></div>
+      <div><dt>Attempts</dt><dd><strong>2 total</strong><span>current <code>M-112</code> · #2</span></dd></div>
+      <div data-cost-state="incomplete"><dt>Cost record</dt><dd><strong>PARTIAL</strong><span>unpriced</span></dd></div>
+    </dl>
+  </div>
+</section>
+<section class="proofline" aria-labelledby="proofline-title">
+  <div class="section-heading proofline-heading"><div><p class="section-kicker">02 / RECORDED WORK SEQUENCE</p><h2 id="proofline-title">Northset Proofline</h2></div><p>Every task-bound attempt is shown in recorded order. Anatomy geometry follows each non-null elapsed duration’s share; labels retain exact recorded time.</p></div>
+  <div class="proofline-instrument" style="--current-node:50.000000%">
+    <ol class="attempt-proofline" aria-label="Task-bound attempt sequence"><li class="proofline-attempt"><span class="attempt-tick" aria-hidden="true"></span><span class="attempt-sequence">ATTEMPT 1</span><code>M-107</code><strong>FAILED ORACLE</strong><span class="attempt-reason">verification</span></li><li class="proofline-attempt proofline-attempt--current proofline-attempt--ready" aria-current="step"><span class="attempt-tick" aria-hidden="true"></span><span class="attempt-sequence">ATTEMPT 2</span><code>M-112</code><strong>READY</strong></li></ol>
+    <div class="proofline-stages" aria-label="Recorded stage durations">
+      <div class="proofline-anatomy">
+        <p class="anatomy-title">ATTEMPT 2 / EXECUTION ANATOMY</p>
+        <div class="anatomy-bar"><span class="anatomy-segment" data-available="false" style="--anatomy-share:0.000000%"></span><span class="anatomy-segment" data-available="true" style="--anatomy-share:43.136003%"></span><span class="anatomy-segment" data-available="true" style="--anatomy-share:52.163220%"></span><span class="anatomy-segment" data-available="true" style="--anatomy-share:4.700777%"></span></div>
+        <div class="anatomy-legend"><div class="proofline-stage" data-available="false"><span class="stage-index">01</span><span class="stage-name">Discovery</span><strong>not captured</strong></div><div class="proofline-stage" data-available="true"><span class="stage-index">02</span><span class="stage-name">Qualification</span><strong>2m02s</strong><span class="stage-share">43.1%</span></div><div class="proofline-stage" data-available="true"><span class="stage-index">03</span><span class="stage-name">Authoring</span><strong>2m28s</strong><span class="stage-share">52.2%</span></div><div class="proofline-stage" data-available="true"><span class="stage-index">04</span><span class="stage-name">Verification</span><strong>13.4s</strong><span class="stage-share">4.7%</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="economic-identity" aria-labelledby="economic-identity-title">
+  <div class="section-heading"><div><p class="section-kicker">03 / ECONOMIC NARRATIVE</p><h2 id="economic-identity-title">Economic identity</h2></div><p>Observed sponsorship, authorization, scope, transfer, and outcome. No estimates or inferred value.</p></div>
+  <ol class="identity-flow">
+    <li><article><p class="flow-index">01 / MANDATE</p><h3>Sponsored and authorized</h3><p class="flow-lede">The recorded mandate names both its sponsor and initiative, with authorization tied to a named approver and approval time.</p><div class="flow-meta"><p><span>SPONSOR</span><strong>Northset OSS Fund</strong> · OSS mission experimentation</p><p><span>AUTHORIZED</span><strong>internal-user:aeziz</strong> · <time datetime="2026-07-16T19:22:54.933Z">2026-07-16T19:22:54.933Z</time></p></div></article></li>
+    <li><article><p class="flow-index">02 / WORK</p><h3>Demand became scoped work</h3><p class="flow-lede">An external issue invitation became a stable task and a recorded code-and-test scope, without treating scope as a measure of value.</p><div class="flow-meta"><p><span>TASK</span><code>TASK-OSS-4387CBF482E551A3</code> · defect fix · attempt 2</p><p><span>INVITATION</span><a class="" href="https://github.com/Dreamstick9/filedrop/issues/85">Issue #85</a> · label</p><p><span>SCOPE</span>2 files · 79 changed lines · 1 production files · 1 test files · 1 declared check</p></div></article></li>
+    <li><article><p class="flow-index">03 / EXTERNAL OUTCOME</p><h3>Transfer and upstream state</h3><p class="flow-lede">The recorded maintainer transfer and its contingency are separate from upstream state, which remains a mutable external observation.</p><div class="flow-meta"><p><span>MAINTAINER TRANSFER</span><strong>none</strong> · not merge contingent</p><p><span>UPSTREAM</span><strong>PREPARED</strong> · mutable external observation</p></div></article></li>
+  </ol>
+</section>
+<section class="economic-unknowns" aria-labelledby="economic-unknowns-title">
+  <div><p class="section-kicker">04 / COST COMPLETENESS</p><h2 id="economic-unknowns-title">Known, unknown, and unpriced</h2><p><strong>Known:</strong> maintainer payment was none. A known zero external transfer is not a zero total cost.</p></div>
+  <div><h3>Missing or unpriced components</h3><ul><li>model inference</li><li>actual host compute</li><li>human review</li><li>shared tooling</li></ul></div>
+</section>
+<section class="receipt-cost-total" data-cost-state="incomplete" aria-label="Recorded total economic cost">
+  <span>TOTAL COST</span><strong>UNPRICED</strong><p>No complete total is recorded; see the missing or unpriced component record above.</p>
+</section>
+  <details class="evidence-drawer evidence-annex"><summary><span>Evidence annex</span><small>Economic · technical · provenance · limitations</small></summary><div class="annex-body"><details class="annex-chapter annex-economic" open>
+  <summary class="annex-heading"><span>01</span><div><p>Economic evidence</p><small>Lineage, usage, caps, outcome, and cost provenance</small></div></summary>
+  <div class="drawer-grid">
+    <section class="evidence-group evidence-lineage"><h4>Attempt lineage</h4><ul class="attempt-list"><li><code>M-107</code><span>attempt 1 · FAILED ORACLE · verification</span></li><li><code>M-112</code><span>attempt 2 · READY</span></li></ul></section>
+    <section class="evidence-group evidence-usage"><h4>Recorded usage</h4><dl class="facts"><dt>requested reviewer model</dt><dd>gpt-5.6-sol</dd><dt>actual reviewer model</dt><dd><span class="evidence-null">not captured</span></dd><dt>requested author model</dt><dd>gpt-5.6-sol</dd><dt>actual author model</dt><dd><span class="evidence-null">not captured</span></dd><dt>networked setup phase</dt><dd>9s</dd><dt>install-only duration</dt><dd><span class="evidence-null">not captured</span></dd><dt>declared commands</dt><dd>0.9s</dd><dt>unclassified executor time</dt><dd>3.4s</dd><dt>CPU time</dt><dd><span class="evidence-null">not captured</span></dd><dt>peak RSS</dt><dd><span class="evidence-null">not captured</span></dd></dl></section>
+    <section class="evidence-group evidence-envelope"><h4>Configured resource envelope</h4><dl class="facts"><dt>CPU cap</dt><dd>2</dd><dt>memory cap</dt><dd>4096 MB</dd><dt>PID cap</dt><dd>512</dd><dt>command wall cap</dt><dd>1800s</dd><dt>output cap / stream</dt><dd>2000000 bytes</dd></dl><p class="scope-note">Configured limits are an envelope, not observed consumption.</p></section>
+    <section class="evidence-group evidence-costs"><h4>Cost lines</h4><ul class="cost-lines"><li><strong>maintainer payment</strong><span>observed quantity unpriced · 0 external transfer · <span class="evidence-null">amount unavailable</span></span></li></ul><p class="scope-note">Cost status: partial. Values without source-backed quantities and rates remain null.</p></section>
+    <section class="evidence-group evidence-outcome"><h4>Outcome facts</h4><dl class="facts outcome-facts"><dt>technical checks passed</dt><dd>true</dd><dt>PR opened</dt><dd>false</dd><dt>CI</dt><dd><span class="evidence-null">not observed</span></dd><dt>merged</dt><dd>false</dd><dt>accepted as submitted</dt><dd><span class="evidence-null">not established</span></dd><dt>external cycle time</dt><dd><span class="evidence-null">not captured</span></dd><dt>released</dt><dd><span class="evidence-null">not observed</span></dd><dt>deployed</dt><dd><span class="evidence-null">not observed</span></dd><dt>business result</dt><dd><span class="evidence-null">not observed</span></dd></dl></section>
+  </div>
+</details><details class="annex-chapter annex-technical"><summary class="annex-heading"><span>02</span><div><p>Technical evidence</p><small>Code, environment, exact commands, patch, and outputs</small></div></summary><div class="drawer-body"><section class="receipt-section"><h2>Project</h2><p><a class="" href="https://github.com/dreamstick9/filedrop">dreamstick9/filedrop</a></p><h2>Work</h2><p><a class="" href="https://github.com/Dreamstick9/filedrop/issues/85">[Easy] errors.js: The comment &quot;Clear any in-progress terminal state (rest…</a></p><h2>Verification execution</h2><p>runtime: northset-oss executor v1<br>human operator: aeziz</p></section><section class="receipt-section"><h2>Code</h2><dl class="facts"><dt>base</dt><dd><code>bf5a048af748e2ff896142f615373bffaf1d9895</code></dd><dt>recorded patch commit</dt><dd><code>85f57f1ee66eebbddbd41ce89ada31a413437593</code><br><span>declared metadata; not execution-bound</span></dd><dt>patch diff SHA-256</dt><dd><code>sha256:9d9f74ad30819770382b88e1cd02db1ea9e4192dd003f80e7b2e5f3c009209a8</code><br><span>bound to executed patch bytes</span></dd></dl></section><section class="receipt-section"><h2>Environment</h2><dl class="facts"><dt>image reference</dt><dd>node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7</dd><dt>repository digest</dt><dd><code>node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7</code></dd><dt>immutable image ID</dt><dd><code>sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8</code></dd><dt>platform</dt><dd>linux/arm64</dd><dt>network</dt><dd>phaseA:bridge,phaseB:none</dd></dl></section><section class="receipt-section proof-scope"><h2>Declared checks</h2><p><strong>Execution summary</strong><br>1/1 declared command returned exit 0 in the recorded environment</p><ol class="commands"><li><pre><code>node --test src/errors.terminal-cleanup.test.js</code></pre><p class="command-result">exit 0 · 0.9s</p></li></ol><p class="duration-line">run wall (derived from recorded timestamps) <span>13.4s</span></p><p class="total">PASS — 1/1 declared command</p><p class="scope-note">Every command listed returned exit 0 in the declared environment. Only the listed commands are in scope. Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded.</p></section><details class="patch"><summary>Committed patch.diff</summary><pre><code>diff --git a/src/errors.js b/src/errors.js
+index 2169ba5c2712e640fb15fabd785e1224dc920f4d..990f6b03801a785f93f150d0bb83092795587dcd 100644
+--- a/src/errors.js
++++ b/src/errors.js
+@@ -62,13 +62,19 @@ const ERROR_CODES = {
+   ERR_INVALID_IP: &#39;ERR_INVALID_IP&#39;
+ };
 &#32;
- ### Added
-&#32;
-diff --git a/lib/metricAggregators.js b/lib/metricAggregators.js
-index 8ea0528..6c2a1dd 100644
---- a/lib/metricAggregators.js
-+++ b/lib/metricAggregators.js
-@@ -51,6 +51,13 @@ function AggregatorFactory(aggregatorFn) {
- // Export for users to define their own aggregation methods.
- exports.AggregatorFactory = AggregatorFactory;
-&#32;
-+function sumValues(values) {
-+&#9;return values
-+&#9;&#9;.slice()
-+&#9;&#9;.sort((a, b) =&gt; a.value - b.value)
-+&#9;&#9;.reduce((p, c) =&gt; p + c.value, 0);
++function restoreTerminalState() {
++  if (process.stdout.isTTY) {
++    process.stdout.write(&#39;\x1b[?25h\x1b[0m\n&#39;);
++  }
 +}
 +
  /**
-  * Functions that can be used to aggregate metrics from multiple registries.
+  * Registers global process error handlers.
+  * To be called early in the lifecycle.
   */
-@@ -58,7 +65,7 @@ exports.aggregators = {
- &#9;/**
- &#9; * @returns The sum of values.
- &#9; */
--&#9;sum: AggregatorFactory(v =&gt; v.reduce((p, c) =&gt; p + c.value, 0)),
-+&#9;sum: AggregatorFactory(sumValues),
- &#9;/**
- &#9; * @returns The first value.
- &#9; */
-@@ -70,9 +77,7 @@ exports.aggregators = {
- &#9;/**
- &#9; * @returns The arithmetic mean of the values.
- &#9; */
--&#9;average: AggregatorFactory(
--&#9;&#9;v =&gt; v.reduce((p, c) =&gt; p + c.value, 0) / v.length,
--&#9;),
-+&#9;average: AggregatorFactory(v =&gt; sumValues(v) / v.length),
- &#9;/**
- &#9; * @returns The minimum of the values.
- &#9; */
-diff --git a/test/aggregatorsTest.js b/test/aggregatorsTest.js
-index 0010a65..f3f77ad 100644
---- a/test/aggregatorsTest.js
-+++ b/test/aggregatorsTest.js
-@@ -34,6 +34,20 @@ describe(&#39;aggregators&#39;, () =&gt; {
- &#9;&#9;&#9;&#9;{ value: 6, labels: [&#39;label1&#39;] },
- &#9;&#9;&#9;]);
- &#9;&#9;});
-+
-+&#9;&#9;it(&#39;sums values independently of their order&#39;, () =&gt; {
-+&#9;&#9;&#9;const workerMetrics = [0.1, 0.2, 0.3].map(value =&gt; ({
-+&#9;&#9;&#9;&#9;help: &#39;metric_help&#39;,
-+&#9;&#9;&#9;&#9;name: &#39;metric_name&#39;,
-+&#9;&#9;&#9;&#9;type: &#39;does not matter&#39;,
-+&#9;&#9;&#9;&#9;values: [{ labels: [], value }],
-+&#9;&#9;&#9;}));
-+
-+&#9;&#9;&#9;const result = aggregators.sum(workerMetrics);
-+&#9;&#9;&#9;const reorderedResult = aggregators.sum(workerMetrics.slice().reverse());
-+
-+&#9;&#9;&#9;expect(result.values[0].value).toBe(reorderedResult.values[0].value);
-+&#9;&#9;});
- &#9;});
+ function registerGlobalErrorHandlers() {
+   process.on(&#39;uncaughtException&#39;, (err) =&gt; {
+-    // Clear any in-progress terminal state (restore cursor, etc.)
++    restoreTerminalState();
+     console.error(`\nfiledrop: unexpected error: ${err.message}`);
+     if (process.env.FILEDROP_DEBUG) {
+       console.error(err.stack);
+@@ -77,6 +83,7 @@ function registerGlobalErrorHandlers() {
+   });
 &#32;
- &#9;describe(&#39;first&#39;, () =&gt; {
-</code></pre></details><details class="evidence-output"><summary>Redacted stdout</summary><pre><code>=== cmd 1: npm run test-unit ===
+   process.on(&#39;unhandledRejection&#39;, (reason) =&gt; {
++    restoreTerminalState();
+     console.error(`\nfiledrop: unhandled async error: ${reason}`);
+     if (process.env.FILEDROP_DEBUG) {
+       console.error(reason?.stack || reason);
+diff --git a/src/errors.terminal-cleanup.test.js b/src/errors.terminal-cleanup.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..f9dbc5f48c609bc3758af41d786c600b405c5f6e
+--- /dev/null
++++ b/src/errors.terminal-cleanup.test.js
+@@ -0,0 +1,70 @@
++const test = require(&#39;node:test&#39;);
++const assert = require(&#39;node:assert/strict&#39;);
++const { registerGlobalErrorHandlers } = require(&#39;./errors.js&#39;);
++
++test(&#39;restores terminal state before fatal exit&#39;, (t) =&gt; {
++  const originalOn = process.on;
++  const originalExit = process.exit;
++  const originalWrite = process.stdout.write;
++  const originalIsTTY = process.stdout.isTTY;
++  const originalConsoleError = console.error;
++  const originalDebug = process.env.FILEDROP_DEBUG;
++  const handlers = {};
++  const events = [];
++
++  t.after(() =&gt; {
++    process.on = originalOn;
++    process.exit = originalExit;
++    process.stdout.write = originalWrite;
++    process.stdout.isTTY = originalIsTTY;
++    console.error = originalConsoleError;
++    if (originalDebug === undefined) {
++      delete process.env.FILEDROP_DEBUG;
++    } else {
++      process.env.FILEDROP_DEBUG = originalDebug;
++    }
++  });
++
++  process.on = (event, handler) =&gt; {
++    handlers[event] = handler;
++    return process;
++  };
++  registerGlobalErrorHandlers();
++  process.on = originalOn;
++
++  delete process.env.FILEDROP_DEBUG;
++  console.error = () =&gt; {};
++  process.stdout.write = (chunk) =&gt; {
++    events.push({ type: &#39;write&#39;, chunk });
++    return true;
++  };
++  process.exit = (code) =&gt; {
++    events.push({ type: &#39;exit&#39;, code });
++  };
++
++  const fatalErrors = [
++    [&#39;uncaughtException&#39;, new Error(&#39;sync failure&#39;)],
++    [&#39;unhandledRejection&#39;, new Error(&#39;async failure&#39;)]
++  ];
++
++  process.stdout.isTTY = true;
++  for (const [event, error] of fatalErrors) {
++    events.length = 0;
++    handlers[event](error);
++
++    assert.deepStrictEqual(events, [
++      { type: &#39;write&#39;, chunk: &#39;\x1b[?25h\x1b[0m\n&#39; },
++      { type: &#39;exit&#39;, code: 99 }
++    ], event);
++  }
++
++  process.stdout.isTTY = false;
++  for (const [event, error] of fatalErrors) {
++    events.length = 0;
++    handlers[event](error);
++
++    assert.deepStrictEqual(events, [
++      { type: &#39;exit&#39;, code: 99 }
++    ], event);
++  }
++});
+</code></pre></details><details class="evidence-output"><summary>Redacted stdout</summary><pre><code>=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===
+✔ restores terminal state before fatal exit (6.741667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 76.696667
+</code></pre></details><details class="evidence-output"><summary>Redacted stderr</summary><pre><code>=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===
+</code></pre></details></div></details><details class="annex-chapter annex-provenance"><summary class="annex-heading"><span>03</span><div><p>Provenance &amp; limitations</p><small>Bundle identity, attestation, verification, and claims boundary</small></div></summary><div class="drawer-body"><section class="receipt-section"><h2>Record details</h2><dl class="facts"><dt>payment</dt><dd>none · not merge-contingent</dd><dt>redactions</dt><dd>none recorded</dd><dt>Bundle contents digest</dt><dd><code>sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3</code></dd><dt>Signed asset SHA-256</dt><dd><code>not recorded</code></dd><dt>Signed provenance recorded</dt><dd>not verified</dd></dl></section><section class="receipt-section limitations"><h2>NOT INCLUDED</h2><ul><li>Does not prove code quality</li><li>Does not prove security</li><li>Contributor self-run record of Northset&#39;s own contribution; not the maintainer&#39;s verification.</li><li>The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.</li></ul></section><section class="receipt-section verification"><h2>Signed bundle</h2><p>Attestation URL was not recorded.</p><a class="qr-link" href="./index.html" aria-label="Canonical receipt page for M-112"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" role="img" aria-label="QR code for https://northset-oss.github.io/verification-pilot/receipts/M-112/" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h45v45H0z"/><path fill="#111" transform="translate(4 4)" d="M0,0h1v1h-1zM1,0h1v1h-1zM2,0h1v1h-1zM3,0h1v1h-1zM4,0h1v1h-1zM5,0h1v1h-1zM6,0h1v1h-1zM10,0h1v1h-1zM14,0h1v1h-1zM18,0h1v1h-1zM23,0h1v1h-1zM26,0h1v1h-1zM27,0h1v1h-1zM30,0h1v1h-1zM31,0h1v1h-1zM32,0h1v1h-1zM33,0h1v1h-1zM34,0h1v1h-1zM35,0h1v1h-1zM36,0h1v1h-1zM0,1h1v1h-1zM6,1h1v1h-1zM9,1h1v1h-1zM13,1h1v1h-1zM17,1h1v1h-1zM23,1h1v1h-1zM24,1h1v1h-1zM25,1h1v1h-1zM26,1h1v1h-1zM27,1h1v1h-1zM30,1h1v1h-1zM36,1h1v1h-1zM0,2h1v1h-1zM2,2h1v1h-1zM3,2h1v1h-1zM4,2h1v1h-1zM6,2h1v1h-1zM8,2h1v1h-1zM11,2h1v1h-1zM15,2h1v1h-1zM19,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM27,2h1v1h-1zM30,2h1v1h-1zM32,2h1v1h-1zM33,2h1v1h-1zM34,2h1v1h-1zM36,2h1v1h-1zM0,3h1v1h-1zM2,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM6,3h1v1h-1zM9,3h1v1h-1zM12,3h1v1h-1zM13,3h1v1h-1zM16,3h1v1h-1zM17,3h1v1h-1zM20,3h1v1h-1zM22,3h1v1h-1zM26,3h1v1h-1zM27,3h1v1h-1zM28,3h1v1h-1zM30,3h1v1h-1zM32,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM36,3h1v1h-1zM0,4h1v1h-1zM2,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM6,4h1v1h-1zM9,4h1v1h-1zM12,4h1v1h-1zM13,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM20,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM24,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM36,4h1v1h-1zM0,5h1v1h-1zM6,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM16,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM27,5h1v1h-1zM28,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM0,6h1v1h-1zM1,6h1v1h-1zM2,6h1v1h-1zM3,6h1v1h-1zM4,6h1v1h-1zM5,6h1v1h-1zM6,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM14,6h1v1h-1zM16,6h1v1h-1zM18,6h1v1h-1zM20,6h1v1h-1zM22,6h1v1h-1zM24,6h1v1h-1zM26,6h1v1h-1zM28,6h1v1h-1zM30,6h1v1h-1zM31,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM35,6h1v1h-1zM36,6h1v1h-1zM8,7h1v1h-1zM11,7h1v1h-1zM15,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM22,7h1v1h-1zM23,7h1v1h-1zM24,7h1v1h-1zM25,7h1v1h-1zM28,7h1v1h-1zM0,8h1v1h-1zM1,8h1v1h-1zM2,8h1v1h-1zM4,8h1v1h-1zM5,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM20,8h1v1h-1zM21,8h1v1h-1zM25,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM29,8h1v1h-1zM30,8h1v1h-1zM34,8h1v1h-1zM0,9h1v1h-1zM2,9h1v1h-1zM7,9h1v1h-1zM9,9h1v1h-1zM11,9h1v1h-1zM12,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM21,9h1v1h-1zM24,9h1v1h-1zM30,9h1v1h-1zM33,9h1v1h-1zM34,9h1v1h-1zM36,9h1v1h-1zM1,10h1v1h-1zM2,10h1v1h-1zM4,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM15,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM20,10h1v1h-1zM21,10h1v1h-1zM22,10h1v1h-1zM26,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM36,10h1v1h-1zM0,11h1v1h-1zM1,11h1v1h-1zM4,11h1v1h-1zM12,11h1v1h-1zM13,11h1v1h-1zM14,11h1v1h-1zM16,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM22,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM28,11h1v1h-1zM30,11h1v1h-1zM32,11h1v1h-1zM33,11h1v1h-1zM36,11h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM14,12h1v1h-1zM15,12h1v1h-1zM18,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM23,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM36,12h1v1h-1zM1,13h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM4,13h1v1h-1zM7,13h1v1h-1zM8,13h1v1h-1zM9,13h1v1h-1zM11,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM19,13h1v1h-1zM21,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM28,13h1v1h-1zM30,13h1v1h-1zM34,13h1v1h-1zM36,13h1v1h-1zM0,14h1v1h-1zM1,14h1v1h-1zM2,14h1v1h-1zM3,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM13,14h1v1h-1zM17,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM0,15h1v1h-1zM3,15h1v1h-1zM5,15h1v1h-1zM8,15h1v1h-1zM11,15h1v1h-1zM15,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM24,15h1v1h-1zM25,15h1v1h-1zM27,15h1v1h-1zM30,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM35,15h1v1h-1zM2,16h1v1h-1zM4,16h1v1h-1zM5,16h1v1h-1zM6,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM10,16h1v1h-1zM12,16h1v1h-1zM16,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM23,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM30,16h1v1h-1zM36,16h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM9,17h1v1h-1zM10,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM15,17h1v1h-1zM16,17h1v1h-1zM17,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM29,17h1v1h-1zM30,17h1v1h-1zM31,17h1v1h-1zM34,17h1v1h-1zM36,17h1v1h-1zM0,18h1v1h-1zM1,18h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM6,18h1v1h-1zM8,18h1v1h-1zM10,18h1v1h-1zM11,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM16,18h1v1h-1zM18,18h1v1h-1zM20,18h1v1h-1zM22,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM32,18h1v1h-1zM33,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM0,19h1v1h-1zM1,19h1v1h-1zM2,19h1v1h-1zM4,19h1v1h-1zM8,19h1v1h-1zM9,19h1v1h-1zM10,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM16,19h1v1h-1zM17,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM23,19h1v1h-1zM25,19h1v1h-1zM26,19h1v1h-1zM28,19h1v1h-1zM29,19h1v1h-1zM30,19h1v1h-1zM35,19h1v1h-1zM0,20h1v1h-1zM1,20h1v1h-1zM2,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM7,20h1v1h-1zM8,20h1v1h-1zM11,20h1v1h-1zM14,20h1v1h-1zM15,20h1v1h-1zM18,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM24,20h1v1h-1zM25,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM31,20h1v1h-1zM35,20h1v1h-1zM36,20h1v1h-1zM0,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM18,21h1v1h-1zM21,21h1v1h-1zM22,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM29,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM36,21h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM9,22h1v1h-1zM10,22h1v1h-1zM13,22h1v1h-1zM17,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM35,22h1v1h-1zM36,22h1v1h-1zM1,23h1v1h-1zM2,23h1v1h-1zM4,23h1v1h-1zM8,23h1v1h-1zM9,23h1v1h-1zM11,23h1v1h-1zM15,23h1v1h-1zM19,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM30,23h1v1h-1zM35,23h1v1h-1zM0,24h1v1h-1zM1,24h1v1h-1zM2,24h1v1h-1zM3,24h1v1h-1zM6,24h1v1h-1zM7,24h1v1h-1zM12,24h1v1h-1zM16,24h1v1h-1zM21,24h1v1h-1zM25,24h1v1h-1zM28,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM35,24h1v1h-1zM36,24h1v1h-1zM2,25h1v1h-1zM5,25h1v1h-1zM7,25h1v1h-1zM8,25h1v1h-1zM11,25h1v1h-1zM12,25h1v1h-1zM13,25h1v1h-1zM15,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM21,25h1v1h-1zM22,25h1v1h-1zM24,25h1v1h-1zM25,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM0,26h1v1h-1zM4,26h1v1h-1zM5,26h1v1h-1zM6,26h1v1h-1zM9,26h1v1h-1zM11,26h1v1h-1zM12,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM16,26h1v1h-1zM18,26h1v1h-1zM26,26h1v1h-1zM31,26h1v1h-1zM33,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM1,27h1v1h-1zM2,27h1v1h-1zM4,27h1v1h-1zM8,27h1v1h-1zM9,27h1v1h-1zM12,27h1v1h-1zM13,27h1v1h-1zM14,27h1v1h-1zM16,27h1v1h-1zM17,27h1v1h-1zM18,27h1v1h-1zM19,27h1v1h-1zM21,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM26,27h1v1h-1zM27,27h1v1h-1zM28,27h1v1h-1zM31,27h1v1h-1zM35,27h1v1h-1zM0,28h1v1h-1zM4,28h1v1h-1zM6,28h1v1h-1zM7,28h1v1h-1zM9,28h1v1h-1zM10,28h1v1h-1zM11,28h1v1h-1zM14,28h1v1h-1zM15,28h1v1h-1zM18,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM8,29h1v1h-1zM9,29h1v1h-1zM10,29h1v1h-1zM11,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM18,29h1v1h-1zM21,29h1v1h-1zM22,29h1v1h-1zM25,29h1v1h-1zM26,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM35,29h1v1h-1zM36,29h1v1h-1zM0,30h1v1h-1zM1,30h1v1h-1zM2,30h1v1h-1zM3,30h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM8,30h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM13,30h1v1h-1zM17,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM35,30h1v1h-1zM36,30h1v1h-1zM0,31h1v1h-1zM6,31h1v1h-1zM8,31h1v1h-1zM9,31h1v1h-1zM10,31h1v1h-1zM11,31h1v1h-1zM15,31h1v1h-1zM19,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM0,32h1v1h-1zM2,32h1v1h-1zM3,32h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM8,32h1v1h-1zM9,32h1v1h-1zM12,32h1v1h-1zM16,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM22,32h1v1h-1zM23,32h1v1h-1zM24,32h1v1h-1zM25,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM0,33h1v1h-1zM2,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM11,33h1v1h-1zM12,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM16,33h1v1h-1zM17,33h1v1h-1zM24,33h1v1h-1zM27,33h1v1h-1zM32,33h1v1h-1zM35,33h1v1h-1zM0,34h1v1h-1zM2,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM8,34h1v1h-1zM9,34h1v1h-1zM11,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM16,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM26,34h1v1h-1zM29,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM34,34h1v1h-1zM35,34h1v1h-1zM36,34h1v1h-1zM0,35h1v1h-1zM6,35h1v1h-1zM8,35h1v1h-1zM9,35h1v1h-1zM10,35h1v1h-1zM12,35h1v1h-1zM13,35h1v1h-1zM14,35h1v1h-1zM16,35h1v1h-1zM17,35h1v1h-1zM18,35h1v1h-1zM19,35h1v1h-1zM20,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM31,35h1v1h-1zM35,35h1v1h-1zM0,36h1v1h-1zM1,36h1v1h-1zM2,36h1v1h-1zM3,36h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM8,36h1v1h-1zM9,36h1v1h-1zM10,36h1v1h-1zM11,36h1v1h-1zM14,36h1v1h-1zM15,36h1v1h-1zM18,36h1v1h-1zM19,36h1v1h-1zM20,36h1v1h-1zM23,36h1v1h-1zM24,36h1v1h-1zM25,36h1v1h-1zM27,36h1v1h-1zM28,36h1v1h-1zM30,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1z"/></svg><span>QR → receipt page</span></a></section><footer class="receipt-provenance"><p>RECEIPT PROVENANCE</p><dl class="facts"><dt>Canonical receipt</dt><dd><a class="" href="https://northset-oss.github.io/verification-pilot/receipts/M-112/">https://northset-oss.github.io/verification-pilot/receipts/M-112/</a></dd><dt>Generated at</dt><dd><time datetime="2026-07-16T19:23:33.213Z">2026-07-16T19:23:33.213Z</time></dd></dl></footer></div></details></div></details>
+  <footer class="receipt-disclosure"><strong>Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.</strong><p>Evidence of what ran — not a verdict that the code is good.</p><p><strong>SELF-FUNDED FIELD-TESTING.</strong></p></footer>
 
-&gt; @[REDACTED:email] test-unit
-&gt; jest
 
-</code></pre></details><details class="evidence-output"><summary>Redacted stderr</summary><pre><code>=== cmd 1: npm run test-unit ===
-PASS test/histogramTest.js
-PASS test/summaryTest.js
-PASS test/registerTest.js
-PASS test/utilTest.js
-PASS test/gaugeTest.js
-PASS test/exemplarsTest.js
-PASS test/counterTest.js
-PASS test/pushgatewayWithPathTest.js
-PASS test/aggregatorsTest.js
-PASS test/pushgatewayTest.js
-PASS test/defaultMetricsTest.js
-PASS test/metrics/heapSpacesSizeAndUsedTest.js
-PASS test/metrics/eventLoopLagTest.js
-PASS test/timeWindowQuantilesTest.js
-PASS test/clusterTest.js
-PASS test/metrics/maxFileDescriptorsTest.js
-PASS test/bucketGeneratorsTest.js
-PASS test/metrics/versionTest.js
-PASS test/metrics/heapSizeAndUsedTest.js
-PASS test/workerTest.js
-PASS test/metrics/gcTest.js
-PASS test/metrics/processRequestsTest.js
-PASS test/metrics/processHandlesTest.js
-PASS test/browserCompatibilityTest.js
-PASS test/metrics/processStartTimeTest.js
-PASS test/validationTest.js
-PASS test/metrics/processOpenFileDescriptorsTest.js
-PASS test/metrics/processResourcesTest.js
-A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
-
-Test Suites: 28 passed, 28 total
-Tests:       543 passed, 543 total
-Snapshots:   34 passed, 34 total
-Time:        4.076 s
-Ran all test suites.
-</code></pre></details>
-
-</article><section class="outcome-stub" aria-label="External status"><p class="stub-cut">- - - detach here - - -</p><h2>External status</h2><p>Mutable upstream observation; unattested and separate from the signed run record.</p><dl class="facts external-facts"><dt>PR state</dt><dd>MERGED</dd><dt>Review signal</dt><dd>APPROVED</dd><dt>CI state</dt><dd>SUCCESS</dd><dt>Upstream updated at</dt><dd>2026-07-15T17:47:19Z</dd><dt>Observed at</dt><dd>2026-07-15T21:34:02.016Z</dd></dl><strong><a class="outcome-link" href="https://github.com/prometheus/client_js/pull/771#pullrequestreview-4689926060">MERGED</a></strong><p>Linked maintainer review · <a class="" href="https://github.com/prometheus/client_js/pull/771#pullrequestreview-4689926060">open linked record</a></p><p class="outcome-drift"><strong>PR changed since this record.</strong> Recorded patch commit <code>e345d993c4d2e1ad54e7367e38e07bcc283ccbca</code>; current PR head observed at 2026-07-15T21:34:02.016Z: <code>b64dc651cb3a1a22ed5e51095bbea2296d2b57ad</code>. The patch commit is declared source metadata, not an execution-bound identity; only the recorded patch bytes are bound to this receipt.</p></section><section class="request-run" aria-labelledby="request-run-title">
+</article><section class="request-run" aria-labelledby="request-run-title">
   <p class="eyebrow">FOR MAINTAINERS</p>
   <h2 id="request-run-title">Request a private run</h2>
   <p><strong>Maintain an open-source project?</strong> Send Northset a PR already in your queue. We run its repository-declared checks in an isolated container and return the run record privately. We do not modify the PR. Nothing is published without your approval. Free during the pilot.</p>
