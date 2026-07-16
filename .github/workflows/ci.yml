@@ -1,5 +1,5 @@
 # Validate source, immutable evidence, and generated public projections. On a main push this
-# workflow also packages the one changed bundle (or a signed no-op marker) for downstream signing.
+# workflow also packages up to 50 changed bundles (or an explicit no-op) for downstream signing.
 name: ci
 
 on:
@@ -67,40 +67,23 @@ jobs:
           node bin/ledger.mjs render --index "$work/index.json" --out "$work/site/index.html"
           diff -ru site "$work/site"
 
-      - name: Package exact changed bundle for the signing workflow
+      - name: Package exact changed bundles for the signing workflow
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           BEFORE_SHA: ${{ github.event.before }}
           HEAD_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          out="$RUNNER_TEMP/ci-release"
-          mkdir -p "$out"
-          changed="$(git diff --name-only "${BEFORE_SHA}..${HEAD_SHA}" -- ':(glob)missions/*/bundle/**' | cut -d/ -f2 | sort -u)"
-          count="$(printf '%s\n' "$changed" | grep -c . || true)"
-          if [ "$count" -gt 1 ]; then
-            echo "more than one bundle changed in ${BEFORE_SHA}..${HEAD_SHA}" >&2
-            exit 1
-          fi
-          if [ "$count" -eq 0 ]; then
-            jq -n --arg head_sha "$HEAD_SHA" '{schema_version:1,no_op:true,head_sha:$head_sha,mission_id:null,bundle:null,bundle_digest:null,release_tag:null}' > "$out/metadata.json"
-            exit 0
-          fi
-          mission="$changed"
-          digest="$(jq -r '.bundle_digest' "missions/${mission}/bundle/bundle.manifest.json")"
-          short="${digest#sha256:}"
-          short="${short:0:12}"
-          bundle="run-record-${mission}-${short}.tar.gz"
-          tag="run-record-${mission}-${short}"
-          tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner -czf "$out/$bundle" -C "missions/${mission}" bundle
-          jq -n --arg head_sha "$HEAD_SHA" --arg mission_id "$mission" --arg bundle "$bundle" --arg bundle_digest "$digest" --arg release_tag "$tag" \
-            '{schema_version:1,no_op:false,head_sha:$head_sha,mission_id:$mission_id,bundle:$bundle,bundle_digest:$bundle_digest,release_tag:$release_tag}' > "$out/metadata.json"
+        run: >-
+          node bin/signing-handoff.mjs create
+          --repo .
+          --before "$BEFORE_SHA"
+          --head "$HEAD_SHA"
+          --out "$RUNNER_TEMP/ci-release"
 
       - name: Upload CI-validated signing handoff
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: ci-release-${{ github.sha }}
+          name: ci-release-${{ github.event.before }}-${{ github.sha }}
           path: ${{ runner.temp }}/ci-release
           if-no-files-found: error
           retention-days: 7

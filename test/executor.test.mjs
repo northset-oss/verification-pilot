@@ -67,7 +67,38 @@ test('runtime profiles persist dependencies inside the workspace and unsupported
   });
   assert.match(pythonArgs.at(-1), /python3 -m venv \/workspace\/\.venv/);
   assert.ok(pythonArgs.includes('PATH=/workspace/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
-  assert.throws(() => validateExecutorConfig(config({profile: 'go'})), /profile/i);
+
+  const go = validateExecutorConfig(config({profile: 'go', image: 'golang:1.24-bookworm'}));
+  const goPhaseA = buildDockerArgs('phaseA', go, {
+    workspaceDir: '/tmp/workspace', containerName: 'go-profile', patchContainerFile: null,
+  });
+  const goPhaseB = buildDockerArgs('phaseB', go, {
+    workspaceDir: '/tmp/workspace', containerName: 'go-profile-check', command: 'go test ./...',
+  });
+  assert.match(goPhaseA.at(-1), /test -x \/usr\/local\/go\/bin\/go/);
+  for (const args of [goPhaseA, goPhaseB]) {
+    assert.ok(args.includes('PATH=/workspace/.northset/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
+    assert.ok(args.includes('GOCACHE=/workspace/.northset/go-build-cache'));
+    assert.ok(args.includes('GOMODCACHE=/workspace/.northset/go-mod-cache'));
+    assert.ok(args.includes('GOPATH=/workspace/.northset/go'));
+  }
+
+  const rust = validateExecutorConfig(config({profile: 'rust', image: 'rust:1.88-bookworm'}));
+  const rustPhaseA = buildDockerArgs('phaseA', rust, {
+    workspaceDir: '/tmp/workspace', containerName: 'rust-profile', patchContainerFile: null,
+  });
+  const rustPhaseB = buildDockerArgs('phaseB', rust, {
+    workspaceDir: '/tmp/workspace', containerName: 'rust-profile-check', command: 'cargo test',
+  });
+  assert.match(rustPhaseA.at(-1), /test -x \/usr\/local\/cargo\/bin\/cargo/);
+  for (const args of [rustPhaseA, rustPhaseB]) {
+    assert.ok(args.includes('PATH=/workspace/.northset/cargo/bin:/usr/local/cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
+    assert.ok(args.includes('CARGO_HOME=/workspace/.northset/cargo'));
+    assert.ok(args.includes('CARGO_TARGET_DIR=/workspace/.northset/cargo-target'));
+    assert.ok(args.includes('RUSTUP_HOME=/usr/local/rustup'));
+  }
+
+  assert.throws(() => validateExecutorConfig(config({profile: 'ruby'})), /profile/i);
 });
 
 class FakeChild extends EventEmitter {
