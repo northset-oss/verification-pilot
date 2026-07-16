@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T19:30:24.937Z",
+  "generated_at": "2026-07-16T19:32:36.706Z",
   "receipt_id": "M-114",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:567f7f77c13be6665b71c0b045265986385d259377dd7e423d1224e5432908b3",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-114-afc23ce06661/run-record-M-114-afc23ce06661.tar.gz",
+    "attestation_verified_at": "2026-07-16T19:32:26.173Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-114/",
     "target_repo": "https://github.com/node-fetch/node-fetch",
     "issue_or_task": "https://github.com/node-fetch/node-fetch/issues/1509",
-    "publication_pr": null
+    "publication_pr": "https://github.com/node-fetch/node-fetch/pull/1904"
   },
   "issue_title": "abort and correct the error message when `body.formData()` fails",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/node-fetch/node-fetch/pull/1904",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -252,8 +252,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

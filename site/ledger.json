@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T19:30:24.937Z",
+  "generated_at": "2026-07-16T19:32:36.706Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -549,7 +549,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -617,7 +617,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -685,7 +685,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -752,7 +752,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -820,7 +820,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -908,7 +908,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -996,7 +996,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1367,7 +1367,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1648,7 +1648,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1938,7 +1938,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2234,7 +2234,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2513,7 +2513,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2552,17 +2552,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:afc23ce06661733092154c50fda1ce11041d26114fb060712dc5ec78fba7f9b9",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:567f7f77c13be6665b71c0b045265986385d259377dd7e423d1224e5432908b3",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-114-afc23ce06661/run-record-M-114-afc23ce06661.tar.gz",
+        "attestation_verified_at": "2026-07-16T19:32:26.173Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-114/",
         "target_repo": "https://github.com/node-fetch/node-fetch",
         "issue_or_task": "https://github.com/node-fetch/node-fetch/issues/1509",
-        "publication_pr": null
+        "publication_pr": "https://github.com/node-fetch/node-fetch/pull/1904"
       },
       "issue_title": "abort and correct the error message when `body.formData()` fails",
       "limitations": [
@@ -2572,11 +2572,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/node-fetch/node-fetch/pull/1904",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -2765,8 +2765,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -2792,7 +2792,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2831,17 +2831,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:98769378fb071e26f3b80c22fcd182da2494df155597e6ac2273fc48107674fa",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-115-5e882b216537/run-record-M-115-5e882b216537.tar.gz",
+        "attestation_verified_at": "2026-07-16T19:32:25.549Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-115/",
         "target_repo": "https://github.com/rokucommunity/bslint",
         "issue_or_task": "https://github.com/rokucommunity/bslint/issues/61",
-        "publication_pr": null
+        "publication_pr": "https://github.com/rokucommunity/bslint/pull/197"
       },
       "issue_title": "Incorrect usage of CreateObject for component usage",
       "limitations": [
@@ -2851,11 +2851,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/rokucommunity/bslint/pull/197",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -3044,8 +3044,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3071,7 +3071,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3110,17 +3110,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:283d0c28f432f1f2b8f16bddd7796e79e1c14e17e9755f3af1b2ab2672dd3819",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:998edf4eb5f7a324146085c14b3e15fcf38907135dfc9aec5687ffd1ea6cadfa",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-116-283d0c28f432/run-record-M-116-283d0c28f432.tar.gz",
+        "attestation_verified_at": "2026-07-16T19:32:26.030Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-116/",
         "target_repo": "https://github.com/thepants999/yellowscribe",
         "issue_or_task": "https://github.com/ThePants999/Yellowscribe/issues/9",
-        "publication_pr": null
+        "publication_pr": "https://github.com/ThePants999/Yellowscribe/pull/35"
       },
       "issue_title": "Empty detachment breaks parsing",
       "limitations": [
@@ -3130,11 +3130,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/ThePants999/Yellowscribe/pull/35",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -3316,8 +3316,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3343,7 +3343,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T19:30:24.937Z",
+      "generated_at": "2026-07-16T19:32:36.706Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3382,17 +3382,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:2957f2ec31791a5f2210d267a4078ddada30af181021f7586c205d4aa0a546f1",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-122-276e60f2c7a1/run-record-M-122-276e60f2c7a1.tar.gz",
+        "attestation_verified_at": "2026-07-16T19:32:25.564Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-122/",
         "target_repo": "https://github.com/picolab/pico-engine",
         "issue_or_task": "https://github.com/Picolab/pico-engine/issues/595",
-        "publication_pr": null
+        "publication_pr": "https://github.com/Picolab/pico-engine/pull/663"
       },
       "issue_title": "Need a better parser/compile error message for mis-placed bindings/assignments",
       "limitations": [
@@ -3403,11 +3403,11 @@
         "Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions. Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/Picolab/pico-engine/pull/663",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -3608,8 +3608,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,

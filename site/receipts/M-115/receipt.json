@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T19:30:24.937Z",
+  "generated_at": "2026-07-16T19:32:36.706Z",
   "receipt_id": "M-115",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:98769378fb071e26f3b80c22fcd182da2494df155597e6ac2273fc48107674fa",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-115-5e882b216537/run-record-M-115-5e882b216537.tar.gz",
+    "attestation_verified_at": "2026-07-16T19:32:25.549Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-115/",
     "target_repo": "https://github.com/rokucommunity/bslint",
     "issue_or_task": "https://github.com/rokucommunity/bslint/issues/61",
-    "publication_pr": null
+    "publication_pr": "https://github.com/rokucommunity/bslint/pull/197"
   },
   "issue_title": "Incorrect usage of CreateObject for component usage",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/rokucommunity/bslint/pull/197",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -252,8 +252,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
