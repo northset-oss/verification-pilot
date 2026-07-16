@@ -1,32 +1,20 @@
 {
   "schema_version": 2,
   "generated_at": "2026-07-16T19:23:33.213Z",
-  "receipt_id": "M-105",
-  "receipt_result": "PASS — 3/3 declared commands",
-  "passed_commands": 3,
-  "declared_commands": 3,
+  "receipt_id": "M-112",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
   "timestamps": {
-    "started_at": "2026-07-16T16:56:19.419Z",
-    "finished_at": "2026-07-16T16:58:05.106Z"
+    "started_at": "2026-07-16T19:21:16.236Z",
+    "finished_at": "2026-07-16T19:21:29.635Z"
   },
   "commands": [
     {
-      "cmd": "npm run test:unit -- test/unit/typescript-output-filename.test.ts",
+      "cmd": "node --test src/errors.terminal-cleanup.test.js",
       "exit_code": 0,
       "timed_out": false,
-      "duration_ms": 4187
-    },
-    {
-      "cmd": "npm run lint",
-      "exit_code": 0,
-      "timed_out": false,
-      "duration_ms": 7300
-    },
-    {
-      "cmd": "npm run build",
-      "exit_code": 0,
-      "timed_out": false,
-      "duration_ms": 5580
+      "duration_ms": 936
     }
   ],
   "environment": {
@@ -36,35 +24,34 @@
     "container_os": "linux",
     "container_architecture": "arm64",
     "network_policy": "phaseA:bridge,phaseB:none",
-    "source_commit": "662ad5b635064fd0be6a5e27f8de06bec45d5207",
+    "source_commit": "bf5a048af748e2ff896142f615373bffaf1d9895",
     "install_commands": [
-      "npm ci",
-      "npm run build"
+      "npm ci"
     ]
   },
   "code": {
-    "base_commit": "662ad5b635064fd0be6a5e27f8de06bec45d5207",
-    "recorded_patch_commit": "a47489b19c182d54b14a0c8d78afda5b1e23864a",
+    "base_commit": "bf5a048af748e2ff896142f615373bffaf1d9895",
+    "recorded_patch_commit": "85f57f1ee66eebbddbd41ce89ada31a413437593",
     "patch_commit_binding": "declared metadata; not execution-bound",
-    "patch_diff_hash": "sha256:c7256fb67e572058e6e74d8006f6f43fd9a9077ae7d0bcb25a48695e950cb816",
+    "patch_diff_hash": "sha256:9d9f74ad30819770382b88e1cd02db1ea9e4192dd003f80e7b2e5f3c009209a8",
     "patch_diff_binding": "bound to executed patch bytes"
   },
-  "execution_summary": "3/3 declared commands returned exit 0 in the recorded environment",
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
-    "bundle_contents_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
-    "signed_asset_sha256": "sha256:c6ce05ab14819b3e2efa00c0a0189720d4f404f5813e9a44ea5244888724b385",
-    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-105-ac1b5673f442/run-record-M-105-ac1b5673f442.tar.gz",
-    "attestation_verified_at": "2026-07-16T17:16:19.585Z",
-    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+    "bundle_contents_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
+    "signed_asset_sha256": null,
+    "attestation_uri": null,
+    "attestation_verified_at": null,
+    "provenance": "Signed provenance has not been verified."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
-    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
-    "target_repo": "https://github.com/glideapps/quicktype",
-    "issue_or_task": "https://github.com/glideapps/quicktype/issues/971",
-    "publication_pr": "https://github.com/glideapps/quicktype/pull/2948"
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
+    "target_repo": "https://github.com/dreamstick9/filedrop",
+    "issue_or_task": "https://github.com/Dreamstick9/filedrop/issues/85",
+    "publication_pr": null
   },
-  "issue_title": "Incorrect filename in comment in TS output",
+  "issue_title": "[Easy] errors.js: The comment \"Clear any in-progress terminal state (rest…",
   "limitations": [
     "Does not prove code quality",
     "Does not prove security",
@@ -72,25 +59,25 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "scope_note": null,
   "upstream_outcome": {
-    "status": "open",
-    "link": "https://github.com/glideapps/quicktype/pull/2948",
-    "attribution": "Live upstream pull request"
+    "status": "prepared",
+    "link": null,
+    "attribution": "Recorded upstream outcome"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
     "task": {
-      "task_id": "TASK-OSS-E61FC2CAB845936F",
-      "attempt_id": "M-105",
+      "task_id": "TASK-OSS-4387CBF482E551A3",
+      "attempt_id": "M-112",
       "attempt_sequence": 2,
       "work_category": "defect_fix",
       "external_demand": {
         "source": "public_github_issue",
-        "issue_url": "https://github.com/glideapps/quicktype/issues/971",
-        "acceptance_contract_digest": "sha256:7bb1a4893e4a142893c63abd8ceac1f33243c5b6bd95d5f21da90e4177790abd",
+        "issue_url": "https://github.com/Dreamstick9/filedrop/issues/85",
+        "acceptance_contract_digest": "sha256:b6892824c2c0e5f8722a8f6d6269b7a318ab099d9f346ec0a38d1e17ffac2756",
         "invitation_type": "label",
-        "invitation_url": "https://github.com/glideapps/quicktype/issues/971"
+        "invitation_url": "https://github.com/Dreamstick9/filedrop/issues/85"
       }
     },
     "funding": {
@@ -105,9 +92,9 @@
       "merge_contingent": false
     },
     "authorization": {
-      "approved_manifest_digest": "sha256:1859fd1ef933eaf4ae2c41fb60bb0ebf4200620fa5870402b8f7a27fe6fb48ad",
+      "approved_manifest_digest": "sha256:2117b41e092a3eae14c2cb69dc58801fcbd7bf6438e42547b2dfe7a0677a42b3",
       "approved_by": "internal-user:aeziz",
-      "approved_at": "2026-07-16T17:14:22.601Z",
+      "approved_at": "2026-07-16T19:22:54.933Z",
       "operational_caps": {
         "finder_wall_seconds": 1200,
         "qualification_wall_seconds": 300,
@@ -118,16 +105,16 @@
     },
     "attempt_lineage": {
       "attempts_total": 2,
-      "successful_attempt_id": "M-105",
+      "successful_attempt_id": "M-112",
       "attempts": [
         {
-          "attempt_id": "M-102",
+          "attempt_id": "M-107",
           "attempt_sequence": 1,
-          "state": "FAILED_AUTHOR",
-          "terminal_reason_class": "authoring"
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
         },
         {
-          "attempt_id": "M-105",
+          "attempt_id": "M-112",
           "attempt_sequence": 2,
           "state": "READY",
           "terminal_reason_class": null
@@ -137,16 +124,16 @@
     "usage": {
       "discovery": {
         "finder_run_id": null,
-        "candidate_rank": 18,
+        "candidate_rank": 1,
         "elapsed_ms": null
       },
       "qualification": {
-        "review_id": "sha256:b39643e2887bb55212d1b1b8fdb9e7882fb6d273dee9a4588ab0fe474236c9f7",
+        "review_id": "sha256:dbbc4fca15f5f4ea3775d7135f948426c3c80dc10b59df550aa6958bfc0aab38",
         "requested_model": "gpt-5.6-sol",
         "actual_model": null,
         "reasoning_effort": "xhigh",
         "service_tier": "fast",
-        "duration_ms": 156054,
+        "duration_ms": 122954,
         "model_requests": null,
         "input_tokens": null,
         "cached_input_tokens": null,
@@ -158,8 +145,8 @@
         "actual_model": null,
         "reasoning_effort": "xhigh",
         "service_tier": "fast",
-        "duration_ms": 313508,
-        "bootstrap_duration_ms": 152389,
+        "duration_ms": 148685,
+        "bootstrap_duration_ms": 24603,
         "bootstrap_retry_count": 0,
         "model_requests": null,
         "input_tokens": null,
@@ -168,40 +155,40 @@
         "reasoning_tokens": null
       },
       "preparation": {
-        "total_duration_ms": 531830,
+        "total_duration_ms": 201205,
         "stages": [
           {
             "stage": "prepare_recheck",
-            "duration_ms": 5278
+            "duration_ms": 3044
           },
           {
             "stage": "executor_image",
-            "duration_ms": 0
+            "duration_ms": 46
           },
           {
             "stage": "clone",
-            "duration_ms": 1222
+            "duration_ms": 366
           },
           {
             "stage": "author",
-            "duration_ms": 494435
+            "duration_ms": 191475
           },
           {
             "stage": "canonical_commit",
-            "duration_ms": 632
+            "duration_ms": 394
           },
           {
             "stage": "differential_oracle",
-            "duration_ms": 30263
+            "duration_ms": 5880
           }
         ]
       },
       "verification": {
-        "executor_elapsed_ms": 105687,
-        "networked_setup_elapsed_ms": 64467,
+        "executor_elapsed_ms": 13399,
+        "networked_setup_elapsed_ms": 9027,
         "dependency_install_ms": null,
-        "declared_commands_ms": 17067,
-        "unclassified_executor_ms": 24153,
+        "declared_commands_ms": 936,
+        "unclassified_executor_ms": 3436,
         "cpu_ms": null,
         "peak_rss_bytes": null,
         "measurement_status": "partial"
@@ -215,14 +202,16 @@
       }
     },
     "work_scope": {
-      "files_changed": 5,
-      "changed_lines": 61,
-      "production_files": 4,
+      "files_changed": 2,
+      "changed_lines": 79,
+      "production_files": 1,
       "test_files": 1,
-      "checks_declared": 3,
+      "checks_declared": 1,
       "checks_not_run": [
-        "Full fixture and release test suites",
-        "Cross-platform manual validation"
+        "Repository-wide lint because the pinned base has two existing no-inner-declarations errors",
+        "Full test suite beyond the focused fatal-handler regression",
+        "Packaged binary build",
+        "Manual interactive terminal validation"
       ]
     },
     "costs": {
@@ -240,7 +229,7 @@
           "source_refs": [
             {
               "artifact": "bundle/mission.json",
-              "artifact_sha256": "sha256:08b1d8b68669f8606371cea66c4dd8050c95e695fb085912add8ab43a9461007",
+              "artifact_sha256": "sha256:d9a020727d7b7761168e32eb365a5e4aac42c1dfe80888c42047c277bcc95cdd",
               "json_pointer": "/payment/maintainer_payment"
             }
           ],
@@ -263,8 +252,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": true,
-      "ci_state": "pending",
+      "pr_opened": false,
+      "ci_state": null,
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
@@ -282,9 +271,9 @@
       "business_value": "not_observed"
     },
     "provenance": {
-      "spec_sha256": "sha256:128b7924d988e75909f87e9aa7745f4f3737cafcb0c164b3f60f1da1336f7490",
-      "qualification_evidence_sha256": "sha256:6083ef308409eef4e531e83c85314711ecbeaf34ff4c1ade554f0790d12486c8",
-      "issue_snapshot_sha256": "sha256:7daa4278099c4121dbbd60cf17501ce79be37ab8ab79460aaa2bd7b5afc3d1bb"
+      "spec_sha256": "sha256:54573fabb60bf1f3d15221f12ff28000dc214012d0a3110211567ba44f590fa8",
+      "qualification_evidence_sha256": "sha256:f5cd4edfbfba18a5e01e1f3a2db3b6b9729e7b2e868f16efb61ad66e1a7bc5b6",
+      "issue_snapshot_sha256": "sha256:b61634c720661612782b604c300d9c7e14d04300452bfa2674f08fd9f6d560f3"
     }
   }
 }

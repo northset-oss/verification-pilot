@@ -1,0 +1,1 @@
+=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===

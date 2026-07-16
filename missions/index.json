@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-16T17:16:31.225Z",
+  "generated_at": "2026-07-16T19:23:33.213Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -3735,6 +3735,361 @@
           "status": "open",
           "link": "https://github.com/chipmates/agoracosmica/pull/19",
           "attribution": "Live upstream pull request"
+        }
+      }
+    },
+    {
+      "mission_id": "M-112",
+      "variant": "author_contribution",
+      "claims_tier": [],
+      "grade": null,
+      "target_repo": "https://github.com/dreamstick9/filedrop",
+      "issue_or_task": "https://github.com/Dreamstick9/filedrop/issues/85",
+      "consent_artifact": null,
+      "maintainer_outcome": {
+        "status": "prepared",
+        "link": null
+      },
+      "run_record_bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
+      "attestation_uri": null,
+      "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+      "attested": false,
+      "publication": {
+        "schema_version": 1,
+        "mission_id": "M-112",
+        "state": "prepared",
+        "pr_number": null,
+        "pr_url": null,
+        "pr_head_oid": null,
+        "base_branch": null,
+        "head_drift": false,
+        "ci_state": null,
+        "merge_commit_oid": null,
+        "review_decision": null,
+        "decision_url": null,
+        "opened_at": null,
+        "closed_at": null,
+        "updated_at": null,
+        "observed_at": null,
+        "correction_note": null,
+        "scope_note": null,
+        "attestation_uri": null,
+        "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null
+      },
+      "receipt": {
+        "version": 2,
+        "mission_id": "M-112",
+        "canonical_path": "receipts/M-112/",
+        "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
+        "variant": "author_contribution",
+        "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+        "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+        "consent_artifact": null,
+        "target_repo": "https://github.com/dreamstick9/filedrop",
+        "issue_or_task": "https://github.com/Dreamstick9/filedrop/issues/85",
+        "issue_title": "[Easy] errors.js: The comment \"Clear any in-progress terminal state (rest…",
+        "worker_identity": {
+          "runtime": "northset-oss executor v1",
+          "human_operator": "aeziz"
+        },
+        "code": {
+          "base_commit": "bf5a048af748e2ff896142f615373bffaf1d9895",
+          "recorded_patch_commit": "85f57f1ee66eebbddbd41ce89ada31a413437593",
+          "patch_commit_binding": "declared metadata; not execution-bound",
+          "patch_diff_hash": "sha256:9d9f74ad30819770382b88e1cd02db1ea9e4192dd003f80e7b2e5f3c009209a8",
+          "patch_diff_binding": "bound to executed patch bytes"
+        },
+        "started_at": "2026-07-16T19:21:16.236Z",
+        "finished_at": "2026-07-16T19:21:29.635Z",
+        "environment": {
+          "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+          "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+          "container_os": "linux",
+          "container_architecture": "arm64",
+          "network_policy": "phaseA:bridge,phaseB:none",
+          "source_commit": "bf5a048af748e2ff896142f615373bffaf1d9895",
+          "install_commands": [
+            "npm ci"
+          ]
+        },
+        "commands": [
+          {
+            "cmd": "node --test src/errors.terminal-cleanup.test.js",
+            "exit_code": 0,
+            "duration_ms": 936,
+            "timed_out": false
+          }
+        ],
+        "declared_checks": 1,
+        "successful_checks": 1,
+        "result": "PASS — 1/1 declared command",
+        "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+        "wall_duration_ms": 13399,
+        "setup_install_duration_ms": 12463,
+        "economic_identity": {
+          "scope": "end_to_end_task",
+          "task": {
+            "task_id": "TASK-OSS-4387CBF482E551A3",
+            "attempt_id": "M-112",
+            "attempt_sequence": 2,
+            "work_category": "defect_fix",
+            "external_demand": {
+              "source": "public_github_issue",
+              "issue_url": "https://github.com/Dreamstick9/filedrop/issues/85",
+              "acceptance_contract_digest": "sha256:b6892824c2c0e5f8722a8f6d6269b7a318ab099d9f346ec0a38d1e17ffac2756",
+              "invitation_type": "label",
+              "invitation_url": "https://github.com/Dreamstick9/filedrop/issues/85"
+            }
+          },
+          "funding": {
+            "program": "Northset OSS Fund",
+            "initiative": "OSS mission experimentation",
+            "budget_id": null,
+            "financial_cap": null,
+            "currency": null
+          },
+          "external_transfers": {
+            "maintainer_payment": "none",
+            "merge_contingent": false
+          },
+          "authorization": {
+            "approved_manifest_digest": "sha256:2117b41e092a3eae14c2cb69dc58801fcbd7bf6438e42547b2dfe7a0677a42b3",
+            "approved_by": "internal-user:aeziz",
+            "approved_at": "2026-07-16T19:22:54.933Z",
+            "operational_caps": {
+              "finder_wall_seconds": 1200,
+              "qualification_wall_seconds": 300,
+              "prepare_wall_seconds": 3600,
+              "ship_wall_seconds": 3600,
+              "maximum_attempts": null
+            }
+          },
+          "attempt_lineage": {
+            "attempts_total": 2,
+            "successful_attempt_id": "M-112",
+            "attempts": [
+              {
+                "attempt_id": "M-107",
+                "attempt_sequence": 1,
+                "state": "FAILED_ORACLE",
+                "terminal_reason_class": "verification"
+              },
+              {
+                "attempt_id": "M-112",
+                "attempt_sequence": 2,
+                "state": "READY",
+                "terminal_reason_class": null
+              }
+            ]
+          },
+          "usage": {
+            "discovery": {
+              "finder_run_id": null,
+              "candidate_rank": 1,
+              "elapsed_ms": null
+            },
+            "qualification": {
+              "review_id": "sha256:dbbc4fca15f5f4ea3775d7135f948426c3c80dc10b59df550aa6958bfc0aab38",
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 122954,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "authoring": {
+              "requested_model": "gpt-5.6-sol",
+              "actual_model": null,
+              "reasoning_effort": "xhigh",
+              "service_tier": "fast",
+              "duration_ms": 148685,
+              "bootstrap_duration_ms": 24603,
+              "bootstrap_retry_count": 0,
+              "model_requests": null,
+              "input_tokens": null,
+              "cached_input_tokens": null,
+              "output_tokens": null,
+              "reasoning_tokens": null
+            },
+            "preparation": {
+              "total_duration_ms": 201205,
+              "stages": [
+                {
+                  "stage": "prepare_recheck",
+                  "duration_ms": 3044
+                },
+                {
+                  "stage": "executor_image",
+                  "duration_ms": 46
+                },
+                {
+                  "stage": "clone",
+                  "duration_ms": 366
+                },
+                {
+                  "stage": "author",
+                  "duration_ms": 191475
+                },
+                {
+                  "stage": "canonical_commit",
+                  "duration_ms": 394
+                },
+                {
+                  "stage": "differential_oracle",
+                  "duration_ms": 5880
+                }
+              ]
+            },
+            "verification": {
+              "executor_elapsed_ms": 13399,
+              "networked_setup_elapsed_ms": 9027,
+              "dependency_install_ms": null,
+              "declared_commands_ms": 936,
+              "unclassified_executor_ms": 3436,
+              "cpu_ms": null,
+              "peak_rss_bytes": null,
+              "measurement_status": "partial"
+            },
+            "resource_envelope": {
+              "cpus": 2,
+              "memory_mb": 4096,
+              "pids": 512,
+              "wall_clock_seconds_per_command": 1800,
+              "output_bytes_per_stream": 2000000
+            }
+          },
+          "work_scope": {
+            "files_changed": 2,
+            "changed_lines": 79,
+            "production_files": 1,
+            "test_files": 1,
+            "checks_declared": 1,
+            "checks_not_run": [
+              "Repository-wide lint because the pinned base has two existing no-inner-declarations errors",
+              "Full test suite beyond the focused fatal-handler regression",
+              "Packaged binary build",
+              "Manual interactive terminal validation"
+            ]
+          },
+          "costs": {
+            "status": "partial",
+            "currency": null,
+            "lines": [
+              {
+                "component": "maintainer_payment",
+                "measurement_class": "observed_quantity_unpriced",
+                "quantity": "0",
+                "unit": "external_transfer",
+                "unit_rate": null,
+                "amount": null,
+                "currency": null,
+                "source_refs": [
+                  {
+                    "artifact": "bundle/mission.json",
+                    "artifact_sha256": "sha256:d9a020727d7b7761168e32eb365a5e4aac42c1dfe80888c42047c277bcc95cdd",
+                    "json_pointer": "/payment/maintainer_payment"
+                  }
+                ],
+                "rate_card_digest": null,
+                "allocation_method": null,
+                "finality": "final",
+                "visibility": "public"
+              }
+            ],
+            "known_direct_cost": null,
+            "allocated_shared_cost": null,
+            "human_standard_cost": null,
+            "total_economic_cost": null,
+            "missing_components": [
+              "model_inference",
+              "actual_host_compute",
+              "human_review",
+              "shared_tooling"
+            ]
+          },
+          "outcome": {
+            "technical_checks_passed": true,
+            "pr_opened": false,
+            "ci_state": null,
+            "merged": false,
+            "accepted_as_submitted": null,
+            "time_to_close_ms": null,
+            "released": null,
+            "deployed": null,
+            "business_result_observed": null
+          },
+          "completeness": {
+            "task_identity": "complete",
+            "technical_execution": "complete",
+            "attempt_lineage": "complete",
+            "usage": "partial",
+            "cost": "unpriced",
+            "external_outcome": "partial",
+            "business_value": "not_observed"
+          },
+          "provenance": {
+            "spec_sha256": "sha256:54573fabb60bf1f3d15221f12ff28000dc214012d0a3110211567ba44f590fa8",
+            "qualification_evidence_sha256": "sha256:f5cd4edfbfba18a5e01e1f3a2db3b6b9729e7b2e868f16efb61ad66e1a7bc5b6",
+            "issue_snapshot_sha256": "sha256:b61634c720661612782b604c300d9c7e14d04300452bfa2674f08fd9f6d560f3"
+          }
+        },
+        "payment": {
+          "maintainer_payment": "none",
+          "merge_contingent": false
+        },
+        "redactions": [],
+        "limitations": [
+          "Does not prove code quality",
+          "Does not prove security",
+          "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+          "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+        ],
+        "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
+        "release_asset_sha256": null,
+        "attestation_verified_at": null,
+        "attestation_uri": null,
+        "verify_command": null,
+        "download_url": null,
+        "patch_diff": "diff --git a/src/errors.js b/src/errors.js\nindex 2169ba5c2712e640fb15fabd785e1224dc920f4d..990f6b03801a785f93f150d0bb83092795587dcd 100644\n--- a/src/errors.js\n+++ b/src/errors.js\n@@ -62,13 +62,19 @@ const ERROR_CODES = {\n   ERR_INVALID_IP: 'ERR_INVALID_IP'\n };\n \n+function restoreTerminalState() {\n+  if (process.stdout.isTTY) {\n+    process.stdout.write('\\x1b[?25h\\x1b[0m\\n');\n+  }\n+}\n+\n /**\n  * Registers global process error handlers.\n  * To be called early in the lifecycle.\n  */\n function registerGlobalErrorHandlers() {\n   process.on('uncaughtException', (err) => {\n-    // Clear any in-progress terminal state (restore cursor, etc.)\n+    restoreTerminalState();\n     console.error(`\\nfiledrop: unexpected error: ${err.message}`);\n     if (process.env.FILEDROP_DEBUG) {\n       console.error(err.stack);\n@@ -77,6 +83,7 @@ function registerGlobalErrorHandlers() {\n   });\n \n   process.on('unhandledRejection', (reason) => {\n+    restoreTerminalState();\n     console.error(`\\nfiledrop: unhandled async error: ${reason}`);\n     if (process.env.FILEDROP_DEBUG) {\n       console.error(reason?.stack || reason);\ndiff --git a/src/errors.terminal-cleanup.test.js b/src/errors.terminal-cleanup.test.js\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..f9dbc5f48c609bc3758af41d786c600b405c5f6e\n--- /dev/null\n+++ b/src/errors.terminal-cleanup.test.js\n@@ -0,0 +1,70 @@\n+const test = require('node:test');\n+const assert = require('node:assert/strict');\n+const { registerGlobalErrorHandlers } = require('./errors.js');\n+\n+test('restores terminal state before fatal exit', (t) => {\n+  const originalOn = process.on;\n+  const originalExit = process.exit;\n+  const originalWrite = process.stdout.write;\n+  const originalIsTTY = process.stdout.isTTY;\n+  const originalConsoleError = console.error;\n+  const originalDebug = process.env.FILEDROP_DEBUG;\n+  const handlers = {};\n+  const events = [];\n+\n+  t.after(() => {\n+    process.on = originalOn;\n+    process.exit = originalExit;\n+    process.stdout.write = originalWrite;\n+    process.stdout.isTTY = originalIsTTY;\n+    console.error = originalConsoleError;\n+    if (originalDebug === undefined) {\n+      delete process.env.FILEDROP_DEBUG;\n+    } else {\n+      process.env.FILEDROP_DEBUG = originalDebug;\n+    }\n+  });\n+\n+  process.on = (event, handler) => {\n+    handlers[event] = handler;\n+    return process;\n+  };\n+  registerGlobalErrorHandlers();\n+  process.on = originalOn;\n+\n+  delete process.env.FILEDROP_DEBUG;\n+  console.error = () => {};\n+  process.stdout.write = (chunk) => {\n+    events.push({ type: 'write', chunk });\n+    return true;\n+  };\n+  process.exit = (code) => {\n+    events.push({ type: 'exit', code });\n+  };\n+\n+  const fatalErrors = [\n+    ['uncaughtException', new Error('sync failure')],\n+    ['unhandledRejection', new Error('async failure')]\n+  ];\n+\n+  process.stdout.isTTY = true;\n+  for (const [event, error] of fatalErrors) {\n+    events.length = 0;\n+    handlers[event](error);\n+\n+    assert.deepStrictEqual(events, [\n+      { type: 'write', chunk: '\\x1b[?25h\\x1b[0m\\n' },\n+      { type: 'exit', code: 99 }\n+    ], event);\n+  }\n+\n+  process.stdout.isTTY = false;\n+  for (const [event, error] of fatalErrors) {\n+    events.length = 0;\n+    handlers[event](error);\n+\n+    assert.deepStrictEqual(events, [\n+      { type: 'exit', code: 99 }\n+    ], event);\n+  }\n+});\n",
+        "stdout_redacted": "=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===\n✔ restores terminal state before fatal exit (6.741667ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 76.696667\n",
+        "stderr_redacted": "=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===\n",
+        "correction_note": null,
+        "scope_note": null,
+        "publication": {
+          "schema_version": 1,
+          "mission_id": "M-112",
+          "state": "prepared",
+          "pr_number": null,
+          "pr_url": null,
+          "pr_head_oid": null,
+          "base_branch": null,
+          "head_drift": false,
+          "ci_state": null,
+          "merge_commit_oid": null,
+          "review_decision": null,
+          "decision_url": null,
+          "opened_at": null,
+          "closed_at": null,
+          "updated_at": null,
+          "observed_at": null,
+          "correction_note": null,
+          "scope_note": null,
+          "attestation_uri": null,
+          "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
+          "release_asset_sha256": null,
+          "attestation_verified_at": null
+        },
+        "live_outcome": {
+          "status": "prepared",
+          "link": null,
+          "attribution": "Recorded upstream outcome"
         }
       }
     }

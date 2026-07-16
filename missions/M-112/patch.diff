@@ -1,0 +1,109 @@
+diff --git a/src/errors.js b/src/errors.js
+index 2169ba5c2712e640fb15fabd785e1224dc920f4d..990f6b03801a785f93f150d0bb83092795587dcd 100644
+--- a/src/errors.js
++++ b/src/errors.js
+@@ -62,13 +62,19 @@ const ERROR_CODES = {
+   ERR_INVALID_IP: 'ERR_INVALID_IP'
+ };
+ 
++function restoreTerminalState() {
++  if (process.stdout.isTTY) {
++    process.stdout.write('\x1b[?25h\x1b[0m\n');
++  }
++}
++
+ /**
+  * Registers global process error handlers.
+  * To be called early in the lifecycle.
+  */
+ function registerGlobalErrorHandlers() {
+   process.on('uncaughtException', (err) => {
+-    // Clear any in-progress terminal state (restore cursor, etc.)
++    restoreTerminalState();
+     console.error(`\nfiledrop: unexpected error: ${err.message}`);
+     if (process.env.FILEDROP_DEBUG) {
+       console.error(err.stack);
+@@ -77,6 +83,7 @@ function registerGlobalErrorHandlers() {
+   });
+ 
+   process.on('unhandledRejection', (reason) => {
++    restoreTerminalState();
+     console.error(`\nfiledrop: unhandled async error: ${reason}`);
+     if (process.env.FILEDROP_DEBUG) {
+       console.error(reason?.stack || reason);
+diff --git a/src/errors.terminal-cleanup.test.js b/src/errors.terminal-cleanup.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..f9dbc5f48c609bc3758af41d786c600b405c5f6e
+--- /dev/null
++++ b/src/errors.terminal-cleanup.test.js
+@@ -0,0 +1,70 @@
++const test = require('node:test');
++const assert = require('node:assert/strict');
++const { registerGlobalErrorHandlers } = require('./errors.js');
++
++test('restores terminal state before fatal exit', (t) => {
++  const originalOn = process.on;
++  const originalExit = process.exit;
++  const originalWrite = process.stdout.write;
++  const originalIsTTY = process.stdout.isTTY;
++  const originalConsoleError = console.error;
++  const originalDebug = process.env.FILEDROP_DEBUG;
++  const handlers = {};
++  const events = [];
++
++  t.after(() => {
++    process.on = originalOn;
++    process.exit = originalExit;
++    process.stdout.write = originalWrite;
++    process.stdout.isTTY = originalIsTTY;
++    console.error = originalConsoleError;
++    if (originalDebug === undefined) {
++      delete process.env.FILEDROP_DEBUG;
++    } else {
++      process.env.FILEDROP_DEBUG = originalDebug;
++    }
++  });
++
++  process.on = (event, handler) => {
++    handlers[event] = handler;
++    return process;
++  };
++  registerGlobalErrorHandlers();
++  process.on = originalOn;
++
++  delete process.env.FILEDROP_DEBUG;
++  console.error = () => {};
++  process.stdout.write = (chunk) => {
++    events.push({ type: 'write', chunk });
++    return true;
++  };
++  process.exit = (code) => {
++    events.push({ type: 'exit', code });
++  };
++
++  const fatalErrors = [
++    ['uncaughtException', new Error('sync failure')],
++    ['unhandledRejection', new Error('async failure')]
++  ];
++
++  process.stdout.isTTY = true;
++  for (const [event, error] of fatalErrors) {
++    events.length = 0;
++    handlers[event](error);
++
++    assert.deepStrictEqual(events, [
++      { type: 'write', chunk: '\x1b[?25h\x1b[0m\n' },
++      { type: 'exit', code: 99 }
++    ], event);
++  }
++
++  process.stdout.isTTY = false;
++  for (const [event, error] of fatalErrors) {
++    events.length = 0;
++    handlers[event](error);
++
++    assert.deepStrictEqual(events, [
++      { type: 'exit', code: 99 }
++    ], event);
++  }
++});
