@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T19:23:33.213Z",
+  "generated_at": "2026-07-16T19:25:17.953Z",
   "receipt_id": "M-112",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:c688b4c472568fe2c60b7e88b9e2772fc35b1d130d69ff9a31da88c8715d89d2",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-112-3dce6eeb6ebe/run-record-M-112-3dce6eeb6ebe.tar.gz",
+    "attestation_verified_at": "2026-07-16T19:25:10.637Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
     "target_repo": "https://github.com/dreamstick9/filedrop",
     "issue_or_task": "https://github.com/Dreamstick9/filedrop/issues/85",
-    "publication_pr": null
+    "publication_pr": "https://github.com/Dreamstick9/filedrop/pull/160"
   },
   "issue_title": "[Easy] errors.js: The comment \"Clear any in-progress terminal state (rest…",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/Dreamstick9/filedrop/pull/160",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -252,8 +252,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
