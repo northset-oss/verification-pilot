@@ -1,0 +1,1502 @@
+{
+  "fetched_at": "2026-07-16T19:11:21Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "MEMBER",
+    "body": "KRL doesn't allow name/value bindings except in a prelude or in a function definition. When these are tried in other places, the error messages are unclear/misleading and sometimes don't fail until JavaScript compilation. Need specific examples. But, see also, issue #528, which makes a case for such bindings in an `every` action block.\r\n\r\nKRL doesn't allow entity variable assignments anywhere but in a postlude. When one is attempted in a `defaction` the error message seen is \"ParseError: Expected '('\" which is not helpful.",
+    "created_at": "2022-03-30T20:03:53Z",
+    "html_url": "https://github.com/Picolab/pico-engine/issues/595",
+    "labels": [
+      "help wanted"
+    ],
+    "number": 595,
+    "state": "open",
+    "title": "Need a better parser/compile error message for mis-placed bindings/assignments",
+    "updated_at": "2022-03-30T20:52:37Z",
+    "user": "b1conrad"
+  },
+  "comments": [
+    {
+      "url": "https://api.github.com/repos/Picolab/pico-engine/issues/comments/1083603141",
+      "html_url": "https://github.com/Picolab/pico-engine/issues/595#issuecomment-1083603141",
+      "issue_url": "https://api.github.com/repos/Picolab/pico-engine/issues/595",
+      "id": 1083603141,
+      "node_id": "IC_kwDOA1kbds5AlnjF",
+      "user": {
+        "login": "b1conrad",
+        "id": 19273926,
+        "node_id": "MDQ6VXNlcjE5MjczOTI2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19273926?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/b1conrad",
+        "html_url": "https://github.com/b1conrad",
+        "followers_url": "https://api.github.com/users/b1conrad/followers",
+        "following_url": "https://api.github.com/users/b1conrad/following{/other_user}",
+        "gists_url": "https://api.github.com/users/b1conrad/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/b1conrad/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/b1conrad/subscriptions",
+        "organizations_url": "https://api.github.com/users/b1conrad/orgs",
+        "repos_url": "https://api.github.com/users/b1conrad/repos",
+        "events_url": "https://api.github.com/users/b1conrad/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/b1conrad/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "created_at": "2022-03-30T20:39:24Z",
+      "updated_at": "2022-03-30T20:39:24Z",
+      "body": "One reported error is, «it's saying \"SyntaxError: Unexpected token 'const'\" but there's no 'const' in my code anywhere». \r\n\r\nMelissa Robertson says, \"I’ve run into that before, it means there is a syntax error in your code, but the parser isn’t picking up on it so it doesn’t fail until it starts generating the javascript under the hood\".\r\n\r\nPhil says, \"The bug you uncovered is that a decl should never be allowed in the postlude. So, this should be illegal:\r\n\r\n```\r\nalways {\r\n  x = 3\r\n}\r\n```\r\nYou can set an entity variable, but you can't bind names to values in the postlude.\r\n\r\nSo, the parser should have caught this, but didn't. Then the compiler generated illegal JavaScript, causing a JS parse error, which isn't helpful.\r\n\r\nWe'll be updating the parser to disallow decls in postludes to avoid this.\"",
+      "author_association": "MEMBER",
+      "pin": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/Picolab/pico-engine/issues/comments/1083603141/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "performed_via_github_app": null,
+      "minimized": null
+    }
+  ],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "master",
+    "fork": false,
+    "html_url": "https://github.com/Picolab/pico-engine"
+  },
+  "default_branch_head": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "",
+      "closedAt": "2024-02-13T17:54:33Z",
+      "createdAt": "2024-02-13T17:46:49Z",
+      "headRefName": "Error-message-change-653",
+      "mergedAt": "2024-02-13T17:54:33Z",
+      "number": 654,
+      "state": "MERGED",
+      "title": "clearer error message",
+      "updatedAt": "2024-02-13T17:56:45Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/654"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "- The pico-engine packages have all been updated to run on the latest Node.js\r\n- Only breaking change effects direct consumers of pico-framework or pico-engine-core. [Described here](https://github.com/Picolab/pico-framework/pull/1#issue-1989174232)\r\n- Updated the github actions to ensure tests will run against the LTS and Current node versions on Linux/Mac/Windows.\r\n- Most of the npm packages have been updated. There are some exceptions outlined below.\r\n\r\n## What changed by package\r\n\r\n- [select-when](https://github.com/Picolab/select-when)\r\n  - No changes to the user\r\n  - Updated typescript, setup testing\r\n  - Published 0.1.9\r\n- [pico-framework](https://github.com/Picolab/pico-framework)\r\n  - Only breaking change to how the database is configured. [Described here](https://github.com/Picolab/pico-framework/pull/1#issue-1989174232)\r\n    - This only effects those who consume pico-framework directly\r\n  - Updated dependencies minus `cuid` (see below)\r\n  - Setup testing\r\n  - Published 0.7.0\r\n- krl-compiler\r\n  - No changes to the user\r\n  - Updated dependencies minus `standard` (see below)\r\n- krl-generator\r\n  - No changes to the user\r\n  - Updated dependencies minus `standard` (see below)\r\n- krl-parser\r\n  - No changes to the user\r\n  - Updated dependencies\r\n- krl-stdlib\r\n  - No changes to the user\r\n  - Updated dependencies\r\n- pico-engine-core\r\n  - Breaking change in how the db is configured. Same change as pico-framework.\r\n    - You pass in a leveldb that meets the PicoDb api rather than a leveldown instance.\r\n    - This only effects those who consume pico-core directly \r\n  - Updated dependencies minus `cuid,bs58,normalize-url,p-memoize,random-words` (see below)\r\n- pico-engine-ui\r\n  - Switched from [Webpack](https://webpack.js.org/) to [Vite](https://vitejs.dev/)\r\n    - It's a newer alternative that is much simpler to configure, and faster\r\n    - Switching to this was easier than update all the webpack depencies\r\n    - No change to development workflow.\r\n  - Updated dependencies including React 18\r\n    - NOTE: Moved bootstrap from npm to a simple .min.css file\r\n       - The new scss compiler doesn't like bootstrap v4's scss code.\r\n       - Since we don't customize bootstrap there's no need to leave it in npm.\r\n       - Upgrading to v5 does not seem [worth it.](https://getbootstrap.com/docs/5.0/migration/)\r\n- pico-engine\r\n  - No changes to the user.\r\n  - Updated dependencies minus `cuid` and `rotating-file-stream` (see below)\r\n\r\n## Dependencies not updated\r\n\r\n```\r\nPackage               Current  Wanted  Latest  Location                           Depended by\r\nlerna                  3.22.1  3.22.1   8.0.0  node_modules/lerna                 root\r\nnode-gyp                9.4.1   9.4.1  10.0.1  node_modules/node-gyp              root\r\nstandard               12.0.1  12.0.1  17.1.0  node_modules/standard              krl-compiler\r\nstandard               12.0.1  12.0.1  17.1.0  node_modules/standard              krl-generator\r\ncuid                    2.1.8   2.1.8   3.0.0  node_modules/cuid                  pico-engine\r\nrotating-file-stream    1.4.6   1.4.6   3.1.1  node_modules/rotating-file-stream  pico-engine\r\nbs58                    4.0.1   4.0.1   5.0.0  node_modules/bs58                  pico-engine-core\r\ncuid                    2.1.8   2.1.8   3.0.0  node_modules/cuid                  pico-engine-core\r\nnormalize-url           5.3.1   5.3.1   8.0.0  node_modules/normalize-url         pico-engine-core\r\np-memoize               4.0.4   4.0.4   7.1.1  node_modules/p-memoize             pico-engine-core\r\nrandom-words            1.3.0   1.3.0   2.0.0  node_modules/random-words          pico-engine-core\r\n```\r\n\r\n- lerna\r\n  - The project has significant changes, and not wroth updating at this time\r\n  - This doesn't effect consumers of the pico-engine\r\n  - npm now has workspaces, so it's possible we could migrate off of lerna\r\n- node-gyp\r\n  - I left this as is since I don't know why it's needed on the root package.json\r\n- [standard](https://standardjs.com/)\r\n  - This is the linter/formatter used on krl-compiler and krl-generator. Only used for development.\r\n  - Upgrading this would require re-formatting all the files. I don't think it's worth it at this time since it'd be so noisy.\r\n  - Ideally we'd move away from standard and use prettier like the other packages.\r\n- [cuid](https://github.com/paralleldrive/cuid#status-deprecated-due-to-security-use-cuid2-instead)\r\n   - We use this to create unique ids for channels among other things.\r\n   - cuid's include a timestamp and machine thumbprint\r\n   - The maintainer deprecated cuid since the id's can be guessed, therefore insecure\r\n   - Changing this could be significant b/c I'm not sure if people depend on the structure of the ids to include timestamps and sortability.\r\n- [rotating-file-stream](https://www.npmjs.com/package/rotating-file-stream)\r\n  - I'm not as familiar with how pico-engine logs are used in the real world.\r\n  - The package has good documentation on what was changed for [v2](https://github.com/iccicci/rotating-file-stream#upgrading-from-v1-to-v2) and [v3](https://github.com/iccicci/rotating-file-stream#upgrading-from-v2-to-v3)\r\n  - Leaving it as is works fine on the latest Nodejs\r\n- [bs58](https://github.com/cryptocoinjs/bs58/blob/master/CHANGELOG.md)\r\n  - They changed it to use Uint8Array\r\n  - I'm not as familiar with the ursa and dido krl modules, so I opted to leave it alone.\r\n- [normalize-url](https://www.npmjs.com/package/normalize-url), [p-memoize](https://www.npmjs.com/package/p-memoize), [random-words](https://www.npmjs.com/package/random-words)\r\n  - All of these require moving to the new ESModule standard\r\n  - The annoying thing is this would require converting our packages to [ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) which changes how users consume it.",
+      "closedAt": "2024-03-12T10:41:50Z",
+      "createdAt": "2023-11-12T05:55:43Z",
+      "headRefName": "dependency-updates",
+      "mergedAt": "2024-03-12T10:41:50Z",
+      "number": 652,
+      "state": "MERGED",
+      "title": "Dependency updates",
+      "updatedAt": "2024-03-12T10:41:50Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/652"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "This seems to invoke the parsing for the content types that we need for DIDComm v2.",
+      "closedAt": null,
+      "createdAt": "2023-11-01T03:46:44Z",
+      "headRefName": "650-parse-the-body-for-all+json",
+      "mergedAt": null,
+      "number": 651,
+      "state": "OPEN",
+      "title": "parse all JSON bodies",
+      "updatedAt": "2023-11-01T03:48:01Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/651"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "",
+      "closedAt": "2023-09-29T15:08:56Z",
+      "createdAt": "2023-09-12T04:09:27Z",
+      "headRefName": "636-share-generate_message-for-dido-extensions-to-use",
+      "mergedAt": "2023-09-29T15:08:55Z",
+      "number": 649,
+      "state": "MERGED",
+      "title": "#636 Expose generate_message in did-o ruleset",
+      "updatedAt": "2023-09-29T15:08:56Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/649"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "@b1conrad  let me know if this provides what you need. ",
+      "closedAt": null,
+      "createdAt": "2023-09-12T04:03:26Z",
+      "headRefName": "644-raise-an-event-when-a-did-exchange-results-in-a-connection-being-established",
+      "mergedAt": null,
+      "number": 648,
+      "state": "OPEN",
+      "title": "#644 Add invitation_accepted event",
+      "updatedAt": "2023-11-01T03:54:41Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/648"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "",
+      "closedAt": "2023-09-04T22:54:14Z",
+      "createdAt": "2023-09-04T22:47:23Z",
+      "headRefName": "640-logic-error-introduced-in-wranglerpicoquery-function",
+      "mergedAt": "2023-09-04T22:54:14Z",
+      "number": 641,
+      "state": "MERGED",
+      "title": "Update to fix #640",
+      "updatedAt": "2023-09-04T22:54:14Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/641"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "There was an issue with hex interpretation where it wasn't checking for the `0x` prefix. @windley @b1conrad Was this the intended behavior? These changes allow the tests to complete successfully and allows the github workflow to build successfully. ",
+      "closedAt": "2023-07-29T16:07:55Z",
+      "createdAt": "2023-07-15T18:59:34Z",
+      "headRefName": "637-arithmetic-is-broken-in-v120",
+      "mergedAt": "2023-07-29T16:07:55Z",
+      "number": 638,
+      "state": "MERGED",
+      "title": "#637 arithmetic is broken in v120",
+      "updatedAt": "2023-07-29T16:08:03Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/638"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "Implementation of DIDCommV2 in the pico engine.",
+      "closedAt": "2023-06-13T23:05:36Z",
+      "createdAt": "2023-06-01T17:01:11Z",
+      "headRefName": "didcomm",
+      "mergedAt": "2023-06-13T23:05:36Z",
+      "number": 631,
+      "state": "MERGED",
+      "title": "Merge didcomm into master",
+      "updatedAt": "2023-06-13T23:06:36Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/631"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "The didcomm-interop branch modifies didcomm to use from_prior based did exchange. It also implements event:send() and wrangler:picoQuery() using dids. ",
+      "closedAt": "2023-06-01T16:59:20Z",
+      "createdAt": "2023-06-01T16:54:35Z",
+      "headRefName": "didcomm-interop",
+      "mergedAt": "2023-06-01T16:59:20Z",
+      "number": 630,
+      "state": "MERGED",
+      "title": "Merge didcomm-interop into didcomm",
+      "updatedAt": "2023-06-01T16:59:33Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/630"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBZFRWQ",
+        "is_bot": false,
+        "login": "joshmann35",
+        "name": "Josh Mann"
+      },
+      "body": "Adds an option to specify a subscription in `event:send` instead of an `eci` as described in issue #622 .",
+      "closedAt": "2023-05-03T01:40:00Z",
+      "createdAt": "2023-01-18T22:27:03Z",
+      "headRefName": "event-send-sub",
+      "mergedAt": "2023-05-03T01:40:00Z",
+      "number": 623,
+      "state": "MERGED",
+      "title": "[#622] Add sub as option for event:send",
+      "updatedAt": "2023-05-03T01:40:09Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/623"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "Putting bitop work into main",
+      "closedAt": "2023-01-18T18:10:08Z",
+      "createdAt": "2023-01-18T18:09:34Z",
+      "headRefName": "bitops",
+      "mergedAt": "2023-01-18T18:10:08Z",
+      "number": 621,
+      "state": "MERGED",
+      "title": "Bitops",
+      "updatedAt": "2023-01-18T18:10:08Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/621"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "",
+      "closedAt": "2023-01-18T18:08:49Z",
+      "createdAt": "2023-01-18T18:06:57Z",
+      "headRefName": "master",
+      "mergedAt": "2023-01-18T18:08:49Z",
+      "number": 620,
+      "state": "MERGED",
+      "title": "Grabbing UI ruleset updates",
+      "updatedAt": "2023-01-18T18:08:49Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/620"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "catching up",
+      "closedAt": "2022-11-03T21:52:57Z",
+      "createdAt": "2022-11-03T21:52:46Z",
+      "headRefName": "master",
+      "mergedAt": "2022-11-03T21:52:57Z",
+      "number": 619,
+      "state": "MERGED",
+      "title": "Catchup with master",
+      "updatedAt": "2022-11-03T21:52:57Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/619"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "So that every event raised in a postlude will appear in the Logging tab, not just the first one.",
+      "closedAt": "2022-11-09T22:24:45Z",
+      "createdAt": "2022-06-07T13:50:23Z",
+      "headRefName": "589-logging-tab-fix",
+      "mergedAt": "2022-11-09T22:24:45Z",
+      "number": 607,
+      "state": "MERGED",
+      "title": "change to logs",
+      "updatedAt": "2022-11-09T22:24:46Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/607"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU1MDMzNDE2",
+        "is_bot": false,
+        "login": "jhuch-cs",
+        "name": ""
+      },
+      "body": " Message should accurately reflect default port",
+      "closedAt": "2022-06-07T13:39:46Z",
+      "createdAt": "2022-03-05T00:48:24Z",
+      "headRefName": "patch-1",
+      "mergedAt": "2022-06-07T13:39:46Z",
+      "number": 592,
+      "state": "MERGED",
+      "title": "Update `pico-engine -h`",
+      "updatedAt": "2022-06-07T13:39:46Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/592"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Travis CI is no longer free, so this switches over to github actions which is free for open source.",
+      "closedAt": "2022-01-03T22:58:22Z",
+      "createdAt": "2022-01-03T22:42:38Z",
+      "headRefName": "github-action-setup",
+      "mergedAt": "2022-01-03T22:58:22Z",
+      "number": 582,
+      "state": "MERGED",
+      "title": "GitHub action setup",
+      "updatedAt": "2022-01-03T22:58:23Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/582"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Fixes the typescript errors. [Errors types are now treated as unknown rather than any.](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4/#use-unknown-catch-variables)\r\n\r\nSwitched `node-sass` to `sass` b/c node-sass is deprecated and is a native module\r\n\r\nUpdated some other dependencies\r\n",
+      "closedAt": "2022-01-03T22:44:45Z",
+      "createdAt": "2022-01-03T21:39:51Z",
+      "headRefName": "cleanup",
+      "mergedAt": "2022-01-03T22:44:44Z",
+      "number": 581,
+      "state": "MERGED",
+      "title": "cleanup",
+      "updatedAt": "2022-01-03T22:44:45Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/581"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjYzNDE3Mzg=",
+        "is_bot": false,
+        "login": "iso2013",
+        "name": "EJ Mercer"
+      },
+      "body": "Fixes issue #578.\r\n(New pull request for fixed changes. I had a typo in the original.)\r\n\r\nThe issue is caused by getPico() throwing an error instead of returning null when a pico with a given ECI is not found.",
+      "closedAt": "2022-01-03T19:36:12Z",
+      "createdAt": "2022-01-03T17:40:08Z",
+      "headRefName": "patch-1",
+      "mergedAt": "2022-01-03T19:36:12Z",
+      "number": 580,
+      "state": "MERGED",
+      "title": "Fix issue with scheduler crashing",
+      "updatedAt": "2022-01-03T19:36:12Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/580"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjYzNDE3Mzg=",
+        "is_bot": false,
+        "login": "iso2013",
+        "name": "EJ Mercer"
+      },
+      "body": "I'm not sure this would be the best way to do it; I only wrapped the getPico statement in a try/catch so that if the rest of the function throws an error, we don't have to worry about catching it unintentionally.\r\nCould also be beneficial to add a try/catch directly in getPico in pico-framework.",
+      "closedAt": "2022-01-03T17:34:35Z",
+      "createdAt": "2022-01-03T16:33:10Z",
+      "headRefName": "patch-1",
+      "mergedAt": null,
+      "number": 579,
+      "state": "CLOSED",
+      "title": "Fix error when ECI not found (#578)",
+      "updatedAt": "2022-01-03T17:34:58Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/579"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjM1NTUzNjI1",
+        "is_bot": false,
+        "login": "CambodianCoder",
+        "name": "Scott Griffin"
+      },
+      "body": "This pull request is made to address the error I received when manually verifying a .krl file via piping the contents into `krl-compiler --verify` \r\n![image](https://user-images.githubusercontent.com/35553625/114439629-6f4a5f00-9b86-11eb-8f5d-11c0f44e892f.png)\r\n\r\nAdded code based off of https://github.com/Picolab/pico-engine/blob/e0291d58299dfbe86cd8d3ab4994a4492c3f3413/packages/pico-engine/src/server.ts#L243\r\n",
+      "closedAt": "2021-04-14T14:52:51Z",
+      "createdAt": "2021-04-12T17:59:04Z",
+      "headRefName": "add-conditional-check-for-error-reporting",
+      "mergedAt": "2021-04-14T14:52:51Z",
+      "number": 563,
+      "state": "MERGED",
+      "title": "add conditional checking before acessing internal object",
+      "updatedAt": "2021-04-14T14:52:51Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/563"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "",
+      "closedAt": "2022-01-03T17:25:26Z",
+      "createdAt": "2021-03-30T20:21:12Z",
+      "headRefName": "dockerize",
+      "mergedAt": null,
+      "number": 562,
+      "state": "CLOSED",
+      "title": "Dockerize",
+      "updatedAt": "2022-01-03T17:25:26Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/562"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "See Dockerfile for more info",
+      "closedAt": "2021-03-30T19:39:38Z",
+      "createdAt": "2021-03-29T23:55:52Z",
+      "headRefName": "dockerize",
+      "mergedAt": "2021-03-30T19:39:38Z",
+      "number": 561,
+      "state": "MERGED",
+      "title": "Add support for Docker",
+      "updatedAt": "2021-03-30T19:39:38Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/561"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "",
+      "closedAt": "2021-03-25T16:54:40Z",
+      "createdAt": "2021-03-25T15:53:27Z",
+      "headRefName": "ui-fix",
+      "mergedAt": "2021-03-25T16:54:40Z",
+      "number": 560,
+      "state": "MERGED",
+      "title": "make box rule behave better for UI testing tab",
+      "updatedAt": "2021-03-25T16:54:40Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/560"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "",
+      "closedAt": "2021-03-25T16:53:25Z",
+      "createdAt": "2021-02-25T20:55:38Z",
+      "headRefName": "picoQuery",
+      "mergedAt": "2021-03-25T16:53:25Z",
+      "number": 550,
+      "state": "MERGED",
+      "title": "Comment and error message updates for new name (picoQuery)",
+      "updatedAt": "2021-03-25T16:53:25Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/550"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI3NTA3OQ==",
+        "is_bot": false,
+        "login": "windley",
+        "name": "Phil Windley"
+      },
+      "body": "`picoQuery()` does what `skyQuery()` does AND also uses `ctx:query()` to query picos on the same engine instead of HTTP. This solves some policy problems on family channels and reduces the use of HTTP to just going off engine. \r\n\r\nA unified function in Wrangler means developers don't have to do this. ",
+      "closedAt": "2021-02-24T23:07:32Z",
+      "createdAt": "2021-02-24T22:13:02Z",
+      "headRefName": "picoQuery",
+      "mergedAt": "2021-02-24T23:07:32Z",
+      "number": 547,
+      "state": "MERGED",
+      "title": "add picoQuery() as replacement or skyQuery()",
+      "updatedAt": "2021-02-24T23:08:33Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/547"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2021-02-15T16:27:39Z",
+      "createdAt": "2021-02-14T04:38:00Z",
+      "headRefName": "ctx-install-return-rid",
+      "mergedAt": "2021-02-15T16:27:39Z",
+      "number": 542,
+      "state": "MERGED",
+      "title": "ctx:install to return rid - fixes #539",
+      "updatedAt": "2021-02-15T16:27:39Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/542"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2021-02-15T16:24:03Z",
+      "createdAt": "2021-02-14T04:37:33Z",
+      "headRefName": "fixing-unhandled-promise-rejection",
+      "mergedAt": "2021-02-15T16:24:03Z",
+      "number": 541,
+      "state": "MERGED",
+      "title": "fixes #540",
+      "updatedAt": "2021-02-15T16:24:03Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/541"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjQyOTMxNjU1",
+        "is_bot": false,
+        "login": "nmartinezbyu",
+        "name": "Norberto Martinez"
+      },
+      "body": "I made a change where you can see the picos name in the header and the parent and children names in the about page. Also in this pull request is a change for the close button where it is not up against the corner anymore. I saw @KandareJ make the close button change to his engine and I copied it. This was done in order to give a better developer experience and for me to get a better understanding on how the new pico engine works. @b1conrad can you look over my changes and tell me what you think?\r\n\r\n<!---\r\n@huboard:{\"order\":2.3657215446813183e-07,\"milestone_order\":474,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2020-10-19T21:56:40Z",
+      "createdAt": "2020-10-19T15:43:54Z",
+      "headRefName": "pico-framework-pico-names",
+      "mergedAt": "2020-10-19T21:56:40Z",
+      "number": 474,
+      "state": "MERGED",
+      "title": "Add pico names on header and about page",
+      "updatedAt": "2020-12-07T23:24:54Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/474"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "",
+      "closedAt": "2020-06-26T22:09:25Z",
+      "createdAt": "2020-06-26T22:06:22Z",
+      "headRefName": "favicon",
+      "mergedAt": "2020-06-26T22:09:25Z",
+      "number": 471,
+      "state": "MERGED",
+      "title": "Favicon",
+      "updatedAt": "2020-06-26T22:09:54Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/471"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "- more helpful parser errors\r\n- no more parser ambiguity errors\r\n- proper declarations (the old grammar allowed assignments and mutations)\r\n- semi-colons are close to being removed.\r\n- optional `return` keyword in a function body to separate the declaration from the return expression\r\n- old parser allowed statements in the function body, now statements are only allowed in the postlude\r\n",
+      "closedAt": "2019-12-20T23:26:59Z",
+      "createdAt": "2019-12-02T22:46:02Z",
+      "headRefName": "tdop",
+      "mergedAt": "2019-12-20T23:26:59Z",
+      "number": 464,
+      "state": "MERGED",
+      "title": "Better KRL Parser",
+      "updatedAt": "2019-12-20T23:27:04Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/464"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2019-11-06T18:00:26Z",
+      "createdAt": "2019-11-06T17:47:04Z",
+      "headRefName": "pico-engine-browser",
+      "mergedAt": "2019-11-06T18:00:26Z",
+      "number": 463,
+      "state": "MERGED",
+      "title": "pico-engine running in the browser",
+      "updatedAt": "2019-11-06T18:00:30Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/463"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2019-08-12T17:14:06Z",
+      "createdAt": "2019-08-12T17:13:58Z",
+      "headRefName": "rm-appveyor",
+      "mergedAt": "2019-08-12T17:14:06Z",
+      "number": 461,
+      "state": "MERGED",
+      "title": "Remove appveyor now that travis-ci supports windows testing",
+      "updatedAt": "2019-08-12T17:14:09Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/461"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Adding new syntax for raise statements that allow a dynamic expression for the event domain\r\n\r\nOriginal statement:\r\n`raise <word> event <expression> [for <expression>] [attributes <expression>]`\r\n\r\nNew additional syntax:\r\n`raise event <expression> [for <expression>] [attributes <expression>]`\r\n\r\nFor example:\r\n```js\r\nraise foo event \"bar\"\r\n// - or -\r\nraise event \"foo:bar\"\r\n```\r\n\r\n`raise event <expression> : <expression>` and `raise event <expression> <expression>` both had parser ambiguities, that's why there is a single expression for both the domain and type.\r\n\r\nThe domain-type expression is evaluated to a string (using KRL's toString logic) then the domain and type are parsed out separated by a `:`\r\n\r\n",
+      "closedAt": "2019-08-06T18:58:31Z",
+      "createdAt": "2019-08-06T18:06:25Z",
+      "headRefName": "dynamic-raise",
+      "mergedAt": "2019-08-06T18:58:31Z",
+      "number": 460,
+      "state": "MERGED",
+      "title": "dynamic raise statement - resolves #15",
+      "updatedAt": "2019-08-06T18:58:39Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/460"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "`map{\"key\"}` is the same as `map{[\"key\"]}`\r\n`map{null}` is the same as `map{[\"null\"]}`\r\n`map{[]}` is the same as `map` i.e. `[]` is the path to the map's root\r\n",
+      "closedAt": "2019-07-26T22:46:10Z",
+      "createdAt": "2019-07-10T17:20:59Z",
+      "headRefName": "persistent-variable-map-path-fix",
+      "mergedAt": "2019-07-26T22:46:10Z",
+      "number": 458,
+      "state": "MERGED",
+      "title": "fixes so ent:map{..} has the same semantics as map{..}",
+      "updatedAt": "2019-07-26T22:46:14Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/458"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "When a pico engine is set up to manage owner picos, it would be nice if the browser tab showed the name of the owner pico (instead of \"My Picos\"). This change makes that happen.\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2019-07-02T13:59:12Z",
+      "createdAt": "2019-06-28T22:56:17Z",
+      "headRefName": "indy-krl",
+      "mergedAt": "2019-07-02T13:59:12Z",
+      "number": 457,
+      "state": "MERGED",
+      "title": "use owner pico name as title",
+      "updatedAt": "2020-12-17T19:28:40Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/457"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjMzMzQ2MjU0",
+        "is_bot": false,
+        "login": "LewisThomas",
+        "name": "Thomas Lewis"
+      },
+      "body": "engine:registerRulesetFromSrc added\r\nengine:doesKRLParse added\r\n\r\nRuleset (`io.picolabs.test`) for testing KRL rulesets added (documentation forthcoming)\r\nUse of this ruleset for testing Wrangler added to automated wrangler tests in `tests.js`\r\n\r\nRuleset `io.picolabs.ds` and `io.picolabs.wrangler.profile` added, intended as a general purpose datastore and replacement for `io.picolabs.pds`\r\n\r\n`io.picolabs.collection` updated\r\n\r\nWrangler API changes listed here, as well as addressed issues\r\nhttps://github.com/Picolab/wrangler/issues/139\r\n\r\nGeneral bugfixes and optimizations for Wrangler\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2019-07-23T23:47:00Z",
+      "createdAt": "2019-06-27T03:45:42Z",
+      "headRefName": "wrangling-wrangler",
+      "mergedAt": "2019-07-23T23:47:00Z",
+      "number": 456,
+      "state": "MERGED",
+      "title": "Wrangler Fixes/Updates/Optimizations; Ruleset for testing KRL; Engine lib extension",
+      "updatedAt": "2020-12-17T18:59:26Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/456"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Don't mind the branch name, NEXT is on the [pico-framework](https://github.com/Picolab/pico-engine/tree/pico-framework) branch.\r\n\r\nThis PR makes the changes needed to update to the latest leveldb so it's compatible with later Node.js versions.",
+      "closedAt": "2019-05-23T21:33:46Z",
+      "createdAt": "2019-05-23T20:36:20Z",
+      "headRefName": "next",
+      "mergedAt": "2019-05-23T21:33:46Z",
+      "number": 452,
+      "state": "MERGED",
+      "title": "Updating leveldb",
+      "updatedAt": "2019-05-24T02:57:40Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/452"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Rough summary of changes:\r\n\r\n* added `indy:*`\r\n* added UI for http\r\n* `meta:rulesetLogging`\r\n* `time:new` can be given number of seconds since epoch\r\n* the http server will now attempt to json parse content-type 'application/octet-stream' and 'application/ssi-agent-wire'\r\n* Fixing `.reduce()` on a single item list so the iterate gets all 4 arguments (accumulator, value, index, object).\r\n* adding `autosend` option to `http:*`",
+      "closedAt": "2019-05-23T21:15:25Z",
+      "createdAt": "2019-05-23T18:03:39Z",
+      "headRefName": "indy-krl",
+      "mergedAt": "2019-05-23T21:15:25Z",
+      "number": 451,
+      "state": "MERGED",
+      "title": "indy-krl",
+      "updatedAt": "2019-05-23T21:20:55Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/451"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Originally I went to resolve #439, since it's a slight breaking change, I thought it would be good to fix several other similar stdlib inconsistencies in one batch.\r\n\r\nThe following functions now work on both Arrays and Maps. It throws an error if it's used on anything else. Also it will throw an error if the iterator is not a function.\r\n\r\n- `.all`\r\n- `.any`\r\n- `.collect`\r\n- `.filter`\r\n- `.map`\r\n- `.index` (also index allows you to pass an optional equality function)\r\n- `.reduce` (also reduce returns null if no default is given)\r\n\r\nThe following now throw an error if the value is not an array.\r\n\r\n- `.slice`\r\n- `.splice`\r\n- `.sort`\r\n- `.has`\r\n- `.once`\r\n- `.duplicates`\r\n- `.unique`\r\n\r\n`.head` Works on Arrays and Strings. i.e. `\"one\".head() == \"o\"` If not an array or string return null\r\n\r\n`.tail` Works on Arrays and Strings i.e. `\"one\".tail() == \"ne\"` If not an array or string return []\r\n\r\nNon-breaking changes:\r\nAbility to set flags on a regex i.e. `.as(\"RegExp\", \"gi\")` see #431 \r\n\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2019-05-24T02:57:40Z",
+      "createdAt": "2019-02-18T20:34:48Z",
+      "headRefName": "stdlib-fixes",
+      "mergedAt": null,
+      "number": 441,
+      "state": "CLOSED",
+      "title": "Stdlib fixes",
+      "updatedAt": "2020-12-17T18:59:21Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/441"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "it was broken for just half of all possible inputs. this changes fixes it",
+      "closedAt": "2019-02-18T17:18:41Z",
+      "createdAt": "2019-02-14T20:54:55Z",
+      "headRefName": "int-fix",
+      "mergedAt": "2019-02-18T17:18:41Z",
+      "number": 440,
+      "state": "MERGED",
+      "title": "int fix",
+      "updatedAt": "2019-02-18T17:18:58Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/440"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "still have to write the automated tests",
+      "closedAt": "2019-02-13T01:19:54Z",
+      "createdAt": "2019-02-11T23:37:52Z",
+      "headRefName": "selected-math-functions",
+      "mergedAt": "2019-02-13T01:19:54Z",
+      "number": 437,
+      "state": "MERGED",
+      "title": "adding math:abs, math:ceiling, math:floor, math:int, and math:round",
+      "updatedAt": "2019-02-13T01:30:52Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/437"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjY4NTQwMjc=",
+        "is_bot": false,
+        "login": "panzertime",
+        "name": "RT Hatfield"
+      },
+      "body": "CLI and documentation originally did not make clear that the interface to listen on can be specified.  This is useful for users who need to run on multi-homed systems.",
+      "closedAt": "2019-01-10T17:07:43Z",
+      "createdAt": "2019-01-07T18:05:34Z",
+      "headRefName": "listen-host",
+      "mergedAt": null,
+      "number": 429,
+      "state": "CLOSED",
+      "title": "Updated CLI to make clear that the listen interface can be specified",
+      "updatedAt": "2019-01-10T17:07:43Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/429"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2018-11-19T22:16:15Z",
+      "createdAt": "2018-11-19T22:02:54Z",
+      "headRefName": "no-more-api-db-dump",
+      "mergedAt": "2018-11-19T22:16:15Z",
+      "number": 426,
+      "state": "MERGED",
+      "title": "No more api db dump",
+      "updatedAt": "2018-11-19T22:16:19Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/426"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "I changed pico intent_to_orphan event to wrangler garbage_collection. I believe this old event name was left over from merging \"pico\" ruleset into wranglers ruleset and does not reflect what the event is for. This is an API changing pull request that could break some existing code, but all tests passed for me.\r\nSigned-off-by: Adam Burdett <adam@sovrin.org>",
+      "closedAt": "2018-10-24T03:19:55Z",
+      "createdAt": "2018-10-21T06:22:58Z",
+      "headRefName": "wrangler-garbage-collection-event",
+      "mergedAt": "2018-10-24T03:19:55Z",
+      "number": 422,
+      "state": "MERGED",
+      "title": "renamed intent to orphan event(API change)",
+      "updatedAt": "2018-10-24T03:19:56Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/422"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "This allows a well-known channel to be created when a subscriptions ruleset is installed automatically in every child pico. ",
+      "closedAt": "2018-10-16T15:13:18Z",
+      "createdAt": "2018-10-16T04:49:21Z",
+      "headRefName": "subscription-create-wellknown-bug",
+      "mergedAt": "2018-10-16T15:13:18Z",
+      "number": 421,
+      "state": "MERGED",
+      "title": "Subscription create well-known bug",
+      "updatedAt": "2018-10-16T15:13:18Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/421"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "Signed-off-by: Adam Burdett <adam@sovrin.org>",
+      "closedAt": "2018-10-16T14:36:26Z",
+      "createdAt": "2018-10-16T03:20:47Z",
+      "headRefName": "wrangler-system-start-event",
+      "mergedAt": "2018-10-16T14:36:26Z",
+      "number": 420,
+      "state": "MERGED",
+      "title": "wrangler system online event",
+      "updatedAt": "2018-10-16T14:36:26Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/420"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "Signed-off-by: Adam Burdett <adam@sovrin.org>",
+      "closedAt": "2018-10-16T14:35:09Z",
+      "createdAt": "2018-10-15T05:41:03Z",
+      "headRefName": "engine-started-event",
+      "mergedAt": "2018-10-16T14:35:09Z",
+      "number": 419,
+      "state": "MERGED",
+      "title": "system started event",
+      "updatedAt": "2018-10-16T14:35:54Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/419"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "",
+      "closedAt": "2018-09-27T20:37:00Z",
+      "createdAt": "2018-09-19T22:08:22Z",
+      "headRefName": "import-pico",
+      "mergedAt": "2018-09-27T20:37:00Z",
+      "number": 416,
+      "state": "MERGED",
+      "title": "engine:importPico",
+      "updatedAt": "2018-09-30T01:51:02Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/416"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "For #393\r\n\r\nHere's the gist of what a pico export looks like. See the `engine.test.js` for a complete example.\r\n```js\r\n{\r\n    version: \"0.46.0\",// engine core version so we can support backwards compatibility\r\n    policies: {\r\n     // policy definitions the pico channels depend on\r\n    },\r\n    rulesets: {\r\n      // ruleset definition the pico depends on\r\n    },\r\n    pico: {\r\n      id: 'id0',\r\n      parent_id: null,\r\n      admin_eci: 'id1',\r\n      channels: {\r\n        'id1': { id: 'id1', name: 'admin', type: 'secret', policy_id: 'allow-all-policy', sovrin: { did: 'id1', verifyKey: 'verifyKey_id1', secret: { seed: 'seed_id1', signKey: 'signKey_id1' } } }\r\n        // ...\r\n      },\r\n      entvars: {\r\n       // ent var values by rid\r\n      },\r\n      state_machine: {\r\n        // current value of each rule's state_machine\r\n      },\r\n      aggregator_var: {\r\n        // current value of any event aggregation variables\r\n      },\r\n      children: [\r\n        // any child pico's\r\n      ]\r\n    }\r\n  }\r\n```",
+      "closedAt": "2018-09-13T19:49:44Z",
+      "createdAt": "2018-08-25T03:21:46Z",
+      "headRefName": "export-pico",
+      "mergedAt": "2018-09-13T19:49:44Z",
+      "number": 414,
+      "state": "MERGED",
+      "title": "engine:exportPico",
+      "updatedAt": "2018-09-13T19:49:48Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/414"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Switching code style to [standardjs.com](https://standardjs.com/)",
+      "closedAt": "2018-07-26T19:32:23Z",
+      "createdAt": "2018-07-26T19:24:14Z",
+      "headRefName": "standardjs",
+      "mergedAt": "2018-07-26T19:32:23Z",
+      "number": 412,
+      "state": "MERGED",
+      "title": "standardjs",
+      "updatedAt": "2018-07-26T19:32:26Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/412"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "no more generators or co-callback. Just async+await\r\n\r\nRequires node 8+",
+      "closedAt": "2018-07-24T20:48:05Z",
+      "createdAt": "2018-07-24T20:42:19Z",
+      "headRefName": "async-await",
+      "mergedAt": "2018-07-24T20:48:05Z",
+      "number": 411,
+      "state": "MERGED",
+      "title": "Async await",
+      "updatedAt": "2018-07-24T20:48:07Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/411"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjMzMzQ2MjU0",
+        "is_bot": false,
+        "login": "LewisThomas",
+        "name": "Thomas Lewis"
+      },
+      "body": "#375 This pull request has a fix for this issue.\r\n\r\nChanges:\r\n\r\n- When a new child pico is created, rulesets are installed using the `install_rulesets_requested` rule for any user-requested rulesets to be installed on that child. OS rulesets (e.g. wrangler, visual_params) are still installed at the `createChild` defaction in wrangler. `child_initialized` is not sent back to the parent until any user-requested rulesets have been successful or failed in installation.\r\n- Install rulesets rule now handles invalid rids, checking if an rid is registered with the engine before attempting install. If a given rid is not registered with the engine, wrangler will raise a `install_rulesets_error` event with attributes containing the names of the invalid rulesets. If no valid rids are given or no rids are given a system/error even is raised giving relevant information. \r\n- Added a new proxy rule to facilitate installing rulesets before sending a `child_initialized` event \r\n\r\n\r\n- Subscriptions automatically installed on child picos",
+      "closedAt": "2018-07-17T02:26:50Z",
+      "createdAt": "2018-06-26T20:21:26Z",
+      "headRefName": "install_rulesets_validation",
+      "mergedAt": "2018-07-17T02:26:50Z",
+      "number": 408,
+      "state": "MERGED",
+      "title": "Install Rulesets Validation",
+      "updatedAt": "2018-07-17T02:26:57Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/408"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "The following functions now return `null` instead of throwing an error when the `pico_id` is not found.\r\n`engine:getPicoIDByECI(pico_id)`\r\n`engine:getParent(pico_id)`\r\n`engine:getAdminECI(pico_id)`\r\n`engine:listChildren(pico_id)`\r\n`engine:listChannels(pico_id)`\r\n`engine:listInstalledRIDs(pico_id)`\r\n`engine:describeRuleset(rid)`\r\n\r\nActions will still throw when an id is invalid.",
+      "closedAt": "2018-06-19T21:28:43Z",
+      "createdAt": "2018-06-03T04:26:23Z",
+      "headRefName": "engine-fn-return-null-when-id-is-not-found",
+      "mergedAt": "2018-06-19T21:28:43Z",
+      "number": 402,
+      "state": "MERGED",
+      "title": "engine:*  functions return null when an id is not found - fixes #399",
+      "updatedAt": "2018-06-19T21:28:46Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/402"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjMzMzQ2MjU0",
+        "is_bot": false,
+        "login": "LewisThomas",
+        "name": "Thomas Lewis"
+      },
+      "body": "The find and replace functionality did not work correctly in the editor.\r\n\r\nI looked at the code, and added the ace editor searchbox extension which allowed for find and replace. I overrode ctrl-f on the window so that it will always trigger it no matter what your focus is. The find and replace only works for the editor window.\r\n\r\nCommands:\r\nCtrl-F: Find\r\nCtrl-Shift-F: Close find window\r\nDown arrow/Enter: Navigate down in found entries\r\nUp arrow: Navigate up in found entries",
+      "closedAt": "2018-06-03T03:58:18Z",
+      "createdAt": "2018-06-02T03:43:16Z",
+      "headRefName": "find_and_replace",
+      "mergedAt": "2018-06-03T03:58:18Z",
+      "number": 401,
+      "state": "MERGED",
+      "title": "Added correct find and replace",
+      "updatedAt": "2018-06-03T04:13:21Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/401"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "Seven seconds after the engine starts a discovery service is started.\r\ndiscover service allows you to add resources to be advertised to other pico engines on the network.  discover service also allows you to register observer DiD's. when discover finds another engine, it will send an event to all the observer dids with what that engine is advertising. This enables any observer to listen for different types of resources and the ability to subscribe to them.\r\nThe dependency has not been added. you will need to install node-discover manually",
+      "closedAt": "2020-12-24T19:08:13Z",
+      "createdAt": "2018-05-29T14:48:07Z",
+      "headRefName": "engine-discovery",
+      "mergedAt": null,
+      "number": 400,
+      "state": "CLOSED",
+      "title": "basic engine discovery.",
+      "updatedAt": "2020-12-24T19:08:13Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/400"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1OTg3MDg3",
+        "is_bot": false,
+        "login": "cgrimm013",
+        "name": "Connor Grimm"
+      },
+      "body": "**Wrangler API changes**\r\nAdded createPolicy and createChannel defactions in wrangler and provided them.\r\n\r\n**Subscription API changes**\r\noutbound_bus_removed --> outbound_subscription_cancelled\r\ninbound_bus_removed --> inbound_subscription_cancelled\r\nsubscription_added from the outbound pico used to return attributes with \"_Tx\", \"_Tx_verify_key\", and \"_Tx_public_key\", but the leading \"_\" has been removed to keep API consistent. The attr \"bus\" with the value being the newly approved subscription has also been added to remain consistent between the inbound and outbound subscription_added events.\r\n\r\n**Bug Fixes**\r\nEvent attributes are propagated throughout the subscription event flow.\r\nCancel subscription by Id now works\r\nSubscription Id correctly propagates in the event attrs internally.\r\n",
+      "closedAt": "2018-07-03T17:00:46Z",
+      "createdAt": "2018-05-18T21:15:49Z",
+      "headRefName": "subscription-cleanup",
+      "mergedAt": "2018-07-03T17:00:46Z",
+      "number": 397,
+      "state": "MERGED",
+      "title": "Subscription cleanup",
+      "updatedAt": "2018-07-03T17:00:52Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/397"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE5MjczOTI2",
+        "is_bot": false,
+        "login": "b1conrad",
+        "name": "Bruce Conrad"
+      },
+      "body": "this seems to work and doesn't break any pre-existing tests\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-03-08T16:26:34Z",
+      "createdAt": "2018-03-07T19:50:00Z",
+      "headRefName": "date_comparison",
+      "mergedAt": "2018-03-08T16:26:34Z",
+      "number": 368,
+      "state": "MERGED",
+      "title": "fix date comparison",
+      "updatedAt": "2018-03-15T23:29:44Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/368"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "`event:send` was implemented to wait until the all the rules finish before signaling the event. I can't remember a good reason why it behaved that way. Perhaps it's a hold-over before the pico-queue was implemented.\r\n\r\nThis PR changes `event:send` to signal the event right away. (i.e. add the event to the end of the pico-queue before finishing the postlude)\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-02-23T15:52:51Z",
+      "createdAt": "2018-02-22T18:21:54Z",
+      "headRefName": "event-send-signal-right-away",
+      "mergedAt": "2018-02-23T15:52:51Z",
+      "number": 364,
+      "state": "MERGED",
+      "title": "event:send signal the event right away, don't wait for the rules to complete",
+      "updatedAt": "2018-02-23T15:53:10Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/364"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "This fixes #358 and #359\r\n\r\nSyntax change\r\n `select when ... where .. setting() ` to `select when ... setting() where ..`\r\nIt's backwards comparable and emits a deprecation warning.\r\n\r\nThe variables in `setting()` are now available in `where`\r\n\r\nThe values in the global scope are now available in `where`. For backwards compatibility, `where` still lets you access event attributes as bare words.\r\n\r\n\r\n\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-02-23T15:36:22Z",
+      "createdAt": "2018-02-18T04:47:15Z",
+      "headRefName": "select-where",
+      "mergedAt": "2018-02-23T15:36:22Z",
+      "number": 362,
+      "state": "MERGED",
+      "title": "Select where",
+      "updatedAt": "2018-02-23T15:50:51Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/362"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "What spurred this on was:\r\n```krl\r\nselect when a a mileage re#(.*)# setting(m)\r\nif m > 200 then\r\n  ...\r\n```\r\n**>** was not very friendly about the attribute being a string.\r\n\r\nI changed it so all comparison operators now try to convert both arguments to a number. If one or both fail to convert, then it converts them to strings and compares that.\r\n```js\r\n\"300\" > \"200\" is the same as  300  > 200\r\n\"300\" >  200  is the same as  300  > 200\r\n\"wat\" >  200  is the same as \"wat\" > \"200\"\r\n noop >  200  is the same as \"[Function]\" > \"200\"\r\n```\r\n\r\nI also changed the logic for `.as(\"Number\")`\r\n```js\r\nnull.as(\"Number\") -> 0\r\n\r\nfalse.as(\"Number\") -> 0\r\ntrue.as(\"Number\") -> 1\r\n\r\n\"200\".as(\"Number\") -> 200\r\n\"wat\".as(\"Number\") -> null  // if the string cannot be parsed into a number, return null\r\n\r\n// arrays and maps return their size\r\n[].as(\"Number\") -> 0\r\n[\"a\", \"b\"].as(\"Number\") -> 2\r\n{\"a\": a, \"b\": b, \"c\": c}.as(\"Number\") -> 3\r\n\r\n// other types return null\r\nre#foo#.as(\"Number\") -> null\r\nsend_directive.as(\"Number\") -> null\r\n```\r\nThese same number conversion rules are used everywhere.\r\n\r\nAnother change I made was making `.substr()`, `.slice()`, and `.splice()` more forgiving by return an empty string/array instead of throwing an error when the range is out of bounds. i.e.\r\n```js\r\n\"foo\".substr(1000) -> \"\" // instead of throwing a RangeError\r\n```\r\n\r\nFinally, division by zero. In many situations 0 is an acceptable response. So instead of breaking and throwing an error, it now just returns 0 and emits a debug message. i.e.\r\n```js\r\n9 / 0  -> 0 // and emits \"[DIVISION BY ZERO] 9 / 0\"\r\n```\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-02-21T03:51:40Z",
+      "createdAt": "2018-02-17T22:21:45Z",
+      "headRefName": "weak-typing",
+      "mergedAt": "2018-02-21T03:51:40Z",
+      "number": 361,
+      "state": "MERGED",
+      "title": "Weak typing",
+      "updatedAt": "2018-02-23T15:35:33Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/361"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjcwNzY3ODU=",
+        "is_bot": false,
+        "login": "burdettadam",
+        "name": "Adam Burdett"
+      },
+      "body": "This pull renames io.picolabs.pico to io.picolabs.wrangler. \r\nWrangler functions have been cleaned up to return raw requested data instead of wrapping in an unnecessary data structure. Directives in rules have been simplified as well.\r\nWrangler rule select statements no longer support pico has a domain. The User Interface has been updated to use wrangler domain instead of pico, there are no test to guarantee all cases have been changed. The engine now installs io.picolabs.wrangler in root instead of io.picolabs.pico.\r\nSubscriptions have been refactored to provide more concise code with a simpler data structure and API. Subscriptions now support different level of complexity of subscriptions.\r\ntests.js has been updated to properly use io.picolabs.wrangler and io.picolabs.subscriptions.\r\nSubscription tests have been restructured to query subscriptions ruleset instead of scraping the database.\r\nChanges found in other code is to support the above changes.\r\nNo changes in this pull request has been documented yet. \r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-01-11T05:07:40Z",
+      "createdAt": "2018-01-09T07:17:33Z",
+      "headRefName": "Wrangler_cleanUp_for_Cs462",
+      "mergedAt": "2018-01-11T05:07:40Z",
+      "number": 351,
+      "state": "MERGED",
+      "title": "Wrangler clean up for cs462",
+      "updatedAt": "2018-01-15T17:08:59Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/351"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Channels now have policies attached to them. To ease the migration by default new channels are given the \"allow all\" policy.\r\n\r\nPolicies limit which events or queries the channel will accept. The policies are defined as simple json maps. For events you define which domains and types are allowed and which are denied. For queries instead of `domain` and `type` you use `rid` and `name`.\r\n\r\nFor example, a policy that allows all events with domain `foo` and type `bar`. An event `foo/hello` will be rejected. Also all queries will be rejected since the policy didn't define any query rules.\r\n```krl\r\n{\r\n    name: \"only allow foo/bar events\",\r\n    event: {\r\n        allow: [\r\n            // This is a list of rules.\r\n            // If the event matches one of these rules, the event will be allowed\r\n            {domain: \"foo\", type: \"bar\"}\r\n        ]\r\n    }\r\n}\r\n```\r\n\r\nNow let's try a policy that will allow all events with domain `foo`, but reject `foo/bar`.\r\n```krl\r\n{\r\n    name: \"allow foo/* but deny foo/bar\",\r\n    event: {\r\n        allow: [\r\n            {domain: \"foo\"}// omitting `type` means match all\r\n            {domain: \"aaa\", type: \"bbb\"},\r\n        ],\r\n        deny: [\r\n            // deny creates a black list of events\r\n            {domain: \"foo\", type: \"bar\"}\r\n        ],\r\n    }\r\n}\r\n// foo/foo - allowed\r\n// foo/wat - allowed\r\n// foo/bar - denied b/c it matches a rule in the `deny` list\r\n// zzz/wat - denied b/c domain zzz is not allowed\r\n// aaa/bbb - allowed b/c it matched an `allow` rule\r\n// aaa/ccc - denied b/c it didn't match an `allow` rule\r\n```\r\n\r\nNow let's allow all events except `system/*` and `danger/nuke`\r\n```krl\r\n{\r\n    name: \"blacklist system/secret and system/danger\",\r\n    event: {\r\n        allow: [\r\n            {}// omitting `domain` and `type` means match all events\r\n        ],\r\n        deny: [\r\n            {domain: \"system\"},\r\n            {domain: \"danger\", type: \"nuke\"},\r\n        ],\r\n    }\r\n}\r\n// foo/bar - allowed\r\n// hello/system - allowed\r\n// system/secret - denied\r\n// system/foobar - denied\r\n// danger/gun - allowed\r\n// danger/nuke - denied\r\n```\r\n\r\nQueries work the same. But use `rid`+`name` instead of `domain`+`type`\r\n\r\nThe allow all policy looks like this\r\n```krl\r\n{\r\n    name: \"allow all\",\r\n    event: {\r\n        allow: [{}],\r\n    },\r\n    query: {\r\n        allow: [{}],\r\n    }\r\n}\r\n```\r\n\r\nTo create a policy in the engine:\r\n```krl\r\nengine:newPolicy({\r\n    name: \"only allow foo/bar events\",\r\n    event: {\r\n        allow: [\r\n            {domain: \"foo\", type: \"bar\"}\r\n        ]\r\n    }\r\n})\r\n```\r\n\r\nThe `engine:newPolicy` function returns the complete policy that includes it's id. So the above newPolicy returns\r\n```krl\r\n{\r\n    id: \"1234\",\r\n    name: \"only allow foo/bar events\",\r\n    event: {\r\n        allow: [\r\n            {domain: \"foo\", type: \"bar\"}\r\n        ],\r\n        deny: [],\r\n    },\r\n    query: {allow: [], deny: []}\r\n}\r\n```\r\n\r\nYou can then use that returned id to to create a new channel that adopts that policy. i.e.  `engine:newChannel(... policy_id = \"1234\")`\r\n\r\nYou can also `engine:listPolicies()` to see all policies in the engine.\r\n\r\n```krl\r\n[\r\n    {id: \"1234\", name: \"policy 1\", event: {allow: [...]} query: ...},\r\n    {id: \"4321\", name: \"policy 2\", event: {allow: [...]} query: ...},\r\n    {id: \"5555\", name: \"policy 3\", event: {allow: [...]} query: ...},\r\n]\r\n```\r\n\r\nTo delete a policy use `engine:removePolicy(policy_id)` It only works if the policy is not in use by any channels.\r\n\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2018-01-11T03:36:36Z",
+      "createdAt": "2018-01-01T19:02:40Z",
+      "headRefName": "policies-for-channels",
+      "mergedAt": "2018-01-11T03:36:36Z",
+      "number": 350,
+      "state": "MERGED",
+      "title": "Policies for channels",
+      "updatedAt": "2018-01-15T17:08:59Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/350"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NTQ3Mjk2",
+        "is_bot": false,
+        "login": "seanag0234",
+        "name": "Sean George"
+      },
+      "body": "I did add a try-catch block to both the verifySignedMessage and decryptMessage functions that attempts to json parse the message so that if someone had signed or encrypted a valid json string then it would be sent back to the pico as an object. I think this would be the desired behavior.",
+      "closedAt": "2017-12-08T18:02:43Z",
+      "createdAt": "2017-12-08T04:06:26Z",
+      "headRefName": "encryption",
+      "mergedAt": "2017-12-08T18:02:43Z",
+      "number": 349,
+      "state": "MERGED",
+      "title": "Encryption",
+      "updatedAt": "2017-12-08T18:02:46Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/349"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2017-12-08T02:52:38Z",
+      "createdAt": "2017-12-08T02:28:43Z",
+      "headRefName": "codemirror",
+      "mergedAt": "2017-12-08T02:52:38Z",
+      "number": 348,
+      "state": "MERGED",
+      "title": "Codemirror",
+      "updatedAt": "2017-12-08T16:27:20Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/348"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "Fixes https://github.com/Picolab/pico-engine/issues/225.\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2017-11-29T17:24:20Z",
+      "createdAt": "2017-11-27T20:19:33Z",
+      "headRefName": "attr-0",
+      "mergedAt": "2017-11-29T17:24:20Z",
+      "number": 343,
+      "state": "MERGED",
+      "title": "Correctly match falsy event attributes",
+      "updatedAt": "2017-12-08T16:27:18Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/343"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NTQ3Mjk2",
+        "is_bot": false,
+        "login": "seanag0234",
+        "name": "Sean George"
+      },
+      "body": "\r\n\r\n<!---\r\n@huboard:{\"order\":2.3658989693615524e-07,\"milestone_order\":342,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-12-07T20:21:24Z",
+      "createdAt": "2017-11-25T22:01:24Z",
+      "headRefName": "secure-subscriptions",
+      "mergedAt": "2017-12-07T20:21:24Z",
+      "number": 342,
+      "state": "MERGED",
+      "title": "Secure subscriptions",
+      "updatedAt": "2017-12-08T16:27:14Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/342"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "At some point during my engine.test.js modifications, one of the random module's random number functions kept failing with out-of-bounds values.\r\n\r\nIt went away, but I imagine such a spurious thing can come back one day.\r\n\r\n<!---\r\n@huboard:{\"order\":291.5,\"milestone_order\":341,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-11-17T22:13:59Z",
+      "createdAt": "2017-11-14T20:50:32Z",
+      "headRefName": "engine-module-type-checks",
+      "mergedAt": "2017-11-17T22:13:59Z",
+      "number": 341,
+      "state": "MERGED",
+      "title": "Engine module type checks",
+      "updatedAt": "2017-12-08T16:27:17Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/341"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "Changing how persistent variables are stored in the db, to allow faster reads/writes on Arrays using indices and Maps using keys.",
+      "closedAt": "2017-11-01T21:40:55Z",
+      "createdAt": "2017-11-01T19:34:12Z",
+      "headRefName": "persistent-var-indexing",
+      "mergedAt": "2017-11-01T21:40:55Z",
+      "number": 340,
+      "state": "MERGED",
+      "title": "Persistent var indexing",
+      "updatedAt": "2017-11-01T21:55:15Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/340"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjExNjQwNTM1",
+        "is_bot": false,
+        "login": "farskipper",
+        "name": "Matthew Wright"
+      },
+      "body": "This fixes some of the UnhandledPromiseRejectionWarning weirdness even though we are handling those errors. see #186\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2017-10-23T20:26:01Z",
+      "createdAt": "2017-10-23T20:11:53Z",
+      "headRefName": "co-callback-upgrade",
+      "mergedAt": "2017-10-23T20:26:01Z",
+      "number": 327,
+      "state": "MERGED",
+      "title": "co-callback upgrade",
+      "updatedAt": "2017-10-25T21:12:05Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/327"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NTQ3Mjk2",
+        "is_bot": false,
+        "login": "seanag0234",
+        "name": "Sean George"
+      },
+      "body": "Along with adding some basic subscription tests this also includes an update to the KRL ruleset for subscriptions that prevented the attributes of the subscription from being stored correctly.\r\n\r\n<!---\r\n@huboard:{\"order\":2.3672005095675626e-07,\"milestone_order\":326,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-10-24T20:52:59Z",
+      "createdAt": "2017-10-21T22:39:48Z",
+      "headRefName": "subscriptions-tests",
+      "mergedAt": "2017-10-24T20:52:59Z",
+      "number": 326,
+      "state": "MERGED",
+      "title": "Subscriptions tests",
+      "updatedAt": "2017-11-14T17:54:28Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/326"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "\r\n\r\n<!---\r\n@huboard:{\"custom_state\":\"archived\"}\r\n-->\r\n",
+      "closedAt": "2017-10-20T13:54:29Z",
+      "createdAt": "2017-10-19T18:35:46Z",
+      "headRefName": "test-ruleset-urls",
+      "mergedAt": "2017-10-20T13:54:29Z",
+      "number": 325,
+      "state": "MERGED",
+      "title": "Make unused krl url metadata obvious",
+      "updatedAt": "2017-10-25T21:12:03Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/325"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "Tiny iterative async merge sort (fixes https://github.com/Picolab/pico-engine/issues/298) - I should totes make this an npm module.\r\n\r\n<!---\r\n@huboard:{\"order\":2.3666088100316954e-07,\"milestone_order\":323,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-10-23T19:03:06Z",
+      "createdAt": "2017-10-17T19:47:56Z",
+      "headRefName": "fast-stdlib-sort",
+      "mergedAt": "2017-10-23T19:03:06Z",
+      "number": 323,
+      "state": "MERGED",
+      "title": "Optimize stdlib sort",
+      "updatedAt": "2017-10-25T21:11:49Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/323"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "Fixes https://github.com/Picolab/pico-engine/issues/305 and https://github.com/Picolab/pico-engine/issues/272.\r\n\r\nAppVeyor is having trouble running anything.\r\n\r\nI didn't do much for app, engine, ent, event, or schedule. meta has no functions yet that need extra checking.\r\n\r\nI decided not to use [parambulator](https://www.npmjs.com/package/parambulator) or [ajv](https://www.npmjs.com/package/ajv) - parambulator looks nicer for partial checking inline while computing other things, but what we're doing is simple anyway, and neither library seems to let me throw a custom semantically correct error like TypeError!\r\n\r\n<!---\r\n@huboard:{\"order\":2.3668454709126987e-07,\"milestone_order\":322,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-10-23T20:04:50Z",
+      "createdAt": "2017-10-16T19:44:33Z",
+      "headRefName": "module-type-checking",
+      "mergedAt": "2017-10-23T20:04:49Z",
+      "number": 322,
+      "state": "MERGED",
+      "title": "Module type checking",
+      "updatedAt": "2017-10-25T21:11:52Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/322"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "Problem: https://picolabsio.slack.com/messages/C07PMJ95X/\r\n\r\n[Here](https://github.com/Picolab/pico-engine/blob/23e844e5a5db1b30cd0610f7c9084021527e99aa/packages/pico-engine/src/startCore.js#L172), `err` is not a a string, so [`logEntry`'s `needAttributes`](https://github.com/Picolab/pico-engine/blob/23e844e5a5db1b30cd0610f7c9084021527e99aa/packages/pico-engine/src/startCore.js#L95) tries to call the undefined `startsWith` function on the `message` object.\r\n\r\nPossible solution, as in this PR: Assume `err` is either a message or an error, like in the second (burdettadam's) case I think is caused by an [unhandled](https://github.com/Picolab/pico-engine/blob/23e844e5a5db1b30cd0610f7c9084021527e99aa/packages/pico-engine-core/src/modules/engine.js#L12) [LevelDown error](https://github.com/Picolab/pico-engine/blob/cb95bcc0c08fe840a4fa469ec9ff0a4058cbdb94/packages/pico-engine-core/src/DB.js#L122).\r\n\r\nShould we add tests to https://github.com/Picolab/pico-engine/blob/master/packages/pico-engine-core/src/DB.test.js and https://github.com/Picolab/pico-engine/blob/master/packages/pico-engine/src/tests.js ? I'm thinking of mocking a similar situation for https://github.com/Picolab/pico-engine/blob/master/packages/pico-engine-core/src/modules/engine.test.js\r\n\r\n<!---\r\n@huboard:{\"order\":0.24884025679052188,\"milestone_order\":318,\"custom_state\":\"\"}\n-->\r\n",
+      "closedAt": "2017-10-05T18:03:36Z",
+      "createdAt": "2017-10-03T21:29:04Z",
+      "headRefName": "error-logging-fix",
+      "mergedAt": "2017-10-05T18:03:36Z",
+      "number": 318,
+      "state": "MERGED",
+      "title": "Fix error logging engine crash",
+      "updatedAt": "2017-10-05T18:03:41Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/318"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "See https://github.com/Picolab/pico-engine/blob/cb95bcc0c08fe840a4fa469ec9ff0a4058cbdb94/packages/krl-stdlib/src/index.js#L228 and https://picolabsio.slack.com/messages/D48LMNYD8/convo/C07PMJ95X-1507052869.000179/\r\n\r\n<!---\r\n@huboard:{\"order\":2.3672005095675626e-07,\"milestone_order\":317,\"custom_state\":\"\"}\n-->\r\n",
+      "closedAt": "2017-10-03T23:35:50Z",
+      "createdAt": "2017-10-03T20:04:28Z",
+      "headRefName": "klog-format-fix",
+      "mergedAt": "2017-10-03T23:35:50Z",
+      "number": 317,
+      "state": "MERGED",
+      "title": "Fix for klog emit style",
+      "updatedAt": "2017-10-03T23:36:13Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/317"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "From an old [PR](https://github.com/Picolab/node-pico-engine-core/pull/14) opened by https://github.com/0joshuaolson1:\r\n\r\n`base64decode` works on a best effort basis, so `\"hello!\"` for example decodes to `\"hello\"`.\r\n\r\nfarskipper added `math:sha2` as a `crypto` example (although if we wanted to get crazy we could use the streaming api, which may be faster). The `crypto` 'module' should come with any Node binary, but if someone's doing something really crazy with a custom build, they can cross that bridge when they get there. There are ways to fallback, e.g. browserify has stubs for these node apis that work in browsers.\r\n\r\n<!---\r\n@huboard:{\"order\":311.0194375,\"milestone_order\":315,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2017-10-26T16:34:32Z",
+      "createdAt": "2017-09-26T22:09:24Z",
+      "headRefName": "math-module-stub",
+      "mergedAt": "2017-10-26T16:34:32Z",
+      "number": 315,
+      "state": "MERGED",
+      "title": "Begin math module as a demonstration",
+      "updatedAt": "2017-10-30T18:42:37Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/315"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "From an old [PR](https://github.com/Picolab/node-pico-engine/pull/6) opened by https://github.com/burdettadam:\r\n\r\nThis will launch the browser after tests have ran during nom start command. Also prints out the url server is serving at.\r\n\r\n<!---\r\n@huboard:{\"order\":311.023325,\"milestone_order\":314,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2018-01-16T03:05:13Z",
+      "createdAt": "2017-09-26T21:24:55Z",
+      "headRefName": "autoLaunchBrowser",
+      "mergedAt": null,
+      "number": 314,
+      "state": "CLOSED",
+      "title": "AutoLaunchBrowser",
+      "updatedAt": "2018-01-16T03:05:59Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/314"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "Copied from an old [PR](https://github.com/Picolab/node-pico-engine/pull/24) opened by https://github.com/farskipper:\r\n\r\nChanges\r\n * use the krl `.encode()` for json serialization (i.e. regex will output \"re#...#\")\r\n * prety-printing the log context\r\n\r\nExample output:\r\n\r\n```\r\n[EPISODE_START] cj3ospydz0003dudxgnhg59ep\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | event received: pico/root_created\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | event added to pico queue: cj3ospydu0001dudxq3jnc6pz\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | event being processed\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | rule added to schedule: io.picolabs.pico -> pico_root_created\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | rule selected: io.picolabs.pico -> pico_root_created\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | fired\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | event finished processing\r\n[DEBUG] event/cj3ospydv0002dudxxmtaa7mm/19/pico/root_created | {\"directives\":[]}\r\n[EPISODE_STOP] cj3ospydz0003dudxgnhg59ep\r\n...\r\n...\r\n...\r\n[DEBUG] query/cj3m5tcwl0002r1dxwxr18ci2/io.picolabs.logging/__testing | query received: io.picolabs.logging/__testing\r\n```\r\n\r\n<!---\r\n@huboard:{\"order\":0.24884025679052188,\"milestone_order\":313,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2018-01-01T18:54:23Z",
+      "createdAt": "2017-09-26T21:09:49Z",
+      "headRefName": "tweaking-logging",
+      "mergedAt": "2018-01-01T18:54:23Z",
+      "number": 313,
+      "state": "MERGED",
+      "title": "Tweaking logging",
+      "updatedAt": "2018-01-15T17:08:57Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/313"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NjY2ODI=",
+        "is_bot": false,
+        "login": "0joshuaolson1",
+        "name": "Joshua Olson"
+      },
+      "body": "https://github.com/Picolab/pico-engine/issues/218\r\n\r\n<!---\r\n@huboard:{\"order\":5.912382115790988e-08,\"milestone_order\":312,\"custom_state\":\"archived\"}\n-->\r\n",
+      "closedAt": "2018-04-30T21:48:56Z",
+      "createdAt": "2017-09-26T20:36:54Z",
+      "headRefName": "simpler-subscriptions",
+      "mergedAt": null,
+      "number": 312,
+      "state": "CLOSED",
+      "title": "Simplify subscriptions as per issue 218",
+      "updatedAt": "2018-05-10T15:24:38Z",
+      "url": "https://github.com/Picolab/pico-engine/pull/312"
+    }
+  ]
+}

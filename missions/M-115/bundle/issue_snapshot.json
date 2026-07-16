@@ -1,0 +1,2208 @@
+{
+  "fetched_at": "2026-07-16T18:29:24Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "MEMBER",
+    "body": "It appears that the `LINT4002` bslint rule incorrectly scans for the component name _anywhere_ in the `CreateObject` call. Instead, it should only look for them directly following a \"roSGNode\". \r\n\r\n```xml\r\n<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<component name=\"Parent\" extends=\"Group\">\r\n</component>\r\n```\r\n\r\n```brightscript\r\n? createObject(\"Parent\") 'bslint should NOT consider this valid usage of the `Parent` component\r\n? createObject(\"roSGNode\", \"Parent\") ' THIS is the proper usage of `Parent` component \r\n```",
+    "created_at": "2022-04-13T15:50:28Z",
+    "html_url": "https://github.com/rokucommunity/bslint/issues/61",
+    "labels": [
+      "bug",
+      "good first issue",
+      "help wanted"
+    ],
+    "number": 61,
+    "state": "open",
+    "title": "Incorrect usage of CreateObject for component usage",
+    "updated_at": "2023-06-29T11:44:05Z",
+    "user": "TwitchBronBron"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "master",
+    "fork": false,
+    "html_url": "https://github.com/rokucommunity/bslint"
+  },
+  "default_branch_head": "56b4e8e82d81b574a56f70d8e4708e4e44e8a318",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "Clears the outstanding high-severity audit advisory and aligns the audit gate with the other RokuCommunity repos.\n\n- Bump `form-data` `2.5.5` → `2.5.6` (lockfile), clearing the CRLF advisory GHSA-hmw2-7cc7-3qxx. It comes in transitively via `brighterscript` → `roku-deploy` → `@types/request` (which allows `^2.5.5`), so no manifest change is needed. Same bump the sibling repos already merged.\n- Raise the `npm audit` step to `--audit-level=high` so the audit script only gates on high and above.\n\nNo high/critical advisories remain; `build`, `lint`, and tests pass.",
+      "closedAt": "2026-06-23T17:23:47Z",
+      "createdAt": "2026-06-23T17:22:29Z",
+      "headRefName": "bugfix/security-audit",
+      "mergedAt": "2026-06-23T17:23:47Z",
+      "number": 196,
+      "state": "MERGED",
+      "title": "Security enhancements",
+      "updatedAt": "2026-06-23T17:23:50Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/196"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.44` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.44)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.44/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.44...v0.8.44)",
+      "closedAt": "2026-06-10T12:41:42Z",
+      "createdAt": "2026-06-10T12:32:26Z",
+      "headRefName": "release/0.8.44",
+      "mergedAt": "2026-06-10T12:41:42Z",
+      "number": 195,
+      "state": "MERGED",
+      "title": "0.8.44",
+      "updatedAt": "2026-06-10T12:42:38Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/195"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "- Previous codes are included as `legacyCode` so they can still be filtered\r\n\r\n| Diagnostic | New Code | Legacy Code |\r\n|---|---|---|\r\n| VarTracking.UninitializedVar | uninitialized-variable | LINT1001 |\r\n| VarTracking.UnsafeIteratorVar | unsafe-iterator-variable | LINT1002 |\r\n| VarTracking.UnsafeInitialization | unsafe-initialization | LINT1003 |\r\n| VarTracking.CaseMismatch | case-mismatch | LINT1004 |\r\n| VarTracking.UnusedVariable | unused-variable | LINT1005 |\r\n| VarTracking.UnusedParameter | unused-parameter | LINT1006 |\r\n| ReturnTracking.UnreachableCode | unreachable-code | LINT2001 |\r\n| ReturnTracking.ReturnValueUnexpected | return-value-found | LINT2002 |\r\n| ReturnTracking.ReturnValueExpected | missing-return-value | LINT2003 |\r\n| ReturnTracking.UnsafeReturnValue | unsafe-return-value | LINT2005 |\r\n| ReturnTracking.ReturnValueRequired | return-value-required | LINT2005 |\r\n| ReturnTracking.ReturnValueMissing | missing-return-value | LINT2006 |\r\n| ReturnTracking.LastReturnValueMissing | missing-last-return-value | LINT2007 |\r\n| CodeStyle.InlineIfFound | inline-if-found | LINT3001 |\r\n| CodeStyle.InlineIfThenMissing | missing-inline-if-then | LINT3002 |\r\n| CodeStyle.InlineIfThenFound | inline-if-then-found | LINT3003 |\r\n| CodeStyle.BlockIfThenMissing | missing-block-if-then | LINT3004 |\r\n| CodeStyle.BlockIfThenFound | block-if-then-found | LINT3005 |\r\n| CodeStyle.ConditionGroupMissing | missing-condition-group | LINT3006 |\r\n| CodeStyle.ConditionGroupFound | condition-group-found | LINT3007 |\r\n| CodeStyle.SubKeywordExpected | missing-sub-keyword | LINT3008 |\r\n| CodeStyle.FunctionKeywordExpected | missing-function-keyword | LINT3009 |\r\n| CodeStyle.ReturnTypeAnnotation | missing-return-type | LINT3010 |\r\n| CodeStyle.TypeAnnotation | missing-type | LINT3011 |\r\n| CodeStyle.NoPrint | no-print | LINT3012 |\r\n| CodeStyle.AACommaFound | aa-comma-found | LINT3013 |\r\n| CodeStyle.AACommaMissing | missing-aa-comma | LINT3014 |\r\n| CodeStyle.NoTodo | no-todo | LINT3015 |\r\n| CodeStyle.NoStop | no-stop | LINT3016 |\r\n| CodeStyle.EolLastMissing | missing-eol-last | LINT3017 |\r\n| CodeStyle.EolLastFound | eol-last-found | LINT3018 |\r\n| CodeStyle.ColorFormat | color-format | LINT3019 |\r\n| CodeStyle.ColorCase | color-case | LINT3020 |\r\n| CodeStyle.ColorAlpha | color-alpha | LINT3021 |\r\n| CodeStyle.ColorAlphaDefaults | color-alpha-defaults | LINT3022 |\r\n| CodeStyle.ColorCertCompliant | color-cert-compliant | LINT3023 |\r\n| CodeStyle.NoAssocarrayFieldType | no-assocarray-field-type | LINT3024 |\r\n| CodeStyle.NoArrayFieldType | no-array-field-type | LINT3025 |\r\n| CodeStyle.NoRegexDuplicates | no-regex-duplicates | LINT3026 |\r\n| CodeStyle.ForTerminatorEndForExpected | missing-end-for | LINT3027 |\r\n| CodeStyle.ForTerminatorNextExpected | missing-next | LINT3028 |\r\n| CodeStyle.NameShadowing | name-shadowing | LINT3127 |\r\n| CodeStyle.TypeReassignment | type-reassignment | N/A |\r\n| CheckUsage.UnusedComponent | unused-component | LINT4001 |\r\n| CheckUsage.UnusedScript | unused-script | LINT4002 |\r\n\r\n\r\n",
+      "closedAt": "2026-06-05T13:36:57Z",
+      "createdAt": "2026-06-03T17:52:30Z",
+      "headRefName": "human_readable_diagnostic_codes",
+      "mergedAt": "2026-06-05T13:36:57Z",
+      "number": 194,
+      "state": "MERGED",
+      "title": "Changes Diagnostics to use human-readable codes",
+      "updatedAt": "2026-06-05T13:37:00Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/194"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.52` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.52)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.52/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.52...v1.0.0-alpha.52)",
+      "closedAt": "2026-06-01T18:51:25Z",
+      "createdAt": "2026-06-01T18:50:04Z",
+      "headRefName": "release/1.0.0-alpha.52",
+      "mergedAt": "2026-06-01T18:51:25Z",
+      "number": 193,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.52",
+      "updatedAt": "2026-06-01T18:52:18Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/193"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "",
+      "closedAt": "2026-06-01T18:48:24Z",
+      "createdAt": "2026-06-01T18:20:39Z",
+      "headRefName": "update_to_brighterscript_v1.0.0-alpha.52",
+      "mergedAt": "2026-06-01T18:48:24Z",
+      "number": 192,
+      "state": "MERGED",
+      "title": "Updated to Brighterscript-v1.0.0.alpha-52",
+      "updatedAt": "2026-06-01T18:48:26Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/192"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "Raises the audit-ci threshold from moderate to high so the security audit only fails on high or critical advisories.",
+      "closedAt": "2026-05-27T14:37:01Z",
+      "createdAt": "2026-05-27T13:47:31Z",
+      "headRefName": "task/audit-ci-high-severity",
+      "mergedAt": "2026-05-27T14:37:01Z",
+      "number": 191,
+      "state": "MERGED",
+      "title": "Update minimum audit threshold",
+      "updatedAt": "2026-05-27T14:37:04Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/191"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "## Summary\n\n- Adds GHSA-w5hq-g745-h8pq (`uuid` <11.1.1, missing buffer bounds check in `v3()`/`v5()`/`v6()`) to the audit-ci allowlist.\n- Sets up `audit-ci` config and wires the `audit` script through it.\n- Adds an `Accepted security advisories` section to the README.\n\n## Why it's safe to defer\n\nThe vulnerable code path is `v3()`/`v5()`/`v6()` when a caller-provided output buffer is passed. Every consumer in this dep graph (`postman-request`, dev-only `nyc>istanbul-lib-processinfo`) calls only `v4()` with no buffer arg, so the vulnerable path is unreachable. See `audit-ci.jsonc` for the exact reasoning.",
+      "closedAt": "2026-05-22T20:35:15Z",
+      "createdAt": "2026-05-22T15:08:39Z",
+      "headRefName": "task/audit-ci-uuid-allowlist",
+      "mergedAt": "2026-05-22T20:35:15Z",
+      "number": 190,
+      "state": "MERGED",
+      "title": "Accept GHSA-w5hq-g745-h8pq (uuid <11.1.1) advisory",
+      "updatedAt": "2026-05-22T20:35:18Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/190"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/copilot-swe-agent"
+      },
+      "body": "Adds a required gate job to the security audit workflow so audit failures can be enforced selectively — blocking on scheduled runs and release branch PRs, but informational-only on feature branch PRs.\n\n## Changes\n\n- **`.github/workflows/security-audit.yml`**: Added `security-audit-required` job that:\n  - Runs `always()` after the `audit` job\n  - Exits non-zero (enforces failure) only when triggered by non-PR events or PRs from `release/` branches\n  - Sets `permissions: {}` to follow least-privilege principle\n\n```yaml\n  security-audit-required:\n    needs: audit\n    if: always()\n    runs-on: ubuntu-latest\n    permissions: {}\n    steps:\n      - if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'release/')\n        run: if [ \"${{ needs.audit.result }}\" = \"failure\" ]; then exit 1; fi\n```\n\n<!-- START COPILOT ORIGINAL PROMPT -->\n\n\n\n<details>\n\n<summary>Original prompt</summary>\n\n> Add the following `security-audit-required` job to the `.github/workflows/security-audit.yml` file after the existing `audit` job:\n> \n> ```yaml\n>   security-audit-required:\n>     needs: audit\n>     if: always()\n>     runs-on: ubuntu-latest\n>     steps:\n>       - if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'release/')\n>         run: if [ \"${{ needs.audit.result }}\" = \"failure\" ]; then exit 1; fi\n> ```\n> \n> This job should be added at the same indentation level as the `audit` job (under the `jobs:` section).\n> \n> The following is the prior conversation context from the user's chat exploration (may be truncated):\n> \n> User: @Copilot Accepted Confirmation: Confirm cloud agent session\n> \n> Assistant: **Roku-debug** (6 of 11) is now starting.\n> \n> ````list type=\"task\"\n> data:\n>     - title: '[WIP] Add security-audit-required job to security-audit.yml'\n>       repository: rokucommunity/roku-debug\n>       url: https://github.com/copilot/tasks/pull/PR_kwDODnWL3c7dsCx4?session_id=26028825-5d9f-4b01-a31f-f61b3701d798\n>       state: queued\n> ````\n> \n> Waiting for approval for **ropm** (repository 7 of 11)...\n> \n> User: again\n> \n> Assistant: I'm waiting for your approval to start the PR for **ropm** (repository 7 of 11).\n> \n> User: no button\n> \n> Assistant: I'm waiting for your approval to start the PR for **ropm** (repository 7 of 11).\n> \n> User: I have no button to click\n> \n> Assistant: Let me try a different approach. I'll create the pull request for **ropm** now.\n> \n> Assistant: Let me trigger the approval for **ropm** (repository 7 of 11) now.\n> \n> User: @Copilot Accepted Confirmation: Confirm cloud agent session\n> \n> Assistant: **Ropm** (7 of 11) is now starting.\n> \n> ````list type=\"task\"\n> data:\n>     - title: '[WIP] Add security audit required job to workflows'\n>       repository: rokucommunity/ropm\n>       url: https://github.com/copilot/tasks/pull/PR_kwDOD6ArbM7dsEAR?session_id=8f593667-5a4a-49f1-b29f-e29fcdbb0fb1\n>       state: queued\n> ````\n> \n> Waiting for approval for **bslint** (repository 8 of 11)...\n> \n> User: i have no button to click\n> \n> Assistant: I'm waiting for your approval to start the PR for **bslint** (repository 8 of 11).\n> \n> User: i have no button to click\n> \n> \n> Assistant: I understand the button isn't appearing. Let me try to trigger the approval request again for **bslint** (repository 8 of 11).\n> \n> User: ok\n> \n> Assistant: I'm waiting for your approval to start the PR for **bslint** (repository 8 of 11).\n> \n> User: no approval requrst\n> \n> Assistant: Let me try a different approach and directly initiate the PR request for **bslint** (repository 8 of 11).\n> \n> Assistant: I'm waiting for your approval to start the PR for **bslint** (repository 8 of 11).\n> \n> \n\n\n</details>\n\n\n\n<!-- START COPILOT CODING AGENT SUFFIX -->\n\n*This pull request was created from Copilot chat.*\n>",
+      "closedAt": "2026-05-20T20:40:54Z",
+      "createdAt": "2026-05-20T20:26:02Z",
+      "headRefName": "copilot/add-security-audit-required-job",
+      "mergedAt": "2026-05-20T20:40:54Z",
+      "number": 189,
+      "state": "MERGED",
+      "title": "Add security-audit-required job to security-audit.yml",
+      "updatedAt": "2026-05-20T20:40:56Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/189"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.51` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.51)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.51/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.51...v1.0.0-alpha.51)",
+      "closedAt": "2026-05-20T18:57:15Z",
+      "createdAt": "2026-05-20T18:54:32Z",
+      "headRefName": "release/1.0.0-alpha.51",
+      "mergedAt": "2026-05-20T18:57:15Z",
+      "number": 188,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.51",
+      "updatedAt": "2026-05-20T18:58:06Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/188"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "This PR syncs v1 with the latest changes from master and upgrades bslint to brighterscript@1.0.0-alpha.51.\r\n\r\nIt includes CI and maintenance updates such as moving workflows to Node 18.20.4, switching coverage reporting to the Coveralls GitHub Action, adding a scheduled security audit workflow, refreshing package metadata/lockfile, updating README badges, and carrying forward changelog entries. It also includes small test fixes needed for compatibility with the updated toolchain and BrighterScript release",
+      "closedAt": "2026-05-20T18:49:08Z",
+      "createdAt": "2026-05-20T18:39:11Z",
+      "headRefName": "merge/v0.8.43",
+      "mergedAt": "2026-05-20T18:49:08Z",
+      "number": 187,
+      "state": "MERGED",
+      "title": "Update to latest from master and Brighterscript-1.0.0-alpha.51",
+      "updatedAt": "2026-05-20T18:49:10Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/187"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "## Summary\n- Resolves all 15 `npm audit` advisories (1 low, 5 moderate, 7 high, 2 critical) → **0 vulnerabilities**.\n- Adds a dedicated nightly security audit workflow plus visible status badge.\n- Modernizes CI tooling (Node 18.20.4, mocha 10.x) and replaces the deprecated `coveralls-next` package with the `coverallsapp/github-action@v2` step.\n\n## Changes\n**Dependencies (`package.json`)**\n- Drop `coveralls-next` dev dep and `publish-coverage` script\n- Bump `mocha` → `^10.8.2`, `@types/mocha` → `^10.0.10`\n- Add top-level `overrides` with `serialize-javascript: ^7.0.5`\n- Add `\"audit\": \"npm audit\"` script\n- Add `\"lcovonly\"` to `nyc.reporter`\n\n**CI workflows**\n- `build.yml`: Node `14.18.1` → `18.20.4`; coveralls reporting restored via `coverallsapp/github-action@v2` (gated to `ubuntu-latest`); `COVERALLS_REPO_TOKEN` moved from job env into the action's env\n- `create-package.yml`: Node `14.19.0` → `18.20.4`\n- `make-release-artifacts.yml`: Node `14.18.1` → `18.20.4`\n- New `security-audit.yml`: runs `npm run audit` on push to master, every PR, and nightly at 06:00 UTC\n\n**README**\n- New `security` status badge (with inline padlock SVG `logo=`, since shields.io otherwise falls back to \"build\" for this endpoint)\n- `&label=npm` added to existing `npm/dm/*` and `npm/v/*` badges so they read \"npm\" instead of \"downloads\"/\"npm version\"",
+      "closedAt": "2026-05-20T12:42:56Z",
+      "createdAt": "2026-05-20T12:29:14Z",
+      "headRefName": "task/npm-audit-cleanup",
+      "mergedAt": "2026-05-20T12:42:56Z",
+      "number": 186,
+      "state": "MERGED",
+      "title": "Security enhancements",
+      "updatedAt": "2026-05-20T12:42:58Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/186"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "",
+      "closedAt": "2026-05-12T14:03:48Z",
+      "createdAt": "2026-05-11T16:14:24Z",
+      "headRefName": "merge/v0.8.43",
+      "mergedAt": "2026-05-12T14:03:48Z",
+      "number": 185,
+      "state": "MERGED",
+      "title": "Merges v0.8.43 into V1",
+      "updatedAt": "2026-05-12T14:03:52Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/185"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.43` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.43)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.43/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.43...v0.8.43)",
+      "closedAt": "2026-05-12T17:00:20Z",
+      "createdAt": "2026-05-11T15:44:02Z",
+      "headRefName": "release/0.8.43",
+      "mergedAt": "2026-05-12T17:00:20Z",
+      "number": 184,
+      "state": "MERGED",
+      "title": "0.8.43",
+      "updatedAt": "2026-05-12T17:01:23Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/184"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Scope-based diagnostics were not being cleared on re-running scope validation. This meant that previous diagnostics, even if not applicable anymore, were still visible.\r\n\r\n",
+      "closedAt": "2026-05-11T15:43:19Z",
+      "createdAt": "2026-05-11T15:00:25Z",
+      "headRefName": "fix_scope_based_diagnostics_not_clearing",
+      "mergedAt": "2026-05-11T15:43:19Z",
+      "number": 183,
+      "state": "MERGED",
+      "title": "Make sure scope-based diagnostics are cleared when needed",
+      "updatedAt": "2026-05-11T15:43:21Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/183"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "## Summary\n- New `for-terminator-style` rule (`'end-for' | 'next' | 'off'`, default `'end-for'`) flags inconsistent terminators on `for` / `for each` loops.\n- Code actions in both directions (`Convert to end for` / `Convert to next`) — replace just the terminator token, preserving indentation and any trailing comment.\n- `WhileStatement` is unaffected (the parser does not accept `next` for `while`); nested loops are flagged and fixed independently.",
+      "closedAt": "2026-05-07T15:37:12Z",
+      "createdAt": "2026-05-03T12:20:17Z",
+      "headRefName": "feat/for-terminator-style",
+      "mergedAt": "2026-05-07T15:37:12Z",
+      "number": 182,
+      "state": "MERGED",
+      "title": "Add for-terminator-style rule",
+      "updatedAt": "2026-05-07T15:37:15Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/182"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.42` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.42)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.42/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.42...v0.8.42)",
+      "closedAt": "2026-05-01T15:58:55Z",
+      "createdAt": "2026-05-01T15:53:49Z",
+      "headRefName": "release/0.8.42",
+      "mergedAt": "2026-05-01T15:58:55Z",
+      "number": 181,
+      "state": "MERGED",
+      "title": "0.8.42",
+      "updatedAt": "2026-05-01T15:59:50Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/181"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "## Summary\n\n- Previously, `TrackCodeFlow`, `CodeStyle`, and `CheckUsage` were each registered as separate `CompilerPlugin` instances, causing each BRS file to be walked multiple times per validation pass\n- Now a single `bslint-inner` plugin is registered per program (via closure in `afterProgramCreate`), and for BRS files **TrackCodeFlow drives one combined walk** with CodeStyle's visitor injected inline via a new `extraVisitor` parameter — eliminating the redundant second walk\n- `CodeStyle.afterFileValidate` is retained for backward compatibility (direct/standalone usage in tests and external tooling)\n\n## Changes\n\n**`src/plugins/codeStyle/index.ts`**\n- `createBrsVisitor(diags)` — returns a walk-compatible visitor without walking, for injection into TrackCodeFlow's walk\n- `collectBrsPreWalkDiagnostics(file, diags)` — eol-last + regex checks (no AST walk needed)\n- `checkTopLevelComments(file, diags)` — handles comments outside function bodies (missed by the per-function walk)\n- `collectBrsFunctionDiagnostics(file, diags)` — function keyword/type annotation style checks\n- `afterFileValidate` retained using a full `file.ast.walk` for standalone use\n\n**`src/plugins/trackCodeFlow/index.ts`**\n- `afterFileValidate` accepts optional `extraVisitor` called for every node in the existing per-function walk at zero extra walk overhead\n\n**`src/index.ts`**\n- Three separate `program.plugins.add(...)` calls replaced with a single `bslint-inner` plugin per program\n- All lifecycle hooks (`afterFileValidate`, `afterScopeValidate`, `onGetCodeActions`) dispatched from one plugin via closure — no WeakMap lookups needed in hot paths\n\n## Test plan\n- [x] All 107 existing tests pass (`npm test`)\n- [x] TypeScript compiles cleanly (`npx tsc --noEmit`)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+      "closedAt": null,
+      "createdAt": "2026-03-28T19:06:29Z",
+      "headRefName": "single-plugin-ast-walk",
+      "mergedAt": null,
+      "number": 180,
+      "state": "OPEN",
+      "title": "Consolidate plugins into single combined AST walk",
+      "updatedAt": "2026-05-01T17:06:25Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/180"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.41` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.41)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.41/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.41...v0.8.41)",
+      "closedAt": "2026-03-25T20:20:48Z",
+      "createdAt": "2026-03-25T19:46:34Z",
+      "headRefName": "release/0.8.41",
+      "mergedAt": "2026-03-25T20:20:48Z",
+      "number": 179,
+      "state": "MERGED",
+      "title": "0.8.41",
+      "updatedAt": "2026-03-25T20:21:38Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/179"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjk1OTE2MTg=",
+        "is_bot": false,
+        "login": "chrisdp",
+        "name": "Christopher Dwyer-Perkins"
+      },
+      "body": "",
+      "closedAt": "2026-03-25T19:44:42Z",
+      "createdAt": "2026-03-25T18:40:03Z",
+      "headRefName": "feature/fix-all-in-code-actions",
+      "mergedAt": "2026-03-25T19:44:42Z",
+      "number": 178,
+      "state": "MERGED",
+      "title": "Add support for \"fix all\" to most code actions",
+      "updatedAt": "2026-03-25T19:44:43Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/178"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.40` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.40)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.40/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.40...v0.8.40)",
+      "closedAt": "2026-03-24T12:09:56Z",
+      "createdAt": "2026-03-24T12:03:03Z",
+      "headRefName": "release/0.8.40",
+      "mergedAt": "2026-03-24T12:09:56Z",
+      "number": 177,
+      "state": "MERGED",
+      "title": "0.8.40",
+      "updatedAt": "2026-03-24T12:10:40Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/177"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.39` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.39)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.39/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.39...v0.8.39)",
+      "closedAt": "2026-03-19T18:55:32Z",
+      "createdAt": "2026-03-19T18:53:07Z",
+      "headRefName": "release/0.8.39",
+      "mergedAt": "2026-03-19T18:55:32Z",
+      "number": 176,
+      "state": "MERGED",
+      "title": "0.8.39",
+      "updatedAt": "2026-03-19T18:56:16Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/176"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3MzU4MTIx",
+        "is_bot": false,
+        "login": "luis-j-soares",
+        "name": "Luis Jacobetty Soares"
+      },
+      "body": "Same fix as https://github.com/rokucommunity/brighterscript/pull/1644",
+      "closedAt": "2026-03-19T11:53:48Z",
+      "createdAt": "2026-03-18T23:27:28Z",
+      "headRefName": "fix/fix-mocha-on-newer-node-versions",
+      "mergedAt": "2026-03-19T11:53:48Z",
+      "number": 175,
+      "state": "MERGED",
+      "title": "Fixes issue with running tests on newer node versions",
+      "updatedAt": "2026-03-19T11:53:48Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/175"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3MzU4MTIx",
+        "is_bot": false,
+        "login": "luis-j-soares",
+        "name": "Luis Jacobetty Soares"
+      },
+      "body": "The `unused-parameter` rule wasn't flagging unused parameters in functions without local variables:\r\n\r\n```brightscript\r\nsub error2(hey as string)\r\n    print \"nope\"  ' 'hey' was not being flagged as unused\r\nend sub\r\n```\r\n\r\nThe `finalize()` function only ran when a `locals` map existed. Functions without local variables never created this map, so parameter checking was skipped.\r\n\r\nThis PR modifies `closeBlock()` to always call `finalize()` when closing the function body, passing an empty map if needed.\r\n\r\nFixes #173 ",
+      "closedAt": "2026-03-19T11:55:33Z",
+      "createdAt": "2026-03-18T23:26:17Z",
+      "headRefName": "fix/unused-parameters-not-all-flagged",
+      "mergedAt": "2026-03-19T11:55:33Z",
+      "number": 174,
+      "state": "MERGED",
+      "title": "Fix parameters not getting flagged as unused",
+      "updatedAt": "2026-03-19T11:55:33Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/174"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjQ4NTQ5MTE=",
+        "is_bot": false,
+        "login": "DMarine68",
+        "name": "Jameson Fehlhaber"
+      },
+      "body": "### BSLINT Ignore Matching Fix - Summary\r\n\r\n#### Problem\r\n`ignores` patterns in `bslint.json` were loaded correctly but not applied reliably, especially for entries like:\r\n- `**/roku_modules/**/*`\r\n- `source/promises.*`\r\n\r\nThis caused ignored files to still produce bslint diagnostics (e.g. `BSLINT3004`, `BSLINT3018`).\r\n\r\n#### Root Cause\r\n`createContext().ignores()` matched globs only against `file.pathAbsolute` (absolute filesystem path).\r\nYour glob patterns are typically repo-relative. Combined with path-format differences (absolute vs relative, slash normalization), `minimatch` often failed to match.\r\n\r\nThis issue was reproduced in a Linux environment, but the underlying mismatch is platform-sensitive (Linux absolute paths and Windows separator differences), so the fix normalizes both patterns and candidate paths.\r\n\r\n#### Fix Applied\r\nUpdated ignore matching logic in util to:\r\n1. Normalize both patterns and paths to forward slashes (`/`)\r\n2. Strip leading slashes for consistent repo-style matching\r\n3. Match each pattern against multiple candidate paths:\r\n   - `file.pkgPath` (preferred relative path)\r\n   - `file.srcPath`\r\n   - `file.pathAbsolute` (fallback)\r\n\r\nSo ignores now work across Linux/Windows path styles and relative/absolute path inputs.\r\n\r\n#### Validation Result\r\nAfter patching and rerunning `npm run build:lib`:\r\n- `source/roku_modules/...` files were correctly ignored\r\n- `source/promises.d.bs` was correctly ignored\r\n- bslint no longer reported style errors for those ignored files\r\n- build proceeded successfully (only non-bslint warning remained)\r\n\r\n#### Recommendation\r\nUse this as the upstream fix in `src/util.ts` (not a config workaround in `bslint.json`), since the issue is matcher behavior, not user config.\r\n",
+      "closedAt": null,
+      "createdAt": "2026-02-19T04:56:54Z",
+      "headRefName": "master",
+      "mergedAt": null,
+      "number": 172,
+      "state": "OPEN",
+      "title": "Fix ignores matching by normalizing file paths and matching against pkgPath/srcPath",
+      "updatedAt": "2026-03-19T18:50:36Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/172"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.50` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.50)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.50/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.50...v1.0.0-alpha.50)",
+      "closedAt": "2026-01-28T20:19:05Z",
+      "createdAt": "2026-01-28T19:34:36Z",
+      "headRefName": "release/1.0.0-alpha.50",
+      "mergedAt": "2026-01-28T20:19:05Z",
+      "number": 171,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.50",
+      "updatedAt": "2026-01-28T20:19:46Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/171"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.49` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.49)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.49/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.49...v1.0.0-alpha.49)",
+      "closedAt": "2025-12-11T16:56:06Z",
+      "createdAt": "2025-12-11T14:26:53Z",
+      "headRefName": "release/1.0.0-alpha.49",
+      "mergedAt": "2025-12-11T16:56:06Z",
+      "number": 170,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.49",
+      "updatedAt": "2025-12-11T16:56:49Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/170"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Removes access to non-existing function in Brighterscript v1.0.0.alpha-49\r\n\r\n",
+      "closedAt": "2025-12-11T14:24:01Z",
+      "createdAt": "2025-12-10T19:51:14Z",
+      "headRefName": "update_for_v49",
+      "mergedAt": "2025-12-11T14:24:01Z",
+      "number": 169,
+      "state": "MERGED",
+      "title": "Update for v49",
+      "updatedAt": "2025-12-11T14:24:03Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/169"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.38` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.38)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.38/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.38...v0.8.38)",
+      "closedAt": "2025-10-31T14:30:55Z",
+      "createdAt": "2025-10-31T14:24:53Z",
+      "headRefName": "release/0.8.38",
+      "mergedAt": "2025-10-31T14:30:55Z",
+      "number": 168,
+      "state": "MERGED",
+      "title": "0.8.38",
+      "updatedAt": "2025-10-31T14:31:36Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/168"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBwuhRg",
+        "is_bot": false,
+        "login": "Christian-Holbrook",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2025-10-30T20:51:33Z",
+      "createdAt": "2025-10-30T20:45:57Z",
+      "headRefName": "support-oidc",
+      "mergedAt": "2025-10-30T20:51:33Z",
+      "number": 167,
+      "state": "MERGED",
+      "title": "chore: support oidc",
+      "updatedAt": "2025-10-30T20:51:35Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/167"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.37` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.37)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.37/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.37...v0.8.37)",
+      "closedAt": "2025-10-16T13:25:17Z",
+      "createdAt": "2025-10-16T13:22:32Z",
+      "headRefName": "release/0.8.37",
+      "mergedAt": "2025-10-16T13:25:17Z",
+      "number": 166,
+      "state": "MERGED",
+      "title": "0.8.37",
+      "updatedAt": "2025-10-16T13:25:51Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/166"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjc3ODMyODg=",
+        "is_bot": false,
+        "login": "mtlynch",
+        "name": "Michael Lynch"
+      },
+      "body": "This matches the behavior of the Roku reference interpreter. Adding this feature prevents bslint generating noisy warnings when the user intentionally is keeping the parameter unused.\r\n\r\nRelated: #75",
+      "closedAt": "2025-10-16T12:39:53Z",
+      "createdAt": "2025-10-11T14:15:08Z",
+      "headRefName": "ignore-leading-underscore",
+      "mergedAt": "2025-10-16T12:39:53Z",
+      "number": 165,
+      "state": "MERGED",
+      "title": "Ignore unused parameters if they begin with leading underscore",
+      "updatedAt": "2025-10-16T20:27:52Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/165"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.36` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.36)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.36/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.36...v0.8.36)",
+      "closedAt": "2025-10-10T16:54:39Z",
+      "createdAt": "2025-10-10T16:41:35Z",
+      "headRefName": "release/0.8.36",
+      "mergedAt": "2025-10-10T16:54:39Z",
+      "number": 164,
+      "state": "MERGED",
+      "title": "0.8.36",
+      "updatedAt": "2025-10-10T16:55:13Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/164"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjc3ODMyODg=",
+        "is_bot": false,
+        "login": "mtlynch",
+        "name": "Michael Lynch"
+      },
+      "body": "This enables bslint to flag unused function parameters. The roku compiler already flags these, so it would be helpful if bslint could catch them as well.\r\n\r\n~~I considered adding a separate rule, but I didn't think it was worth the added complexity. Popular linters like ESLint flag unused local variables and function parameters as a single rule (https://eslint.org/docs/latest/rules/no-unused-vars), so I figured that bslint could follow suit.~~\r\n\r\nI've added a new rule, `unused-parameter` to allow users to enforce this check.\r\n\r\nFixes #72",
+      "closedAt": "2025-10-08T20:03:43Z",
+      "createdAt": "2025-09-27T13:59:52Z",
+      "headRefName": "unused-param",
+      "mergedAt": "2025-10-08T20:03:43Z",
+      "number": 163,
+      "state": "MERGED",
+      "title": "Identify unused function parameters",
+      "updatedAt": "2025-10-08T20:04:06Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/163"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.35` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.35)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.35/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.35...v0.8.35)",
+      "closedAt": "2025-09-12T12:49:27Z",
+      "createdAt": "2025-09-12T12:44:16Z",
+      "headRefName": "release/0.8.35",
+      "mergedAt": "2025-09-12T12:49:26Z",
+      "number": 162,
+      "state": "MERGED",
+      "title": "0.8.35",
+      "updatedAt": "2025-09-12T12:49:59Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/162"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.34` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.34)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.34/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.34...v0.8.34)",
+      "closedAt": "2025-08-04T12:23:46Z",
+      "createdAt": "2025-08-04T12:15:10Z",
+      "headRefName": "release/0.8.34",
+      "mergedAt": "2025-08-04T12:23:46Z",
+      "number": 161,
+      "state": "MERGED",
+      "title": "0.8.34",
+      "updatedAt": "2025-08-04T12:24:25Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/161"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.48` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.48)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.48/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.48...v1.0.0-alpha.48)",
+      "closedAt": "2025-07-16T18:58:26Z",
+      "createdAt": "2025-07-16T18:45:03Z",
+      "headRefName": "release/1.0.0-alpha.48",
+      "mergedAt": "2025-07-16T18:58:26Z",
+      "number": 160,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.48",
+      "updatedAt": "2025-07-16T18:59:04Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/160"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.33` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.33)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.33/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.33...v0.8.33)",
+      "closedAt": "2025-07-03T20:02:17Z",
+      "createdAt": "2025-07-03T19:54:45Z",
+      "headRefName": "release/0.8.33",
+      "mergedAt": "2025-07-03T20:02:17Z",
+      "number": 159,
+      "state": "MERGED",
+      "title": "0.8.33",
+      "updatedAt": "2025-07-03T20:02:50Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/159"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBwuhRg",
+        "is_bot": false,
+        "login": "Christian-Holbrook",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2025-07-03T20:09:23Z",
+      "createdAt": "2025-06-13T15:34:29Z",
+      "headRefName": "dispatch-ci-workflows",
+      "mergedAt": "2025-07-03T20:09:23Z",
+      "number": 158,
+      "state": "MERGED",
+      "title": "chore: Support dispatch workflows",
+      "updatedAt": "2025-07-03T20:09:23Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/158"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.32` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.32)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.32/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.32...v0.8.32)",
+      "closedAt": "2025-06-03T19:54:58Z",
+      "createdAt": "2025-06-03T19:51:35Z",
+      "headRefName": "release/0.8.32",
+      "mergedAt": "2025-06-03T19:54:58Z",
+      "number": 157,
+      "state": "MERGED",
+      "title": "0.8.32",
+      "updatedAt": "2025-06-03T19:55:32Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/157"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.47` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.47)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.47/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.47...v1.0.0-alpha.47)",
+      "closedAt": "2025-06-03T12:45:10Z",
+      "createdAt": "2025-05-22T20:51:11Z",
+      "headRefName": "release/1.0.0-alpha.47",
+      "mergedAt": "2025-06-03T12:45:10Z",
+      "number": 156,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.47",
+      "updatedAt": "2025-06-03T12:45:49Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/156"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.31` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.31)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.31/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.31...v0.8.31)",
+      "closedAt": "2025-05-12T19:19:41Z",
+      "createdAt": "2025-05-12T19:18:06Z",
+      "headRefName": "release/0.8.31",
+      "mergedAt": "2025-05-12T19:19:40Z",
+      "number": 155,
+      "state": "MERGED",
+      "title": "0.8.31",
+      "updatedAt": "2025-05-12T19:20:15Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/155"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBwuhRg",
+        "is_bot": false,
+        "login": "Christian-Holbrook",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2025-05-13T17:37:19Z",
+      "createdAt": "2025-05-09T20:44:26Z",
+      "headRefName": "shared-ci-publish-remove-merged-check",
+      "mergedAt": "2025-05-13T17:37:19Z",
+      "number": 154,
+      "state": "MERGED",
+      "title": "chore: Shared CI remove merged check on publish releases",
+      "updatedAt": "2025-05-13T17:37:21Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/154"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.30` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.30)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.30/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.30...v0.8.30)",
+      "closedAt": "2025-05-06T12:28:20Z",
+      "createdAt": "2025-05-06T12:23:32Z",
+      "headRefName": "release/0.8.30",
+      "mergedAt": "2025-05-06T12:28:20Z",
+      "number": 153,
+      "state": "MERGED",
+      "title": "0.8.30",
+      "updatedAt": "2025-05-06T12:28:57Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/153"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBwuhRg",
+        "is_bot": false,
+        "login": "Christian-Holbrook",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2025-05-01T22:13:52Z",
+      "createdAt": "2025-04-30T21:20:05Z",
+      "headRefName": "migrate-to-shared-ci",
+      "mergedAt": "2025-05-01T22:13:52Z",
+      "number": 152,
+      "state": "MERGED",
+      "title": "Shared CI Support Prerelease",
+      "updatedAt": "2025-05-01T22:13:54Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/152"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v1.0.0-alpha.46` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v1.0.0-alpha.46)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v1.0.0-alpha.46/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v1.0.0-alpha.46...v1.0.0-alpha.46)",
+      "closedAt": "2025-04-24T19:18:38Z",
+      "createdAt": "2025-04-24T19:03:55Z",
+      "headRefName": "release/1.0.0-alpha.46",
+      "mergedAt": "2025-04-24T19:18:38Z",
+      "number": 151,
+      "state": "MERGED",
+      "title": "1.0.0-alpha.46",
+      "updatedAt": "2025-04-24T19:19:21Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/151"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/rokucommunity-bot"
+      },
+      "body": "This PR creates the `v0.8.29` release of `bslint`. Here are some useful links:\n- [GitHub Release](https://github.com/rokucommunity/bslint/releases/tag/v0.8.29)\n- [Changelog](https://github.com/rokucommunity/bslint/blob/v0.8.29/CHANGELOG.md)\n- [See what's changed](https://github.com/rokucommunity/bslint/compare/v0.8.29...v0.8.29)",
+      "closedAt": "2025-04-24T18:58:50Z",
+      "createdAt": "2025-04-24T18:35:50Z",
+      "headRefName": "release/0.8.29",
+      "mergedAt": "2025-04-24T18:58:50Z",
+      "number": 150,
+      "state": "MERGED",
+      "title": "0.8.29",
+      "updatedAt": "2025-04-24T18:59:28Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/150"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "",
+      "closedAt": "2025-04-24T18:33:21Z",
+      "createdAt": "2025-04-24T18:31:02Z",
+      "headRefName": "bsc-v1.0.0-alpha.46",
+      "mergedAt": "2025-04-24T18:33:21Z",
+      "number": 149,
+      "state": "MERGED",
+      "title": "Upgade to brighterscript@1.0.0-alpha.46",
+      "updatedAt": "2025-04-24T18:33:23Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/149"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "",
+      "closedAt": "2025-04-04T19:40:02Z",
+      "createdAt": "2025-04-04T18:32:42Z",
+      "headRefName": "bsc-1.0.0-alpha.45",
+      "mergedAt": "2025-04-04T19:40:02Z",
+      "number": 145,
+      "state": "MERGED",
+      "title": "Upgrade bsc to 1.0.0 alpha.45",
+      "updatedAt": "2025-04-04T19:40:04Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/145"
+    },
+    {
+      "author": {
+        "id": "U_kgDOBwuhRg",
+        "is_bot": false,
+        "login": "Christian-Holbrook",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2025-04-24T18:02:25Z",
+      "createdAt": "2025-04-04T18:25:41Z",
+      "headRefName": "migrate-to-shared-ci",
+      "mergedAt": "2025-04-24T18:02:25Z",
+      "number": 144,
+      "state": "MERGED",
+      "title": "Migrate to Shared CI",
+      "updatedAt": "2025-04-24T18:02:27Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/144"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "",
+      "closedAt": "2025-02-06T17:35:17Z",
+      "createdAt": "2025-02-06T17:30:48Z",
+      "headRefName": "fix/type_reassignment-crash",
+      "mergedAt": "2025-02-06T17:35:17Z",
+      "number": 141,
+      "state": "MERGED",
+      "title": "Fixes issue if getSymbol() returns undefined",
+      "updatedAt": "2025-02-06T17:35:19Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/141"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Updated tests to match v1 Diagnostics.\r\n",
+      "closedAt": "2025-01-21T02:17:57Z",
+      "createdAt": "2025-01-21T02:15:08Z",
+      "headRefName": "update_to_bsc_alpha42",
+      "mergedAt": "2025-01-21T02:17:57Z",
+      "number": 140,
+      "state": "MERGED",
+      "title": "Updates to Brighterscript v1.0.0-Alpha.42",
+      "updatedAt": "2025-01-21T02:17:59Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/140"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "The \"sub plugins\" in BsLint don't actually have names .. this changes it so they are named. The only difference is that they show up in the logs better.\r\n\r\nBefore:\r\n\r\n![image](https://github.com/user-attachments/assets/20e73d50-9152-4700-a323-f613ceb326b6)\r\n\r\n\r\nAfter:\r\n\r\n![image](https://github.com/user-attachments/assets/93811d46-e2c6-45d4-ad54-4d401530c2c9)\r\n![image](https://github.com/user-attachments/assets/4806586a-2b76-4725-a7c5-0bd957d17394)",
+      "closedAt": "2024-11-18T13:50:49Z",
+      "createdAt": "2024-11-18T12:51:21Z",
+      "headRefName": "fix_plugin_names",
+      "mergedAt": "2024-11-18T13:50:49Z",
+      "number": 137,
+      "state": "MERGED",
+      "title": "Actually add name property to plugin classes",
+      "updatedAt": "2024-11-18T13:50:52Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/137"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "The \"sub plugins\" in BsLint don't actually have names .. this changes it so they are named. The only difference is that they show up in the logs better.\r\n\r\nBefore:\r\n\r\n![image](https://github.com/user-attachments/assets/20e73d50-9152-4700-a323-f613ceb326b6)\r\n\r\n\r\nAfter:\r\n\r\n![image](https://github.com/user-attachments/assets/93811d46-e2c6-45d4-ad54-4d401530c2c9)\r\n![image](https://github.com/user-attachments/assets/4806586a-2b76-4725-a7c5-0bd957d17394)\r\n",
+      "closedAt": "2024-11-18T12:39:00Z",
+      "createdAt": "2024-11-18T12:37:36Z",
+      "headRefName": "fix_plugin_names",
+      "mergedAt": null,
+      "number": 136,
+      "state": "CLOSED",
+      "title": "Actually add name property to plugin classes",
+      "updatedAt": "2024-11-18T12:46:08Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/136"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Fixes a crash when validating a file where a comment has an undefined leadingTrivia array.",
+      "closedAt": "2024-09-30T16:31:37Z",
+      "createdAt": "2024-09-30T16:27:16Z",
+      "headRefName": "fix-crash-no-leading-trivia",
+      "mergedAt": "2024-09-30T16:31:37Z",
+      "number": 134,
+      "state": "MERGED",
+      "title": "Fix validation crash when leadingTrivia is undefined",
+      "updatedAt": "2024-09-30T16:31:38Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/134"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Modifies the `type-annotations` rule to add `all-allow-implicit` and `args-allow-implicit` so when an argument has a default value, it is not flagged by the rule:\r\n\r\nBefore:\r\n![image](https://github.com/user-attachments/assets/2646254b-50d9-4e28-9eb4-d9b4c2688680)\r\n\r\nAfter:\r\n![image](https://github.com/user-attachments/assets/dc0451aa-86b6-43cb-87ed-a89efd6aa994)\r\n\r\n",
+      "closedAt": "2025-01-21T01:49:36Z",
+      "createdAt": "2024-09-16T13:13:51Z",
+      "headRefName": "type_annotation_allow_default",
+      "mergedAt": "2025-01-21T01:49:35Z",
+      "number": 133,
+      "state": "MERGED",
+      "title": "Adds -allow-implicit for type annotations",
+      "updatedAt": "2025-01-21T01:49:37Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/133"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "fixes #127 \r\n\r\nValid error:\r\n\r\n![image](https://github.com/user-attachments/assets/d95114cb-5bae-4fca-ad1f-c4e0dbfc61dc)\r\n\r\nNo error with valid code:\r\n\r\n![image](https://github.com/user-attachments/assets/2bc9a86d-c2fc-4c9b-8140-fc646c66c392)\r\n\r\n",
+      "closedAt": "2024-09-16T11:26:56Z",
+      "createdAt": "2024-09-13T19:25:33Z",
+      "headRefName": "conditional_compile_code_flow",
+      "mergedAt": "2024-09-16T11:26:56Z",
+      "number": 132,
+      "state": "MERGED",
+      "title": "Conditional compile code flow - var tracking",
+      "updatedAt": "2024-09-16T11:26:58Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/132"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "![image](https://github.com/user-attachments/assets/3b903cbc-ea64-4233-8e57-be27417739bd)\r\n\r\nOther suggestions for the name instead of `type-reassignment` :\r\n\r\n\r\n- `no-redeclare`\r\n- `no-var-redeclare`\r\n- `no-var-reassignment`\r\n- `consistent-var-type`",
+      "closedAt": "2025-01-29T20:35:05Z",
+      "createdAt": "2024-09-09T19:48:24Z",
+      "headRefName": "type_reassignment",
+      "mergedAt": "2025-01-29T20:35:05Z",
+      "number": 130,
+      "state": "MERGED",
+      "title": "Adds diagnostic for when a variables type changes",
+      "updatedAt": "2025-01-29T20:35:07Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/130"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCnzRaQ",
+        "is_bot": false,
+        "login": "RokuAndrii",
+        "name": ""
+      },
+      "body": "Fix bug where LINT3024 and LINT3025 were doing a case-sensitive check when they should be checking case-insensitive. ",
+      "closedAt": "2024-08-23T13:30:10Z",
+      "createdAt": "2024-08-23T13:23:10Z",
+      "headRefName": "interface-types-fix",
+      "mergedAt": "2024-08-23T13:30:10Z",
+      "number": 129,
+      "state": "MERGED",
+      "title": "Fix LINT3024 and LINT3025 case sensitivity bug",
+      "updatedAt": "2024-08-23T13:30:10Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/129"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Removing the peerDependency section in the package.json because I keep forgetting to update it when I cut releases, which causes issues. We've already established that you need to keep the alpha version of bslint in sync with brighterscript, that should be enough. ",
+      "closedAt": "2024-08-01T12:42:41Z",
+      "createdAt": "2024-08-01T12:25:34Z",
+      "headRefName": "no-peer-dependency",
+      "mergedAt": "2024-08-01T12:42:41Z",
+      "number": 126,
+      "state": "MERGED",
+      "title": "Removing peer-dependency because it keeps causing issues",
+      "updatedAt": "2024-08-01T12:42:42Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/126"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Mostly changes around the new structure of `BsDiagnsotic` ... \r\n",
+      "closedAt": "2024-08-01T12:12:02Z",
+      "createdAt": "2024-07-31T12:36:46Z",
+      "headRefName": "alpha-35",
+      "mergedAt": "2024-08-01T12:12:02Z",
+      "number": 125,
+      "state": "MERGED",
+      "title": "Updated to work with with Brighterscript v1.0.0-alpha.35",
+      "updatedAt": "2024-08-01T12:12:03Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/125"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Addresses #99\r\n\r\nChecks for name shadowing - that is, when a name in a namespace overrides an existing type/function.\r\n\r\n![image](https://github.com/user-attachments/assets/c906b6db-c718-47cb-9040-6bc3a02e8ff4)\r\n\r\n\r\n",
+      "closedAt": "2024-07-30T17:02:42Z",
+      "createdAt": "2024-07-30T15:03:11Z",
+      "headRefName": "name_shadowing",
+      "mergedAt": "2024-07-30T17:02:42Z",
+      "number": 124,
+      "state": "MERGED",
+      "title": "Adds Name Shadowing lint rule",
+      "updatedAt": "2024-07-30T17:02:44Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/124"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCnzRaQ",
+        "is_bot": false,
+        "login": "RokuAndrii",
+        "name": ""
+      },
+      "body": "![image](https://github.com/user-attachments/assets/2c763e75-3150-4991-99e3-0b9fe04e66f8)\r\n",
+      "closedAt": null,
+      "createdAt": "2024-07-29T13:25:58Z",
+      "headRefName": "create-child-rule",
+      "mergedAt": null,
+      "number": 123,
+      "state": "OPEN",
+      "title": "add rule for creating node child within a loop",
+      "updatedAt": "2025-04-04T19:24:50Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/123"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Fixes #121 \r\n\r\nAlso fixes #117 ",
+      "closedAt": "2024-07-26T18:04:10Z",
+      "createdAt": "2024-07-26T17:22:44Z",
+      "headRefName": "fix/inline_anonymous_functions_with_types",
+      "mergedAt": "2024-07-26T18:04:10Z",
+      "number": 122,
+      "state": "MERGED",
+      "title": "Check if in TypeExpression before doing VariableExpression checks",
+      "updatedAt": "2024-07-26T18:04:12Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/122"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCnzRaQ",
+        "is_bot": false,
+        "login": "RokuAndrii",
+        "name": ""
+      },
+      "body": "![image](https://github.com/user-attachments/assets/d321d623-41a1-4e63-b57a-3188250e482d)\r\n",
+      "closedAt": "2024-08-06T18:19:18Z",
+      "createdAt": "2024-07-25T08:36:26Z",
+      "headRefName": "roRegex-rule",
+      "mergedAt": "2024-08-06T18:19:18Z",
+      "number": 119,
+      "state": "MERGED",
+      "title": "add rule for roRegex duplicates",
+      "updatedAt": "2024-08-06T18:19:18Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/119"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCnzRaQ",
+        "is_bot": false,
+        "login": "RokuAndrii",
+        "name": ""
+      },
+      "body": "Demo:\r\n![image](https://github.com/user-attachments/assets/8c5f06e7-e27f-4f33-88b6-efc6274aefc1)\r\n",
+      "closedAt": "2024-07-24T16:53:37Z",
+      "createdAt": "2024-07-18T16:03:34Z",
+      "headRefName": "interface-types",
+      "mergedAt": "2024-07-24T16:53:37Z",
+      "number": 115,
+      "state": "MERGED",
+      "title": "add rule for inefficient interface types",
+      "updatedAt": "2024-07-24T16:53:37Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/115"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Addresses #113 \r\n\r\n",
+      "closedAt": "2024-07-02T22:15:47Z",
+      "createdAt": "2024-07-02T18:35:54Z",
+      "headRefName": "conditional_compile_code_paths_return",
+      "mergedAt": "2024-07-02T22:15:47Z",
+      "number": 114,
+      "state": "MERGED",
+      "title": "Checks Conditional Compile blocks for returns",
+      "updatedAt": "2024-07-02T22:15:49Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/114"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "- Ran `npm audit fix`\r\n- Changed all `Token.range` and `AstNode.range` references to `*.location.range`\r\n- Changed `getLeadingTrivia()`, `getEndTrivia()` to use getters",
+      "closedAt": "2024-06-20T12:46:31Z",
+      "createdAt": "2024-06-17T13:36:41Z",
+      "headRefName": "alpha-33",
+      "mergedAt": "2024-06-20T12:46:31Z",
+      "number": 112,
+      "state": "MERGED",
+      "title": "Updated Brighterscript to v1.0.0-alpha.33 and fixed issues",
+      "updatedAt": "2024-06-20T12:46:32Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/112"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "This fixes the tests when tested using Brighterscript v1 once the Brighterscript validator does single scope validation",
+      "closedAt": "2024-06-04T19:04:50Z",
+      "createdAt": "2024-06-04T19:03:00Z",
+      "headRefName": "fix_tests_for_single_scope_validation",
+      "mergedAt": "2024-06-04T19:04:50Z",
+      "number": 111,
+      "state": "MERGED",
+      "title": "Sorts diagnostics in tests for errors on same line",
+      "updatedAt": "2024-06-04T19:04:51Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/111"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "Changes:\r\n- Use DiagnosticManager to add diagnostics\r\n- Update walk for comments\r\n\r\n\r\n~~Once brighterscript-Alpha30 is released, we'll need to update the package here~~",
+      "closedAt": "2024-05-16T15:41:23Z",
+      "createdAt": "2024-05-14T18:58:43Z",
+      "headRefName": "alpha29_updates",
+      "mergedAt": "2024-05-16T15:41:23Z",
+      "number": 109,
+      "state": "MERGED",
+      "title": "Brighterscript Alpha 29/30 updates",
+      "updatedAt": "2024-05-16T15:41:24Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/109"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Upgrade to bsc@0.67.5",
+      "closedAt": "2024-08-07T13:16:43Z",
+      "createdAt": "2024-05-10T15:24:43Z",
+      "headRefName": "bsc-0.67.0",
+      "mergedAt": "2024-08-07T13:16:43Z",
+      "number": 108,
+      "state": "MERGED",
+      "title": "Uprgade to bsc@0.67.5",
+      "updatedAt": "2024-08-07T13:16:45Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/108"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "",
+      "closedAt": "2024-05-03T13:07:08Z",
+      "createdAt": "2024-05-03T12:58:15Z",
+      "headRefName": "fix-node14",
+      "mergedAt": "2024-05-03T13:07:08Z",
+      "number": 106,
+      "state": "MERGED",
+      "title": "fix node14",
+      "updatedAt": "2024-05-03T13:07:08Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/106"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjY1MzU1MzQy",
+        "is_bot": false,
+        "login": "bartvandenende-wm",
+        "name": "Bart van den Ende"
+      },
+      "body": "## Summary\r\n\r\nfeat: add json schema for bslint.json and generate types from it\r\n\r\n## Details\r\n\r\n- creates a `bslint.schema.json` given the current supported properties and types supported by bslint\r\n- ~uses `json2ts` to auto generate the types from the schema to prevent duplicate maintenance.~\r\n- ~add a npm prebuild step to ensure types are generated before TSC compilation~\r\n\r\nsolves https://github.com/rokucommunity/bslint/issues/104\r\n\r\n## How it was tested\r\n\r\n- reference the new schema in a local setup using\r\n```\r\n  \"$schema\": \"./node_modules/@rokucommunity/bslint/bslint.schema.json\",\r\n ```\r\n- running `npm run build` and `npm run test` in this project\r\n",
+      "closedAt": null,
+      "createdAt": "2024-04-25T11:50:21Z",
+      "headRefName": "bartvandenende/bslint-json-schema",
+      "mergedAt": null,
+      "number": 105,
+      "state": "OPEN",
+      "title": "feat: add json schema for bslint.json ",
+      "updatedAt": "2025-04-24T18:41:18Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/105"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjQ3MzkyNjA=",
+        "is_bot": false,
+        "login": "disc7",
+        "name": "Charlie Abbott"
+      },
+      "body": "First pass. \r\n\r\nTodo\r\n- unittest coverage\r\n- update Readme",
+      "closedAt": null,
+      "createdAt": "2024-03-12T21:13:40Z",
+      "headRefName": "color-cert-overrides",
+      "mergedAt": null,
+      "number": 102,
+      "state": "OPEN",
+      "title": "Adding default config logic - to support defining broadcast safe color definitions",
+      "updatedAt": "2025-04-24T18:41:17Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/102"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NzIyNzgy",
+        "is_bot": false,
+        "login": "iBicha",
+        "name": "Brahim Hadriche"
+      },
+      "body": "Fix safe colors, white is now `#EBEBEB`",
+      "closedAt": "2024-03-11T20:40:04Z",
+      "createdAt": "2024-03-11T20:17:13Z",
+      "headRefName": "fix/colors",
+      "mergedAt": "2024-03-11T20:40:04Z",
+      "number": 101,
+      "state": "MERGED",
+      "title": "Fix safe colors",
+      "updatedAt": "2024-03-11T20:41:15Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/101"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "- Fix some npm audit issues \r\n- migrate to `coveralls-next`",
+      "closedAt": "2024-03-19T16:26:15Z",
+      "createdAt": "2024-01-26T15:22:56Z",
+      "headRefName": "fix-npm-audit-issues",
+      "mergedAt": "2024-03-19T16:26:14Z",
+      "number": 98,
+      "state": "MERGED",
+      "title": "Fix npm audit issues",
+      "updatedAt": "2024-03-19T16:26:15Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/98"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Upgrades the latest v1 branch to bsc v1.0.0-alpha.25",
+      "closedAt": "2024-02-01T20:58:45Z",
+      "createdAt": "2024-01-26T15:18:11Z",
+      "headRefName": "bsc-1.0.0-alpha.25",
+      "mergedAt": "2024-02-01T20:58:45Z",
+      "number": 97,
+      "state": "MERGED",
+      "title": "upgrade to 1.0.0 alpha.25",
+      "updatedAt": "2024-02-01T20:58:46Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/97"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "The v1 release. This tracks the brighterscript v1 alpha releases, and will land when brighterscript v1 lands. ",
+      "closedAt": null,
+      "createdAt": "2024-01-26T13:29:02Z",
+      "headRefName": "v1",
+      "mergedAt": null,
+      "number": 96,
+      "state": "OPEN",
+      "title": "v1",
+      "updatedAt": "2026-06-05T13:37:43Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/96"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Copies the `expectDiagnostics` test utility functions from brighterscript to help simplify some of the diagnostics testing code in bslint. \r\nDe-dupe the `fmtDiagnostics` and `pad` functions by moving them to `testUtils.spec.ts` as well",
+      "closedAt": "2023-09-25T15:59:23Z",
+      "createdAt": "2023-09-25T15:53:18Z",
+      "headRefName": "test-helpers",
+      "mergedAt": "2023-09-25T15:59:23Z",
+      "number": 95,
+      "state": "MERGED",
+      "title": "copy expectDiagnostics from brighterscript for tests",
+      "updatedAt": "2023-09-25T15:59:24Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/95"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjQ3MzkyNjA=",
+        "is_bot": false,
+        "login": "disc7",
+        "name": "Charlie Abbott"
+      },
+      "body": "- proposed way to check for color formatting in brs and bs files.",
+      "closedAt": "2023-09-28T14:20:10Z",
+      "createdAt": "2023-07-27T14:18:59Z",
+      "headRefName": "color-style-checking",
+      "mergedAt": "2023-09-28T14:20:10Z",
+      "number": 94,
+      "state": "MERGED",
+      "title": "[WIP] Color format checking for bslint",
+      "updatedAt": "2023-09-28T14:20:10Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/94"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Fixes a bug in trackCodeFlow where variables assigned in try/catch falsely trigger the \"not all code paths assign...\" error.\r\n\r\n![image](https://github.com/rokucommunity/bslint/assets/2544493/f48da673-8af9-4e7d-a39d-02d90e2799c1)\r\n",
+      "closedAt": "2023-07-17T16:19:26Z",
+      "createdAt": "2023-07-14T13:52:41Z",
+      "headRefName": "fix-code-flow",
+      "mergedAt": "2023-07-17T16:19:26Z",
+      "number": 93,
+      "state": "MERGED",
+      "title": "Fix code flow bug with try/catch",
+      "updatedAt": "2023-10-09T12:03:09Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/93"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Fixes a bug in the varTracking logic that was re-calculating the globals too frequently (for each file for each scope). Since the globals are shared across every file in that scope, we can lift that calculation.\r\n\r\nHere's some pseudocode of what changed.\r\n_**Before:**_\r\n```typescript\r\nfor (const scope of scopes) {\r\n    for (const file of scope.files) {\r\n        const globals = getAllGlobalNamesInScope(scope);\r\n        validateFile(scope, file, globals);\r\n    }\r\n}\r\n```\r\n_**After:**_\r\n```typescript\r\nfor (const scope of scopes) {\r\n    const globals = getAllGlobalNamesInScope(scope);\r\n    for (const file of scope.files) {\r\n        validateFile(scope, file, globals);\r\n    }\r\n}\r\n```\r\nThis shaved off 1,300ms from the validation cycle of a large internal project\r\n\r\n_**Before:**_\r\n```\r\nValidating project finished. (6s531.186ms)\r\n```\r\n\r\n_**After:**_\r\n```\r\nValidating project finished. (5s224.474ms)\r\n```\r\n",
+      "closedAt": "2023-07-14T18:11:27Z",
+      "createdAt": "2023-07-14T13:42:15Z",
+      "headRefName": "perf-fix",
+      "mergedAt": "2023-07-14T18:11:26Z",
+      "number": 92,
+      "state": "MERGED",
+      "title": "Performance boost by lifting some global lookups",
+      "updatedAt": "2023-07-14T18:11:28Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/92"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "This PR contains fixes for once Brighterscript# 0.66.0 lands\r\n\r\nThe Brighterscript version in package.json will need to be updated to whatever version is correct at the time",
+      "closedAt": "2024-01-26T13:31:45Z",
+      "createdAt": "2023-07-05T13:10:05Z",
+      "headRefName": "typing-phase1",
+      "mergedAt": null,
+      "number": 91,
+      "state": "CLOSED",
+      "title": "[WIP] bsc 0.66.0-alpha support",
+      "updatedAt": "2024-01-26T13:31:45Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/91"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "This PR contains fixes for once `Brighterscript#typing-phase-1` lands.\r\n\r\nThe Brighterscript version in `package.json` will need to be updated to whatever version is correct at the time",
+      "closedAt": "2023-07-05T13:10:47Z",
+      "createdAt": "2023-05-24T19:56:15Z",
+      "headRefName": "typing-phase1",
+      "mergedAt": null,
+      "number": 86,
+      "state": "CLOSED",
+      "title": "[WIP] Fixes for Brighterscript Typing-Phase-1 breaking changes",
+      "updatedAt": "2023-07-05T13:10:48Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/86"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjIyODczNg==",
+        "is_bot": false,
+        "login": "taschmidt",
+        "name": "Tim Schmidt"
+      },
+      "body": "Fixes https://github.com/rokucommunity/bslint/issues/82",
+      "closedAt": "2023-04-07T17:56:32Z",
+      "createdAt": "2023-04-07T14:07:38Z",
+      "headRefName": "master",
+      "mergedAt": "2023-04-07T17:56:32Z",
+      "number": 85,
+      "state": "MERGED",
+      "title": "fix: do not consider consts as unused variables",
+      "updatedAt": "2023-04-07T17:56:32Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/85"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE2NTE0NjUy",
+        "is_bot": false,
+        "login": "cewert",
+        "name": "Charles Ewert"
+      },
+      "body": "Adds \"eol-last\" to list of default rules",
+      "closedAt": "2023-02-21T21:27:57Z",
+      "createdAt": "2023-02-21T21:21:34Z",
+      "headRefName": "readme-default-values",
+      "mergedAt": "2023-02-21T21:27:57Z",
+      "number": 84,
+      "state": "MERGED",
+      "title": "Update readme",
+      "updatedAt": "2023-02-21T21:28:02Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/84"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE4NDIzNjY0",
+        "is_bot": false,
+        "login": "justinMBullard",
+        "name": "Justin Bullard"
+      },
+      "body": "The `all-except-single-line` option will enforce \"always\" for multiple line AA but for single line AA it will enforce \"no-dangling\".\r\n\r\nThe `all-except-single-line` option is here to help with creating more line independent when an AA is extended.   For multiple line AA, always is preferred. `Always` will  allow for the addition to AA at the end without requiring a change to the previous line. \r\n\r\nHowever for a single line AA, `always` just adds an extra `,` and does not create line independence. For a single line AA it is better to use `no-dangling`. This will keep the AA smaller.   ",
+      "closedAt": "2022-10-28T17:28:01Z",
+      "createdAt": "2022-10-19T15:44:39Z",
+      "headRefName": "justin/all-except-single-line",
+      "mergedAt": "2022-10-28T17:28:01Z",
+      "number": 80,
+      "state": "MERGED",
+      "title": "Add new aa-comma-style all-except-single-line. ",
+      "updatedAt": "2022-10-28T17:28:01Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/80"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxODcwNg==",
+        "is_bot": false,
+        "login": "xgouchet",
+        "name": "Xavier F. Gouchet"
+      },
+      "body": "Given a function with `throw` statements in some branches, there is a false positive that considers those branches as invalid. A `throw` can be a valid exit strategy for a function when \"something truly terrible happens\". \r\n\r\n```\r\nfunction ok7() as integer\r\n    a = 1\r\n    if a > 0\r\n        throw \"something wrong\"\r\n    else\r\n        return 0\r\n    end if\r\nend function\r\n```\r\n\r\n ",
+      "closedAt": "2022-10-28T17:26:33Z",
+      "createdAt": "2022-10-03T15:24:46Z",
+      "headRefName": "xgouchet/consistent_return",
+      "mergedAt": "2022-10-28T17:26:33Z",
+      "number": 78,
+      "state": "MERGED",
+      "title": "Avoid false positive for missing return",
+      "updatedAt": "2022-10-28T17:26:33Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/78"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxODcwNg==",
+        "is_bot": false,
+        "login": "xgouchet",
+        "name": "Xavier F. Gouchet"
+      },
+      "body": "",
+      "closedAt": "2022-09-27T16:39:28Z",
+      "createdAt": "2022-09-27T16:29:09Z",
+      "headRefName": "xgouchet/doc_vscode",
+      "mergedAt": "2022-09-27T16:39:28Z",
+      "number": 77,
+      "state": "MERGED",
+      "title": "Add documentation for bslint usage with VSCode",
+      "updatedAt": "2022-09-28T07:01:17Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/77"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Roku recently introduced the paradigm of using underscores to indicate that a variable is unused. bslint should probably follow the same concept. \r\n\r\nQuestion: Should we revise the ` 'unused-variable'?: RuleSeverity;` to contain options instead of just severity? Perhaps something like:\r\n\r\n```\r\n{\r\n    \"unused-variable\": \"all\" | \"all-except-leading-underscores\" | etc..\r\n}\r\n```",
+      "closedAt": "2025-10-16T12:40:32Z",
+      "createdAt": "2022-08-18T18:55:02Z",
+      "headRefName": "ignore-leading-underscore-local-vars",
+      "mergedAt": null,
+      "number": 75,
+      "state": "CLOSED",
+      "title": "Don't mark vars with leading underscores as unused",
+      "updatedAt": "2025-10-16T12:40:32Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/75"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgxMDI5MA==",
+        "is_bot": false,
+        "login": "markwpearce",
+        "name": "Mark Pearce"
+      },
+      "body": "This was an issue when a function was used within the namespace it was declared in.\r\n\r\neg:\r\n\r\n```bs\r\nnamespace SomeNamespace\r\n\r\n  sub alpha() \r\n  end sub\r\n  \r\n  sub beta()\r\n     alpha() ' This was previously giving LINT1001 error (Using uninitialised variable)\r\n  end sub\r\n\r\nend namespace\r\n```",
+      "closedAt": "2022-08-18T13:55:04Z",
+      "createdAt": "2022-08-17T20:05:04Z",
+      "headRefName": "namespace_functions",
+      "mergedAt": "2022-08-18T13:55:04Z",
+      "number": 74,
+      "state": "MERGED",
+      "title": "Fixes issue with tagging namespaced function as Unitialized Vars",
+      "updatedAt": "2022-08-18T13:55:04Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/74"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "The latest bsc started tracking unused variables (and namespaced items), so we needed to ignore those diagnostics in a few of the bslint tests. ",
+      "closedAt": "2022-07-18T12:28:16Z",
+      "createdAt": "2022-07-17T11:15:31Z",
+      "headRefName": "bsc-0.53.1",
+      "mergedAt": "2022-07-18T12:28:16Z",
+      "number": 73,
+      "state": "MERGED",
+      "title": "Upgrade to bsc-0.53.1",
+      "updatedAt": "2022-07-18T12:28:17Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/73"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Reduces the range for LINT3010\r\nBefore:\r\n![image](https://user-images.githubusercontent.com/2544493/177365692-ef5eb53f-10f8-44e7-a3df-23c0e7225d1f.png)\r\n\r\nAfter:\r\n![image](https://user-images.githubusercontent.com/2544493/177365837-c4263835-2704-4fc4-a767-3ab724ebc87d.png)\r\n",
+      "closedAt": "2022-07-06T10:52:31Z",
+      "createdAt": "2022-07-05T15:41:06Z",
+      "headRefName": "type-annotations-less-range",
+      "mergedAt": "2022-07-06T10:52:31Z",
+      "number": 70,
+      "state": "MERGED",
+      "title": "Use smaller range for LINT3010",
+      "updatedAt": "2022-07-06T10:52:31Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/70"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjEyMTQ1NDU=",
+        "is_bot": false,
+        "login": "georgejecook",
+        "name": "George Cook"
+      },
+      "body": "",
+      "closedAt": "2022-05-23T11:21:22Z",
+      "createdAt": "2022-05-23T11:16:24Z",
+      "headRefName": "fix/fixes-failures-on-projects-running-bsc-0.50.1",
+      "mergedAt": "2022-05-23T11:21:22Z",
+      "number": 69,
+      "state": "MERGED",
+      "title": "updates to bsc 0.50.1",
+      "updatedAt": "2022-05-23T11:21:23Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/69"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Prevent false positives of unused variables within `goto` loops by considering any var, between 1st found label and a `goto` statement) as being \"used\".\r\nInaccurate but better than nothing?",
+      "closedAt": "2022-05-09T18:35:36Z",
+      "createdAt": "2022-05-08T19:57:57Z",
+      "headRefName": "fix/loop-unused",
+      "mergedAt": "2022-05-09T18:35:36Z",
+      "number": 65,
+      "state": "MERGED",
+      "title": "Prevent \"unused var\" in goto loop",
+      "updatedAt": "2022-05-09T18:35:37Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/65"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Catched error variable should be available within the `catch` block.\r\nFixes #36",
+      "closedAt": "2022-05-09T15:48:50Z",
+      "createdAt": "2022-05-08T19:55:08Z",
+      "headRefName": "feature/catch-statement",
+      "mergedAt": "2022-05-09T15:48:50Z",
+      "number": 64,
+      "state": "MERGED",
+      "title": "Feature: catch statement error variable",
+      "updatedAt": "2022-05-09T15:48:51Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/64"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5ODc2OTU5",
+        "is_bot": false,
+        "login": "arturocuya",
+        "name": "Arturo Cuya"
+      },
+      "body": "I was using `main.brs` which I didn't notice had other uses. I created my own file for the `eol-last` test that was failing.",
+      "closedAt": "2022-04-13T16:48:20Z",
+      "createdAt": "2022-04-13T16:34:49Z",
+      "headRefName": "eol-last--hotfix",
+      "mergedAt": "2022-04-13T16:48:20Z",
+      "number": 62,
+      "state": "MERGED",
+      "title": "Fixed test after brighterscript bump",
+      "updatedAt": "2022-04-13T16:48:21Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/62"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "- Upgrade to brighterscript@0.48.0. \r\n- Fix tests that were incorrectly using `createObject`",
+      "closedAt": "2022-04-13T15:51:04Z",
+      "createdAt": "2022-04-13T15:44:56Z",
+      "headRefName": "update-brighterscript",
+      "mergedAt": "2022-04-13T15:51:04Z",
+      "number": 60,
+      "state": "MERGED",
+      "title": "brighterscript@0.48.0",
+      "updatedAt": "2022-04-13T15:51:05Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/60"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5ODc2OTU5",
+        "is_bot": false,
+        "login": "arturocuya",
+        "name": "Arturo Cuya"
+      },
+      "body": "",
+      "closedAt": "2022-04-09T19:59:44Z",
+      "createdAt": "2022-04-09T17:19:28Z",
+      "headRefName": "add-enum-to-toplevel",
+      "mergedAt": "2022-04-09T19:59:44Z",
+      "number": 59,
+      "state": "MERGED",
+      "title": "Do not consider enums as unused variables.",
+      "updatedAt": "2022-04-09T19:59:44Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/59"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5ODc2OTU5",
+        "is_bot": false,
+        "login": "arturocuya",
+        "name": "Arturo Cuya"
+      },
+      "body": "Also considered naming this `eol-last` like eslint does, but I think \"newline\" is more undestandable.",
+      "closedAt": "2022-04-13T16:17:30Z",
+      "createdAt": "2022-03-27T00:07:05Z",
+      "headRefName": "code-style--newline-last",
+      "mergedAt": "2022-04-13T16:17:30Z",
+      "number": 58,
+      "state": "MERGED",
+      "title": "Implemented `newline-last` rule",
+      "updatedAt": "2022-04-13T16:17:30Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/58"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5ODc2OTU5",
+        "is_bot": false,
+        "login": "arturocuya",
+        "name": "Arturo Cuya"
+      },
+      "body": "",
+      "closedAt": "2022-04-13T15:32:47Z",
+      "createdAt": "2022-03-26T18:30:42Z",
+      "headRefName": "code-style--no-stop",
+      "mergedAt": "2022-04-13T15:32:47Z",
+      "number": 57,
+      "state": "MERGED",
+      "title": "Implemented `no-stop` rule",
+      "updatedAt": "2022-04-13T15:32:47Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/57"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5ODc2OTU5",
+        "is_bot": false,
+        "login": "arturocuya",
+        "name": "Arturo Cuya"
+      },
+      "body": "",
+      "closedAt": "2022-03-29T20:40:35Z",
+      "createdAt": "2022-03-26T05:41:10Z",
+      "headRefName": "code-style--no-todo",
+      "mergedAt": "2022-03-29T20:40:35Z",
+      "number": 56,
+      "state": "MERGED",
+      "title": "Implemented `no-todo` code style rule.",
+      "updatedAt": "2022-03-29T20:40:35Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/56"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Update bsc and remove code using deprecated field",
+      "closedAt": "2022-03-24T13:43:25Z",
+      "createdAt": "2022-03-24T13:35:03Z",
+      "headRefName": "chore/brighterscript-upgrade",
+      "mergedAt": "2022-03-24T13:43:25Z",
+      "number": 55,
+      "state": "MERGED",
+      "title": "Upgrade brighterscript dependency",
+      "updatedAt": "2022-03-24T13:43:26Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/55"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjEyMTQ1NDU=",
+        "is_bot": false,
+        "login": "georgejecook",
+        "name": "George Cook"
+      },
+      "body": "this resolves down stream chaos, for other plugin vendors, as running bslint presently, uses the wrong method signatures for bsc plugin callbacks.",
+      "closedAt": "2022-03-24T13:37:10Z",
+      "createdAt": "2022-03-03T15:50:38Z",
+      "headRefName": "update-to-bsc-0.45.3",
+      "mergedAt": null,
+      "number": 53,
+      "state": "CLOSED",
+      "title": "updates to bsc 0.45.3",
+      "updatedAt": "2022-03-24T13:37:20Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/53"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #51 ",
+      "closedAt": "2022-02-13T18:55:12Z",
+      "createdAt": "2022-02-13T07:48:46Z",
+      "headRefName": "chore/brighterscript-upgrade",
+      "mergedAt": "2022-02-13T18:55:12Z",
+      "number": 52,
+      "state": "MERGED",
+      "title": "Chore - upgrade brighterscript dependency to latest 0.x",
+      "updatedAt": "2022-02-13T18:55:16Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/52"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1NDQ0OTM=",
+        "is_bot": false,
+        "login": "TwitchBronBron",
+        "name": "Bronley Plumb"
+      },
+      "body": "Bring the changelog up to date. This also includes the changelog for a planned release for today (v0.6.0)",
+      "closedAt": "2021-10-27T15:03:34Z",
+      "createdAt": "2021-10-27T13:18:47Z",
+      "headRefName": "changelog-updates",
+      "mergedAt": "2021-10-27T15:03:34Z",
+      "number": 50,
+      "state": "MERGED",
+      "title": "Add missing changelog info",
+      "updatedAt": "2021-10-27T15:03:37Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/50"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "",
+      "closedAt": "2021-10-27T12:56:08Z",
+      "createdAt": "2021-10-27T12:52:17Z",
+      "headRefName": "0.5.0",
+      "mergedAt": "2021-10-27T12:56:07Z",
+      "number": 49,
+      "state": "MERGED",
+      "title": "Missing 0.5.0 release commit",
+      "updatedAt": "2021-10-27T12:56:08Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/49"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/dependabot"
+      },
+      "body": "Bumps [glob-parent](https://github.com/gulpjs/glob-parent) from 5.1.1 to 5.1.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/gulpjs/glob-parent/releases\">glob-parent's releases</a>.</em></p>\n<blockquote>\n<h2>v5.1.2</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li>eliminate ReDoS (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/36\">#36</a>) (<a href=\"https://github.com/gulpjs/glob-parent/commit/f9231168b0041fea3f8f954b3cceb56269fc6366\">f923116</a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/gulpjs/glob-parent/blob/main/CHANGELOG.md\">glob-parent's changelog</a>.</em></p>\n<blockquote>\n<h3><a href=\"https://github.com/gulpjs/glob-parent/compare/v5.1.1...v5.1.2\">5.1.2</a> (2021-03-06)</h3>\n<h3>Bug Fixes</h3>\n<ul>\n<li>eliminate ReDoS (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/36\">#36</a>) (<a href=\"https://github.com/gulpjs/glob-parent/commit/f9231168b0041fea3f8f954b3cceb56269fc6366\">f923116</a>)</li>\n</ul>\n<h3><a href=\"https://www.github.com/gulpjs/glob-parent/compare/v6.0.0...v6.0.1\">6.0.1</a> (2021-07-20)</h3>\n<h3>Bug Fixes</h3>\n<ul>\n<li>Resolve ReDoS vulnerability from CVE-2021-35065 (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/49\">#49</a>) (<a href=\"https://www.github.com/gulpjs/glob-parent/commit/3e9f04a3b4349db7e1962d87c9a7398cda51f339\">3e9f04a</a>)</li>\n</ul>\n<h2><a href=\"https://www.github.com/gulpjs/glob-parent/compare/v5.1.2...v6.0.0\">6.0.0</a> (2021-05-03)</h2>\n<h3>⚠ BREAKING CHANGES</h3>\n<ul>\n<li>Correct mishandled escaped path separators (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/34\">#34</a>)</li>\n<li>upgrade scaffold, dropping node &lt;10 support</li>\n</ul>\n<h3>Bug Fixes</h3>\n<ul>\n<li>Correct mishandled escaped path separators (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/34\">#34</a>) (<a href=\"https://www.github.com/gulpjs/glob-parent/commit/32f6d52663b7addac38d0dff570d8127edf03f47\">32f6d52</a>), closes <a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/32\">#32</a></li>\n</ul>\n<h3>Miscellaneous Chores</h3>\n<ul>\n<li>upgrade scaffold, dropping node &lt;10 support (<a href=\"https://www.github.com/gulpjs/glob-parent/commit/e83d0c5a411947cf69eb58f36349db80439c606f\">e83d0c5</a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/gulpjs/glob-parent/commit/eb2c439de448c779b450472e591a2bc9e37e9668\"><code>eb2c439</code></a> chore: update changelog</li>\n<li><a href=\"https://github.com/gulpjs/glob-parent/commit/12bcb6c45c942e2d05fc1e6ff5402e72555b54b6\"><code>12bcb6c</code></a> chore: release 5.1.2</li>\n<li><a href=\"https://github.com/gulpjs/glob-parent/commit/f9231168b0041fea3f8f954b3cceb56269fc6366\"><code>f923116</code></a> fix: eliminate ReDoS (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/36\">#36</a>)</li>\n<li><a href=\"https://github.com/gulpjs/glob-parent/commit/0b014a7962789b2d8f2cf0b6311f40667aecd62c\"><code>0b014a7</code></a> chore: add JSDoc returns information (<a href=\"https://github-redirect.dependabot.com/gulpjs/glob-parent/issues/33\">#33</a>)</li>\n<li><a href=\"https://github.com/gulpjs/glob-parent/commit/2b24ebd64b2a045aa167c825376335555da139fd\"><code>2b24ebd</code></a> chore: generate initial changelog</li>\n<li>See full diff in <a href=\"https://github.com/gulpjs/glob-parent/compare/v5.1.1...v5.1.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=glob-parent&package-manager=npm_and_yarn&previous-version=5.1.1&new-version=5.1.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/rokucommunity/bslint/network/alerts).\n\n</details>",
+      "closedAt": "2021-09-28T13:31:27Z",
+      "createdAt": "2021-09-28T13:25:09Z",
+      "headRefName": "dependabot/npm_and_yarn/glob-parent-5.1.2",
+      "mergedAt": "2021-09-28T13:31:27Z",
+      "number": 45,
+      "state": "MERGED",
+      "title": "Bump glob-parent from 5.1.1 to 5.1.2",
+      "updatedAt": "2021-09-28T13:31:30Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/45"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/dependabot"
+      },
+      "body": "Bumps [path-parse](https://github.com/jbgutierrez/path-parse) from 1.0.6 to 1.0.7.\n<details>\n<summary>Commits</summary>\n<ul>\n<li>See full diff in <a href=\"https://github.com/jbgutierrez/path-parse/commits/v1.0.7\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=path-parse&package-manager=npm_and_yarn&previous-version=1.0.6&new-version=1.0.7)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/rokucommunity/bslint/network/alerts).\n\n</details>",
+      "closedAt": "2021-09-28T13:31:53Z",
+      "createdAt": "2021-09-28T13:24:53Z",
+      "headRefName": "dependabot/npm_and_yarn/path-parse-1.0.7",
+      "mergedAt": "2021-09-28T13:31:53Z",
+      "number": 44,
+      "state": "MERGED",
+      "title": "Bump path-parse from 1.0.6 to 1.0.7",
+      "updatedAt": "2021-09-28T13:31:55Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/44"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/dependabot"
+      },
+      "body": "Bumps [y18n](https://github.com/yargs/y18n) from 4.0.0 to 4.0.3.\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/yargs/y18n/blob/y18n-v4.0.3/CHANGELOG.md\">y18n's changelog</a>.</em></p>\n<blockquote>\n<h3><a href=\"https://www.github.com/yargs/y18n/compare/y18n-v4.0.2...y18n-v4.0.3\">4.0.3</a> (2021-04-07)</h3>\n<h3>Bug Fixes</h3>\n<ul>\n<li><strong>release:</strong> 4.x.x should not enforce Node 10 (<a href=\"https://github-redirect.dependabot.com/yargs/y18n/issues/126\">#126</a>) (<a href=\"https://www.github.com/yargs/y18n/commit/1e21a536e9135d8403a47be88922157a706b7cde\">1e21a53</a>)</li>\n</ul>\n<h3>4.0.1 (2020-11-30)</h3>\n<h3>Bug Fixes</h3>\n<ul>\n<li>address prototype pollution issue (<a href=\"https://github-redirect.dependabot.com/yargs/y18n/issues/108\">#108</a>) (<a href=\"https://www.github.com/yargs/y18n/commit/a9ac604abf756dec9687be3843e2c93bfe581f25\">a9ac604</a>)</li>\n</ul>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/yargs/y18n/commit/0aa97c508ea31efadd2a27f98fed6873eefc963e\"><code>0aa97c5</code></a> chore: release 4.x.x (<a href=\"https://github-redirect.dependabot.com/yargs/y18n/issues/128\">#128</a>)</li>\n<li><a href=\"https://github.com/yargs/y18n/commit/a8e7f04f8011423ce526e9b9f7ceea190c032733\"><code>a8e7f04</code></a> build(release-please): configure branch properly (<a href=\"https://github-redirect.dependabot.com/yargs/y18n/issues/127\">#127</a>)</li>\n<li><a href=\"https://github.com/yargs/y18n/commit/1e21a536e9135d8403a47be88922157a706b7cde\"><code>1e21a53</code></a> fix(release): 4.x.x should not enforce Node 10 (<a href=\"https://github-redirect.dependabot.com/yargs/y18n/issues/126\">#126</a>)</li>\n<li><a href=\"https://github.com/yargs/y18n/commit/8dc75802f3aa944bf9a827213969d64834621215\"><code>8dc7580</code></a> docs: update CHANGELOG</li>\n<li><a href=\"https://github.com/yargs/y18n/commit/7de58ca0d315990cdb38234e97fc66254cdbcd71\"><code>7de58ca</code></a> fix: address prototype pollution issue</li>\n<li>See full diff in <a href=\"https://github.com/yargs/y18n/compare/v4.0.0...y18n-v4.0.3\">compare view</a></li>\n</ul>\n</details>\n<details>\n<summary>Maintainer changes</summary>\n<p>This version was pushed to npm by <a href=\"https://www.npmjs.com/~oss-bot\">oss-bot</a>, a new releaser for y18n since your current version.</p>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=y18n&package-manager=npm_and_yarn&previous-version=4.0.0&new-version=4.0.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/rokucommunity/bslint/network/alerts).\n\n</details>",
+      "closedAt": "2021-09-28T13:31:43Z",
+      "createdAt": "2021-09-28T13:24:52Z",
+      "headRefName": "dependabot/npm_and_yarn/y18n-4.0.3",
+      "mergedAt": "2021-09-28T13:31:43Z",
+      "number": 43,
+      "state": "MERGED",
+      "title": "Bump y18n from 4.0.0 to 4.0.3",
+      "updatedAt": "2021-09-28T13:31:46Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/43"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #37 ",
+      "closedAt": "2021-09-27T14:57:03Z",
+      "createdAt": "2021-09-27T08:42:52Z",
+      "headRefName": "fix/37-remove-void",
+      "mergedAt": "2021-09-27T14:57:03Z",
+      "number": 42,
+      "state": "MERGED",
+      "title": "Automatically remove `as void` when changing a function to sub",
+      "updatedAt": "2021-09-27T14:57:35Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/42"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Added new rule: `aa-comma-style` to enforce/disallow commas in certain places.\r\nFixes #30 ",
+      "closedAt": "2021-09-27T08:15:45Z",
+      "createdAt": "2021-09-26T09:24:42Z",
+      "headRefName": "feature/30-aa-style",
+      "mergedAt": "2021-09-27T08:15:45Z",
+      "number": 40,
+      "state": "MERGED",
+      "title": "Implement AA comma linting and fixing",
+      "updatedAt": "2021-09-27T08:19:01Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/40"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjgyMjE2NDAx",
+        "is_bot": false,
+        "login": "philippe-elsass-deltatre",
+        "name": "Philippe Elsass"
+      },
+      "body": "More information about `ignores`",
+      "closedAt": "2021-09-14T10:30:13Z",
+      "createdAt": "2021-09-14T10:22:54Z",
+      "headRefName": "patch-1",
+      "mergedAt": null,
+      "number": 39,
+      "state": "CLOSED",
+      "title": "Update README.md",
+      "updatedAt": "2021-09-14T10:30:16Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/39"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Implement unused components/scripts detection.\r\n\r\nFeature is behind a CLI flag: `--checkUsage`.",
+      "closedAt": "2021-07-07T13:09:25Z",
+      "createdAt": "2021-07-07T12:23:45Z",
+      "headRefName": "feature/check-usage",
+      "mergedAt": "2021-07-07T13:09:25Z",
+      "number": 35,
+      "state": "MERGED",
+      "title": "Feature: check scripts/components usage",
+      "updatedAt": "2021-07-07T13:09:28Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/35"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes simple code style issues:\r\n\r\n- `function`/`sub` style\r\n- `then` style\r\n- if condition grouping (with/without parenthesis)",
+      "closedAt": "2021-05-25T12:33:39Z",
+      "createdAt": "2021-05-17T20:34:20Z",
+      "headRefName": "feature/automatic-fixing",
+      "mergedAt": "2021-05-25T12:33:39Z",
+      "number": 28,
+      "state": "MERGED",
+      "title": "Automatic code style fixes",
+      "updatedAt": "2021-05-25T12:34:23Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/28"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "- `ignores` allows specifying files which should not be linted\r\n- `globals` allows specifying tokens which should be considered as existing variables/functions\r\n\r\nFixes #20 ",
+      "closedAt": "2021-05-19T10:59:31Z",
+      "createdAt": "2021-05-15T13:14:24Z",
+      "headRefName": "feature/20-ignores",
+      "mergedAt": "2021-05-19T10:59:31Z",
+      "number": 27,
+      "state": "MERGED",
+      "title": "Add `ignores` and `globals`",
+      "updatedAt": "2021-05-19T10:59:34Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/27"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #25 ",
+      "closedAt": "2021-05-15T13:13:23Z",
+      "createdAt": "2021-05-13T16:41:39Z",
+      "headRefName": "fix/25-instantiation",
+      "mergedAt": "2021-05-15T13:13:23Z",
+      "number": 26,
+      "state": "MERGED",
+      "title": "Fix invoking classes",
+      "updatedAt": "2021-05-15T13:13:26Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/26"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #22 and #23 ",
+      "closedAt": "2021-05-13T15:00:20Z",
+      "createdAt": "2021-05-13T14:58:39Z",
+      "headRefName": "fix/22-23-ns-super",
+      "mergedAt": "2021-05-13T15:00:20Z",
+      "number": 24,
+      "state": "MERGED",
+      "title": "Add namespaces and super",
+      "updatedAt": "2021-05-13T15:00:32Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/24"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/dependabot"
+      },
+      "body": "Bumps [lodash](https://github.com/lodash/lodash) from 4.17.20 to 4.17.21.\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/lodash/lodash/commit/f299b52f39486275a9e6483b60a410e06520c538\"><code>f299b52</code></a> Bump to v4.17.21</li>\n<li><a href=\"https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a\"><code>c4847eb</code></a> Improve performance of <code>toNumber</code>, <code>trim</code> and <code>trimEnd</code> on large input strings</li>\n<li><a href=\"https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c\"><code>3469357</code></a> Prevent command injection through <code>_.template</code>'s <code>variable</code> option</li>\n<li>See full diff in <a href=\"https://github.com/lodash/lodash/compare/4.17.20...4.17.21\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=lodash&package-manager=npm_and_yarn&previous-version=4.17.20&new-version=4.17.21)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/rokucommunity/bslint/network/alerts).\n\n</details>",
+      "closedAt": "2021-05-11T11:09:43Z",
+      "createdAt": "2021-05-11T11:01:08Z",
+      "headRefName": "dependabot/npm_and_yarn/lodash-4.17.21",
+      "mergedAt": "2021-05-11T11:09:43Z",
+      "number": 21,
+      "state": "MERGED",
+      "title": "Bump lodash from 4.17.20 to 4.17.21",
+      "updatedAt": "2021-05-11T11:09:45Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/21"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU2NTE0ODM=",
+        "is_bot": false,
+        "login": "slheavner",
+        "name": "Sam Heavner"
+      },
+      "body": "Similar to the `no-console` rules for eslint/tslint. Enforces the use of a logging framework rather than raw print statements.",
+      "closedAt": "2021-04-16T15:56:17Z",
+      "createdAt": "2021-04-13T17:11:56Z",
+      "headRefName": "feature/no-print",
+      "mergedAt": "2021-04-16T15:56:17Z",
+      "number": 19,
+      "state": "MERGED",
+      "title": "add no-print rule to enforce use of logger",
+      "updatedAt": "2021-04-16T15:56:27Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/19"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "",
+      "closedAt": "2021-02-22T18:06:26Z",
+      "createdAt": "2021-02-22T17:54:32Z",
+      "headRefName": "feature/code-style",
+      "mergedAt": "2021-02-22T18:06:26Z",
+      "number": 18,
+      "state": "MERGED",
+      "title": "Functions code style linting",
+      "updatedAt": "2021-02-22T18:06:30Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/18"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #16 ",
+      "closedAt": "2021-01-14T10:27:10Z",
+      "createdAt": "2021-01-14T10:25:54Z",
+      "headRefName": "fix/16-false-positive",
+      "mergedAt": "2021-01-14T10:27:10Z",
+      "number": 17,
+      "state": "MERGED",
+      "title": "Prevent false positive by relaxing variable use",
+      "updatedAt": "2021-01-14T10:27:14Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/17"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #10 ",
+      "closedAt": "2021-01-07T17:10:57Z",
+      "createdAt": "2021-01-07T17:09:36Z",
+      "headRefName": "feature/10-unused-variables",
+      "mergedAt": "2021-01-07T17:10:57Z",
+      "number": 15,
+      "state": "MERGED",
+      "title": "Implement 'unused variable' detection",
+      "updatedAt": "2021-01-07T17:11:01Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/15"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI5Nzk2Mw==",
+        "is_bot": false,
+        "login": "elsassph",
+        "name": "Philippe Elsass"
+      },
+      "body": "Fixes #9 \r\n\r\n```brightscript\r\nsub ok8()\r\n    a = Rnd(10)\r\n    if a > 5\r\n        b = a\r\n    end if\r\n    if b <> invalid ' narrow variable as safe\r\n        print \"b\"; b\r\n    end if\r\nend sub\r\n\r\nsub ok9()\r\n    a = Rnd(10)\r\n    if a > 5\r\n        b = a\r\n    end if\r\n    if b = invalid ' narrowed\r\n        print \"b\"; b\r\n    end if\r\nend sub\r\n\r\nsub ok10()\r\n    a = Rnd(10)\r\n    if a > 5\r\n        b = a\r\n    end if\r\n    if b = invalid ' narrowed exit\r\n        return\r\n    end if\r\n    print \"b\"; b\r\nend sub\r\n```",
+      "closedAt": "2020-09-08T10:35:59Z",
+      "createdAt": "2020-09-08T10:35:24Z",
+      "headRefName": "feature/narrowing",
+      "mergedAt": "2020-09-08T10:35:59Z",
+      "number": 12,
+      "state": "MERGED",
+      "title": "Narrow variables assignments when testing for `invalid`",
+      "updatedAt": "2020-09-09T10:45:24Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/12"
+    },
+    {
+      "author": {
+        "is_bot": true,
+        "login": "app/dependabot"
+      },
+      "body": "Bumps [bl](https://github.com/rvagg/bl) from 4.0.2 to 4.0.3.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/rvagg/bl/releases\">bl's releases</a>.</em></p>\n<blockquote>\n<h2>v4.0.3</h2>\n<p>Fix unintialized memory access</p>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/rvagg/bl/commit/f659836cc84211cad41b73bad89c78f7f874c626\"><code>f659836</code></a> Bumped v4.0.3</li>\n<li><a href=\"https://github.com/rvagg/bl/commit/7a4ae7f818a4ceba234f3d186a1ffb3f0a34ad0c\"><code>7a4ae7f</code></a> Node v14</li>\n<li><a href=\"https://github.com/rvagg/bl/commit/d3e240e3b8ba4048d3c76ef5fb9dd1f8872d3190\"><code>d3e240e</code></a> Fix unintialized memory access</li>\n<li><a href=\"https://github.com/rvagg/bl/commit/1c590ad49e10a158783ada7cc0662d9e0cc6cc11\"><code>1c590ad</code></a> add license MIT tag to package.json (<a href=\"https://github-redirect.dependabot.com/rvagg/bl/issues/83\">#83</a>)</li>\n<li>See full diff in <a href=\"https://github.com/rvagg/bl/compare/v4.0.2...v4.0.3\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=bl&package-manager=npm_and_yarn&previous-version=4.0.2&new-version=4.0.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/configuring-github-dependabot-security-updates)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/rokucommunity/bslint/network/alerts).\n\n</details>",
+      "closedAt": "2020-09-03T10:14:21Z",
+      "createdAt": "2020-09-02T20:02:39Z",
+      "headRefName": "dependabot/npm_and_yarn/bl-4.0.3",
+      "mergedAt": "2020-09-03T10:14:21Z",
+      "number": 11,
+      "state": "MERGED",
+      "title": "Bump bl from 4.0.2 to 4.0.3",
+      "updatedAt": "2020-09-03T10:14:24Z",
+      "url": "https://github.com/rokucommunity/bslint/pull/11"
+    }
+  ]
+}

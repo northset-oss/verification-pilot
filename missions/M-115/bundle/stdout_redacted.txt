@@ -1,0 +1,39 @@
+=== cmd 1: npx mocha --no-config --require ts-node/register --require source-map-support/register src/plugins/checkUsage/createObjectUsage.spec.ts ===
+
+
+  checkUsage CreateObject usage
+[[90m06:39:29:152 PM[39m] No bsconfig.json file found, using default options
+[[90m06:39:29:154 PM[39m] Loading 0 plugins for cwd "/workspace" []
+[[90m06:39:29:187 PM[39m] Parsing files
+[[90m06:39:29:195 PM[39m] Parsing files finished. ([34m7.726ms[39m)
+[[90m06:39:29:196 PM[39m] Validating project
+[[90m06:39:29:201 PM[39m] Validating project finished. ([34m5.103ms[39m)
+
+test/project1/components/parent.brs:1:1 - warning BSLINT4002: Script 'components/parent.brs' does not seem to be used
+
+ 1  sub init()
+    ~~~~~~~~~~
+
+
+test/project1/components/parent.xml:2:42 - warning BSLINT4001: Component 'components/parent.xml' does not seem to be used
+
+ 2                          <component name="Parent" extends="Group">
+                                             ~~~~~~                  
+
+
+test/project1/components/unrelated.brs:1:1 - warning BSLINT4002: Script 'components/unrelated.brs' does not seem to be used
+
+ 1  sub init()
+    ~~~~~~~~~~
+
+
+test/project1/components/unrelated.xml:2:42 - warning BSLINT4001: Component 'components/unrelated.xml' does not seem to be used
+
+ 2                          <component name="Unrelated" extends="Group">
+                                             ~~~~~~~~~                  
+
+    ✔ counts only roSGNode CreateObject component usage (57ms)
+
+
+  1 passing (73ms)
+

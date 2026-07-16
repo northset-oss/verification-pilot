@@ -1,0 +1,46 @@
+diff --git a/bin/9eRoster.js b/bin/9eRoster.js
+index f83bac5d78d9769f3af4ec24b2a284782b080137..1f5925e38996536c5c45af30b890f5b752165d95 100644
+--- a/bin/9eRoster.js
++++ b/bin/9eRoster.js
+@@ -11,7 +11,7 @@ module.exports.parse = (data) => {
+ 
+     for (const force of data[0].force) {
+         if (force.selections === undefined || force.selections.length !== 1) {
+-            break;
++            continue;
+         }
+ 
+         let armyUnitData = force.selections[0].selection.filter(hasUnitSomewhereRecursive);
+@@ -69,4 +69,4 @@ function replacer(key, value) {
+ 
+ module.exports.serialize = (roster, spaces = 0) =>  {
+     return JSON.stringify(roster, replacer, spaces)
+-}
+\ No newline at end of file
++}
+diff --git a/tests/empty-detachment.test.js b/tests/empty-detachment.test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..756638e289fc81f6d5b3f17032b12b778a59520c
+--- /dev/null
++++ b/tests/empty-detachment.test.js
+@@ -0,0 +1,20 @@
++const fs = require("fs");
++const path = require("path");
++const {roszParse} = require("../bin/roszParser");
++
++test("continues after an empty detachment", () => {
++    const populatedRoster = fs.readFileSync(
++        path.join(__dirname, "../samples/sample-hemlock.ros"),
++        "utf8"
++    );
++    const rosterWithLeadingEmptyDetachment = populatedRoster.replace(
++        "<forces>",
++        '<forces><force id="empty-detachment" name="Empty Detachment" />'
++    );
++
++    const roster = roszParse(Buffer.from(rosterWithLeadingEmptyDetachment));
++
++    expect([...roster.units.values()].map(unit => unit.name)).toStrictEqual([
++        "Hemlock Wraithfighter"
++    ]);
++});

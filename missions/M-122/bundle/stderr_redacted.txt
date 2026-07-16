@@ -1,0 +1,1 @@
+=== cmd 1: npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts ===

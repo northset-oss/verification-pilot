@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T18:38:16.931Z",
+  "finished_at": "2026-07-16T18:39:40.439Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "56b4e8e82d81b574a56f70d8e4708e4e44e8a318",
+    "base_tree_digest": "sha256:7aec262d147547ad7d4ea82d4c27680033a2ac45ae3f32ebd5823f87254d596f",
+    "pre_check_tree_digest": "sha256:91e101ea9f64e521190d6a7aef6026be11b75f520061cf520edce54d206c551c",
+    "approved_tracked_tree_digest": "sha256:dde56b9b30ec425a48b4cfa07566950a7e68a21652436b4334fddcb09d4bdc22",
+    "post_check_tree_digest": "sha256:73fb5dcbee4caa88c62e8e0015fea655ef0f988425e1288be71b14026c03f7dd",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:ec6eb86a39c0305609f34e98e9ba3ba9bedcc87fc607c442b489a1a81eadcf35",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npx mocha --no-config --require ts-node/register --require source-map-support/register src/plugins/checkUsage/createObjectUsage.spec.ts",
+      "exit_code": 0,
+      "duration_ms": 6699
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 54495,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 6699,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

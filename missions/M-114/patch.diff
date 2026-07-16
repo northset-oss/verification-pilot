@@ -1,0 +1,71 @@
+diff --git a/src/body.js b/src/body.js
+index 714e27ec4aa74103a246480cf2bbcd9ae2103823..7226a0ccdac7439d66ecdca2271cc974d44b2134 100644
+--- a/src/body.js
++++ b/src/body.js
+@@ -109,8 +109,9 @@ export default class Body {
+ 
+ 	async formData() {
+ 		const ct = this.headers.get('content-type');
++		const contentType = ct?.split(';', 1)[0].trim().toLowerCase();
+ 
+-		if (ct.startsWith('application/x-www-form-urlencoded')) {
++		if (contentType === 'application/x-www-form-urlencoded') {
+ 			const formData = new FormData();
+ 			const parameters = new URLSearchParams(await this.text());
+ 
+@@ -121,6 +122,11 @@ export default class Body {
+ 			return formData;
+ 		}
+ 
++		if (contentType !== 'multipart/form-data') {
++			this.body?.destroy();
++			throw new TypeError('Failed to fetch');
++		}
++
+ 		const {toFormData} = await import('./utils/multipart-parser.js');
+ 		return toFormData(this.body, ct);
+ 	}
+diff --git a/test/form-data-invalid-content-type.js b/test/form-data-invalid-content-type.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..0620afe7ea05b017f58ddb4ed310ae966caa2d90
+--- /dev/null
++++ b/test/form-data-invalid-content-type.js
+@@ -0,0 +1,38 @@
++import {PassThrough} from 'node:stream';
++
++import chai from 'chai';
++import {Request, Response} from '../src/index.js';
++
++const {expect} = chai;
++
++describe('Body.formData', () => {
++	it('destroys body for invalid form data content type', async () => {
++		const createBodies = [
++			(body, headers) => new Response(body, {headers}),
++			(body, headers) => new Request('https://example.com', {
++				method: 'POST',
++				body,
++				headers
++			})
++		];
++
++		for (const contentType of [undefined, 'text/plain']) {
++			for (const createBody of createBodies) {
++				const stream = new PassThrough();
++				const headers = contentType === undefined ? {} : {'content-type': contentType};
++				const body = createBody(stream, headers);
++				let error;
++
++				try {
++					await body.formData();
++				} catch (error_) {
++					error = error_;
++				}
++
++				expect(error).to.be.instanceOf(TypeError);
++				expect(error.message).to.equal('Failed to fetch');
++				expect(stream.destroyed).to.be.true;
++			}
++		}
++	});
++});

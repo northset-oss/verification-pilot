@@ -1,0 +1,120 @@
+diff --git a/src/plugins/checkUsage/createObjectUsage.spec.ts b/src/plugins/checkUsage/createObjectUsage.spec.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..7b5633ce5819e68b94e49ee34ca77678230b14d9
+--- /dev/null
++++ b/src/plugins/checkUsage/createObjectUsage.spec.ts
+@@ -0,0 +1,61 @@
++import { Program } from 'brighterscript';
++import * as path from 'path';
++import Linter from '../../Linter';
++import { expectDiagnostics } from '../../testHelpers.spec';
++import { createContext } from '../../util';
++import CheckUsage, { UnusedCode } from './index';
++
++describe('checkUsage CreateObject usage', () => {
++    it('counts only roSGNode CreateObject component usage', async () => {
++        const linter = new Linter();
++        linter.builder.plugins.add({
++            name: 'test',
++            afterProgramCreate: (program: Program) => {
++                program.setFile('source/main.brs', `
++                    sub main()
++                        invalidNode = CreateObject("Parent")
++                        validNode = CreateObject("roSGNode", "Used")
++                        print "Unrelated"
++                    end sub
++                `);
++
++                for (const name of ['Parent', 'Used', 'Unrelated']) {
++                    program.setFile(`components/${name.toLowerCase()}.brs`, 'sub init()\nend sub');
++                    program.setFile(`components/${name.toLowerCase()}.xml`, `
++                        <component name="${name}" extends="Group">
++                            <script uri="pkg:/components/${name.toLowerCase()}.brs" />
++                        </component>
++                    `);
++                }
++
++                program.plugins.add(new CheckUsage(createContext(program)));
++            }
++        });
++
++        const diagnostics = await linter.run({
++            rootDir: 'test/project1',
++            files: [],
++            rules: {},
++            diagnosticFilters: [1129]
++        } as any);
++
++        expectDiagnostics(diagnostics, [
++            {
++                code: UnusedCode.UnusedComponent,
++                message: `Component 'components${path.sep}parent.xml' does not seem to be used`
++            },
++            {
++                code: UnusedCode.UnusedComponent,
++                message: `Component 'components${path.sep}unrelated.xml' does not seem to be used`
++            },
++            {
++                code: UnusedCode.UnusedScript,
++                message: `Script 'components${path.sep}parent.brs' does not seem to be used`
++            },
++            {
++                code: UnusedCode.UnusedScript,
++                message: `Script 'components${path.sep}unrelated.brs' does not seem to be used`
++            }
++        ]);
++    });
++});
+diff --git a/src/plugins/checkUsage/index.ts b/src/plugins/checkUsage/index.ts
+index 23b5166b3871b041ed1fec9315222e65fca86f6d..263e1e389eac57afba3dbdc9a988d53548a6b417 100644
+--- a/src/plugins/checkUsage/index.ts
++++ b/src/plugins/checkUsage/index.ts
+@@ -1,4 +1,4 @@
+-import { BscFile, CallableContainerMap, createVisitor, DiagnosticSeverity, isBrsFile, isXmlFile, Program, Range, Scope, TokenKind, WalkMode, XmlFile } from 'brighterscript';
++import { BscFile, CallableContainerMap, createVisitor, DiagnosticSeverity, isBrsFile, isLiteralExpression, isVariableExpression, isXmlFile, Program, Range, Scope, TokenKind, WalkMode, XmlFile } from 'brighterscript';
+ import { SGNode } from 'brighterscript/dist/parser/SGTypes';
+ import { PluginContext } from '../../util';
+ 
+@@ -156,22 +156,28 @@ export default class CheckUsage {
+             if (pkgPath === 'source/main.brs' || pkgPath === 'source/main.bs') {
+                 this.main = fv;
+             }
+-            // find strings that look like referring to component names
++            // find component names passed to CreateObject("roSGNode", componentName)
+             file.parser.references.functionExpressions.forEach(fun => {
+                 fun.body.walk(createVisitor({
+-                    LiteralExpression: (e) => {
+-                        const { kind } = e.token;
+-                        if (kind === TokenKind.StringLiteral) {
+-                            const { text } = e.token;
+-                            if (text !== '""') {
+-                                const name = text.toLowerCase();
+-                                if (map.has(name)) {
+-                                    fv.edges.push({
+-                                        name,
+-                                        range: e.token.range,
+-                                        file
+-                                    });
+-                                }
++                    CallExpression: (e) => {
++                        const componentType = e.args[0];
++                        const componentName = e.args[1];
++                        if (
++                            isVariableExpression(e.callee) &&
++                            e.callee.name.text.toLowerCase() === 'createobject' &&
++                            isLiteralExpression(componentType) &&
++                            componentType.token.kind === TokenKind.StringLiteral &&
++                            componentType.token.text.toLowerCase() === '"rosgnode"' &&
++                            isLiteralExpression(componentName) &&
++                            componentName.token.kind === TokenKind.StringLiteral
++                        ) {
++                            const name = componentName.token.text.toLowerCase();
++                            if (map.has(name)) {
++                                fv.edges.push({
++                                    name,
++                                    range: componentName.token.range,
++                                    file
++                                });
+                             }
+                         }
+                     }

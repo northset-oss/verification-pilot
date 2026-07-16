@@ -1,0 +1,286 @@
+{
+  "fetched_at": "2026-07-16T18:36:12Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "OWNER",
+    "body": "If a roster has an empty detachment (at least it the empty one comes first, haven't tested other ordering), parsing stops there and a subsequent properly-utilised detachment is ignored, resulting in no units being parsed.",
+    "created_at": "2023-01-23T16:59:25Z",
+    "html_url": "https://github.com/ThePants999/Yellowscribe/issues/9",
+    "labels": [
+      "bug",
+      "good first issue",
+      "battlescribe"
+    ],
+    "number": 9,
+    "state": "open",
+    "title": "Empty detachment breaks parsing",
+    "updated_at": "2023-08-04T10:29:05Z",
+    "user": "ThePants999"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "main",
+    "fork": false,
+    "html_url": "https://github.com/ThePants999/Yellowscribe"
+  },
+  "default_branch_head": "583de2e48cf1e176829f3bda7c4da8e0cc7f7ee5",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE4MzQ1OTU=",
+        "is_bot": false,
+        "login": "josephdouce",
+        "name": "Joseph Douce"
+      },
+      "body": "",
+      "closedAt": "2026-01-25T22:59:07Z",
+      "createdAt": "2026-01-25T16:52:34Z",
+      "headRefName": "main",
+      "mergedAt": "2026-01-25T22:59:07Z",
+      "number": 31,
+      "state": "MERGED",
+      "title": "Simplify Formula for matching abilities ",
+      "updatedAt": "2026-01-25T22:59:08Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/31"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE4MzQ1OTU=",
+        "is_bot": false,
+        "login": "josephdouce",
+        "name": "Joseph Douce"
+      },
+      "body": "More compact layout\r\nExpanded boxes for abilities ",
+      "closedAt": "2026-01-24T18:25:27Z",
+      "createdAt": "2026-01-20T11:28:25Z",
+      "headRefName": "main",
+      "mergedAt": "2026-01-24T18:25:27Z",
+      "number": 30,
+      "state": "MERGED",
+      "title": "Datacard refactoring",
+      "updatedAt": "2026-01-24T18:25:27Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/30"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjIyOTQ5NjE=",
+        "is_bot": false,
+        "login": "aurorapar",
+        "name": ""
+      },
+      "body": "Synapse units gain a purple ring around the unit of radius 6 from the base indicating the range of their synapse. The radius can be adjusted by pressing 1 to decrease the radius by 1 (a radius of 0 or less changes the radius to 0, then hides it) or pressing 2 to increase the radius by 1.\r\n\r\n![image](https://github.com/user-attachments/assets/11294652-1bf3-47b7-b1ce-dc7b0d19ceaf)\r\n",
+      "closedAt": null,
+      "createdAt": "2025-04-09T23:42:55Z",
+      "headRefName": "synaptic_radius",
+      "mergedAt": null,
+      "number": 28,
+      "state": "OPEN",
+      "title": "Added changeable radius for synapse units",
+      "updatedAt": "2025-04-09T23:49:57Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/28"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjYwMzgwNjU3",
+        "is_bot": false,
+        "login": "matorankod",
+        "name": ""
+      },
+      "body": "Seems to work ok with both my rosters (which use profileID) and original rosters from battlescribe (which use name equality)",
+      "closedAt": "2024-09-03T19:22:49Z",
+      "createdAt": "2024-09-03T17:56:23Z",
+      "headRefName": "main",
+      "mergedAt": "2024-09-03T19:22:49Z",
+      "number": 27,
+      "state": "MERGED",
+      "title": "Introduced profileID to model table",
+      "updatedAt": "2024-09-03T19:22:49Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/27"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Quantities on the weapon asset were being ignored",
+      "closedAt": "2024-06-24T07:54:58Z",
+      "createdAt": "2024-05-25T20:18:51Z",
+      "headRefName": "main",
+      "mergedAt": "2024-06-24T07:54:58Z",
+      "number": 26,
+      "state": "MERGED",
+      "title": "Rz: modify weapon quantities if present",
+      "updatedAt": "2024-06-24T07:54:58Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/26"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Previously, ys only checked the roster/asset's included assets for units, but it should check traits as well, since units can be added to traits via rules and stats.",
+      "closedAt": "2024-05-10T08:16:14Z",
+      "createdAt": "2024-05-10T04:39:38Z",
+      "headRefName": "main",
+      "mergedAt": "2024-05-10T08:16:14Z",
+      "number": 25,
+      "state": "MERGED",
+      "title": "[rosterizer] units can be traits; check there also",
+      "updatedAt": "2024-05-10T08:16:14Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/25"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Deleting a leader from a unit causes subsequent datacards for that unit to not be able to close.\r\nThis line allows that because the self ui is copied to global, so we have to change it in both places.\r\n\r\nIn theory this should also work for the color buttons, which are also broken, but doing it for the colors resulta in doubling the qty of colored buttons instead of overwriting.",
+      "closedAt": "2024-04-30T08:20:47Z",
+      "createdAt": "2024-04-30T04:58:25Z",
+      "headRefName": "main",
+      "mergedAt": "2024-04-30T08:20:47Z",
+      "number": 24,
+      "state": "MERGED",
+      "title": "Unbreak datacard close button when leader deleted",
+      "updatedAt": "2024-04-30T08:20:47Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/24"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Needed to flatten all the maps  & sets so I added a function, though it seems to be not preserving a \"node\" object; not sure if that's critical or not.",
+      "closedAt": "2024-04-28T16:13:50Z",
+      "createdAt": "2024-04-07T01:53:09Z",
+      "headRefName": "main",
+      "mergedAt": "2024-04-28T16:13:50Z",
+      "number": 23,
+      "state": "MERGED",
+      "title": "Single API endpoint for no-decision roster parsing",
+      "updatedAt": "2024-04-28T16:13:50Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/23"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2024-02-19T20:11:26Z",
+      "createdAt": "2024-02-18T23:14:44Z",
+      "headRefName": "main",
+      "mergedAt": "2024-02-19T20:11:26Z",
+      "number": 22,
+      "state": "MERGED",
+      "title": "Import user-specified names, if defined, for all assets",
+      "updatedAt": "2024-02-19T20:11:26Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/22"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Use safe property access to get the label, and fall back to designation if label isn't present.",
+      "closedAt": "2024-01-12T01:12:28Z",
+      "createdAt": "2024-01-11T01:13:46Z",
+      "headRefName": "main",
+      "mergedAt": "2024-01-12T01:12:28Z",
+      "number": 19,
+      "state": "MERGED",
+      "title": "Weapon labeling: [rosterizer] safer fallback",
+      "updatedAt": "2024-01-12T01:12:28Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/19"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "",
+      "closedAt": "2024-01-04T21:32:51Z",
+      "createdAt": "2024-01-03T09:32:02Z",
+      "headRefName": "main",
+      "mergedAt": "2024-01-04T21:32:51Z",
+      "number": 18,
+      "state": "MERGED",
+      "title": "[rosterizer] look for weapon names in: aspects.Label",
+      "updatedAt": "2024-01-04T21:32:52Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/18"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Rosterizer will be supporting attaching leaders to bodyguard units. I'm not sure how that would want to be done in YS (and I've seen concerns that it would be suboptimal to even try) so my preliminary solution is to recursively dig through the units to see if they contain any sub-units, and simply add those to the processing queue.",
+      "closedAt": "2023-09-19T17:00:04Z",
+      "createdAt": "2023-09-17T06:58:51Z",
+      "headRefName": "main",
+      "mergedAt": "2023-09-19T17:00:04Z",
+      "number": 16,
+      "state": "MERGED",
+      "title": "[rosterizer] discover sub-units recursively",
+      "updatedAt": "2023-09-19T17:00:04Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/16"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjU3NTY4Ng==",
+        "is_bot": false,
+        "login": "TheGameKnave",
+        "name": ""
+      },
+      "body": "Addressing https://github.com/ThePants999/Yellowscribe/issues/13",
+      "closedAt": "2023-08-04T10:26:05Z",
+      "createdAt": "2023-07-26T23:48:12Z",
+      "headRefName": "main",
+      "mergedAt": "2023-08-04T10:26:05Z",
+      "number": 14,
+      "state": "MERGED",
+      "title": "registry: use lineage to determine Unit-ness",
+      "updatedAt": "2023-08-04T10:26:05Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/14"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjI1ODI3MzA2",
+        "is_bot": false,
+        "login": "FChippendale",
+        "name": "Felix Chippendale"
+      },
+      "body": "## Addition of getUnitData method to the lua script attached to each TTS model\r\nThe aim of this is to allow read access of Yellowscribe unit data from other TTS objects. In particular, this feature is requested to allow for external \"No Prisoners\" and \"Bring It Down\" secondary wound total trackers to be created.\r\n\r\n",
+      "closedAt": "2023-01-24T23:17:23Z",
+      "createdAt": "2023-01-24T23:15:32Z",
+      "headRefName": "get_unit_data",
+      "mergedAt": "2023-01-24T23:17:23Z",
+      "number": 10,
+      "state": "MERGED",
+      "title": "add getUnitData() to tts models",
+      "updatedAt": "2023-01-24T23:17:23Z",
+      "url": "https://github.com/ThePants999/Yellowscribe/pull/10"
+    }
+  ]
+}
