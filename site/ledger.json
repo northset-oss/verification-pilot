@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T22:34:15.511Z",
+  "generated_at": "2026-07-16T22:49:40.312Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -549,7 +549,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -617,7 +617,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -685,7 +685,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -752,7 +752,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -820,7 +820,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -908,7 +908,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -996,7 +996,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1367,7 +1367,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1648,7 +1648,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1938,7 +1938,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2234,7 +2234,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2513,7 +2513,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2792,7 +2792,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3071,7 +3071,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3343,7 +3343,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3635,7 +3635,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3674,17 +3674,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:378a173ad385ca3dae0c34cbb753b089f380d2d99c0e7b48219fa3bc7ecb235b",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:307efa5bf1005173de6760660d9b6f9882b90d920706bf548c4a271e204485b4",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-147-378a173ad385/run-record-M-147-378a173ad385.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:26.958Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-147/",
         "target_repo": "https://github.com/datadave-dev/weftmap",
         "issue_or_task": "https://github.com/DataDave-Dev/weftmap/issues/34",
-        "publication_pr": null
+        "publication_pr": "https://github.com/DataDave-Dev/weftmap/pull/156"
       },
       "issue_title": "tree.delete() skipped on error path — wrap parse+extract in try/finally",
       "limitations": [
@@ -3694,11 +3694,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/DataDave-Dev/weftmap/pull/156",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -3890,8 +3890,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3917,7 +3917,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3956,17 +3956,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:f841aa982fd364859c8d65d880916c864bcaba95f6c980ba6a9ce2cc16a3c6cc",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:97471690589ab12a497fd5a89ba431613f48eaf8dd20dfdb083104dc4f68c44e",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-150-f841aa982fd3/run-record-M-150-f841aa982fd3.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:25.048Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-150/",
         "target_repo": "https://github.com/davidtkramer/typical-data",
         "issue_or_task": "https://github.com/davidtkramer/typical-data/issues/35",
-        "publication_pr": null
+        "publication_pr": "https://github.com/davidtkramer/typical-data/pull/42"
       },
       "issue_title": "Add error message when factory builder callback does not return the factory builder",
       "limitations": [
@@ -3976,11 +3976,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/davidtkramer/typical-data/pull/42",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -4172,8 +4172,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4199,7 +4199,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4238,17 +4238,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:e2d2f810827e65fd59ab9255ba6aa69fb2122e99dbf1d6d96aa83753e6eac603",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:1b718424be99791f0ec0a9b5072fcbc2d1e6c1902e7b03a7ce8a86a821c633ef",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-157-e2d2f810827e/run-record-M-157-e2d2f810827e.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:26.997Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-157/",
         "target_repo": "https://github.com/nandansai08/personal-ai",
         "issue_or_task": "https://github.com/Nandansai08/personal-ai/issues/28",
-        "publication_pr": null
+        "publication_pr": "https://github.com/Nandansai08/personal-ai/pull/44"
       },
       "issue_title": "Plugin loader: better error when export shape is wrong",
       "limitations": [
@@ -4258,11 +4258,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/Nandansai08/personal-ai/pull/44",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -4461,8 +4461,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4488,7 +4488,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4527,17 +4527,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:dbad450424fbf02ad09a07c216e7967bca3386150288b835d2947f66ddae4949",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:010243d56263e34e94767bbc7412f77954a9bcf3bf8f90e3e8a59e9daacc904c",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-160-dbad450424fb/run-record-M-160-dbad450424fb.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:25.794Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-160/",
         "target_repo": "https://github.com/dankeboy36/boardlab",
         "issue_or_task": "https://github.com/dankeboy36/boardlab/issues/26",
-        "publication_pr": null
+        "publication_pr": "https://github.com/dankeboy36/boardlab/pull/49"
       },
       "issue_title": "Show no undefined baudrate when it is not exposed by the monitor",
       "limitations": [
@@ -4547,11 +4547,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/dankeboy36/boardlab/pull/49",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -4750,8 +4750,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4777,7 +4777,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4816,17 +4816,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:d0d9dfc467c2718a53a961c2b686d639503b7ca63f3615b8895fb126196e0634",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:f4ffc0fde0e11c5ba3ddc89c12d981a3220cc6b6b44b5a72ac198cd83f6acf34",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-161-d0d9dfc467c2/run-record-M-161-d0d9dfc467c2.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:28.186Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-161/",
         "target_repo": "https://github.com/ahmed-175/notion-clone-nestjs",
         "issue_or_task": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/issues/25",
-        "publication_pr": null
+        "publication_pr": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/31"
       },
       "issue_title": "[Bug] Tab label changes incorrectly when switching tabs",
       "limitations": [
@@ -4836,11 +4836,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/Ahmed-175/Notion-Clone-Nestjs/pull/31",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -5039,8 +5039,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5066,7 +5066,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5105,17 +5105,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:f230958e2caea8d6759d90a00300964538d314c9c16842b4cd12ee42d5eadcca",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:e0cdd9f4a40597eb00d1091b6dd908083069116734a49e2de127c0ca73042544",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-167-f230958e2cae/run-record-M-167-f230958e2cae.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:26.832Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-167/",
         "target_repo": "https://github.com/cryptoteep/promptkit",
         "issue_or_task": "https://github.com/Cryptoteep/promptkit/issues/15",
-        "publication_pr": null
+        "publication_pr": "https://github.com/Cryptoteep/promptkit/pull/16"
       },
       "issue_title": "loader: friendlier error when importing .ts without a TS loader",
       "limitations": [
@@ -5125,11 +5125,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/Cryptoteep/promptkit/pull/16",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -5358,8 +5358,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5385,7 +5385,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5424,17 +5424,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:b106baa1d6bebdad58ae2100dff0241cd552b2eb4aa88e6326a6bc0f43f587ff",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:c2d982e8c56a71d77383d7b2a33a234f6091a75737a6022f4d9b4ea1b5e4fa38",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-168-b106baa1d6be/run-record-M-168-b106baa1d6be.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:24.995Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-168/",
         "target_repo": "https://github.com/ember-cli/ember-cli",
         "issue_or_task": "https://github.com/ember-cli/ember-cli/issues/7154",
-        "publication_pr": null
+        "publication_pr": "https://github.com/ember-cli/ember-cli/pull/11045"
       },
       "issue_title": "Incorrect \"Addon files were detected\" message",
       "limitations": [
@@ -5444,11 +5444,11 @@
         "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/ember-cli/ember-cli/pull/11045",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -5646,8 +5646,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5673,7 +5673,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5712,17 +5712,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:50b732ed85a295b042b3a1ac42d4a93aa4d29e0d5ff7b84fcdc26770515793e1",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:36d047dae3cfe12356a68d0398c7702d5ae38b6f4e694eb0ff108da5cab8fcf8",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-170-50b732ed85a2/run-record-M-170-50b732ed85a2.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:26.091Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-170/",
         "target_repo": "https://github.com/andrewgari/starbunk-js",
         "issue_or_task": "https://github.com/andrewgari/starbunk-js/issues/604",
-        "publication_pr": null
+        "publication_pr": "https://github.com/andrewgari/starbunk-js/pull/729"
       },
       "issue_title": "DJCova /stop command lacks specific error context",
       "limitations": [
@@ -5732,11 +5732,11 @@
         "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/andrewgari/starbunk-js/pull/729",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -5924,8 +5924,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5951,7 +5951,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5990,17 +5990,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:3ac13d74bf8a0d3e62d087beefbfb77e6ae3bf728cf9ea590af215dfced7ab94",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:389c985289edb73da68d1e498496cbc6f174349e0edfa062b0c00bb73aee4266",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-171-3ac13d74bf8a/run-record-M-171-3ac13d74bf8a.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:24.729Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-171/",
         "target_repo": "https://github.com/meilisearch/meilisearch-js-plugins",
         "issue_or_task": "https://github.com/meilisearch/meilisearch-js-plugins/issues/1365",
-        "publication_pr": null
+        "publication_pr": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502"
       },
       "issue_title": "Using instant search with hitsPerPage = 0 returns 1 result",
       "limitations": [
@@ -6010,11 +6010,11 @@
         "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -6218,8 +6218,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -6245,7 +6245,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:34:15.511Z",
+      "generated_at": "2026-07-16T22:49:40.312Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6284,17 +6284,17 @@
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
         "bundle_contents_digest": "sha256:4336cf789521039384d0a61c7ad4b6a3b8c644aa503a3d564a40ae5eace87f5a",
-        "signed_asset_sha256": null,
-        "attestation_uri": null,
-        "attestation_verified_at": null,
-        "provenance": "Signed provenance has not been verified."
+        "signed_asset_sha256": "sha256:f208b5838773e12407f556a788daa48194216ead0217f4dcef0cb8b76c6a1380",
+        "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-176-4336cf789521/run-record-M-176-4336cf789521.tar.gz",
+        "attestation_verified_at": "2026-07-16T22:49:26.547Z",
+        "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
       },
       "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
       "links": {
         "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-176/",
         "target_repo": "https://github.com/gr2m/github-project",
         "issue_or_task": "https://github.com/gr2m/github-project/issues/22",
-        "publication_pr": null
+        "publication_pr": "https://github.com/gr2m/github-project/pull/186"
       },
       "issue_title": "Throw helpful error when `number` option is invalid",
       "limitations": [
@@ -6304,11 +6304,11 @@
         "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions."
       ],
       "correction": null,
-      "scope_note": null,
+      "scope_note": "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions.",
       "upstream_outcome": {
-        "status": "prepared",
-        "link": null,
-        "attribution": "Recorded upstream outcome"
+        "status": "open",
+        "link": "https://github.com/gr2m/github-project/pull/186",
+        "attribution": "Live upstream pull request"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -6494,8 +6494,8 @@
         },
         "outcome": {
           "technical_checks_passed": true,
-          "pr_opened": false,
-          "ci_state": null,
+          "pr_opened": true,
+          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,

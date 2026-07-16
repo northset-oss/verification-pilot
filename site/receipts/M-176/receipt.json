@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:34:15.511Z",
+  "generated_at": "2026-07-16T22:49:40.312Z",
   "receipt_id": "M-176",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:4336cf789521039384d0a61c7ad4b6a3b8c644aa503a3d564a40ae5eace87f5a",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:f208b5838773e12407f556a788daa48194216ead0217f4dcef0cb8b76c6a1380",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-176-4336cf789521/run-record-M-176-4336cf789521.tar.gz",
+    "attestation_verified_at": "2026-07-16T22:49:26.547Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-176/",
     "target_repo": "https://github.com/gr2m/github-project",
     "issue_or_task": "https://github.com/gr2m/github-project/issues/22",
-    "publication_pr": null
+    "publication_pr": "https://github.com/gr2m/github-project/pull/186"
   },
   "issue_title": "Throw helpful error when `number` option is invalid",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/gr2m/github-project/pull/186",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -249,8 +249,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

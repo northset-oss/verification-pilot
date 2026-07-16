@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:34:15.511Z",
+  "generated_at": "2026-07-16T22:49:40.312Z",
   "receipt_id": "M-167",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -39,17 +39,17 @@
   "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
   "bundle": {
     "bundle_contents_digest": "sha256:f230958e2caea8d6759d90a00300964538d314c9c16842b4cd12ee42d5eadcca",
-    "signed_asset_sha256": null,
-    "attestation_uri": null,
-    "attestation_verified_at": null,
-    "provenance": "Signed provenance has not been verified."
+    "signed_asset_sha256": "sha256:e0cdd9f4a40597eb00d1091b6dd908083069116734a49e2de127c0ca73042544",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-167-f230958e2cae/run-record-M-167-f230958e2cae.tar.gz",
+    "attestation_verified_at": "2026-07-16T22:49:26.832Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
   },
   "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-167/",
     "target_repo": "https://github.com/cryptoteep/promptkit",
     "issue_or_task": "https://github.com/Cryptoteep/promptkit/issues/15",
-    "publication_pr": null
+    "publication_pr": "https://github.com/Cryptoteep/promptkit/pull/16"
   },
   "issue_title": "loader: friendlier error when importing .ts without a TS loader",
   "limitations": [
@@ -59,11 +59,11 @@
     "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
   ],
   "correction": null,
-  "scope_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
+    "status": "open",
+    "link": "https://github.com/Cryptoteep/promptkit/pull/16",
+    "attribution": "Live upstream pull request"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -292,8 +292,8 @@
     },
     "outcome": {
       "technical_checks_passed": true,
-      "pr_opened": false,
-      "ci_state": null,
+      "pr_opened": true,
+      "ci_state": "pending",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
