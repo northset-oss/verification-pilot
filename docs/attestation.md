@@ -10,12 +10,27 @@ work is good — see [Claims Boundary](../policies/claims_boundary.md).
 
 The `.github/workflows/attest-bundle.yml` workflow runs only after the named `ci` workflow
 completed successfully for a push to `main`. CI validates the repository and packages the exact
-handoff bytes. The signer never checks out or executes repository code. It:
+handoff bytes. One handoff contains zero to 50 changed missions, with one independently named
+tarball per mission. The signer does not check out a mutable worktree. It:
 
-1. downloads the artifact produced by that exact CI run and verifies its head SHA metadata,
-2. handles an explicit no-op marker when no bundle changed,
-3. validates the mission id and digest-qualified asset/tag names, and
-4. attests and releases the exact CI-produced tarball with pinned actions.
+1. resolves the before/head range from the exact successful run's platform artifact name and
+   downloads only that matching artifact,
+2. fetches those Git objects into a bare repository and independently derives the exact changed
+   mission set,
+3. checks the embedded verifier against SHA-256 values pinned in the workflow before running it,
+4. verifies both range SHAs, the exact metadata/artifact/mission sets, and every digest-qualified
+   asset and tag,
+5. safely inspects each archive, checks its mission identity, manifest, file hashes and recomputed
+   bundle digest, and compares every archived path, mode and byte with the resolved head Git tree,
+6. exits on the explicit no-op metadata when no bundle changed,
+7. attests every tarball in one pinned action invocation, and
+8. publishes each unchanged tarball under its metadata-bound mission release tag.
+
+CI builds each archive directly from the resolved head Git tree, so ignored files and mutable
+working-tree or index-hidden bytes cannot enter a head-bound handoff. The metadata and tarballs
+are deterministic for a fixed source snapshot. A one-mission push is a
+one-item batch with the same `run-record-M-XXX-<digest-prefix>.tar.gz` asset and
+`run-record-M-XXX-<digest-prefix>` release conventions. Existing releases are not renamed.
 
 Public-repository attestations are written to the public transparency log, so anyone can verify
 them without any Northset infrastructure or trust.

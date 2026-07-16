@@ -60,7 +60,7 @@ a specific commit and hasn't been altered, without trusting us. Grab any bundle 
 (the **Attested** links) and check it yourself:
 
 ```
-gh attestation verify run-record-M-008.tar.gz \
+gh attestation verify run-record-M-031-5a774731726a.tar.gz \
   --repo northset-oss/verification-pilot \
   --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml
 ```
@@ -208,7 +208,8 @@ Node.js + the built-in test runner):
 | `lib/ledger.mjs` + `bin/ledger.mjs` | Builds the public mission ledger and its static page | [docs/ledger.md](docs/ledger.md) |
 | `lib/economic-identity.mjs` | Validates, finalizes, and projects factual task economics | [docs/economic-identity.md](docs/economic-identity.md) |
 | `lib/pr-receipt-disclosure.mjs` + `bin/pr-receipt-disclosure.mjs` | Checks and safely synchronizes the one-link contributor PR-body disclosure | [docs/pr-receipt-disclosure.md](docs/pr-receipt-disclosure.md) |
-| `.github/workflows/attest-bundle.yml` | Signs a bundle with GitHub artifact attestations | [docs/attestation.md](docs/attestation.md) |
+| `lib/signing-handoff.mjs` + `bin/signing-handoff.mjs` | Packages zero-to-50 HEAD-tree bundles and independently verifies their range, archive contents, and exact bytes while retaining one artifact per receipt | [docs/attestation.md](docs/attestation.md) |
+| `.github/workflows/attest-bundle.yml` | Attests exact per-mission bundles together, then publishes each under its receipt-specific release | [docs/attestation.md](docs/attestation.md) |
 
 Run the test suite with `node --test`.
 
