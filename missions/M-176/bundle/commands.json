@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "./node_modules/.bin/ava test/constructor.test.js"
+  ]
+}

@@ -1,0 +1,1 @@
+=== cmd 1: ./node_modules/.bin/ava test/constructor.test.js ===

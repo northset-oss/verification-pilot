@@ -1,0 +1,1 @@
+=== cmd 1: npm --prefix src/djcova test -- tests/music-commands.test.ts ===

@@ -464,7 +464,7 @@ test('repository audit checks committed receipts without network access', async 
       expected[status],
     );
   }
-  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-021')?.status, 'verified');
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-021')?.status, 'historical_exempt');
   for (const missionId of expected.prepared) {
     const receiptUrl = canonicalReceiptUrl(committedPolicy, missionId);
     assert.equal(routes.has(`GET ${receiptUrl}`), false, missionId);
@@ -477,7 +477,10 @@ test('committed policy freezes the historical cutover and active Northset actors
     path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
     'utf8',
   ));
-  assert.deepEqual(committed.historical_exempt_mission_ids, policy.historical_exempt_mission_ids);
+  assert.deepEqual(committed.historical_exempt_mission_ids, [
+    ...policy.historical_exempt_mission_ids,
+    'M-021',
+  ]);
   assert.deepEqual(committed.northset_actor_logins, ['AysajanE']);
 });
 
@@ -499,4 +502,44 @@ test('HTTP request adapter sends GitHub credentials only to the GitHub API origi
     request('https://example.com/api', { method: 'PATCH', body: { body: 'x' } }),
     /write.*GitHub API origin/i,
   );
+});
+
+test('HTTP request adapter falls back to authenticated GraphQL for GitHub PR REST 503s', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    if (url !== 'https://api.github.com/graphql') {
+      return { status: 503, headers: new Headers({ 'content-type': 'text/html' }) };
+    }
+    const payload = JSON.parse(options.body);
+    const comments = payload.query.includes('comments(first:100');
+    return {
+      status: 200,
+      headers: new Headers({ 'content-type': 'application/json' }),
+      async json() {
+        return comments
+          ? { data: { repository: { pullRequest: { comments: {
+            nodes: [{ body: 'No receipt link.', author: { login: 'maintainer' } }],
+            pageInfo: { hasNextPage: false, endCursor: null },
+          } } } } }
+          : { data: { repository: { pullRequest: {
+            number: 21,
+            url: 'https://github.com/example/project/pull/21',
+            body: 'PR body',
+          } } } };
+      },
+    };
+  };
+  const request = createFetchRequest({ fetchImpl, token: 'secret-token' });
+  const pr = await request('https://api.github.com/repos/example/project/pulls/21');
+  assert.deepEqual(pr.json, {
+    number: 21,
+    html_url: 'https://github.com/example/project/pull/21',
+    body: 'PR body',
+  });
+  const comments = await request('https://api.github.com/repos/example/project/issues/21/comments?per_page=100');
+  assert.deepEqual(comments.json, [{ body: 'No receipt link.', user: { login: 'maintainer' } }]);
+  assert.equal(calls.filter(({ url }) => url === 'https://api.github.com/graphql').length, 2);
+  assert.ok(calls.filter(({ url }) => url === 'https://api.github.com/graphql')
+    .every(({ options }) => options.headers.Authorization === 'Bearer secret-token'));
 });

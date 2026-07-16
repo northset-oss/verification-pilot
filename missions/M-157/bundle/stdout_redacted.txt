@@ -1,0 +1,17 @@
+=== cmd 1: npm test -- tests/plugins/manager.test.ts ===
+
+> @nandansai08/personal-ai@1.0.0 test
+> vitest run tests/plugins/manager.test.ts
+
+
+[1m[46m RUN [49m[22m [36mv3.2.6 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/plugins/manager.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 4163[2mms[22m[39m
+   [33m[2m✓[22m[39m PluginManager[2m > [22mruns beforePrompt and afterResponse hook chains [33m 2020[2mms[22m[39m
+   [33m[2m✓[22m[39m PluginManager[2m > [22ma timing-out hook falls back to the previous value and bumps failures [33m 2030[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 21:41:25
+[2m   Duration [22m 7.93s[2m (transform 625ms, setup 0ms, collect 684ms, tests 4.16s, environment 0ms, prepare 797ms)[22m
+

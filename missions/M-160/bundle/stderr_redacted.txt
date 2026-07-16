@@ -1,0 +1,1 @@
+=== cmd 1: NODE_OPTIONS="--import=data:text/javascript,globalThis.__dirname=process.cwd()" npm --prefix packages/webviews/monitor test -- --configLoader runner --run src/features/app/MonitorSendBar.test.jsx ===

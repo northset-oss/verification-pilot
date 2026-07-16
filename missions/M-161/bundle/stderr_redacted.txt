@@ -1,0 +1,10 @@
+=== cmd 1: npm --prefix apps/frontend test -- --runInBand --runTestsByPath 'app/(protected)/note/[id]/page.test.tsx' --moduleNameMapper '{"^react$":"<rootDir>/node_modules/react","^react-dom$":"<rootDir>/node_modules/react-dom","^@/(.*)$":"<rootDir>/$1"}' ===
+PASS app/(protected)/note/[id]/page.test.tsx
+  Note page
+    ✓ updates the fetched note's tab label when another tab is active (65 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        5.337 s
+Ran all test suites within paths "app/(protected)/note/[id]/page.test.tsx".

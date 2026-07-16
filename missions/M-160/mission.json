@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-160",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "dankeboy36 maintainers",
+  "target_repo": "https://github.com/dankeboy36/boardlab",
+  "issue_or_task": "https://github.com/dankeboy36/boardlab/issues/26",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/dankeboy36/boardlab/blob/38c7b766a48bb9e06b85964c7732c40b78597ffc/README.md",
+    "checked_at": "2026-07-16T19:53:05Z",
+    "ai_policy_summary": "The owner-authored good-first issue is open and unassigned with no claim or related PR; no extra CLA, DCO, AI, or pre-claim requirement was found."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "38c7b766a48bb9e06b85964c7732c40b78597ffc",
+  "patch_commit": "da84e2d8b8daa4ae1ce3ac4fd5182802996cb7ec",
+  "patch_diff_hash": "sha256:c0bd011c96ef561e267c40b2b1e261dd70981b3dd3ed398fa5191588fa14a2e1",
+  "commands_declared": [
+    "NODE_OPTIONS=\"--import=data:text/javascript,globalThis.__dirname=process.cwd()\" npm --prefix packages/webviews/monitor test -- --configLoader runner --run src/features/app/MonitorSendBar.test.jsx"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ]
+}

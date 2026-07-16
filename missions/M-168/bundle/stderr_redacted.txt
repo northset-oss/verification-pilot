@@ -1,0 +1,1 @@
+=== cmd 1: node node_modules/mocha/bin/mocha.js --require ./tests/bootstrap.js tests/unit/models/addon-test.js --fgrep 'does not require a JavaScript preprocessor for an addon tree containing only .gitkeep files' ===

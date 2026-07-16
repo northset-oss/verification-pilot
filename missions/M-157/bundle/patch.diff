@@ -1,0 +1,63 @@
+diff --git a/src/plugins/loader.ts b/src/plugins/loader.ts
+index 0d29ad1582722bf3bc3bddacdd6156cdef231334..360c2704ee0adb4497ed864b4616ef72aa780829 100644
+--- a/src/plugins/loader.ts
++++ b/src/plugins/loader.ts
+@@ -105,7 +105,13 @@ export async function importPlugin(dir: string, manifest: PluginManifest): Promi
+       { default?: PersonalAIPlugin; plugin?: PersonalAIPlugin }
+     const plugin = mod.default ?? mod.plugin
+     if (!plugin || typeof plugin.name !== 'string') {
+-      return { ok: false, error: 'module must export a PersonalAIPlugin as default or `plugin`' }
++      const availableExports = Object.keys(mod).join(', ')
++      const candidate = mod.default != null ? 'default' : mod.plugin != null ? '`plugin`' : undefined
++      const missingField = candidate ? `; ${candidate} export is missing required field: name` : ''
++      return {
++        ok: false,
++        error: `module must export a PersonalAIPlugin as default or \`plugin\`; available exports: ${availableExports}${missingField}`,
++      }
+     }
+     return { ok: true, plugin }
+   } catch (err) {
+diff --git a/tests/plugins/manager.test.ts b/tests/plugins/manager.test.ts
+index 68973c618e92376b73d9c5d6314ac8bcffb7d82a..838d6dab8784cdaec72a01a32cd99a788aa026f4 100644
+--- a/tests/plugins/manager.test.ts
++++ b/tests/plugins/manager.test.ts
+@@ -4,7 +4,7 @@ import fs from 'node:fs'
+ import path from 'node:path'
+ import os from 'node:os'
+ import { PluginManager } from '../../src/plugins/manager.js'
+-import { validateManifest } from '../../src/plugins/loader.js'
++import { importPlugin, validateManifest } from '../../src/plugins/loader.js'
+ import { ToolRegistry } from '../../src/tools/registry.js'
+ 
+ const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'pai-plugins-'))
+@@ -75,6 +75,30 @@ describe('manifest validation', () => {
+   })
+ })
+ 
++describe('plugin imports', () => {
++  it('reports available exports and a missing name on the default candidate', async () => {
++    const manifest = {
++      name: 'invalid-export', version: '1.0.0', description: 'invalid', main: './index.js', enabled: true,
++    }
++    writePlugin('invalid-export', manifest, `
++      export default { version: '1.0.0', description: 'missing name' }
++      export const helper = 'not a plugin'
++    `)
++
++    const pluginDir = path.join(tmpRoot, 'invalid-export')
++    try {
++      const result = await importPlugin(pluginDir, manifest)
++
++      expect(result).toEqual({
++        ok: false,
++        error: 'module must export a PersonalAIPlugin as default or `plugin`; available exports: default, helper; default export is missing required field: name',
++      })
++    } finally {
++      fs.rmSync(pluginDir, { recursive: true, force: true })
++    }
++  })
++})
++
+ describe('PluginManager', () => {
+   it('loads enabled valid plugins, skips invalid and disabled ones', async () => {
+     const registry = new ToolRegistry()

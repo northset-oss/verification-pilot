@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm --prefix src/djcova test -- tests/music-commands.test.ts"
+  ]
+}

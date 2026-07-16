@@ -1,0 +1,53 @@
+diff --git a/src/__tests__/factory.test.ts b/src/__tests__/factory.test.ts
+index 1c5b26dd27c11a1f6b57499daaa9708d9c603afe..49dcf97eb41607fe6381b06417107d9d522dd4eb 100644
+--- a/src/__tests__/factory.test.ts
++++ b/src/__tests__/factory.test.ts
+@@ -1,6 +1,30 @@
+ import { beforeEach, describe, expect, it } from 'vitest';
+ import { createFactory } from '../factory.js';
+ 
++describe('createFactory', () => {
++  it('throws when the factory-builder callback returns undefined', () => {
++    const invalidFactoryBuilderCallback = () => undefined;
++
++    expect(() =>
++      // @ts-expect-error - exercise invalid runtime callback behavior
++      createFactory(invalidFactoryBuilderCallback)
++    ).toThrowError(
++      'The factory-builder callback must return the supplied factory builder.'
++    );
++  });
++
++  it('throws when the factory-builder callback returns a different value', () => {
++    const invalidFactoryBuilderCallback = () => ({});
++
++    expect(() =>
++      // @ts-expect-error - exercise invalid runtime callback behavior
++      createFactory(invalidFactoryBuilderCallback)
++    ).toThrowError(
++      'The factory-builder callback must return the supplied factory builder.'
++    );
++  });
++});
++
+ describe('build', () => {
+   type User = {
+     id: number;
+diff --git a/src/factory.ts b/src/factory.ts
+index b7d9c15122cc62878d8c3d9b52ac561d5a2eff10..f8add5b2a39520fb72293f5a72f7a907a10a1e96 100644
+--- a/src/factory.ts
++++ b/src/factory.ts
+@@ -296,7 +296,12 @@ export function createFactory<
+ 
+   if (typeof attributesOrBuilder === 'function') {
+     const factoryBuilder = createFactoryBuilder(definition);
+-    attributesOrBuilder(factoryBuilder);
++    const returnedFactoryBuilder = attributesOrBuilder(factoryBuilder);
++    if (returnedFactoryBuilder !== factoryBuilder) {
++      throw new Error(
++        'The factory-builder callback must return the supplied factory builder.'
++      );
++    }
+   } else {
+     definition.attributeDefaults = attributesOrBuilder;
+   }

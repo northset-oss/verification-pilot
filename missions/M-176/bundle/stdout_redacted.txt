@@ -1,0 +1,9 @@
+=== cmd 1: ./node_modules/.bin/ava test/constructor.test.js ===
+
+  ✔ constructor
+  ✔ constructor with custom fields
+  ✔ constructor with token
+  ✔ rejects NaN as the number option
+  ─
+
+  4 tests passed

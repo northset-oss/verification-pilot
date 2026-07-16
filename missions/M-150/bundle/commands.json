@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm test -- --configLoader runner src/__tests__/factory.test.ts"
+  ]
+}

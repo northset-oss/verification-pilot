@@ -1,0 +1,81 @@
+diff --git a/apps/frontend/app/(protected)/note/[id]/page.test.tsx b/apps/frontend/app/(protected)/note/[id]/page.test.tsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..61462b0dba8b651dcc1dfd0ce524d03c19befc0c
+--- /dev/null
++++ b/apps/frontend/app/(protected)/note/[id]/page.test.tsx
+@@ -0,0 +1,57 @@
++import { render, waitFor } from "@testing-library/react";
++import useTab from "@/features/workspace/hooks/useTab";
++import useAuth from "@/hooks/useAuth";
++import useNote from "@/hooks/useNote";
++import NotePage from "./page";
++
++jest.mock("@/components/Note/Banner", () => () => null);
++jest.mock("@/components/Note/Properties", () => () => null);
++jest.mock("@/components/Note/TitleNote", () => () => null);
++jest.mock("@/features/editor/components/Editor", () => () => null);
++jest.mock("@/features/preview/components/Preview", () => () => null);
++jest.mock("@/features/editor/context/Editor.context", () => ({
++  __esModule: true,
++  default: ({ children }: { children: React.ReactNode }) => children,
++}));
++jest.mock("@/features/presence/context/presence.context", () => ({
++  __esModule: true,
++  default: ({ children }: { children: React.ReactNode }) => children,
++}));
++jest.mock("@/features/workspace/hooks/useTab");
++jest.mock("@/hooks/useAuth");
++jest.mock("@/hooks/useNote");
++
++describe("Note page", () => {
++  const setLabel = jest.fn();
++
++  beforeEach(() => {
++    jest.clearAllMocks();
++    (useTab as jest.Mock).mockReturnValue({
++      activeTabId: "note:active-note-id",
++      setLabel,
++    });
++    (useAuth as jest.Mock).mockReturnValue({ user: { _id: "owner-id" } });
++    (useNote as jest.Mock).mockReturnValue({
++      note: {
++        _id: "fetched-note-id",
++        title: "Fetched note title",
++        ownerId: "owner-id",
++      },
++    });
++  });
++
++  it("updates the fetched note's tab label when another tab is active", async () => {
++    render(<NotePage />);
++
++    await waitFor(() => {
++      expect(setLabel).toHaveBeenCalledWith(
++        "note:fetched-note-id",
++        "Fetched note title",
++      );
++    });
++    expect(setLabel).not.toHaveBeenCalledWith(
++      "note:active-note-id",
++      "Fetched note title",
++    );
++  });
++});
+diff --git a/apps/frontend/app/(protected)/note/[id]/page.tsx b/apps/frontend/app/(protected)/note/[id]/page.tsx
+index 936db28473505ec7245d7407ae6aff1be4bef2d7..85a074a875e1bfcd403786aca56da00d603773cf 100644
+--- a/apps/frontend/app/(protected)/note/[id]/page.tsx
++++ b/apps/frontend/app/(protected)/note/[id]/page.tsx
+@@ -15,10 +15,10 @@ const page = () => {
+     const { note } = useNote();
+     const { user } = useAuth();
+     const [editable, setEditable] = useState(false)
+-    const { setLabel, activeTabId } = useTab();
++    const { setLabel } = useTab();
+     useEffect(() => {
+-        if (note && activeTabId) {
+-            setLabel(activeTabId, note.title);
++        if (note) {
++            setLabel(`note:${note._id}`, note.title);
+             const isOwer = note.ownerId == user._id
+             if (note.ownerId == user._id) {
+                 setEditable(true)

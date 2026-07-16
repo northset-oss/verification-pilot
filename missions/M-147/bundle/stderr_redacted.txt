@@ -1,0 +1,1 @@
+=== cmd 1: npm test -- src/lib/analysis/analyzers/shared.test.ts ===

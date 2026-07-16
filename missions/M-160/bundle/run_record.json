@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T21:48:58.732Z",
+  "finished_at": "2026-07-16T21:51:15.820Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "38c7b766a48bb9e06b85964c7732c40b78597ffc",
+    "base_tree_digest": "sha256:c810d002056e76118821498decf994e0ed47b1f31a69cfb786f4c2d71612642e",
+    "pre_check_tree_digest": "sha256:b3143de5dbd1e62cde484d5a608ad8b228c7834ec4a5acf279e7c617f0a27e50",
+    "approved_tracked_tree_digest": "sha256:4a5bb558a369bb00d62489f13f64164a9e42496a49acb43af819a60e8341b57c",
+    "post_check_tree_digest": "sha256:4674dea7a76abbb9a04852b8c9682c772f3ffa3cf654d15c99c7cec655537d7c",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:c0bd011c96ef561e267c40b2b1e261dd70981b3dd3ed398fa5191588fa14a2e1",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "NODE_OPTIONS=\"--import=data:text/javascript,globalThis.__dirname=process.cwd()\" npm --prefix packages/webviews/monitor test -- --configLoader runner --run src/features/app/MonitorSendBar.test.jsx",
+      "exit_code": 0,
+      "duration_ms": 8089
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 69297,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 8089,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

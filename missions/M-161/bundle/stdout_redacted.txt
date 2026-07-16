@@ -1,0 +1,5 @@
+=== cmd 1: npm --prefix apps/frontend test -- --runInBand --runTestsByPath 'app/(protected)/note/[id]/page.test.tsx' --moduleNameMapper '{"^react$":"<rootDir>/node_modules/react","^react-dom$":"<rootDir>/node_modules/react-dom","^@/(.*)$":"<rootDir>/$1"}' ===
+
+> frontend@0.1.0 test
+> jest --runInBand --runTestsByPath app/(protected)/note/[id]/page.test.tsx --moduleNameMapper {"^react$":"<rootDir>/node_modules/react","^react-dom$":"<rootDir>/node_modules/react-dom","^@/(.*)$":"<rootDir>/$1"}
+

@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm test -- tests/plugins/manager.test.ts"
+  ]
+}

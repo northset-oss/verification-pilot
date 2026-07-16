@@ -1,0 +1,70 @@
+{
+  "fetched_at": "2026-07-16T21:33:08Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "OWNER",
+    "body": "Current error: `module must export a PersonalAIPlugin as default or 'plugin'`. Doesn't say what was exported.\n\n**Acceptance criteria:**\n- Error message includes `Object.keys(mod).join(', ')`\n- If a likely candidate exists (e.g. `default` exported but lacks `name`), mention which required field is missing\n\nFiles: `src/plugins/loader.ts`\n\nDifficulty: 🟢 easy",
+    "created_at": "2026-06-16T17:06:50Z",
+    "html_url": "https://github.com/Nandansai08/personal-ai/issues/28",
+    "labels": [
+      "bug",
+      "good first issue",
+      "plugins"
+    ],
+    "number": 28,
+    "state": "open",
+    "title": "Plugin loader: better error when export shape is wrong",
+    "updated_at": "2026-06-16T17:06:50Z",
+    "user": "Nandansai08"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "main",
+    "fork": false,
+    "html_url": "https://github.com/Nandansai08/personal-ai"
+  },
+  "default_branch_head": "e50a1befede455916214f2fc79bd0e017e5fef2a",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "U_kgDODV-rFg",
+        "is_bot": false,
+        "login": "Nandansai08",
+        "name": "Chigurupati Nandan Sai"
+      },
+      "body": "## What\n\nAdded `.github/FUNDING.yml` to configure GitHub Sponsors funding model for the repository, specifying `Nandansai08` as the supported funding account.\n\n## Why\n\nThis enables GitHub to display a \"Sponsor\" button on the repository, making it easier for users to support the project maintainer through GitHub Sponsors.\n\n## Checklist\n- [x] No code changes requiring tests\n- [x] No TypeScript compilation needed\n- [x] No linting required for configuration file\n- [x] Configuration file only (no provider SDK imports)\n- [x] N/A - Configuration change\n- [x] N/A - Configuration change\n\nhttps://claude.ai/code/session_011r61pfxZXzSAm5WrT2dSfK",
+      "closedAt": "2026-07-03T13:39:23Z",
+      "createdAt": "2026-07-03T13:31:17Z",
+      "headRefName": "claude/nice-meitner-iki8fw",
+      "mergedAt": "2026-07-03T13:39:23Z",
+      "number": 43,
+      "state": "MERGED",
+      "title": "Add GitHub Sponsors funding configuration",
+      "updatedAt": "2026-07-03T13:39:27Z",
+      "url": "https://github.com/Nandansai08/personal-ai/pull/43"
+    },
+    {
+      "author": {
+        "id": "U_kgDOCdPeGQ",
+        "is_bot": false,
+        "login": "WilliamK112",
+        "name": "Ching Wei Kang"
+      },
+      "body": "## Summary\n- add docs/INSTALL.md with macOS, Linux, and Windows troubleshooting sections\n- cover Gatekeeper/Ollama startup, native dependency build tools, Linux SELinux labels, Windows ARM64, PowerShell policy, and Ollama PATH fixes\n- link the troubleshooting page from the README quick start/install section\n\nFixes #5\n\n## Validation\n- npm ci\n- npm run lint\n- npm run typecheck\n- npm test, 215 passed\n- npm run build\n- git diff --check\r\n",
+      "closedAt": "2026-06-17T02:56:01Z",
+      "createdAt": "2026-06-16T23:33:18Z",
+      "headRefName": "docs/install-troubleshooting",
+      "mergedAt": "2026-06-17T02:56:01Z",
+      "number": 42,
+      "state": "MERGED",
+      "title": "docs: add install troubleshooting guide",
+      "updatedAt": "2026-06-17T02:56:02Z",
+      "url": "https://github.com/Nandansai08/personal-ai/pull/42"
+    }
+  ]
+}

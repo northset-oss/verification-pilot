@@ -1,0 +1,53 @@
+diff --git a/packages/webviews/monitor-shared/src/serial-monitor/MonitorSendBar.jsx b/packages/webviews/monitor-shared/src/serial-monitor/MonitorSendBar.jsx
+index 07f713448fc9764f654bc36693f4385aa868275b..c1df66429b98e0aef8206d7b91e0e3b59ab0139b 100644
+--- a/packages/webviews/monitor-shared/src/serial-monitor/MonitorSendBar.jsx
++++ b/packages/webviews/monitor-shared/src/serial-monitor/MonitorSendBar.jsx
+@@ -72,7 +72,7 @@ function MonitorSendBar({ client, lineEnding }) {
+   })()
+ 
+   let sendPlaceholder = selectedPort
+-    ? `Message (Enter to send; append ${lineEndingDescription}, ${selectedPort.address}, baudrate: ${selectedBaudrate})`
++    ? `Message (Enter to send; append ${lineEndingDescription}, ${selectedPort.address}${selectedBaudrate ? `, baudrate: ${selectedBaudrate}` : ''})`
+     : 'Select a port to send'
+ 
+   let sendDisabled = !selectedPort
+diff --git a/packages/webviews/monitor/src/features/app/MonitorSendBar.test.jsx b/packages/webviews/monitor/src/features/app/MonitorSendBar.test.jsx
+index b2faf51d6928c548c2b8b5d9999c43d596072561..6179ed53ab3b14d137959ff38fd2133c39b9b5c5 100644
+--- a/packages/webviews/monitor/src/features/app/MonitorSendBar.test.jsx
++++ b/packages/webviews/monitor/src/features/app/MonitorSendBar.test.jsx
+@@ -136,6 +136,35 @@ describe('MonitorSendBar', () => {
+     expect(pointerEventsOf(sendIcon)).not.toBe('none')
+   })
+ 
++  it('omits the baudrate for ports without baudrate support', () => {
++    const port = {
++      protocol: 'teensy',
++      address: 'usb:1000000',
++    }
++    const portKey = createPortKey(port)
++    const placeholder = 'Message (Enter to send; append LF, usb:1000000)'
++
++    withSerialMonitorState({
++      selectedPort: port,
++      selectedBaudrates: [],
++      detectedPorts: {
++        [portKey]: { port },
++      },
++      sessionStates: {
++        [portKey]: makeSessionState({
++          portKey,
++          port,
++          status: 'active',
++          desired: 'running',
++          lastCompletedAttemptId: 1,
++        }),
++      },
++    })
++
++    const textarea = screen.getByPlaceholderText(placeholder)
++    expect(textarea).toHaveAttribute('placeholder', placeholder)
++  })
++
+   it('shows suspended UI while started and waiting for device', () => {
+     vi.useFakeTimers()
+     withSerialMonitorState({

@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-167",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "cryptoteep maintainers",
+  "target_repo": "https://github.com/cryptoteep/promptkit",
+  "issue_or_task": "https://github.com/Cryptoteep/promptkit/issues/15",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/cryptoteep/promptkit/blob/471a5a12ccc364c68196fc13f2c1fc3c3ce375ea/CONTRIBUTING.md",
+    "checked_at": "2026-07-16T21:52:58.283Z",
+    "ai_policy_summary": "The repository requires a focused contribution, relevant tests and documentation, Conventional Commits, and no unjustified runtime dependency; no CLA, DCO, or AI prohibition was identified."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "471a5a12ccc364c68196fc13f2c1fc3c3ce375ea",
+  "patch_commit": "85a8363a75f70d80d837205f89f9716b3caf179d",
+  "patch_diff_hash": "sha256:6f531965f335cd27e987e7bb253da2fee90687665dfcc057ddd8dcbd2361ade8",
+  "commands_declared": [
+    "ln -s \"$PWD/node_modules\" /tmp/node_modules && cp vitest.config.ts /tmp/vitest.config.ts && npm test -- --config /tmp/vitest.config.ts --root \"$PWD\" --no-cache tests/loader.test.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ]
+}
