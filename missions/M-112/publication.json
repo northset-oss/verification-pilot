@@ -4,17 +4,17 @@
   "state": "open",
   "pr_number": 160,
   "pr_url": "https://github.com/Dreamstick9/filedrop/pull/160",
-  "pr_head_oid": "85f57f1ee66eebbddbd41ce89ada31a413437593",
+  "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103",
   "base_branch": "main",
-  "head_drift": false,
-  "ci_state": "pending",
+  "head_drift": true,
+  "ci_state": "success",
   "merge_commit_oid": null,
   "review_decision": null,
   "decision_url": null,
   "opened_at": "2026-07-16T19:25:14Z",
   "closed_at": null,
-  "updated_at": "2026-07-16T19:25:14Z",
-  "observed_at": "2026-07-16T19:25:16.211Z",
+  "updated_at": "2026-07-17T11:44:47Z",
+  "observed_at": "2026-07-17T11:46:25.756Z",
   "correction_note": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -26,6 +26,6 @@
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
-    "verified_at": "2026-07-16T19:25:16.211Z"
+    "verified_at": "2026-07-17T11:46:25.756Z"
   }
 }

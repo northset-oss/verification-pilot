@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T22:49:40.312Z",
+  "generated_at": "2026-07-17T11:46:44.754Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -269,7 +269,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -544,12 +544,12 @@
         "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "attribution": "Linked maintainer review",
         "head_drift": true,
-        "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb"
+        "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832"
       }
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -617,7 +617,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -685,7 +685,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -752,7 +752,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -820,7 +820,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -908,7 +908,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -996,7 +996,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1367,7 +1367,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1648,7 +1648,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1938,7 +1938,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2234,7 +2234,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2297,7 +2297,9 @@
       "upstream_outcome": {
         "status": "open",
         "link": "https://github.com/Dreamstick9/filedrop/pull/160",
-        "attribution": "Live upstream pull request"
+        "attribution": "Live upstream pull request",
+        "head_drift": true,
+        "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -2487,7 +2489,7 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
+          "ci_state": "success",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -2513,7 +2515,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2792,7 +2794,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3071,7 +3073,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3343,7 +3345,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3635,7 +3637,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3891,7 +3893,7 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
+          "ci_state": "success",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3917,7 +3919,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4199,7 +4201,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4488,7 +4490,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4751,7 +4753,7 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
+          "ci_state": "failure",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4777,7 +4779,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5066,7 +5068,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5385,7 +5387,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5673,7 +5675,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5951,7 +5953,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6219,7 +6221,7 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
+          "ci_state": "failure",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -6245,7 +6247,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-16T22:49:40.312Z",
+      "generated_at": "2026-07-17T11:46:44.754Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,

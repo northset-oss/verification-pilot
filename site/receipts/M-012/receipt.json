@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-16T22:49:40.312Z",
+  "generated_at": "2026-07-17T11:46:44.754Z",
   "receipt_id": "M-012",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -65,6 +65,6 @@
     "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
     "attribution": "Linked maintainer review",
     "head_drift": true,
-    "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb"
+    "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832"
   }
 }
