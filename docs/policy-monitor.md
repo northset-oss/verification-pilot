@@ -1,9 +1,12 @@
 # Policy monitor
 
 The policy monitor checks candidate contribution and AI-policy paths in target GitHub
-repositories. It records each existing file's Git blob SHA and compares that fresh map with a
-stored snapshot. A missing path (`404`) is normal; other GitHub API failures appear as warning
-results.
+repositories, plus selected public policy documents hosted on `docs.github.com`. It records each
+existing repository file's Git blob SHA and each document's Markdown representation SHA-256
+digest, then compares the fresh maps with a stored snapshot. Requesting Markdown avoids false
+alerts when GitHub deploys a new rendered site shell. A missing repository path (`404`) is normal;
+other request failures appear as warning results. GitHub credentials are sent only to
+`api.github.com`, never to document-page requests.
 
 This is a separate candidate watchlist. It is not ongoing monitoring of every repository named
 in the public ledger and is not evidence that a ledger counterparty's policy is unchanged. Future
@@ -32,5 +35,5 @@ node bin/policy-monitor.mjs check \
 ```
 
 The weekly GitHub Actions workflow uses read-only repository permissions, writes changed keys to
-the job summary, and exits with status `2` to leave a visible signal. It never commits snapshot
-updates.
+the job summary, uploads the complete JSON report for 90 days, and exits with status `2` to leave
+a visible signal. It never commits snapshot updates.

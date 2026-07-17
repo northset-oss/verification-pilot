@@ -17,7 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          report_file="$(mktemp)"
+          report_file="policy-monitor/report.json"
           set +e
           node bin/policy-monitor.mjs check \
             --targets policy-monitor/targets.json \
@@ -33,3 +33,12 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
           exit "$status"
+
+      - name: Preserve the dated policy snapshot report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: policy-monitor-${{ github.run_id }}
+          path: policy-monitor/report.json
+          if-no-files-found: warn
+          retention-days: 90
