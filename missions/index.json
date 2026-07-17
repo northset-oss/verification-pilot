@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-16T22:49:40.312Z",
+  "generated_at": "2026-07-17T11:46:44.754Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1059,7 +1059,7 @@
         "state": "open",
         "pr_number": 901,
         "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-        "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
+        "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832",
         "base_branch": "main",
         "head_drift": true,
         "ci_state": "success",
@@ -1068,8 +1068,8 @@
         "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
-        "updated_at": "2026-07-15T15:55:38Z",
-        "observed_at": "2026-07-15T15:59:48.453Z",
+        "updated_at": "2026-07-17T11:06:46Z",
+        "observed_at": "2026-07-17T11:46:16.201Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1157,7 +1157,7 @@
           "state": "open",
           "pr_number": 901,
           "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-          "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb",
+          "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832",
           "base_branch": "main",
           "head_drift": true,
           "ci_state": "success",
@@ -1166,8 +1166,8 @@
           "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "opened_at": "2026-07-12T22:22:09Z",
           "closed_at": null,
-          "updated_at": "2026-07-15T15:55:38Z",
-          "observed_at": "2026-07-15T15:59:48.453Z",
+          "updated_at": "2026-07-17T11:06:46Z",
+          "observed_at": "2026-07-17T11:46:16.201Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
           "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1180,7 +1180,7 @@
           "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "attribution": "Linked maintainer review",
           "head_drift": true,
-          "pr_head_oid": "662687f704f55e5e46b7479b24a031f156e236fb"
+          "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832"
         }
       }
     },
@@ -1977,14 +1977,14 @@
         "pr_head_oid": "07fb69366cdcb45863073a1daa65084916829eb4",
         "base_branch": "main",
         "head_drift": true,
-        "ci_state": "success",
+        "ci_state": "pending",
         "merge_commit_oid": "b23f012ab27ea3d41fc59083c7a4e49567bb43c5",
         "review_decision": "approved",
         "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487#pullrequestreview-4712093111",
         "opened_at": "2026-07-14T20:08:31Z",
         "closed_at": "2026-07-16T09:37:14Z",
-        "updated_at": "2026-07-16T09:37:14Z",
-        "observed_at": "2026-07-16T19:46:55.000Z",
+        "updated_at": "2026-07-16T20:19:17Z",
+        "observed_at": "2026-07-17T11:46:21.492Z",
         "correction_note": null,
         "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
         "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -2109,14 +2109,14 @@
           "pr_head_oid": "07fb69366cdcb45863073a1daa65084916829eb4",
           "base_branch": "main",
           "head_drift": true,
-          "ci_state": "success",
+          "ci_state": "pending",
           "merge_commit_oid": "b23f012ab27ea3d41fc59083c7a4e49567bb43c5",
           "review_decision": "approved",
           "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487#pullrequestreview-4712093111",
           "opened_at": "2026-07-14T20:08:31Z",
           "closed_at": "2026-07-16T09:37:14Z",
-          "updated_at": "2026-07-16T09:37:14Z",
-          "observed_at": "2026-07-16T19:46:55.000Z",
+          "updated_at": "2026-07-16T20:19:17Z",
+          "observed_at": "2026-07-17T11:46:21.492Z",
           "correction_note": null,
           "scope_note": "The focused regression exercises Canvas remount lifecycle behavior with a shared visualization controller but does not navigate the full application router in a browser.",
           "bundle_digest": "sha256:e203de3cf44d565d4ac76eef35c3c68096ec9f073fe9acdf0142c2110187c2e8",
@@ -3760,17 +3760,17 @@
         "state": "open",
         "pr_number": 160,
         "pr_url": "https://github.com/Dreamstick9/filedrop/pull/160",
-        "pr_head_oid": "85f57f1ee66eebbddbd41ce89ada31a413437593",
+        "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103",
         "base_branch": "main",
-        "head_drift": false,
-        "ci_state": "pending",
+        "head_drift": true,
+        "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-16T19:25:14Z",
         "closed_at": null,
-        "updated_at": "2026-07-16T19:25:14Z",
-        "observed_at": "2026-07-16T19:25:16.211Z",
+        "updated_at": "2026-07-17T11:44:47Z",
+        "observed_at": "2026-07-17T11:46:25.756Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -3782,7 +3782,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
-          "verified_at": "2026-07-16T19:25:16.211Z"
+          "verified_at": "2026-07-17T11:46:25.756Z"
         }
       },
       "receipt": {
@@ -4024,7 +4024,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": "success",
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -4075,17 +4075,17 @@
           "state": "open",
           "pr_number": 160,
           "pr_url": "https://github.com/Dreamstick9/filedrop/pull/160",
-          "pr_head_oid": "85f57f1ee66eebbddbd41ce89ada31a413437593",
+          "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103",
           "base_branch": "main",
-          "head_drift": false,
-          "ci_state": "pending",
+          "head_drift": true,
+          "ci_state": "success",
           "merge_commit_oid": null,
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-16T19:25:14Z",
           "closed_at": null,
-          "updated_at": "2026-07-16T19:25:14Z",
-          "observed_at": "2026-07-16T19:25:16.211Z",
+          "updated_at": "2026-07-17T11:44:47Z",
+          "observed_at": "2026-07-17T11:46:25.756Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -4097,13 +4097,15 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
-            "verified_at": "2026-07-16T19:25:16.211Z"
+            "verified_at": "2026-07-17T11:46:25.756Z"
           }
         },
         "live_outcome": {
           "status": "open",
           "link": "https://github.com/Dreamstick9/filedrop/pull/160",
-          "attribution": "Live upstream pull request"
+          "attribution": "Live upstream pull request",
+          "head_drift": true,
+          "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103"
         }
       }
     },
@@ -5614,14 +5616,14 @@
         "pr_head_oid": "61c9e8de3d36ec9bcca22fb6185668aa68666c66",
         "base_branch": "main",
         "head_drift": false,
-        "ci_state": "pending",
+        "ci_state": "success",
         "merge_commit_oid": null,
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-16T22:49:33Z",
         "closed_at": null,
         "updated_at": "2026-07-16T22:49:33Z",
-        "observed_at": "2026-07-16T22:49:34.936Z",
+        "observed_at": "2026-07-17T11:46:31.485Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:378a173ad385ca3dae0c34cbb753b089f380d2d99c0e7b48219fa3bc7ecb235b",
@@ -5633,7 +5635,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-147/",
-          "verified_at": "2026-07-16T22:49:34.936Z"
+          "verified_at": "2026-07-17T11:46:31.485Z"
         }
       },
       "receipt": {
@@ -5878,7 +5880,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": "success",
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -5932,14 +5934,14 @@
           "pr_head_oid": "61c9e8de3d36ec9bcca22fb6185668aa68666c66",
           "base_branch": "main",
           "head_drift": false,
-          "ci_state": "pending",
+          "ci_state": "success",
           "merge_commit_oid": null,
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-16T22:49:33Z",
           "closed_at": null,
           "updated_at": "2026-07-16T22:49:33Z",
-          "observed_at": "2026-07-16T22:49:34.936Z",
+          "observed_at": "2026-07-17T11:46:31.485Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:378a173ad385ca3dae0c34cbb753b089f380d2d99c0e7b48219fa3bc7ecb235b",
@@ -5951,7 +5953,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-147/",
-            "verified_at": "2026-07-16T22:49:34.936Z"
+            "verified_at": "2026-07-17T11:46:31.485Z"
           }
         },
         "live_outcome": {
@@ -6737,14 +6739,14 @@
         "pr_head_oid": "da84e2d8b8daa4ae1ce3ac4fd5182802996cb7ec",
         "base_branch": "main",
         "head_drift": false,
-        "ci_state": "pending",
+        "ci_state": "failure",
         "merge_commit_oid": null,
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-16T22:49:33Z",
         "closed_at": null,
         "updated_at": "2026-07-16T22:49:33Z",
-        "observed_at": "2026-07-16T22:49:35.705Z",
+        "observed_at": "2026-07-17T11:46:35.457Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:dbad450424fbf02ad09a07c216e7967bca3386150288b835d2947f66ddae4949",
@@ -6756,7 +6758,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-160/",
-          "verified_at": "2026-07-16T22:49:35.705Z"
+          "verified_at": "2026-07-17T11:46:35.457Z"
         }
       },
       "receipt": {
@@ -7008,7 +7010,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": "failure",
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -7062,14 +7064,14 @@
           "pr_head_oid": "da84e2d8b8daa4ae1ce3ac4fd5182802996cb7ec",
           "base_branch": "main",
           "head_drift": false,
-          "ci_state": "pending",
+          "ci_state": "failure",
           "merge_commit_oid": null,
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-16T22:49:33Z",
           "closed_at": null,
           "updated_at": "2026-07-16T22:49:33Z",
-          "observed_at": "2026-07-16T22:49:35.705Z",
+          "observed_at": "2026-07-17T11:46:35.457Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:dbad450424fbf02ad09a07c216e7967bca3386150288b835d2947f66ddae4949",
@@ -7081,7 +7083,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-160/",
-            "verified_at": "2026-07-16T22:49:35.705Z"
+            "verified_at": "2026-07-17T11:46:35.457Z"
           }
         },
         "live_outcome": {
@@ -8650,14 +8652,14 @@
         "pr_head_oid": "92e0d82d5bea6a93d8947ff63ee7ea4652591ec5",
         "base_branch": "main",
         "head_drift": false,
-        "ci_state": "pending",
+        "ci_state": "failure",
         "merge_commit_oid": null,
         "review_decision": "review_required",
         "decision_url": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502",
         "opened_at": "2026-07-16T22:49:37Z",
         "closed_at": null,
-        "updated_at": "2026-07-16T22:49:37Z",
-        "observed_at": "2026-07-16T22:49:38.469Z",
+        "updated_at": "2026-07-17T06:14:58Z",
+        "observed_at": "2026-07-17T11:46:41.021Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:3ac13d74bf8a0d3e62d087beefbfb77e6ae3bf728cf9ea590af215dfced7ab94",
@@ -8669,7 +8671,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-171/",
-          "verified_at": "2026-07-16T22:49:38.470Z"
+          "verified_at": "2026-07-17T11:46:41.021Z"
         }
       },
       "receipt": {
@@ -8926,7 +8928,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": "failure",
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -8980,14 +8982,14 @@
           "pr_head_oid": "92e0d82d5bea6a93d8947ff63ee7ea4652591ec5",
           "base_branch": "main",
           "head_drift": false,
-          "ci_state": "pending",
+          "ci_state": "failure",
           "merge_commit_oid": null,
           "review_decision": "review_required",
           "decision_url": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502",
           "opened_at": "2026-07-16T22:49:37Z",
           "closed_at": null,
-          "updated_at": "2026-07-16T22:49:37Z",
-          "observed_at": "2026-07-16T22:49:38.469Z",
+          "updated_at": "2026-07-17T06:14:58Z",
+          "observed_at": "2026-07-17T11:46:41.021Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:3ac13d74bf8a0d3e62d087beefbfb77e6ae3bf728cf9ea590af215dfced7ab94",
@@ -8999,7 +9001,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-171/",
-            "verified_at": "2026-07-16T22:49:38.470Z"
+            "verified_at": "2026-07-17T11:46:41.021Z"
           }
         },
         "live_outcome": {

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:49:40.312Z",
+  "generated_at": "2026-07-17T11:46:44.754Z",
   "receipt_id": "M-147",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -256,7 +256,7 @@
     "outcome": {
       "technical_checks_passed": true,
       "pr_opened": true,
-      "ci_state": "pending",
+      "ci_state": "success",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,

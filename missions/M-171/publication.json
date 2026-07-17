@@ -7,14 +7,14 @@
   "pr_head_oid": "92e0d82d5bea6a93d8947ff63ee7ea4652591ec5",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "pending",
+  "ci_state": "failure",
   "merge_commit_oid": null,
   "review_decision": "review_required",
   "decision_url": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502",
   "opened_at": "2026-07-16T22:49:37Z",
   "closed_at": null,
-  "updated_at": "2026-07-16T22:49:37Z",
-  "observed_at": "2026-07-16T22:49:38.469Z",
+  "updated_at": "2026-07-17T06:14:58Z",
+  "observed_at": "2026-07-17T11:46:41.021Z",
   "correction_note": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "bundle_digest": "sha256:3ac13d74bf8a0d3e62d087beefbfb77e6ae3bf728cf9ea590af215dfced7ab94",
@@ -26,6 +26,6 @@
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-171/",
-    "verified_at": "2026-07-16T22:49:38.470Z"
+    "verified_at": "2026-07-17T11:46:41.021Z"
   }
 }

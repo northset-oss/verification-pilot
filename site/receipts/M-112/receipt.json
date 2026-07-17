@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-16T22:49:40.312Z",
+  "generated_at": "2026-07-17T11:46:44.754Z",
   "receipt_id": "M-112",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -63,7 +63,9 @@
   "upstream_outcome": {
     "status": "open",
     "link": "https://github.com/Dreamstick9/filedrop/pull/160",
-    "attribution": "Live upstream pull request"
+    "attribution": "Live upstream pull request",
+    "head_drift": true,
+    "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -253,7 +255,7 @@
     "outcome": {
       "technical_checks_passed": true,
       "pr_opened": true,
-      "ci_state": "pending",
+      "ci_state": "success",
       "merged": false,
       "accepted_as_submitted": null,
       "time_to_close_ms": null,
