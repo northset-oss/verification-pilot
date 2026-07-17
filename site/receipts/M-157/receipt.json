@@ -24,6 +24,14 @@
     "container_os": "linux",
     "container_architecture": "arm64",
     "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
     "source_commit": "e50a1befede455916214f2fc79bd0e017e5fef2a",
     "install_commands": [
       "npm ci"
