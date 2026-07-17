@@ -28,6 +28,14 @@
         "container_os": { "$ref": "#/$defs/nullableString" },
         "container_architecture": { "$ref": "#/$defs/nullableString" },
         "network_policy": { "type": "string", "minLength": 1 },
+        "workspace_mode": { "type": ["string", "null"], "enum": ["readonly", "writable_copy", null] },
+        "workspace_write_allowlist": { "type": "array", "maxItems": 32, "items": { "type": "string", "minLength": 1 } },
+        "workspace_file_count_limit": { "type": ["integer", "null"], "minimum": 1 },
+        "workspace_bytes_limit": { "type": ["integer", "null"], "minimum": 1 },
+        "initial_workspace_manifest_digest": { "$ref": "#/$defs/nullableDigest" },
+        "post_run_changed_tracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_untracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_mode_changes": { "type": "array", "items": { "type": "string" } },
         "source_commit": { "$ref": "#/$defs/nullableOid" },
         "install_commands": { "type": "array", "items": { "type": "string" } }
       }
@@ -124,6 +132,36 @@
     "if": { "properties": { "schema_version": { "const": 2 } }, "required": ["schema_version"] },
     "then": { "required": ["economic_identity"] },
     "else": { "not": { "required": ["economic_identity"] } }
+  }, {
+    "if": {
+      "properties": { "environment": { "properties": { "workspace_mode": { "type": "string" } }, "required": ["workspace_mode"] } },
+      "required": ["environment"]
+    },
+    "then": {
+      "properties": {
+        "environment": {
+          "required": ["workspace_write_allowlist", "workspace_file_count_limit", "workspace_bytes_limit", "initial_workspace_manifest_digest", "post_run_changed_tracked_paths", "post_run_untracked_paths", "post_run_mode_changes"]
+        }
+      }
+    }
+  }, {
+    "if": {
+      "properties": {
+        "environment": {
+          "anyOf": [
+            { "required": ["workspace_write_allowlist"] },
+            { "required": ["workspace_file_count_limit"] },
+            { "required": ["workspace_bytes_limit"] },
+            { "required": ["initial_workspace_manifest_digest"] },
+            { "required": ["post_run_changed_tracked_paths"] },
+            { "required": ["post_run_untracked_paths"] },
+            { "required": ["post_run_mode_changes"] }
+          ]
+        }
+      },
+      "required": ["environment"]
+    },
+    "then": { "properties": { "environment": { "required": ["workspace_mode"] } } }
   }],
   "$defs": {
     "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },

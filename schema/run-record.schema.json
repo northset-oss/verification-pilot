@@ -26,6 +26,14 @@
         "approved_tracked_tree_digest": { "$ref": "#/$defs/nullableDigest" },
         "post_check_tree_digest": { "$ref": "#/$defs/nullableDigest" },
         "check_tree_changed": { "type": "boolean" },
+        "workspace_mode": { "type": "string", "enum": ["readonly", "writable_copy"] },
+        "workspace_write_allowlist": { "type": "array", "maxItems": 32, "items": { "type": "string", "minLength": 1 } },
+        "workspace_file_count_limit": { "type": "integer", "minimum": 1 },
+        "workspace_bytes_limit": { "type": "integer", "minimum": 1 },
+        "initial_workspace_manifest_digest": { "$ref": "#/$defs/nullableDigest" },
+        "post_run_changed_tracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_untracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_mode_changes": { "type": "array", "items": { "type": "string" } },
         "patch_sha256": { "$ref": "#/$defs/nullableDigest" },
         "install_commands": { "type": "array", "items": { "type": "string" } }
       }
@@ -72,6 +80,38 @@
     {
       "if": { "properties": { "schema_version": { "const": 2 } }, "required": ["schema_version"] },
       "then": { "required": ["usage"] }
+    },
+    {
+      "if": {
+        "properties": { "environment": { "required": ["workspace_mode"] } },
+        "required": ["environment"]
+      },
+      "then": {
+        "properties": {
+          "environment": {
+            "required": ["workspace_write_allowlist", "workspace_file_count_limit", "workspace_bytes_limit", "initial_workspace_manifest_digest", "post_run_changed_tracked_paths", "post_run_untracked_paths", "post_run_mode_changes"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "anyOf": [
+              { "required": ["workspace_write_allowlist"] },
+              { "required": ["workspace_file_count_limit"] },
+              { "required": ["workspace_bytes_limit"] },
+              { "required": ["initial_workspace_manifest_digest"] },
+              { "required": ["post_run_changed_tracked_paths"] },
+              { "required": ["post_run_untracked_paths"] },
+              { "required": ["post_run_mode_changes"] }
+            ]
+          }
+        },
+        "required": ["environment"]
+      },
+      "then": { "properties": { "environment": { "required": ["workspace_mode"] } } }
     }
   ],
   "$defs": {

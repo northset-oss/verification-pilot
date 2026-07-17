@@ -6,7 +6,8 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { checkTargets, diffPolicyState } from '../lib/policy-monitor.mjs';
+import { checkDocumentTargets, checkTargets, diffPolicyState } from '../lib/policy-monitor.mjs';
+import { runPolicyMonitorCli } from '../bin/policy-monitor.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const fixtureDirectory = path.join(root, 'test/fixtures/policy-monitor');
@@ -30,6 +31,15 @@ function response(status, body = {}, statusText = '') {
     async json() {
       return body;
     },
+  };
+}
+
+function documentResponse(body, contentType = 'text/markdown; charset=utf-8') {
+  return {
+    status: 200,
+    statusText: 'OK',
+    headers: {get(name) { return name.toLowerCase() === 'content-type' ? contentType : null; }},
+    async text() { return body; },
   };
 }
 
@@ -174,6 +184,103 @@ test('checkTargets sends authorization only when a token is set', async () => {
   assert.equal(Object.hasOwn(seenHeaders[1], 'Authorization'), false);
   assert.equal(seenHeaders[0].Accept, 'application/vnd.github+json');
   assert.equal(seenHeaders[0]['User-Agent'], 'northset-policy-monitor');
+});
+
+test('document targets record URL, fetched time, digest, previous digest, and disposition without credentials', async () => {
+  const seen = [];
+  const first = await checkDocumentTargets({
+    documents: [{id: 'github-tos', url: 'https://docs.github.com/en/site-policy/github-terms/github-terms-of-service'}],
+    state: {documents: {}},
+    now: () => new Date('2026-07-17T12:00:00Z'),
+    fetchImpl: async (url, options) => {
+      seen.push({url, options});
+      return documentResponse('# Terms v1');
+    },
+  });
+  assert.equal(first.changed, true);
+  assert.match(first.results[0].digest, /^sha256:[0-9a-f]{64}$/);
+  assert.equal(first.results[0].previous_digest, null);
+  assert.equal(first.results[0].disposition, 'new');
+  assert.equal(first.results[0].fetched_at, '2026-07-17T12:00:00.000Z');
+  assert.equal(seen[0].options.headers.Authorization, undefined);
+  assert.equal(seen[0].options.headers.Accept, 'text/markdown');
+
+  const second = await checkDocumentTargets({
+    documents: [{id: 'github-tos', url: seen[0].url}],
+    state: first.nextState,
+    now: () => new Date('2026-07-24T12:00:00Z'),
+    fetchImpl: async () => documentResponse('# Terms v1'),
+  });
+  assert.equal(second.changed, false);
+  assert.equal(second.results[0].previous_digest, first.results[0].digest);
+  assert.equal(second.results[0].disposition, 'unchanged');
+  assert.equal(second.nextState.documents['github-tos'].fetched_at, '2026-07-24T12:00:00.000Z');
+
+  const htmlFallback = await checkDocumentTargets({
+    documents: [{id: 'github-tos', url: seen[0].url}],
+    state: second.nextState,
+    now: () => new Date('2026-07-31T12:00:00Z'),
+    fetchImpl: async () => documentResponse('<html>site shell</html>', 'text/html; charset=utf-8'),
+  });
+  assert.equal(htmlFallback.changed, false);
+  assert.equal(htmlFallback.results[0].status, 'warning');
+  assert.match(htmlFallback.results[0].reason, /unexpected content type.*text\/html/i);
+  assert.deepEqual(htmlFallback.nextState, second.nextState);
+});
+
+test('version 1 CLI snapshots repository and official document targets into one state', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'policy-monitor-v1-'));
+  const targetsFile = path.join(directory, 'targets.json');
+  const stateFile = path.join(directory, 'state.json');
+  await writeFile(targetsFile, JSON.stringify({version: '1', targets: [], documents: [{
+    id: 'github-tos', url: 'https://docs.github.com/en/site-policy/github-terms/github-terms-of-service',
+  }]}));
+  await writeFile(stateFile, JSON.stringify({version: '1', files: {}, documents: {}}));
+  let stdout = '';
+  let stderr = '';
+  const status = await runPolicyMonitorCli({
+    args: ['check', '--targets', targetsFile, '--state', stateFile, '--write', '--json'],
+    fetchImpl: async () => documentResponse('# Terms v1'),
+    env: {},
+    stdout: {write(value) { stdout += value; }},
+    stderr: {write(value) { stderr += value; }},
+  });
+  assert.equal(status, 2, stderr);
+  assert.equal(JSON.parse(stdout).results[0].disposition, 'new');
+  const state = JSON.parse(await readFile(stateFile, 'utf8'));
+  assert.equal(state.version, '1');
+  assert.match(state.documents['github-tos'].digest, /^sha256:/);
+});
+
+test('version 1 CLI formats document digest changes without undefined SHA fields', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'policy-monitor-v1-format-'));
+  const targetsFile = path.join(directory, 'targets.json');
+  const stateFile = path.join(directory, 'state.json');
+  await writeFile(targetsFile, JSON.stringify({version: '1', targets: [], documents: [{
+    id: 'github-tos', url: 'https://docs.github.com/en/site-policy/github-terms/github-terms-of-service',
+  }]}));
+  await writeFile(stateFile, JSON.stringify({version: '1', files: {}, documents: {
+    'github-tos': {
+      url: 'https://docs.github.com/en/site-policy/github-terms/github-terms-of-service',
+      fetched_at: '2026-07-10T12:00:00.000Z',
+      digest: `sha256:${'a'.repeat(64)}`,
+      previous_digest: null,
+      disposition: 'new',
+    },
+  }}));
+  let stdout = '';
+  let stderr = '';
+  const status = await runPolicyMonitorCli({
+    args: ['check', '--targets', targetsFile, '--state', stateFile],
+    fetchImpl: async () => documentResponse('# Terms v2'),
+    env: {},
+    stdout: {write(value) { stdout += value; }},
+    stderr: {write(value) { stderr += value; }},
+  });
+
+  assert.equal(status, 2, stderr);
+  assert.match(stdout, new RegExp(`^changed document:github-tos: sha256:${'a'.repeat(64)} -> sha256:[0-9a-f]{64}\\n$`));
+  assert.doesNotMatch(stdout, /undefined/);
 });
 
 test('CLI exits zero for an unchanged fixture snapshot', () => {

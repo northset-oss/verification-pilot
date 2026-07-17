@@ -36,6 +36,14 @@
     "container_os": "linux",
     "container_architecture": "arm64",
     "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
     "source_commit": "99bafe8e5f1082c32f247f13749a44f468a0577a",
     "install_commands": [
       "corepack pnpm@8.15.5 --dir client install --frozen-lockfile"

@@ -42,6 +42,14 @@
     "container_os": null,
     "container_architecture": null,
     "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
     "source_commit": "caf30cc7c6123728c8c05d1f36e9cd8a67f23f0e",
     "install_commands": [
       "corepack yarn install --immutable"

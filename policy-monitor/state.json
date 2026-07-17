@@ -1,13 +1,50 @@
 {
-  "version": "0",
+  "version": "1",
   "files": {
     "coder/coder:CONTRIBUTING.md": "3c2ee6b88df5819091d96bd205ce70b34ef916c1",
-    "coder/coder:docs/about/contributing/CONTRIBUTING.md": "2df7097b694ddc1c6e37d5d0b3b66ab6f9c939c1",
+    "coder/coder:docs/about/contributing/CONTRIBUTING.md": "cfca7af52ce4c119a6b99c239fda4abb4d80a631",
     "coder/coder:docs/about/contributing/AI_CONTRIBUTING.md": "8771528f0c1ce881992df5755a3d16f0a8cd7727",
     "Homebrew/brew:CONTRIBUTING.md": "cb1a30a4f9686fa0d54a724d333f8edacc44832f",
     "electron/electron:CONTRIBUTING.md": "7199e7b0caebd5df80298f91e731e6bdd8857227",
     "electron/governance:policy/ai.md": "4021daa9dd961d4ecdc0d3bff121ab8a00a389e3",
     "antiwork/gumroad:CONTRIBUTING.md": "81cb8dc8902d64cb76cd65a206e9c7dfed1e28f4",
     "antiwork/.github:profile/README.md": "ee1a5e1e32ba5661463150691448414220db8c0f"
+  },
+  "documents": {
+    "github-terms-of-service": {
+      "url": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+      "fetched_at": "2026-07-17T19:57:02.465Z",
+      "digest": "sha256:4aa2b1bb8828c43b442668332b7a4e491cf81338c3883e18709bb559ce17e5ff",
+      "previous_digest": null,
+      "disposition": "new"
+    },
+    "github-acceptable-use-policies": {
+      "url": "https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies",
+      "fetched_at": "2026-07-17T19:57:02.826Z",
+      "digest": "sha256:69ff755eda43e1d5a34767d739ecd59017118d4e9855dc4734f69f640d522a08",
+      "previous_digest": null,
+      "disposition": "new"
+    },
+    "github-rest-rate-limits": {
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "fetched_at": "2026-07-17T19:57:02.968Z",
+      "digest": "sha256:97f2f169fc98314ad6a0de057f9f95bd3c3d0cddfcfb4fefe553bd0bfc330ff3",
+      "previous_digest": null,
+      "disposition": "new"
+    },
+    "github-app-permission-changes": {
+      "url": "https://docs.github.com/en/apps/using-github-apps/approving-updated-permissions-for-a-github-app",
+      "fetched_at": "2026-07-17T19:57:03.201Z",
+      "digest": "sha256:f6121648e5d29bab69747d838ca9405fc571c2a2c7ac876565db4bb72c4406fc",
+      "previous_digest": null,
+      "disposition": "new"
+    },
+    "github-marketplace-listing-requirements": {
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app",
+      "fetched_at": "2026-07-17T19:57:03.347Z",
+      "digest": "sha256:fe1534104c1dd344e995a337c0b031b93b7c2b1eec80368bb7418d23dee06c88",
+      "previous_digest": null,
+      "disposition": "new"
+    }
   }
 }
