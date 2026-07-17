@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="og-title og-description">
+  <title id="og-title">Northset Proof-of-Pass Receipts</title>
+  <desc id="og-description">Ledger headline statistics for scoped proof-of-pass receipts.</desc>
+  <style>
+    text { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; fill:#182323; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    .brand { font-size:28px; font-weight:850; letter-spacing:10px; fill:#0b6849; }
+    .title { font-size:67px; font-weight:850; letter-spacing:-3px; }
+    .lede { font-size:24px; font-weight:600; fill:#45534c; }
+    .stat-value { font-size:66px; font-weight:850; letter-spacing:-5px; fill:#07583e; }
+    .stat-label { font-size:16px; font-weight:850; letter-spacing:1px; fill:#45534c; }
+    .generated { font-size:18px; font-weight:700; fill:#526159; }
+  </style>
+  <rect width="1200" height="630" fill="#182323"/>
+  <rect x="54" y="38" width="1092" height="554" fill="#faf7ef" stroke="#0b6849" stroke-width="4"/>
+  <rect x="74" y="58" width="1052" height="514" fill="none" stroke="#9eaaa1"/>
+  <text x="106" y="126" class="brand">NORTHSET</text>
+  <text x="104" y="222" class="title">Proof-of-Pass Receipts</text>
+  <text x="106" y="270" class="lede">Scoped command evidence · named code · named environment</text>
+  <line x1="104" y1="323" x2="1094" y2="323" stroke="#9eaaa1"/>
+  <g transform="translate(111 0)"><text x="0" y="426" class="stat-value mono">30</text><text x="0" y="463" class="stat-label mono">EXTERNAL RECEIPTS</text></g><g transform="translate(369 0)"><text x="0" y="426" class="stat-value mono">7</text><text x="0" y="463" class="stat-label mono">MERGED UPSTREAM</text></g><g transform="translate(627 0)"><text x="0" y="426" class="stat-value mono">26</text><text x="0" y="463" class="stat-label mono">DISTINCT REPOSITORIES</text></g><g transform="translate(885 0)"><text x="0" y="426" class="stat-value mono">30</text><text x="0" y="463" class="stat-label mono">ATTESTED</text></g>
+  <text x="106" y="548" class="generated mono">LEDGER GENERATED JUL 17, 2026 · EVIDENCE, NOT A CODE-QUALITY VERDICT</text>
+</svg>

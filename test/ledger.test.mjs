@@ -84,6 +84,21 @@ function collectRenderedHttpHosts(html) {
     .map((match) => match[1]);
 }
 
+function assertWellFormedStandaloneSvg(svg) {
+  assert.match(svg, /^<svg\b[^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"[^>]*>/);
+  assert.match(svg, /<title\b[^>]*>[^<]+<\/title>/);
+  assert.match(svg, /<desc\b[^>]*>[^<]+<\/desc>/);
+  assert.match(svg, /<\/svg>\n$/);
+  assert.doesNotMatch(svg, /<(?:script|foreignObject)\b|\b(?:href|src)=/i);
+  const stack = [];
+  for (const match of svg.matchAll(/<(\/)?([A-Za-z][\w:-]*)\b[^>]*>/g)) {
+    const [tag, closing, name] = match;
+    if (closing) assert.equal(stack.pop(), name, `unexpected closing tag ${name}`);
+    else if (!tag.endsWith('/>')) stack.push(name);
+  }
+  assert.deepEqual(stack, []);
+}
+
 test('build includes only valid missions in sorted deterministic projections', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const firstPath = path.join(temporaryRoot, 'first.json');
@@ -731,6 +746,40 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.ok(!Object.hasOwn(receiptJson, 'publication'));
     assert.doesNotMatch(page, /[ \t]+$/m);
     assert.doesNotMatch(page, /^ +\t/m);
+    const receiptArticle = page.match(/<article class="receipt[\s\S]*?<\/article>/)?.[0];
+    assert.ok(receiptArticle, `${missionId} receipt article`);
+    if (receiptJson.schema_version === 1) {
+      assert.match(receiptArticle, /class="receipt [^"]*receipt--economic receipt--v1"/);
+      assert.match(receiptArticle, /class="folio-watermark"/);
+      assert.match(receiptArticle, /class="proof-hero"/);
+      assert.match(receiptArticle, new RegExp(`class="proof-score">${receiptJson.passed_commands}\\/${receiptJson.declared_commands}<`));
+      assert.match(receiptArticle, /class="proof-status-rail" data-receipt-version="1"/);
+      assert.match(receiptArticle, /<dt>Upstream<\/dt>[\s\S]*<dt>Environment<\/dt>[\s\S]*<dt>Signature<\/dt>/);
+      assert.match(receiptArticle, /class="evidence-drawer evidence-annex evidence-annex--v1"/);
+      assert.match(receiptArticle, /<summary><span>\d{2} \/ Evidence annex<\/span>/);
+      assert.match(receiptArticle, /class="class-stamp"/);
+      assert.match(receiptArticle, /NOT INCLUDED/);
+      assert.match(page, /not maintainer verification/i);
+      assert.ok(receiptArticle.indexOf('DECLARED CHECKS') < receiptArticle.indexOf('class="evidence-drawer'));
+      assert.ok(receiptArticle.indexOf('NOT INCLUDED') < receiptArticle.indexOf('class="evidence-drawer'));
+      if (receiptJson.scope_note !== null) {
+        const escapedScopeNote = receiptJson.scope_note
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+        assert.equal(receiptArticle.split(escapedScopeNote).length - 1, 1);
+        assert.ok(receiptArticle.indexOf('PUBLIC SCOPE INTERPRETATION') < receiptArticle.indexOf('class="evidence-drawer'));
+      }
+      assert.doesNotMatch(receiptArticle, /class="[^"]*(?:proofline|anatomy-|identity-flow|economic-identity|economic-unknowns|receipt-cost-total|annex-economic)/);
+      assert.doesNotMatch(receiptArticle, /data-cost-state=|Cost record|TOTAL COST|Known, unknown, and unpriced/);
+    } else {
+      assert.match(page, /<section class="proofline"/);
+      assert.match(page, /<section class="economic-identity"/);
+      assert.match(page, /<section class="economic-unknowns"/);
+      assert.match(page, /<section class="receipt-cost-total"/);
+    }
   }
   const correction = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-015', 'index.html'), 'utf8');
   const m001 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-001', 'index.html'), 'utf8');
@@ -747,7 +796,7 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /\.patch,\.evidence-output\s*\{\s*display:none/);
   assert.doesNotMatch(m008, /size:80mm auto/);
   assert.match(m008, /run wall \(derived from recorded timestamps\)/);
-  assert.match(m008, /<dt>Recorded run<\/dt><dd>[\s\S]*<time datetime="2026-07-12T01:49:17\.299Z">Jul 12, 2026 · 01:49<\/time>/);
+  assert.match(m008, /class="run-interval">[\s\S]*<time datetime="2026-07-12T01:49:17\.299Z">Jul 12, 2026 · 01:49<\/time>/);
   assert.match(m008, /<time datetime="2026-07-12T01:51:33\.547Z">01:51 UTC<\/time>/);
   assert.match(m008, /<summary>Redacted stdout<\/summary>/);
   assert.match(m008, /<summary>Redacted stderr<\/summary>/);
@@ -757,14 +806,14 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.doesNotMatch(m001, /unclassified executor time \(derived residual\)/);
   assert.doesNotMatch(m008, /setup \+ install/);
   assert.match(m008, /unclassified executor time \(derived residual\)/);
-  assert.match(m008, /<h1>Proof-of-Pass Receipt — <span class="receipt-id">M-008<\/span><\/h1>/);
-  assert.ok(m008.indexOf('class="v1-verdict"') < m008.indexOf('<h2>Code</h2>'));
-  assert.match(m008, /class="v1-verdict-result"[^>]*>PASS — 1\/1 declared command<\/h2>/);
+  assert.match(m008, /<h1>Proof-of-Pass Receipt<\/h1><p class="folio-receipt-id"><span>Receipt ID<\/span> <code>M-008<\/code><\/p>/);
+  assert.ok(m008.indexOf('class="proof-hero"') < m008.indexOf('<h2>Code</h2>'));
+  assert.match(m008, /class="proof-score">1\/1<\/div>[\s\S]*declared command passed/);
   assert.match(m008, /sha256:d171e1…3fad922/);
   assert.match(m008, /node@sha256:a25c99…127c365/);
   assert.match(m008, /sha256:58c3a6…f0cd64c/);
   assert.match(m008, /sha256:78d812…eb56638/);
-  assert.match(m008, /<details class="cryptographic-detail">[\s\S]*sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922/);
+  assert.match(m008, /class="evidence-drawer evidence-annex evidence-annex--v1"[\s\S]*Full cryptographic values[\s\S]*sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922/);
   assert.match(m008, /workspace-search buttons need type=button/);
   assert.match(m016, /Public scope interpretation/);
   assert.match(m016, /The declared network-off check runs one focused Vitest spec for Quadlet digest replacement\. It does not run Renovate’s full test, lint, typecheck, or coverage gates\./);
@@ -809,4 +858,63 @@ test('render creates a permanent printable receipt for every committed mission a
   const renderedHosts = collectRenderedHttpHosts(`${homepage}\n${m008}`);
   assert.ok(renderedHosts.length > 0);
   for (const host of renderedHosts) assert.ok(allowedHosts.has(host), host);
+});
+
+test('render emits deterministic standalone OG SVGs and absolute PNG social metadata for every page', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const indexPath = path.join(committedMissionsDirectory, 'index.json');
+  const index = JSON.parse(await readFile(indexPath, 'utf8'));
+  const firstSite = path.join(temporaryRoot, 'first', 'site');
+  const secondSite = path.join(temporaryRoot, 'second', 'site');
+  await renderLedger({indexPath, out: path.join(firstSite, 'index.html')});
+  await renderLedger({indexPath, out: path.join(secondSite, 'index.html')});
+
+  const expectedSvgNames = ['index.svg', ...index.missions.map(({mission_id: missionId}) => `${missionId}.svg`)].sort();
+  const firstSvgNames = (await readdir(path.join(firstSite, 'og'))).filter((name) => name.endsWith('.svg')).sort();
+  assert.deepEqual(firstSvgNames, expectedSvgNames);
+
+  const homepageSvg = await readFile(path.join(firstSite, 'og', 'index.svg'), 'utf8');
+  assert.equal(homepageSvg, await readFile(path.join(secondSite, 'og', 'index.svg'), 'utf8'));
+  assertWellFormedStandaloneSvg(homepageSvg);
+  const externalReceipts = index.missions.map(({receipt}) => receipt).filter(({variant}) => variant !== 'own_repo_rehearsal');
+  const homepageStats = [
+    [externalReceipts.length, 'EXTERNAL RECEIPTS'],
+    [externalReceipts.filter(({publication}) => publication?.state === 'merged').length, 'MERGED UPSTREAM'],
+    [new Set(externalReceipts.map(({target_repo: targetRepo}) => targetRepo)).size, 'DISTINCT REPOSITORIES'],
+    [externalReceipts.filter(({attestation_uri: attestationUri}) => attestationUri !== null).length, 'ATTESTED'],
+  ];
+  for (const [value, label] of homepageStats) {
+    assert.match(homepageSvg, new RegExp(`>${value}<`));
+    assert.match(homepageSvg, new RegExp(`>${label}<`));
+  }
+
+  const homepage = await readFile(path.join(firstSite, 'index.html'), 'utf8');
+  assert.match(homepage, /<meta property="og:image" content="https:\/\/northset-oss\.github\.io\/verification-pilot\/og\/index\.png">/);
+  assert.match(homepage, /<meta name="twitter:card" content="summary_large_image">/);
+  assert.match(homepage, /<meta property="og:url" content="https:\/\/northset-oss\.github\.io\/verification-pilot\/">/);
+
+  for (const {receipt} of index.missions) {
+    const relativeSvg = path.join('og', `${receipt.mission_id}.svg`);
+    const firstSvg = await readFile(path.join(firstSite, relativeSvg), 'utf8');
+    const secondSvg = await readFile(path.join(secondSite, relativeSvg), 'utf8');
+    assert.equal(firstSvg, secondSvg, receipt.mission_id);
+    assertWellFormedStandaloneSvg(firstSvg);
+    const repositoryCharacters = Array.from(new URL(receipt.target_repo).pathname.replace(/^\/+/, ''));
+    const repository = repositoryCharacters.length <= 40
+      ? repositoryCharacters.join('')
+      : `${repositoryCharacters.slice(0, 39).join('')}…`;
+    assert.ok(firstSvg.includes(receipt.mission_id), receipt.mission_id);
+    assert.ok(firstSvg.includes(repository), repository);
+    assert.ok(firstSvg.includes(`${receipt.successful_checks}/${receipt.declared_checks}`), receipt.mission_id);
+    assert.ok(firstSvg.includes(`declared command${receipt.declared_checks === 1 ? '' : 's'} passed`), receipt.mission_id);
+    assert.ok(firstSvg.includes(receipt.classification), receipt.mission_id);
+    if (receipt.publication?.state) assert.ok(firstSvg.includes(receipt.publication.state.toUpperCase().replaceAll('_', ' ')));
+
+    const page = await readFile(path.join(firstSite, 'receipts', receipt.mission_id, 'index.html'), 'utf8');
+    const expectedPng = `https://northset-oss.github.io/verification-pilot/og/${receipt.mission_id}.png`;
+    assert.ok(page.includes(`<meta property="og:image" content="${expectedPng}">`), receipt.mission_id);
+    assert.ok(page.includes('<meta name="twitter:card" content="summary_large_image">'), receipt.mission_id);
+    assert.ok(page.includes(`<meta name="twitter:image" content="${expectedPng}">`), receipt.mission_id);
+    assert.ok(page.includes(`<meta property="og:url" content="${receipt.canonical_url}">`), receipt.mission_id);
+  }
 });

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="og-title og-description">
+  <title id="og-title">M-031 Proof-of-Pass Receipt</title>
+  <desc id="og-description">7/7 declared commands returned exit 0 in the recorded environment. Not maintainer verification.</desc>
+  <style>
+    text { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; fill:#182323; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    .brand { font-size:23px; font-weight:800; letter-spacing:8px; fill:#0b6849; }
+    .receipt-label { font-size:33px; font-weight:760; letter-spacing:-1px; }
+    .receipt-id { font-size:20px; font-weight:700; fill:#45534c; }
+    .kicker { font-size:17px; font-weight:800; letter-spacing:2px; fill:#526159; }
+    .repository { font-size:48px; font-weight:800; letter-spacing:-2px; }
+    .score { font-size:89px; font-weight:850; letter-spacing:-7px; fill:#07583e; }
+    .verdict { font-size:29px; font-weight:780; fill:#15382d; }
+    .class-stamp { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-weight:800; letter-spacing:.5px; fill:#33483f; }
+    .chip { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; font-size:18px; font-weight:850; fill:#07583e; }
+  </style>
+  <rect width="1200" height="630" fill="#182323"/>
+  <rect x="54" y="38" width="1092" height="554" fill="#faf7ef" stroke="#0b6849" stroke-width="4"/>
+  <rect x="74" y="58" width="1052" height="514" fill="none" stroke="#9eaaa1"/>
+  <text x="104" y="112" class="brand">NORTHSET</text>
+  <text x="104" y="158" class="receipt-label">Proof-of-Pass Receipt</text>
+  <text x="104" y="190" class="receipt-id mono">RECEIPT ID · M-031</text>
+  <rect x="836" y="83" width="258" height="48" fill="#d9f0e4" stroke="#0b6849"/><text x="965" y="114" text-anchor="middle" class="chip">MERGED</text>
+  <line x1="104" y1="218" x2="1094" y2="218" stroke="#9eaaa1"/>
+  <text x="104" y="259" class="kicker mono">REPOSITORY</text>
+  <text x="104" y="313" class="repository">goptics/vizb</text>
+  <text x="104" y="409" class="score mono">7/7</text>
+  <text x="322" y="398" class="verdict">declared commands passed</text>
+  <rect x="104" y="472" width="990" height="59" fill="none" stroke="#526159" stroke-width="2"/>
+  <text x="125" y="510" class="class-stamp" font-size="22px">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</text>
+  <text x="104" y="558" class="receipt-id mono">EVIDENCE OF WHAT RAN · NOT A CODE-QUALITY VERDICT</text>
+</svg>

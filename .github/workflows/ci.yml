@@ -65,7 +65,23 @@ jobs:
           node bin/ledger.mjs build --missions-dir missions --out "$work/index.json" --now "$generated_at"
           diff -u missions/index.json "$work/index.json"
           node bin/ledger.mjs render --index "$work/index.json" --out "$work/site/index.html"
-          diff -ru site "$work/site"
+          diff -ru --exclude='*.png' site "$work/site"
+          for png in site/og/*.png; do
+            [ -e "$png" ] || continue
+            name="$(basename "$png" .png)"
+            if [ ! -f "$work/site/og/$name.svg" ]; then
+              echo "orphan OG PNG: $png has no rendered SVG source" >&2
+              exit 1
+            fi
+          done
+          for svg in "$work"/site/og/*.svg; do
+            [ -e "$svg" ] || continue
+            name="$(basename "$svg" .svg)"
+            if [ ! -f "site/og/$name.png" ]; then
+              echo "missing OG PNG: site/og/$name.png for rendered SVG source $svg" >&2
+              exit 1
+            fi
+          done
 
       - name: Package exact changed bundles for the signing workflow
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
