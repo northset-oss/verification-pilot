@@ -210,6 +210,54 @@ test('run record validation rejects unknown top-level keys and malformed members
   ]);
 });
 
+test('run record validation binds complete normalized workspace authority evidence', () => {
+  const base = {
+    started_at: '2026-07-08T10:00:00Z',
+    finished_at: '2026-07-08T10:00:01Z',
+    environment: {
+      container_image_digest: null,
+      network_policy: 'phaseA:bridge,phaseB:none',
+      workspace_mode: 'writable_copy',
+      workspace_write_allowlist: ['coverage'],
+      workspace_file_count_limit: 200_000,
+      workspace_bytes_limit: 2 * 1024 * 1024 * 1024,
+      initial_workspace_manifest_digest: `sha256:${'a'.repeat(64)}`,
+      post_run_changed_tracked_paths: [],
+      post_run_untracked_paths: ['coverage', 'coverage/result.json'],
+      post_run_mode_changes: [],
+    },
+    commands: [],
+    notes: null,
+  };
+  assert.deepEqual(validateRunRecord(base), {valid: true, errors: []});
+
+  const missingCap = structuredClone(base);
+  delete missingCap.environment.workspace_bytes_limit;
+  assert.ok(validateRunRecord(missingCap).errors.some((error) => (
+    error.ruleId === 'RUN_RECORD_REQUIRED' && error.path === '$.environment.workspace_bytes_limit'
+  )));
+
+  const orphanedEvidence = structuredClone(base);
+  delete orphanedEvidence.environment.workspace_mode;
+  assert.ok(validateRunRecord(orphanedEvidence).errors.some((error) => (
+    error.ruleId === 'RUN_RECORD_REQUIRED' && error.path === '$.environment.workspace_mode'
+  )));
+
+  for (const allowlist of [['../escape'], Array.from({length: 33}, (_, index) => `out-${index}`)]) {
+    const invalid = structuredClone(base);
+    invalid.environment.workspace_write_allowlist = allowlist;
+    assert.ok(validateRunRecord(invalid).errors.some((error) => (
+      error.path.startsWith('$.environment.workspace_write_allowlist')
+    )));
+  }
+
+  const readonly = structuredClone(base);
+  readonly.environment.workspace_mode = 'readonly';
+  assert.ok(validateRunRecord(readonly).errors.some((error) => (
+    error.path === '$.environment.workspace_write_allowlist'
+  )));
+});
+
 test('run record validation enforces the timeout exit-code invariant', () => {
   const base = {
     started_at: '2026-07-08T10:00:00Z',

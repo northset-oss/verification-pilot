@@ -24,12 +24,16 @@ The config file rejects unknown top-level keys and has this shape:
   "commands": [
     "pnpm test"
   ],
+  "workspace_mode": "writable_copy",
+  "workspace_write_allowlist": ["coverage"],
   "limits": {
     "cpus": 2,
     "memory_mb": 4096,
     "pids": 512,
     "wall_clock_seconds_per_command": 1800,
-    "output_bytes_per_stream": 2000000
+    "output_bytes_per_stream": 2000000,
+    "workspace_file_count": 200000,
+    "workspace_bytes": 2147483648
   }
 }
 ```
@@ -39,6 +43,12 @@ profiles are `node` (project-local dependencies remain under the bind-mounted wo
 `python` (a workspace-local `.venv` is created during phase A). Unknown profiles fail closed. The
 private Northset production lane enables a profile only after its executor behavior has a smoke
 test; currently that lane is Node-only.
+
+`workspace_mode` is optional and defaults to `readonly`, which bind-mounts the copied workspace
+read-only during phase B. Checks that must emit artifacts can opt into `writable_copy` and name at
+most 32 normalized relative paths in `workspace_write_allowlist`. Those paths are the only
+untracked outputs allowed to differ after the declared checks; newly created symlinks and final
+changes to tracked file bytes or modes always fail closed.
 
 The executor copies `repo_dir` to a temporary workspace before invoking Docker. If
 `patch_file` is set, the host applies those exact hashed bytes with `git apply --index --binary`.
@@ -59,12 +69,16 @@ Every phase-A and phase-B container uses the following posture:
 - all capabilities dropped and `no-new-privileges`
 - configured CPU, memory, and PID limits
 - a read-only root filesystem and a writable `/tmp` tmpfs capped at 512 MiB
-- only the temporary workspace bind-mounted writable at `/workspace`
+- the temporary workspace bind-mounted writable at `/workspace` during phase A, then read-only
+  during phase B unless the configuration explicitly selects `writable_copy`
 - only fixed `PATH`, `HOME`, `CI`, `COREPACK_HOME`, `NPM_CONFIG_CACHE`, `XDG_CACHE_HOME`, and
   `XDG_DATA_HOME` container environment values
 
-The executor measures the copied workspace after phase A and after each phase-B command,
-without following symlinks, and stops if its files exceed 2 GiB. Each phase run is terminated
+The executor monitors the copied workspace every 250 ms during writable container phases and
+rechecks it after each phase, without following symlinks. It stops the named container if the
+workspace exceeds the configured byte or file-count cap (2 GiB and 200,000 entries by default).
+The watchdog is not a filesystem quota, so a short burst can exceed a cap between samples before
+the container is killed. Each phase run is terminated
 after `wall_clock_seconds_per_command`; on timeout the executor force-stops the named container
 with `docker kill` and sends the Docker client `SIGTERM`, followed by `SIGKILL` after a
 ten-second grace period if needed. Phase-B timeout records use `"exit_code": null` with
@@ -98,7 +112,10 @@ create — the trustless guarantee is the separate execution-in-the-signed-workf
 executed state (the patch and the networked install both change the tree afterward; those are
 execution, disclosed via `patch_sha256`, `install_commands`, and `network_policy`).
 `pre_check_tree_digest`, `post_check_tree_digest`, and `check_tree_changed` additionally disclose
-whether the declared check commands changed the workspace they received.
+whether the declared check commands changed the workspace they received. New records also disclose
+the workspace mode, normalized write allowlist, effective workspace caps, initial phase-B manifest
+digest, and final changed tracked, untracked, and mode-change paths. This is final-state evidence: a
+check that restores the original bytes before it exits is not represented as a final change.
 
 Before phase A, the executor resolves the configured image with `docker image inspect`, pulling
 it once and retrying when it is not present locally. Phase A and every phase-B check run by the

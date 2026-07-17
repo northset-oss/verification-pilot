@@ -45,6 +45,8 @@ The input JSON accepts exactly these top-level fields:
     "image": "node:20-bookworm",
     "install_commands": ["npm ci"],
     "commands": ["node --test"],
+    "workspace_mode": "writable_copy",
+    "workspace_write_allowlist": ["coverage"],
     "limits": {
       "cpus": 2,
       "memory_mb": 4096,
@@ -59,7 +61,11 @@ The input JSON accepts exactly these top-level fields:
 `patch_file`, `consent_file`, `issue_snapshot_file`, and `ci_links_file` may be `null` when
 their artifact is absent, subject to the consent rule above. The pipeline supplies `repo_dir`
 and `patch_file` to the executor configuration. `executor.commands` must be an exact copy of
-`mission.commands_declared`. `economic` is optional for legacy inputs; when present it must follow
+`mission.commands_declared`. Workspace mode defaults to `readonly`; use `writable_copy` with a
+bounded `workspace_write_allowlist` only when declared checks must emit artifacts. When the
+mission declares `workspace_mode`, it must match the executor's effective mode before execution.
+`economic` is
+optional for legacy inputs; when present it must follow
 the source form documented in [economic-identity.md](economic-identity.md).
 
 ## CLI

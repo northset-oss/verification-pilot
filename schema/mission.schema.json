@@ -133,6 +133,10 @@
         "type": "string"
       }
     },
+    "workspace_mode": {
+      "type": "string",
+      "enum": ["readonly", "writable_copy"]
+    },
     "environment": {
       "oneOf": [
         {

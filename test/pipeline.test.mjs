@@ -162,6 +162,57 @@ test('declared command mismatch fails before executor and writes no mission', as
   await assertMissing(path.join(missionsDir, input.mission.mission_id));
 });
 
+test('pipeline forwards explicit writable workspace controls to the executor', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const input = missionInput(await example(rehearsalExample));
+  input.executor = {
+    ...input.executor,
+    workspace_mode: 'writable_copy',
+    workspace_write_allowlist: ['coverage', '.cache/test-output'],
+  };
+  let receivedConfig = null;
+
+  await assert.rejects(
+    runPipeline(input, {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: async (config) => {
+        receivedConfig = config;
+        throw new Error('stop after executor config capture');
+      },
+    }),
+    /stop after executor config capture/,
+  );
+
+  assert.equal(receivedConfig.workspace_mode, 'writable_copy');
+  assert.deepEqual(receivedConfig.workspace_write_allowlist, ['coverage', '.cache/test-output']);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+});
+
+test('declared workspace mode mismatch fails before executor', async (t) => {
+  const temporaryRoot = await temporaryDirectory(t);
+  const missionsDir = path.join(temporaryRoot, 'missions');
+  const counter = {calls: 0};
+  const input = missionInput(await example(rehearsalExample), {
+    mission: {workspace_mode: 'writable_copy'},
+  });
+
+  await assert.rejects(
+    runPipeline(input, {
+      missionsDir,
+      now: fixedNow,
+      executeImpl: fakeExecutor(counter),
+    }),
+    (error) => (
+      error instanceof PipelineError &&
+      error.errors.some((item) => item.ruleId === 'WORKSPACE_MODE_MISMATCH')
+    ),
+  );
+  assert.equal(counter.calls, 0);
+  await assertMissing(path.join(missionsDir, input.mission.mission_id));
+});
+
 test('invalid economic identity fails before executor and writes no mission', async (t) => {
   const temporaryRoot = await temporaryDirectory(t);
   const missionsDir = path.join(temporaryRoot, 'missions');

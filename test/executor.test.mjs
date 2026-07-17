@@ -78,7 +78,8 @@ test('runtime profiles persist dependencies inside the workspace and unsupported
   assert.match(goPhaseA.at(-1), /test -x \/usr\/local\/go\/bin\/go/);
   for (const args of [goPhaseA, goPhaseB]) {
     assert.ok(args.includes('PATH=/workspace/.northset/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'));
-    assert.ok(args.includes('GOCACHE=/workspace/.northset/go-build-cache'));
+    assert.ok(args.includes('GOCACHE=/tmp/northset-go-build-cache'));
+    assert.equal(args.includes('GOCACHE=/workspace/.northset/go-build-cache'), false);
     assert.ok(args.includes('GOMODCACHE=/workspace/.northset/go-mod-cache'));
     assert.ok(args.includes('GOPATH=/workspace/.northset/go'));
   }
@@ -155,7 +156,7 @@ function assertDerivedProvenance(environment, { patchSha256 = null, installComma
 function workspaceFromArgs(args) {
   const mountIndex = args.indexOf('--mount');
   if (mountIndex === -1) return null;
-  const match = args[mountIndex + 1].match(/^type=bind,source=(.*),target=\/workspace$/);
+  const match = args[mountIndex + 1].match(/^type=bind,source=(.*),target=\/workspace(?:,readonly)?$/);
   return match?.[1] ?? null;
 }
 
@@ -284,6 +285,23 @@ async function copyMission(t) {
   return missionDirectory;
 }
 
+async function trackedFixture(t) {
+  const repo = await temporaryDirectory(t, 'northset-executor-tracked-fixture-');
+  await writeFile(path.join(repo, 'tracked.txt'), 'approved\n');
+  await writeFile(path.join(repo, 'package.json'), '{"scripts":{"test":"true"}}\n');
+  await writeFile(path.join(repo, 'package-lock.json'), '{"lockfileVersion":3}\n');
+  await mkdir(path.join(repo, '.github', 'workflows'), {recursive: true});
+  await writeFile(path.join(repo, '.github', 'workflows', 'check.yml'), 'name: check\n');
+  for (const args of [
+    ['init'], ['config', 'user.name', 'Northset Test'], ['config', 'user.email', 'test@northset.ai'],
+    ['add', '.'], ['commit', '-m', 'fixture'],
+  ]) {
+    const result = spawnSync('git', ['-C', repo, ...args], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+  }
+  return repo;
+}
+
 function runBundle(missionDirectory, outputDirectory) {
   return spawnSync(process.execPath, [
     bundleCli,
@@ -342,6 +360,8 @@ test('buildDockerArgs encodes both-phase isolation without host environment or s
     assertSecurityArgs(phaseB);
     assert.equal(phaseA.includes('--network=none'), false);
     assert.ok(phaseB.includes('--network=none'));
+    assert.equal(phaseA[phaseA.indexOf('--mount') + 1].endsWith(',readonly'), false);
+    assert.equal(phaseB[phaseB.indexOf('--mount') + 1].endsWith(',readonly'), true);
     assert.equal(imageFromRunArgs(phaseA), sourceConfig.image);
     assert.equal(imageFromRunArgs(phaseB), sourceConfig.image);
     assert.equal(
@@ -377,6 +397,159 @@ test('buildDockerArgs encodes both-phase isolation without host environment or s
   }
 });
 
+test('workspace mode defaults to readonly and writable_copy is explicit and bounded', () => {
+  const readonly = validateExecutorConfig(config());
+  assert.equal(readonly.workspace_mode, 'readonly');
+  assert.deepEqual(readonly.workspace_write_allowlist, []);
+
+  const writable = validateExecutorConfig(config({
+    workspace_mode: 'writable_copy',
+    workspace_write_allowlist: ['coverage', '.cache/test-output'],
+  }));
+  const args = buildDockerArgs('phaseB', writable, {
+    workspaceDir: '/tmp/executor-copy/workspace', containerName: 'writable-copy', command: 'npm test',
+  });
+  assert.equal(args[args.indexOf('--mount') + 1].endsWith(',readonly'), false);
+  assert.throws(() => validateExecutorConfig(config({workspace_mode: 'writable_copy', workspace_write_allowlist: ['../escape']})), /allowlist/i);
+});
+
+test('writable_copy accepts only allowlisted final output and records exact paths', async (t) => {
+  const repo = await trackedFixture(t);
+  const outDir = await temporaryDirectory(t, 'northset-writable-copy-output-');
+  let fake;
+  fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
+    const [workspace] = fake.workspaceDirs;
+    await mkdir(path.join(workspace, 'coverage'), {recursive: true});
+    await writeFile(path.join(workspace, 'coverage', 'result.json'), '{}\n');
+  }}}});
+  const result = await execute(config({
+    repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy',
+    workspace_write_allowlist: ['coverage'],
+  }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl});
+  assert.equal(result.runRecord.environment.workspace_mode, 'writable_copy');
+  assert.deepEqual(result.runRecord.environment.workspace_write_allowlist, ['coverage']);
+  assert.equal(result.runRecord.environment.workspace_file_count_limit, 200_000);
+  assert.equal(result.runRecord.environment.workspace_bytes_limit, 2 * 1024 * 1024 * 1024);
+  assert.deepEqual(result.runRecord.environment.post_run_changed_tracked_paths, []);
+  assert.deepEqual(result.runRecord.environment.post_run_mode_changes, []);
+  assert.deepEqual(result.runRecord.environment.post_run_untracked_paths, ['coverage', 'coverage/result.json']);
+});
+
+test('writable_copy partitions writes to files created during dependency setup by the same allowlist', async (t) => {
+  const repo = await trackedFixture(t);
+  const outDir = await temporaryDirectory(t, 'northset-writable-existing-cache-');
+  let fake;
+  fake = fakeDocker({
+    phaseA: {code: 0, beforeClose: async () => {
+      const workspace = [...fake.workspaceDirs][0];
+      await mkdir(path.join(workspace, '.cache', 'test-output'), {recursive: true});
+      await writeFile(path.join(workspace, '.cache', 'test-output', 'state'), 'bootstrap\n');
+      await writeFile(path.join(workspace, 'setup-generated.txt'), 'bootstrap\n');
+    }},
+    responses: {'first-check': {code: 0, beforeClose: async () => {
+      const workspace = [...fake.workspaceDirs][0];
+      await writeFile(path.join(workspace, '.cache', 'test-output', 'state'), 'checked\n');
+      await writeFile(path.join(workspace, 'setup-generated.txt'), 'changed\n');
+    }}},
+  });
+  await assert.rejects(execute(config({
+    repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy',
+    workspace_write_allowlist: ['.cache/test-output'],
+  }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl}), /unapproved paths.*setup-generated\.txt/);
+});
+
+test('writable_copy rejects tracked, package, symlink, unapproved-output, and file-count mutations', async (t) => {
+  const cases = [
+    ['tracked source', async (workspace) => writeFile(path.join(workspace, 'tracked.txt'), 'mutated\n'), /modified the approved tracked tree/],
+    ['package manifest', async (workspace) => writeFile(path.join(workspace, 'package.json'), '{}\n'), /modified the approved tracked tree/],
+    ['lockfile', async (workspace) => writeFile(path.join(workspace, 'package-lock.json'), '{}\n'), /modified the approved tracked tree/],
+    ['declared check config', async (workspace) => writeFile(path.join(workspace, '.github', 'workflows', 'check.yml'), 'name: weakened\n'), /modified the approved tracked tree/],
+    ['tracked mode', async (workspace) => chmod(path.join(workspace, 'tracked.txt'), 0o755), /modified the approved tracked tree/],
+    ['symlink escape', async (workspace) => symlink('../outside', path.join(workspace, 'allowed-link')), /created symlink paths/],
+    ['generated output', async (workspace) => writeFile(path.join(workspace, 'generated.js'), 'output\n'), /unapproved paths/],
+  ];
+  for (const [name, mutate, expected] of cases) {
+    await t.test(name, async (st) => {
+      const repo = await trackedFixture(st);
+      const outDir = await temporaryDirectory(st, 'northset-writable-reject-');
+      let fake;
+      fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => mutate([...fake.workspaceDirs][0])}}});
+      await assert.rejects(execute(config({
+        repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy',
+        workspace_write_allowlist: name === 'symlink escape' ? ['allowed-link'] : [],
+      }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl}), expected);
+    });
+  }
+
+  await t.test('file-count cap', async (st) => {
+    const repo = await trackedFixture(st);
+    const outDir = await temporaryDirectory(st, 'northset-writable-count-');
+    let fake;
+    fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
+      const workspace = [...fake.workspaceDirs][0];
+      await mkdir(path.join(workspace, 'coverage'));
+      await Promise.all(Array.from({length: 40}, (_, index) => writeFile(path.join(workspace, 'coverage', `${index}.txt`), 'x')));
+    }}}});
+    await assert.rejects(execute(config({
+      repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy', workspace_write_allowlist: ['coverage'],
+      limits: {...config().limits, workspace_file_count: 30},
+    }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl}), /file-count cap/);
+  });
+
+  await t.test('byte cap', async (st) => {
+    const repo = await trackedFixture(st);
+    const outDir = await temporaryDirectory(st, 'northset-writable-bytes-');
+    let fake;
+    fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
+      const workspace = [...fake.workspaceDirs][0];
+      await mkdir(path.join(workspace, 'coverage'));
+      await writeFile(path.join(workspace, 'coverage', 'large.bin'), Buffer.alloc(4096));
+    }}}});
+    await assert.rejects(execute(config({
+      repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy', workspace_write_allowlist: ['coverage'],
+      limits: {...config().limits, workspace_bytes: 1024},
+    }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl}), /size cap/);
+  });
+});
+
+test('writable_copy restored tracked bytes are honestly reported as final-state-only evidence', async (t) => {
+  const repo = await trackedFixture(t);
+  const outDir = await temporaryDirectory(t, 'northset-writable-restored-');
+  let fake;
+  fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
+    const workspace = [...fake.workspaceDirs][0];
+    await writeFile(path.join(workspace, 'tracked.txt'), 'weakened assertion\n');
+    await writeFile(path.join(workspace, 'tracked.txt'), 'approved\n');
+  }}}});
+  const result = await execute(config({
+    repo_dir: repo, commands: ['first-check'], workspace_mode: 'writable_copy', workspace_write_allowlist: [],
+  }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl});
+  assert.equal(result.runRecord.environment.check_tree_changed, false);
+  assert.deepEqual(result.runRecord.environment.post_run_changed_tracked_paths, []);
+});
+
+test('writable_copy watchdog stops a running command when the workspace cap is exceeded', async (t) => {
+  const repo = await trackedFixture(t);
+  const outDir = await temporaryDirectory(t, 'northset-writable-watchdog-');
+  let fake;
+  fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
+    const workspace = [...fake.workspaceDirs][0];
+    await mkdir(path.join(workspace, 'coverage'));
+    await writeFile(path.join(workspace, 'coverage', 'large.bin'), Buffer.alloc(4096));
+    await new Promise((resolve) => setTimeout(resolve, 600));
+  }}}});
+
+  await assert.rejects(execute(config({
+    repo_dir: repo,
+    commands: ['first-check'],
+    workspace_mode: 'writable_copy',
+    workspace_write_allowlist: ['coverage'],
+    limits: {...config().limits, workspace_bytes: 1024},
+  }), {outDir, now: fixedNow, spawnImpl: fake.spawnImpl}), /workspace exceeded size cap/);
+
+  assert.ok(fake.calls.some((args) => args[0] === 'kill' && args[1].startsWith('northset-executor-b-')));
+});
+
 test('config rejects unknown top-level keys', () => {
   assert.throws(
     () => validateExecutorConfig(config({ unexpected: true })),
@@ -409,6 +582,10 @@ test('happy path writes deterministic bundle-compatible outputs', async (t) => {
   assert.equal(result.runRecord.environment.container_os, 'linux');
   assert.equal(result.runRecord.environment.container_architecture, 'amd64');
   assert.equal(result.runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
+  assert.equal(result.runRecord.environment.workspace_mode, 'readonly');
+  assert.deepEqual(result.runRecord.environment.post_run_changed_tracked_paths, []);
+  assert.deepEqual(result.runRecord.environment.post_run_untracked_paths, []);
+  assert.deepEqual(result.runRecord.environment.post_run_mode_changes, []);
   assert.match(result.runRecord.environment.container_image_digest, /sha256:/);
   assertDerivedProvenance(result.runRecord.environment, { installCommands: ['install-fixture'] });
   assert.deepEqual(result.runRecord.commands.map(({ cmd, exit_code }) => ({ cmd, exit_code })), [
