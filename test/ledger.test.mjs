@@ -9,8 +9,11 @@ import { fileURLToPath } from 'node:url';
 import {
   buildLedger,
   buildReceiptViewModel,
+  formatHumanDate,
+  formatRunInterval,
   publicationOutcome,
   renderLedger,
+  truncateHash,
   validatePublication,
 } from '../lib/ledger.mjs';
 
@@ -46,6 +49,23 @@ function buildArgs(out, extra = []) {
     ...extra,
   ];
 }
+
+test('presentation helpers humanize UTC dates and compact SHA-256 values deterministically', () => {
+  assert.equal(formatHumanDate('2026-07-12T23:49:17-02:00'), 'Jul 13, 2026');
+  assert.equal(
+    formatRunInterval('2026-07-12T01:49:17.299Z', '2026-07-12T01:51:33.547Z', 136248),
+    'Jul 12, 2026 · 01:49–01:51 UTC · 2m 16s',
+  );
+  assert.equal(
+    truncateHash(`sha256:${'a'.repeat(64)}`),
+    `sha256:${'a'.repeat(6)}…${'a'.repeat(7)}`,
+  );
+  assert.equal(
+    truncateHash(`node@sha256:${'b'.repeat(64)}`),
+    `node@sha256:${'b'.repeat(6)}…${'b'.repeat(7)}`,
+  );
+  assert.equal(truncateHash('not recorded'), 'not recorded');
+});
 
 function collectHttpHosts(value, hosts = new Set()) {
   if (typeof value === 'string' && /^https?:\/\//.test(value)) {
@@ -368,7 +388,7 @@ test('render emits a self-contained claims surface with encoded mission data', a
   assert.match(html, /SELF-FUNDED FIELD-TESTING/);
   assert.match(html, /policies\/claims_boundary\.md/);
   assert.match(html, /class="hero-notes"/);
-  assert.equal((html.match(/<li class="hero-note">/g) ?? []).length, 4);
+  assert.equal((html.match(/<li class="hero-note">/g) ?? []).length, 3);
   assert.match(verificationReceipt, /Maintainer consent/);
   assert.match(verificationReceipt, /https:\/\/example\.com\/maintainer\/project\/consent\/42/);
   assert.match(unattestedReceipt, /Attestation confirms that Northset's signing workflow produced this exact bundle/);
@@ -609,12 +629,14 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(homepage, /receipts\/M-008\//);
   const featuredArticle = homepage.match(/<article class="receipt[^>]*id="M-008"[\s\S]*?<\/article>/)?.[0];
   assert.ok(featuredArticle);
-  assert.match(featuredArticle, /signing workflow[^<]+does not witness the recorded run/i);
+  assert.match(featuredArticle, /Signed provenance verified[\s\S]+signer does not witness the recorded run/i);
+  assert.match(featuredArticle, /NOT MAINTAINER VERIFICATION/);
+  assert.match(featuredArticle, /Evidence of what ran — not a verdict that the code is good/);
   assert.match(featuredArticle, /SELF-FUNDED FIELD-TESTING/);
   assert.match(homepage, /<details class="rehearsal-archive">/);
   assert.match(homepage, /External receipts/);
   assert.match(homepage, /Merged upstream/);
-  assert.match(homepage, /Open awaiting review/);
+  assert.match(homepage, /Open · awaiting review/);
   assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
   assert.match(homepage, /workspace-search buttons need type=button/);
   assert.match(homepage, /for open-source work/);
@@ -626,7 +648,7 @@ test('render creates a permanent printable receipt for every committed mission a
     .sort((left, right) => right.finished_at.localeCompare(left.finished_at) || left.mission_id.localeCompare(right.mission_id));
   let lastPreviewPosition = -1;
   for (const receipt of externalReceipts) {
-    const position = externalGallery.indexOf(`class="preview-id">${receipt.mission_id}<`);
+    const position = externalGallery.indexOf(`class="preview-id">Receipt ${receipt.mission_id}<`);
     assert.ok(position > lastPreviewPosition, `${receipt.mission_id} should follow newest-first external order`);
     lastPreviewPosition = position;
   }
@@ -654,7 +676,7 @@ test('render creates a permanent printable receipt for every committed mission a
   for (const preview of externalGallery.match(/<article class="receipt-preview[\s\S]*?<\/article>/g) ?? []) {
     const labelledBy = preview.match(/aria-labelledby="([^"]+)"/)?.[1];
     assert.ok(labelledBy, 'preview must have aria-labelledby');
-    assert.match(preview, new RegExp(`<h3 id="${labelledBy}" class="preview-id">`));
+    assert.match(preview, new RegExp(`<h3 id="${labelledBy}" class="preview-repo">`));
   }
 
   const missionIds = (await readdir(committedMissionsDirectory, { withFileTypes: true }))
@@ -725,8 +747,8 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /\.patch,\.evidence-output\s*\{\s*display:none/);
   assert.doesNotMatch(m008, /size:80mm auto/);
   assert.match(m008, /run wall \(derived from recorded timestamps\)/);
-  assert.match(m008, /<dt>Run start<\/dt><dd>2026-07-12T01:49:17\.299Z<\/dd>/);
-  assert.match(m008, /<dt>Run finish<\/dt><dd>2026-07-12T01:51:33\.547Z<\/dd>/);
+  assert.match(m008, /<dt>Recorded run<\/dt><dd>[\s\S]*<time datetime="2026-07-12T01:49:17\.299Z">Jul 12, 2026 · 01:49<\/time>/);
+  assert.match(m008, /<time datetime="2026-07-12T01:51:33\.547Z">01:51 UTC<\/time>/);
   assert.match(m008, /<summary>Redacted stdout<\/summary>/);
   assert.match(m008, /<summary>Redacted stderr<\/summary>/);
   assert.match(m008, /Building tests for @blockly\/plugin-workspace-search/);
@@ -736,10 +758,18 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.doesNotMatch(m008, /setup \+ install/);
   assert.match(m008, /unclassified executor time \(derived residual\)/);
   assert.match(m008, /<h1>Proof-of-Pass Receipt — <span class="receipt-id">M-008<\/span><\/h1>/);
+  assert.ok(m008.indexOf('class="v1-verdict"') < m008.indexOf('<h2>Code</h2>'));
+  assert.match(m008, /class="v1-verdict-result"[^>]*>PASS — 1\/1 declared command<\/h2>/);
+  assert.match(m008, /sha256:d171e1…3fad922/);
+  assert.match(m008, /node@sha256:a25c99…127c365/);
+  assert.match(m008, /sha256:58c3a6…f0cd64c/);
+  assert.match(m008, /sha256:78d812…eb56638/);
+  assert.match(m008, /<details class="cryptographic-detail">[\s\S]*sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922/);
   assert.match(m008, /workspace-search buttons need type=button/);
   assert.match(m016, /Public scope interpretation/);
   assert.match(m016, /The declared network-off check runs one focused Vitest spec for Quadlet digest replacement\. It does not run Renovate’s full test, lint, typecheck, or coverage gates\./);
   assert.match(m019, /The focused test inspects generated Swift output\. It does not invoke a Swift compiler or run the full quicktype test suite\./);
+  assert.equal((m016.match(/The declared network-off check runs one focused Vitest spec/g) ?? []).length, 1);
   const m016Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'receipt.json'), 'utf8'));
   const m019Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'receipt.json'), 'utf8'));
   const m020Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'receipt.json'), 'utf8'));
@@ -749,7 +779,7 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
   assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
   assert.ok(m020.includes(
-    `<strong>PR changed since this record.</strong> Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605</code>; current PR head observed at ${m020Publication.observed_at}: <code>00d27e70410dc78f0fcda582b987d515dc8b5817</code>`,
+    `<strong>PR changed since this record.</strong> Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605</code>; current PR head observed <time datetime="${m020Publication.observed_at}">`,
   ));
   assert.doesNotMatch(m020, /This receipt tested/);
   assert.equal(m020Json.upstream_outcome.head_drift, true);
@@ -757,7 +787,7 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.doesNotMatch(m016, /OPEN[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m019, /MERGED[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m008, /<h3>/);
-  assert.match(homepage, /<h2>Proof-of-Pass Receipt<\/h2>/);
+  assert.match(homepage, /<h3 id="featured-stub-title">Proof-of-Pass Receipt<\/h3>/);
   assert.match(homepage, /<svg[^>]+role="img"/);
   assert.match(m008, /signing workflow[^<]+does not witness the recorded run/i);
   assert.match(m008, /policies\/claims_boundary\.md/);

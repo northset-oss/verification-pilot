@@ -201,20 +201,28 @@ test('generated open ledger exposes exact state counts, freshness, provenance, d
   assert.equal(built.index.missions.length, committedIndex.missions.length);
   await renderLedger({ indexPath, out: siteFile, now: generatedAt });
   const html = await readFile(siteFile, 'utf8');
-  assert.match(html, new RegExp(`Generated at\\s*${generatedAt}`));
+  assert.match(html, new RegExp(`Ledger generated <time datetime="${generatedAt}">Jul 14, 2026<\\/time>`));
   const externalReceipts = built.index.missions
     .map(({ receipt }) => receipt)
     .filter(({ variant }) => variant !== 'own_repo_rehearsal');
   const expectedSummaries = [
     [externalReceipts.length, 'External receipts'],
     [externalReceipts.filter(({ publication }) => publication?.state === 'merged').length, 'Merged upstream'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'closed_unmerged').length, 'Closed unmerged'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'open' && publication.review_decision === 'approved').length, 'Open approved'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'open' && publication.review_decision === 'changes_requested').length, 'Open changes requested'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'open' && (publication.review_decision === null || publication.review_decision === 'review_required')).length, 'Open awaiting review'],
+    [new Set(externalReceipts.map(({ target_repo: targetRepo }) => targetRepo)).size, 'Distinct repositories'],
+    [externalReceipts.filter(({ attestation_uri: attestationUri }) => attestationUri !== null).length, 'Attested'],
   ];
   for (const [number, label] of expectedSummaries) {
-    assert.match(html, new RegExp(`<strong>${number}</strong> ${label}`));
+    assert.match(html, new RegExp(`<strong>${number}</strong><span>${label}</span>`));
+  }
+  const filterCounts = [
+    ['all', 'All', externalReceipts.length],
+    ['merged', 'Merged', externalReceipts.filter(({ publication }) => publication?.state === 'merged').length],
+    ['open', 'Open', externalReceipts.filter(({ publication }) => publication?.state === 'open').length],
+    ['closed_unmerged', 'Closed', externalReceipts.filter(({ publication }) => publication?.state === 'closed_unmerged').length],
+    ['changes_requested', 'Changes requested', externalReceipts.filter(({ publication }) => publication?.review_decision === 'changes_requested').length],
+  ];
+  for (const [filter, label, number] of filterCounts) {
+    assert.match(html, new RegExp(`data-filter="${filter}"[^>]*>${label} \\(${number}\\)<`));
   }
   assert.match(html, /External status.*mutable.*unattested/is);
   assert.match(html, /M-011[\s\S]*recorded patch commit[\s\S]*current PR head/i);
