@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-17T12:30:27.684Z",
+  "generated_at": "2026-07-17T20:36:51.728Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -483,8 +483,8 @@
         "decision_url": null,
         "opened_at": "2026-07-11T23:24:09Z",
         "closed_at": "2026-07-17T12:04:10Z",
-        "updated_at": "2026-07-17T12:05:07Z",
-        "observed_at": "2026-07-17T12:30:02.632Z",
+        "updated_at": "2026-07-17T19:11:45Z",
+        "observed_at": "2026-07-17T20:36:21.432Z",
         "correction_note": null,
         "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
         "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
@@ -602,8 +602,8 @@
           "decision_url": null,
           "opened_at": "2026-07-11T23:24:09Z",
           "closed_at": "2026-07-17T12:04:10Z",
-          "updated_at": "2026-07-17T12:05:07Z",
-          "observed_at": "2026-07-17T12:30:02.632Z",
+          "updated_at": "2026-07-17T19:11:45Z",
+          "observed_at": "2026-07-17T20:36:21.432Z",
           "correction_note": null,
           "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
           "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
@@ -3891,7 +3891,7 @@
       "issue_or_task": "https://github.com/Dreamstick9/filedrop/issues/85",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/Dreamstick9/filedrop/pull/160"
       },
       "run_record_bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -3901,20 +3901,20 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-112",
-        "state": "open",
+        "state": "merged",
         "pr_number": 160,
         "pr_url": "https://github.com/Dreamstick9/filedrop/pull/160",
         "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103",
         "base_branch": "main",
         "head_drift": true,
         "ci_state": "success",
-        "merge_commit_oid": null,
+        "merge_commit_oid": "ba89b79a2b4163fb26e04c3e1cc959536bdee65a",
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-16T19:25:14Z",
-        "closed_at": null,
-        "updated_at": "2026-07-17T11:44:47Z",
-        "observed_at": "2026-07-17T11:46:25.756Z",
+        "closed_at": "2026-07-17T18:29:49Z",
+        "updated_at": "2026-07-17T18:30:13Z",
+        "observed_at": "2026-07-17T20:36:36.262Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -3926,7 +3926,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
-          "verified_at": "2026-07-17T11:46:25.756Z"
+          "verified_at": "2026-07-17T20:36:36.262Z"
         }
       },
       "receipt": {
@@ -4177,9 +4177,9 @@
             "technical_checks_passed": true,
             "pr_opened": true,
             "ci_state": "success",
-            "merged": false,
-            "accepted_as_submitted": null,
-            "time_to_close_ms": null,
+            "merged": true,
+            "accepted_as_submitted": false,
+            "time_to_close_ms": 83075000,
             "released": null,
             "deployed": null,
             "business_result_observed": null
@@ -4190,7 +4190,7 @@
             "attempt_lineage": "complete",
             "usage": "partial",
             "cost": "unpriced",
-            "external_outcome": "partial",
+            "external_outcome": "complete",
             "business_value": "not_observed"
           },
           "provenance": {
@@ -4224,20 +4224,20 @@
         "publication": {
           "schema_version": 1,
           "mission_id": "M-112",
-          "state": "open",
+          "state": "merged",
           "pr_number": 160,
           "pr_url": "https://github.com/Dreamstick9/filedrop/pull/160",
           "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103",
           "base_branch": "main",
           "head_drift": true,
           "ci_state": "success",
-          "merge_commit_oid": null,
+          "merge_commit_oid": "ba89b79a2b4163fb26e04c3e1cc959536bdee65a",
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-16T19:25:14Z",
-          "closed_at": null,
-          "updated_at": "2026-07-17T11:44:47Z",
-          "observed_at": "2026-07-17T11:46:25.756Z",
+          "closed_at": "2026-07-17T18:29:49Z",
+          "updated_at": "2026-07-17T18:30:13Z",
+          "observed_at": "2026-07-17T20:36:36.262Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:3dce6eeb6ebed5786d502118cfbccd21ebba62b95dc7ed5db4bcaf66cf41a9b3",
@@ -4249,13 +4249,13 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-112/",
-            "verified_at": "2026-07-17T11:46:25.756Z"
+            "verified_at": "2026-07-17T20:36:36.262Z"
           }
         },
         "live_outcome": {
-          "status": "open",
+          "status": "merged",
           "link": "https://github.com/Dreamstick9/filedrop/pull/160",
-          "attribution": "Live upstream pull request",
+          "attribution": "Recorded upstream outcome",
           "head_drift": true,
           "pr_head_oid": "5079b2942172d6092654a537b475b7f3921b6103"
         }
@@ -6566,8 +6566,8 @@
         "decision_url": null,
         "opened_at": "2026-07-16T22:49:33Z",
         "closed_at": null,
-        "updated_at": "2026-07-16T22:49:33Z",
-        "observed_at": "2026-07-16T22:49:34.936Z",
+        "updated_at": "2026-07-17T18:12:33Z",
+        "observed_at": "2026-07-17T20:36:44.030Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:e2d2f810827e65fd59ab9255ba6aa69fb2122e99dbf1d6d96aa83753e6eac603",
@@ -6579,7 +6579,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-157/",
-          "verified_at": "2026-07-16T22:49:34.936Z"
+          "verified_at": "2026-07-17T20:36:44.030Z"
         }
       },
       "receipt": {
@@ -6899,8 +6899,8 @@
           "decision_url": null,
           "opened_at": "2026-07-16T22:49:33Z",
           "closed_at": null,
-          "updated_at": "2026-07-16T22:49:33Z",
-          "observed_at": "2026-07-16T22:49:34.936Z",
+          "updated_at": "2026-07-17T18:12:33Z",
+          "observed_at": "2026-07-17T20:36:44.030Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:e2d2f810827e65fd59ab9255ba6aa69fb2122e99dbf1d6d96aa83753e6eac603",
@@ -6912,7 +6912,7 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-157/",
-            "verified_at": "2026-07-16T22:49:34.936Z"
+            "verified_at": "2026-07-17T20:36:44.030Z"
           }
         },
         "live_outcome": {
