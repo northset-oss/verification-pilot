@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-17T11:46:44.754Z",
+  "generated_at": "2026-07-17T12:30:27.684Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -65,7 +65,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -126,7 +126,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -193,7 +193,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -262,14 +262,14 @@
       "correction": null,
       "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
       "upstream_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
-        "attribution": "Live upstream pull request"
+        "attribution": "Recorded upstream outcome"
       }
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -339,7 +339,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -408,7 +408,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -479,7 +479,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -549,7 +549,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -617,7 +617,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -685,7 +685,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -752,7 +752,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -820,7 +820,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -908,7 +908,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -996,7 +996,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1367,7 +1367,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1648,7 +1648,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -1938,7 +1938,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2234,7 +2234,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2515,7 +2515,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2794,7 +2794,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3073,7 +3073,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3345,7 +3345,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3637,7 +3637,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3919,7 +3919,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4201,7 +4201,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4490,7 +4490,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4779,7 +4779,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5068,7 +5068,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5387,7 +5387,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5675,7 +5675,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5953,7 +5953,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6247,7 +6247,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T11:46:44.754Z",
+      "generated_at": "2026-07-17T12:30:27.684Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,

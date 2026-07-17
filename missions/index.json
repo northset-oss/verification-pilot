@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-17T11:46:44.754Z",
+  "generated_at": "2026-07-17T12:30:27.684Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -437,7 +437,7 @@
       "issue_or_task": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573"
       },
       "run_record_bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
@@ -447,20 +447,20 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-007",
-        "state": "open",
+        "state": "merged",
         "pr_number": 1573,
         "pr_url": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
         "pr_head_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
         "base_branch": "master",
         "head_drift": false,
-        "ci_state": "success",
-        "merge_commit_oid": null,
+        "ci_state": "failure",
+        "merge_commit_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-11T23:24:09Z",
-        "closed_at": null,
-        "updated_at": "2026-07-16T19:45:26Z",
-        "observed_at": "2026-07-16T19:46:55.000Z",
+        "closed_at": "2026-07-17T12:04:10Z",
+        "updated_at": "2026-07-17T12:05:07Z",
+        "observed_at": "2026-07-17T12:30:02.632Z",
         "correction_note": null,
         "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
         "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
@@ -558,20 +558,20 @@
         "publication": {
           "schema_version": 1,
           "mission_id": "M-007",
-          "state": "open",
+          "state": "merged",
           "pr_number": 1573,
           "pr_url": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
           "pr_head_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
           "base_branch": "master",
           "head_drift": false,
-          "ci_state": "success",
-          "merge_commit_oid": null,
+          "ci_state": "failure",
+          "merge_commit_oid": "c8f904b93482c66ecab3cc7954be87d9cd170979",
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-11T23:24:09Z",
-          "closed_at": null,
-          "updated_at": "2026-07-16T19:45:26Z",
-          "observed_at": "2026-07-16T19:46:55.000Z",
+          "closed_at": "2026-07-17T12:04:10Z",
+          "updated_at": "2026-07-17T12:05:07Z",
+          "observed_at": "2026-07-17T12:30:02.632Z",
           "correction_note": null,
           "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
           "bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
@@ -580,9 +580,9 @@
           "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
-          "status": "open",
+          "status": "merged",
           "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
-          "attribution": "Live upstream pull request"
+          "attribution": "Recorded upstream outcome"
         }
       }
     },
