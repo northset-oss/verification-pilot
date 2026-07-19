@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T22:19:40.430Z",
+  "finished_at": "2026-07-16T22:23:09.528Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "ea68e406775b5b2378678c78fc614fd9e486a3ef",
+    "base_tree_digest": "sha256:f37bdbf38fb40ccfb8673be109ec2b8e427acdd12a2c0ac2b94388c99f330ea0",
+    "pre_check_tree_digest": "sha256:bef607157bb87e07acb5cb02b7d2de3e1de6b065431554a876de64ad36b3a5c2",
+    "approved_tracked_tree_digest": "sha256:d7df5e6a146b0f2894e4dc3dec2aeb4bcced5e22d59ac8dae9eda7c6c6ddc153",
+    "post_check_tree_digest": "sha256:aea9308ee14ad156cda8350625ad37efae7a8c02026b27ca2c9d31a995fc0c6e",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:dc2fbcaf48dbff7060e616710d128ce9fdccba3afbe1a9138f0751a28a8edbd8",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- --configLoader runner --no-cache packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts",
+      "exit_code": 0,
+      "duration_ms": 2472
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 155297,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 2472,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

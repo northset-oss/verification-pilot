@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T19:28:03.641Z",
+  "finished_at": "2026-07-16T19:28:39.571Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+    "base_tree_digest": "sha256:c668e3d776f27ac14161fcf4e3e4189c79cdb4d30c83d21b04c53cee5d930f1c",
+    "pre_check_tree_digest": "sha256:abd16bffd05b0df842067bdec4c0f37ca978e074237c13d606bbfeb5f2fa5d2d",
+    "approved_tracked_tree_digest": "sha256:552c2ccf0e8be526db76b33c17ae2827db30d17eff62b5539500769ab04c9e8e",
+    "post_check_tree_digest": "sha256:fcb936e8e22bf748b0a74f5edd62497a8b559b3bf8ebebc8e41636609bec60a2",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:52ce76e720d47080055d72c2591a01e9316c431e010e35ac6238fcca58707119",
+    "install_commands": [
+      "npm --prefix packages/krl-parser install --ignore-scripts --no-package-lock"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts",
+      "exit_code": 0,
+      "duration_ms": 10121
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 19764,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 10121,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

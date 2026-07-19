@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-19T09:41:25.047Z",
+  "receipt_id": "M-007",
+  "receipt_result": "PASS — 2/2 declared commands",
+  "passed_commands": 2,
+  "declared_commands": 2,
+  "timestamps": {
+    "started_at": "2026-07-11T23:07:52.808Z",
+    "finished_at": "2026-07-11T23:13:48.745Z"
+  },
+  "commands": [
+    {
+      "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 7050
+    },
+    {
+      "cmd": "mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 34884
+    }
+  ],
+  "environment": {
+    "container_image_ref": "maven:3.9-eclipse-temurin-11",
+    "container_image_digest": "maven@sha256:1fee93ca227db7e8b8c7c72752ada0f03da6ebab40addd6fe48ac6293424186c",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "source_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+    "install_commands": [
+      "PATH=\"$JAVA_HOME/bin:$PATH\" mvn -Dmaven.repo.local=/workspace/.m2 clean install -ntp -Pqulice --errors --batch-mode",
+      "mvn -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode",
+      "mvn -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest"
+    ]
+  },
+  "code": {
+    "base_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+    "recorded_patch_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "2/2 declared commands returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+    "signed_asset_sha256": "sha256:eba4d0fc7e3b20e39a0cd272c6c44b05ba71dff174a30ee39d64330aa948f522",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-007/",
+    "target_repo": "https://github.com/objectionary/jeo-maven-plugin",
+    "issue_or_task": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
+    "publication_pr": "https://github.com/objectionary/jeo-maven-plugin/pull/1573"
+  },
+  "issue_title": "`BytecodeClasses.toString()` and `root()` throw `NullPointerException` when `input` is null while `classes()` provides a descriptive error",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms."
+  ],
+  "correction": null,
+  "scope_note": "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms.",
+  "upstream_outcome": {
+    "status": "merged",
+    "link": "https://github.com/objectionary/jeo-maven-plugin/pull/1573",
+    "attribution": "Recorded upstream outcome"
+  }
+}

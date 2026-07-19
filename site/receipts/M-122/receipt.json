@@ -1,0 +1,300 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-07-19T09:41:25.047Z",
+  "receipt_id": "M-122",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-16T19:28:03.641Z",
+    "finished_at": "2026-07-16T19:28:39.571Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 10121
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "source_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+    "install_commands": [
+      "npm --prefix packages/krl-parser install --ignore-scripts --no-package-lock"
+    ]
+  },
+  "code": {
+    "base_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+    "recorded_patch_commit": "b81d5d7afc2d307ae42be3a78829ef33a37e4c82",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:52ce76e720d47080055d72c2591a01e9316c431e010e35ac6238fcca58707119",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",
+    "signed_asset_sha256": "sha256:2957f2ec31791a5f2210d267a4078ddada30af181021f7586c205d4aa0a546f1",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-122-276e60f2c7a1/run-record-M-122-276e60f2c7a1.tar.gz",
+    "attestation_verified_at": "2026-07-16T19:32:25.564Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-122/",
+    "target_repo": "https://github.com/picolab/pico-engine",
+    "issue_or_task": "https://github.com/Picolab/pico-engine/issues/595",
+    "publication_pr": "https://github.com/Picolab/pico-engine/pull/663"
+  },
+  "issue_title": "Need a better parser/compile error message for mis-placed bindings/assignments",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+    "Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk."
+  ],
+  "correction": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions. Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk.",
+  "upstream_outcome": {
+    "status": "open",
+    "link": "https://github.com/Picolab/pico-engine/pull/663",
+    "attribution": "Live upstream pull request"
+  },
+  "economic_identity": {
+    "scope": "end_to_end_task",
+    "task": {
+      "task_id": "TASK-OSS-1D84161CAE1E9EBC",
+      "attempt_id": "M-122",
+      "attempt_sequence": 4,
+      "work_category": "defect_fix",
+      "external_demand": {
+        "source": "public_github_issue",
+        "issue_url": "https://github.com/Picolab/pico-engine/issues/595",
+        "acceptance_contract_digest": "sha256:f62e4814033712a22b0b7e3669b120c406050880cac555850955877d85647709",
+        "invitation_type": "label",
+        "invitation_url": "https://github.com/Picolab/pico-engine/issues/595"
+      }
+    },
+    "funding": {
+      "program": "Northset OSS Fund",
+      "initiative": "OSS mission experimentation",
+      "budget_id": null,
+      "financial_cap": null,
+      "currency": null
+    },
+    "external_transfers": {
+      "maintainer_payment": "none",
+      "merge_contingent": false
+    },
+    "authorization": {
+      "approved_manifest_digest": "sha256:4a8ee8feb85e7a879c6f51f28d0061832c660d3a7d35d31f1c156a71805ede91",
+      "approved_by": "internal-user:aeziz",
+      "approved_at": "2026-07-16T19:30:19.923Z",
+      "operational_caps": {
+        "finder_wall_seconds": 1200,
+        "qualification_wall_seconds": 300,
+        "prepare_wall_seconds": 3600,
+        "ship_wall_seconds": 3600,
+        "maximum_attempts": null
+      }
+    },
+    "attempt_lineage": {
+      "attempts_total": 4,
+      "successful_attempt_id": "M-122",
+      "attempts": [
+        {
+          "attempt_id": "M-108",
+          "attempt_sequence": 1,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-113",
+          "attempt_sequence": 2,
+          "state": "FAILED_INFRA_TERMINAL",
+          "terminal_reason_class": "infrastructure"
+        },
+        {
+          "attempt_id": "M-117",
+          "attempt_sequence": 3,
+          "state": "FAILED_INFRA_TERMINAL",
+          "terminal_reason_class": "infrastructure"
+        },
+        {
+          "attempt_id": "M-122",
+          "attempt_sequence": 4,
+          "state": "READY",
+          "terminal_reason_class": null
+        }
+      ]
+    },
+    "usage": {
+      "discovery": {
+        "finder_run_id": null,
+        "candidate_rank": 4,
+        "elapsed_ms": null
+      },
+      "qualification": {
+        "review_id": "sha256:5b39a6aae8ce40d47f4365ebee92392a53a349c935425f2be926c158bfcd7629",
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 207363,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "authoring": {
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 221294,
+        "bootstrap_duration_ms": 21859,
+        "bootstrap_retry_count": 0,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "preparation": {
+        "total_duration_ms": 263338,
+        "stages": [
+          {
+            "stage": "prepare_recheck",
+            "duration_ms": 3187
+          },
+          {
+            "stage": "executor_image",
+            "duration_ms": 34
+          },
+          {
+            "stage": "clone",
+            "duration_ms": 673
+          },
+          {
+            "stage": "author",
+            "duration_ms": 245655
+          },
+          {
+            "stage": "canonical_commit",
+            "duration_ms": 488
+          },
+          {
+            "stage": "differential_oracle",
+            "duration_ms": 13301
+          }
+        ]
+      },
+      "verification": {
+        "executor_elapsed_ms": 35930,
+        "networked_setup_elapsed_ms": 19764,
+        "dependency_install_ms": null,
+        "declared_commands_ms": 10121,
+        "unclassified_executor_ms": 6045,
+        "cpu_ms": null,
+        "peak_rss_bytes": null,
+        "measurement_status": "partial"
+      },
+      "resource_envelope": {
+        "cpus": 2,
+        "memory_mb": 4096,
+        "pids": 512,
+        "wall_clock_seconds_per_command": 1800,
+        "output_bytes_per_stream": 2000000
+      }
+    },
+    "work_scope": {
+      "files_changed": 4,
+      "changed_lines": 80,
+      "production_files": 1,
+      "test_files": 3,
+      "checks_declared": 1,
+      "checks_not_run": [
+        "Full krl-parser suite beyond the new regression and the two directly affected existing test files",
+        "Full pico-engine monorepo test suite",
+        "Generated parser specification comparison",
+        "Runtime integration outside krl-parser"
+      ]
+    },
+    "costs": {
+      "status": "partial",
+      "currency": null,
+      "lines": [
+        {
+          "component": "maintainer_payment",
+          "measurement_class": "observed_quantity_unpriced",
+          "quantity": "0",
+          "unit": "external_transfer",
+          "unit_rate": null,
+          "amount": null,
+          "currency": null,
+          "source_refs": [
+            {
+              "artifact": "bundle/mission.json",
+              "artifact_sha256": "sha256:b5ba779314048bbeb42fb5692e539cc4fd42c831489b8a7d44c3d448795624cc",
+              "json_pointer": "/payment/maintainer_payment"
+            }
+          ],
+          "rate_card_digest": null,
+          "allocation_method": null,
+          "finality": "final",
+          "visibility": "public"
+        }
+      ],
+      "known_direct_cost": null,
+      "allocated_shared_cost": null,
+      "human_standard_cost": null,
+      "total_economic_cost": null,
+      "missing_components": [
+        "model_inference",
+        "actual_host_compute",
+        "human_review",
+        "shared_tooling"
+      ]
+    },
+    "outcome": {
+      "technical_checks_passed": true,
+      "pr_opened": true,
+      "ci_state": "pending",
+      "merged": false,
+      "accepted_as_submitted": null,
+      "time_to_close_ms": null,
+      "released": null,
+      "deployed": null,
+      "business_result_observed": null
+    },
+    "completeness": {
+      "task_identity": "complete",
+      "technical_execution": "complete",
+      "attempt_lineage": "complete",
+      "usage": "partial",
+      "cost": "unpriced",
+      "external_outcome": "partial",
+      "business_value": "not_observed"
+    },
+    "provenance": {
+      "spec_sha256": "sha256:dff97cdc3a1882978ea3a74134512e490379ec69c669a8838a099f582e053b4f",
+      "qualification_evidence_sha256": "sha256:3b96381750571f391c3f703fa65c5a504e0eaf594602ab799c657879637f8a2a",
+      "issue_snapshot_sha256": "sha256:471e2fc4fd15f7682600a5a9d7d440930bb8d40f84155b0d68f019cc0d4bc376"
+    }
+  }
+}

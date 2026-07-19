@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-115",
+  "state": "open",
+  "pr_number": 197,
+  "pr_url": "https://github.com/rokucommunity/bslint/pull/197",
+  "pr_head_oid": "4de9666cb9885e9fc9737a055c5bdd2b5ca1997c",
+  "base_branch": "master",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T19:32:30Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T19:32:30Z",
+  "observed_at": "2026-07-16T19:32:32.008Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-115-5e882b216537/run-record-M-115-5e882b216537.tar.gz",
+  "release_asset_sha256": "sha256:98769378fb071e26f3b80c22fcd182da2494df155597e6ac2273fc48107674fa",
+  "attestation_verified_at": "2026-07-16T19:32:25.549Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-115/",
+    "verified_at": "2026-07-16T19:32:32.008Z"
+  }
+}

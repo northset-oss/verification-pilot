@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm run compile-typescript && npm run test-unit"
+  ]
+}

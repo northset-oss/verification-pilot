@@ -1,0 +1,90 @@
+diff --git a/packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx b/packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx
+index db427f73819338396881d2f81b243da97d5b7bad..b056d46af344f6be0b8d3de6a54bef869ed85a3f 100644
+--- a/packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx
++++ b/packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx
+@@ -1,4 +1,4 @@
+-import { VisualizationProvider } from '@patternfly/react-topology';
++import { action, Point, VisualizationProvider } from '@patternfly/react-topology';
+ import { act, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
+ import { useState } from 'react';
+ 
+@@ -587,4 +587,57 @@ describe('Canvas', () => {
+       },
+     );
+   });
++
++  it('preserves collapse and viewport state when remounted', async () => {
++    vi.spyOn(console, 'error').mockImplementation(() => {});
++    const { Provider } = await TestProvidersWrapper();
++    const controller = ControllerService.createController();
++    const fromModelSpy = vi.spyOn(controller, 'fromModel');
++    const vizNode = await entity.toVizNode();
++
++    let setCanvasVisible: (visible: boolean) => void = () => {};
++    const Inner = () => {
++      const [isCanvasVisible, setIsCanvasVisible] = useState(true);
++      setCanvasVisible = setIsCanvasVisible;
++      return (
++        <VisualizationProvider controller={controller}>
++          {isCanvasVisible && <Canvas vizNodes={[vizNode]} entitiesCount={1} />}
++        </VisualizationProvider>
++      );
++    };
++
++    render(
++      <Provider>
++        <Inner />
++      </Provider>,
++    );
++    await act(async () => {
++      await vi.runAllTimersAsync();
++    });
++
++    const graph = controller.getGraph();
++    action(() => {
++      graph.setScale(1.5);
++      graph.setPosition(new Point(120, 80));
++    })();
++    fromModelSpy.mockClear();
++    vi.mocked(applyCollapseState).mockClear();
++
++    await act(async () => {
++      setCanvasVisible(false);
++    });
++    await act(async () => {
++      setCanvasVisible(true);
++    });
++    await act(async () => {
++      await vi.runAllTimersAsync();
++    });
++
++    expect(fromModelSpy).toHaveBeenCalledWith(expect.anything(), true);
++    expect(fromModelSpy).not.toHaveBeenCalledWith(expect.anything(), false);
++    expect(applyCollapseState).toHaveBeenCalledWith(controller);
++    expect(controller.getGraph()).toBe(graph);
++    expect(graph.getScale()).toBe(1.5);
++    expect(graph.getPosition()).toEqual(new Point(120, 80));
++  });
+ });
+diff --git a/packages/ui/src/components/Visualization/Canvas/Canvas.tsx b/packages/ui/src/components/Visualization/Canvas/Canvas.tsx
+index 1d1ff43d4e428c2e29d67e2a2b203e91f3d1e0ad..7e007b0f4ad8ff8cc63a1b4c222704907c1cd9e2 100644
+--- a/packages/ui/src/components/Visualization/Canvas/Canvas.tsx
++++ b/packages/ui/src/components/Visualization/Canvas/Canvas.tsx
+@@ -66,7 +66,8 @@ export const Canvas: FunctionComponent<PropsWithChildren<CanvasProps>> = ({
+   const activeLayout =
+     settingsLayout ?? localStorage.getItem(LocalStorageKeys.CanvasLayout) ?? CanvasDefaults.DEFAULT_LAYOUT;
+ 
+-  const [initialized, setInitialized] = useState(false);
++  const controller = useVisualizationController();
++  const [initialized, setInitialized] = useState(() => controller.getGraph().getLayout() !== undefined);
+   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+   const [selectedNode, setSelectedNode] = useState<CanvasNode | undefined>(undefined);
+   const [sidebarWidth, setSidebarWidth] = useLocalStorage(
+@@ -77,7 +78,6 @@ export const Canvas: FunctionComponent<PropsWithChildren<CanvasProps>> = ({
+   /** Context to interact with the Canvas catalog */
+   const catalogModalContext = useContext(CatalogModalContext);
+ 
+-  const controller = useVisualizationController();
+   const shouldShowEmptyState = useMemo(() => {
+     const areNoFlows = entitiesCount === 0;
+     const areAllFlowsHidden = vizNodes.length === 0 && entitiesCount > 0;

@@ -1,0 +1,47 @@
+{
+  "mission_id": "M-122",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "picolab maintainers",
+  "target_repo": "https://github.com/picolab/pico-engine",
+  "issue_or_task": "https://github.com/Picolab/pico-engine/issues/595",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/Picolab/pico-engine/blob/d135b1d7b153b9648708bec55c5a4df2f3379782/README.md",
+    "checked_at": "2026-07-16T18:02:48.231Z",
+    "ai_policy_summary": "The repository directs contributors to work on a branch or fork and submit a pull request for review. The maintainer-set behavior is recorded on issue #595. No AI-assistance prohibition, CLA, or DCO requirement was found in the inspected instructions."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "d135b1d7b153b9648708bec55c5a4df2f3379782",
+  "patch_commit": "b81d5d7afc2d307ae42be3a78829ef33a37e4c82",
+  "patch_diff_hash": "sha256:52ce76e720d47080055d72c2591a01e9316c431e010e35ac6238fcca58707119",
+  "commands_declared": [
+    "npm --prefix packages/krl-parser test -- test/postlude-declaration-errors.ts test/postludeStatements.ts test/ruleset.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+    "Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk."
+  ]
+}

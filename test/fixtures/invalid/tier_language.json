@@ -1,0 +1,23 @@
+{
+  "mission_id": "M-108",
+  "variant": "own_repo_rehearsal",
+  "claims_tier": ["R0"],
+  "grade": "B0",
+  "disclosure_label": "Self-funded rehearsal. Not external validation.",
+  "funding_source": "Settlement evidence fixture",
+  "northset_role": "both_sides_disclosed",
+  "external_counterparty": null,
+  "target_repo": "https://example.com/repository",
+  "consent_artifact": null,
+  "commands_declared": [],
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": ["Does not prove code quality", "Does not prove security"]
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T21:20:42.341Z",
+  "finished_at": "2026-07-16T21:22:26.886Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "6693af47e28bb6d01035ada6b61341b6ad630b95",
+    "base_tree_digest": "sha256:714e35e4d3f41a5eabd8db9fe3922767300b14d09c9c4a8568eb2423d581bbf4",
+    "pre_check_tree_digest": "sha256:194b2894910be2af40349fc6d864fe5b2861b56f72994156438bcd669e1bc9f2",
+    "approved_tracked_tree_digest": "sha256:877998fd75d957d32703f16bc8159cce0c0e8b3a6df17fef7c11e3f4d913aa36",
+    "post_check_tree_digest": "sha256:b016e55293ecf0ee853dccaf8f253841427c574af30fb96e763710f5a15adde6",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:340ed24340c71df129e6091626cf825de3b537648209fbba115f2620446ce960",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- --configLoader runner src/__tests__/factory.test.ts",
+      "exit_code": 0,
+      "duration_ms": 9265
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 78745,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 9265,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

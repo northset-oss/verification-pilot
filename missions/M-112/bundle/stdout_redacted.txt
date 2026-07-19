@@ -1,0 +1,10 @@
+=== cmd 1: node --test src/errors.terminal-cleanup.test.js ===
+✔ restores terminal state before fatal exit (6.741667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 76.696667

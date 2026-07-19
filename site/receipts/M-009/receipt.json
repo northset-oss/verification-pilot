@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-19T09:41:25.047Z",
+  "receipt_id": "M-009",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-12T10:06:34.026Z",
+    "finished_at": "2026-07-12T10:07:48.529Z"
+  },
+  "commands": [
+    {
+      "cmd": "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 11655
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "source_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+    "install_commands": [
+      "node .yarn/releases/yarn-4.17.1.cjs install",
+      "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown"
+    ]
+  },
+  "code": {
+    "base_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+    "recorded_patch_commit": "296019b33e287334febc9882b204c9501725116d",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:3655d695fef0b43a3af656fbbbc5d260a84f69eebcdcc4fe76e435174fc2a0f5",
+    "signed_asset_sha256": "sha256:83000c6ca030d502b4b3f1fc6afd16168bb1148c3699d17dc618792c874dc9a8",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-009/run-record-M-009.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-009/",
+    "target_repo": "https://github.com/prettier/prettier",
+    "issue_or_task": "https://github.com/prettier/prettier/issues/19588",
+    "publication_pr": "https://github.com/prettier/prettier/pull/19611"
+  },
+  "issue_title": "Idempotency bug in escaped semicolon in Markdown link",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The declared network-off check runs Prettier's full Markdown Jest suite (tests/format/markdown, 1476 tests including the new escaped-entity-semicolon regression fixture) on Node 22 via the repository's vendored Yarn, after a disclosed online phase-A install. It does not run the full repository test/lint matrix; upstream CI additionally runs multiple Node versions, ESLint, TypeScript typecheck, changelog lint, and production/browser tests."
+  ],
+  "correction": null,
+  "scope_note": "The declared network-off check runs Prettier's full Markdown Jest suite (tests/format/markdown, 1476 tests including the new escaped-entity-semicolon regression fixture) on Node 22 via the repository's vendored Yarn, after a disclosed online phase-A install. It does not run the full repository test/lint matrix; upstream CI additionally runs multiple Node versions, ESLint, TypeScript typecheck, changelog lint, and production/browser tests.",
+  "upstream_outcome": {
+    "status": "closed_unmerged",
+    "link": "https://github.com/prettier/prettier/pull/19611",
+    "attribution": "Recorded upstream outcome"
+  }
+}

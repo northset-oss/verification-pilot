@@ -1,0 +1,9 @@
+=== cmd 1: npm run compile-typescript && npm run test-unit ===
+
+> @[REDACTED:email] compile-typescript
+> tsc --project .
+
+
+> @[REDACTED:email] test-unit
+> jest
+

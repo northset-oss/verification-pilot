@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-106",
+  "state": "open",
+  "pr_number": 19,
+  "pr_url": "https://github.com/chipmates/agoracosmica/pull/19",
+  "pr_head_oid": "5fbd2c8e324385c49f04b26ad92a6b082b89369d",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T17:16:24Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T17:16:24Z",
+  "observed_at": "2026-07-16T17:16:25.740Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "bundle_digest": "sha256:9306fe04bc177379f12143e2c91427f6f69c3071b82b2110802e5ec31d9c0167",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-106-9306fe04bc17/run-record-M-106-9306fe04bc17.tar.gz",
+  "release_asset_sha256": "sha256:5dc6578b9845068bda4685b1a189e09ce97153cd69c21e979d621f7591c5e7a8",
+  "attestation_verified_at": "2026-07-16T17:16:19.522Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-106/",
+    "verified_at": "2026-07-16T17:16:25.741Z"
+  }
+}

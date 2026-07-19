@@ -1,0 +1,77 @@
+diff --git a/index.d.ts b/index.d.ts
+index 8c0ebb2..fe41cc4 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -323,6 +323,7 @@ export interface CounterConfiguration<
+ 	T extends string,
+ > extends MetricConfiguration<T> {
+ 	collect?: CollectFunction<Counter<T>>;
++	useCounterValueAsExemplar?: boolean;
+ }
+ 
+ export interface IncreaseDataWithExemplar<T extends string> {
+diff --git a/lib/counter.js b/lib/counter.js
+index 7835c8d..b6ce480 100644
+--- a/lib/counter.js
++++ b/lib/counter.js
+@@ -24,7 +24,7 @@ const Exemplar = require('./exemplar');
+ 
+ class Counter extends Metric {
+ 	constructor(config) {
+-		super(config);
++		super(config, { useCounterValueAsExemplar: false });
+ 		this.type = 'counter';
+ 		this.defaultLabels = {};
+ 		this.defaultValue = 1;
+@@ -93,7 +93,11 @@ class Counter extends Metric {
+ 		entry.exemplar ??= new Exemplar();
+ 		entry.exemplar.validateExemplarLabelSet(exemplarLabels);
+ 		entry.exemplar.labelSet = exemplarLabels;
+-		entry.exemplar.value = value ? value : 1;
++		entry.exemplar.value = this.useCounterValueAsExemplar
++			? entry.value
++			: value
++				? value
++				: 1;
+ 		entry.exemplar.timestamp = nowTimestamp();
+ 	}
+ 
+diff --git a/test/exemplarsTest.js b/test/exemplarsTest.js
+index 0ad6588..344d523 100644
+--- a/test/exemplarsTest.js
++++ b/test/exemplarsTest.js
+@@ -60,6 +60,34 @@ describe('Exemplars', () => {
+ 				);
+ 			});
+ 
++			it('should optionally use the counter value for exemplars', async () => {
++				const counterWithTotal = new Counter({
++					name: 'counter_total_exemplar_test',
++					help: 'help',
++					enableExemplars: true,
++					useCounterValueAsExemplar: true,
++					registers: [],
++				});
++				const counterWithIncrement = new Counter({
++					name: 'counter_increment_exemplar_test',
++					help: 'help',
++					enableExemplars: true,
++					registers: [],
++				});
++
++				counterWithTotal.inc({ exemplarLabels: { traceId: 'x' } });
++				counterWithTotal.inc({ exemplarLabels: { traceId: 'x' } });
++				counterWithIncrement.inc({ exemplarLabels: { traceId: 'x' } });
++				counterWithIncrement.inc({ exemplarLabels: { traceId: 'x' } });
++
++				const totalValues = await counterWithTotal.get();
++				const incrementValues = await counterWithIncrement.get();
++				expect(totalValues.values[0].value).toEqual(2);
++				expect(totalValues.values[0].exemplar.value).toEqual(2);
++				expect(incrementValues.values[0].value).toEqual(2);
++				expect(incrementValues.values[0].exemplar.value).toEqual(1);
++			});
++
+ 			it('should make histogram with exemplars on multiple buckets', async () => {
+ 				const histogramInstance = new Histogram({
+ 					name: 'histogram_exemplar_test',

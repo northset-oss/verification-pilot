@@ -1,0 +1,7 @@
+{
+  "commands": [
+    "npm run test:unit -- test/unit/typescript-output-filename.test.ts",
+    "npm run lint",
+    "npm run build"
+  ]
+}

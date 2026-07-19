@@ -1,0 +1,17 @@
+{
+  "fetched_at": "2026-07-12T02:25:40Z",
+  "issue": {
+    "number": 19588,
+    "state": "open",
+    "title": "Idempotency bug in escaped semicolon in Markdown link",
+    "html_url": "https://github.com/prettier/prettier/issues/19588",
+    "assignee": null,
+    "labels": ["help wanted", "lang:markdown"],
+    "created_at": "2026-07-10T13:00:10Z",
+    "updated_at": "2026-07-10T13:42:20Z",
+    "body": "Prettier v3.9.5. With --parser markdown, `[test](/hello?foo&quot\\;bar)` formats on the first pass to `[test](/hello?foo&quot;bar)` and on the second pass to `[test](/hello?foo\"bar)`, because the escaped semicolon guarding the `&quot;` character reference loses its backslash and then resolves as an entity. Expected: the escaped form `[test](/hello?foo&quot\\;bar)` is preserved (idempotent). Reporter gives the reproduction and expected output."
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "note": "Live recheck at fetch time and re-verified hours later before receipt/push: OPEN, unassigned, labels help-wanted + lang:markdown intact; ZERO comments, ZERO claims, ZERO cross-referenced or open PRs. Fresh issue (created 2026-07-10). No CLA/DCO required (MIT). Clean, uncontested target."
+}

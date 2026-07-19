@@ -1,0 +1,27 @@
+{
+  "started_at": "2026-07-13T01:03:28.905Z",
+  "finished_at": "2026-07-13T01:04:13.457Z",
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+    "base_tree_digest": "sha256:bd0a7bb6f3e0a2e853e8d8edefac267e300e554d4bd4fbd298c159129cf42c5a",
+    "pre_check_tree_digest": "sha256:b4cbbe464bfcec3770ca0b65e953a0c46d0f0d031599faffaf4dcc008f3471f5",
+    "patch_sha256": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6",
+    "install_commands": [
+      "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm run compile-typescript && npm run test-unit",
+      "exit_code": 0,
+      "duration_ms": 7550
+    }
+  ],
+  "notes": null,
+  "redactions": {
+    "email": 2
+  }
+}

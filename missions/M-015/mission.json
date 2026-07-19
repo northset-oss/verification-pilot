@@ -1,0 +1,42 @@
+{
+  "mission_id": "M-015",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "prometheus maintainers",
+  "target_repo": "https://github.com/prometheus/client_js",
+  "issue_or_task": "https://github.com/prometheus/client_js/issues/582",
+  "consent_artifact": null,
+  "repo_policy_snapshot": null,
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+  "patch_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+  "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6",
+  "commands_declared": [
+    "npm run compile-typescript && npm run test-unit"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+    "The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+  ]
+}

@@ -1,0 +1,15 @@
+=== cmd 1: NODE_OPTIONS="--import=data:text/javascript,globalThis.__dirname=process.cwd()" npm --prefix packages/webviews/monitor test -- --configLoader runner --run src/features/app/MonitorSendBar.test.jsx ===
+
+> @boardlab/monitor@0.0.0 test
+> vitest --configLoader runner --run src/features/app/MonitorSendBar.test.jsx
+
+
+[1m[46m RUN [49m[22m [36mv4.0.16 [39m[90m/workspace/packages/webviews/monitor[39m
+
+ [32m✓[39m src/features/app/MonitorSendBar.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[32m 275[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 21:50:40
+[2m   Duration [22m 5.19s[2m (transform 803ms, setup 106ms, import 2.61s, tests 275ms, environment 1.83s)[22m
+

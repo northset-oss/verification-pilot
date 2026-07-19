@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "node --test src/errors.terminal-cleanup.test.js"
+  ]
+}

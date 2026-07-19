@@ -1,0 +1,1 @@
+contact person@example.org about /home/fixture/project/error.log

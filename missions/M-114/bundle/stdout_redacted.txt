@@ -1,0 +1,13 @@
+=== cmd 1: npm test -- test/form-data-invalid-content-type.js ===
+
+> node-fetch@3.1.1 test
+> mocha test/form-data-invalid-content-type.js
+
+
+
+  Body.formData
+    ✔ destroys body for invalid form data content type
+
+
+  1 passing (7ms)
+

@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm --prefix apps/frontend test -- --runInBand --runTestsByPath 'app/(protected)/note/[id]/page.test.tsx' --moduleNameMapper '{\"^react$\":\"<rootDir>/node_modules/react\",\"^react-dom$\":\"<rootDir>/node_modules/react-dom\",\"^@/(.*)$\":\"<rootDir>/$1\"}'"
+  ]
+}

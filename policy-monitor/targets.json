@@ -1,0 +1,77 @@
+{
+  "version": "1",
+  "targets": [
+    {
+      "repo": "coder/coder",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "docs/about/contributing/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md",
+        "docs/about/contributing/AI_CONTRIBUTING.md"
+      ]
+    },
+    {
+      "repo": "Homebrew/brew",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "electron/electron",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "electron/governance",
+      "paths": [
+        "policy/ai.md"
+      ]
+    },
+    {
+      "repo": "antiwork/gumroad",
+      "paths": [
+        "CONTRIBUTING.md",
+        ".github/CONTRIBUTING.md",
+        "AI_POLICY.md",
+        "docs/AI_POLICY.md"
+      ]
+    },
+    {
+      "repo": "antiwork/.github",
+      "paths": [
+        "profile/README.md"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "github-terms-of-service",
+      "url": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
+    },
+    {
+      "id": "github-acceptable-use-policies",
+      "url": "https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies"
+    },
+    {
+      "id": "github-rest-rate-limits",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api"
+    },
+    {
+      "id": "github-app-permission-changes",
+      "url": "https://docs.github.com/en/apps/using-github-apps/approving-updated-permissions-for-a-github-app"
+    },
+    {
+      "id": "github-marketplace-listing-requirements",
+      "url": "https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/run-record.schema.json",
+  "title": "Northset run record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["started_at", "finished_at", "environment", "commands", "notes"],
+  "properties": {
+    "schema_version": { "enum": [1, 2] },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" },
+    "environment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["container_image_digest", "network_policy"],
+      "properties": {
+        "executor_profile": { "type": "string", "minLength": 1 },
+        "container_image_ref": { "type": "string", "minLength": 1 },
+        "container_image_digest": { "type": ["string", "null"], "pattern": "^(?:[^@ ]+@)?sha256:[0-9a-f]{64}$" },
+        "container_image_id": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "container_os": { "type": "string", "minLength": 1 },
+        "container_architecture": { "type": "string", "minLength": 1 },
+        "network_policy": { "type": "string", "minLength": 1 },
+        "source_commit": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "base_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "pre_check_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "approved_tracked_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "post_check_tree_digest": { "$ref": "#/$defs/nullableDigest" },
+        "check_tree_changed": { "type": "boolean" },
+        "workspace_mode": { "type": "string", "enum": ["readonly", "writable_copy"] },
+        "workspace_write_allowlist": { "type": "array", "maxItems": 32, "items": { "type": "string", "minLength": 1 } },
+        "workspace_file_count_limit": { "type": "integer", "minimum": 1 },
+        "workspace_bytes_limit": { "type": "integer", "minimum": 1 },
+        "initial_workspace_manifest_digest": { "$ref": "#/$defs/nullableDigest" },
+        "post_run_changed_tracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_untracked_paths": { "type": "array", "items": { "type": "string" } },
+        "post_run_mode_changes": { "type": "array", "items": { "type": "string" } },
+        "patch_sha256": { "$ref": "#/$defs/nullableDigest" },
+        "install_commands": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["cmd", "exit_code", "duration_ms"],
+        "properties": {
+          "cmd": { "type": "string", "minLength": 1 },
+          "exit_code": { "type": ["integer", "null"] },
+          "duration_ms": { "type": "integer", "minimum": 0 },
+          "timed_out": { "type": "boolean" }
+        }
+      }
+    },
+    "usage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["networked_setup_elapsed_ms", "dependency_install_ms", "declared_commands_ms", "cpu_ms", "peak_rss_bytes"],
+      "properties": {
+        "networked_setup_elapsed_ms": { "type": "integer", "minimum": 0 },
+        "dependency_install_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "declared_commands_ms": { "type": "integer", "minimum": 0 },
+        "cpu_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "peak_rss_bytes": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "notes": { "type": ["string", "null"] },
+    "redactions": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schema_version": { "enum": [1, 2] } }, "required": ["schema_version"] },
+      "then": {
+        "properties": {
+          "environment": {
+            "type": "object",
+            "required": ["executor_profile", "container_image_ref", "container_image_digest", "container_image_id", "container_os", "container_architecture", "network_policy", "source_commit", "base_tree_digest", "pre_check_tree_digest", "approved_tracked_tree_digest", "post_check_tree_digest", "check_tree_changed", "patch_sha256", "install_commands"]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "schema_version": { "const": 2 } }, "required": ["schema_version"] },
+      "then": { "required": ["usage"] }
+    },
+    {
+      "if": {
+        "properties": { "environment": { "required": ["workspace_mode"] } },
+        "required": ["environment"]
+      },
+      "then": {
+        "properties": {
+          "environment": {
+            "required": ["workspace_write_allowlist", "workspace_file_count_limit", "workspace_bytes_limit", "initial_workspace_manifest_digest", "post_run_changed_tracked_paths", "post_run_untracked_paths", "post_run_mode_changes"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "anyOf": [
+              { "required": ["workspace_write_allowlist"] },
+              { "required": ["workspace_file_count_limit"] },
+              { "required": ["workspace_bytes_limit"] },
+              { "required": ["initial_workspace_manifest_digest"] },
+              { "required": ["post_run_changed_tracked_paths"] },
+              { "required": ["post_run_untracked_paths"] },
+              { "required": ["post_run_mode_changes"] }
+            ]
+          }
+        },
+        "required": ["environment"]
+      },
+      "then": { "properties": { "environment": { "required": ["workspace_mode"] } } }
+    }
+  ],
+  "$defs": {
+    "nullableDigest": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

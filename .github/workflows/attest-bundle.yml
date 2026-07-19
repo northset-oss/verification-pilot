@@ -1,0 +1,130 @@
+# Sign only the exact batch emitted by a successful CI run for a main-branch push.
+name: attest-bundle
+
+on:
+  workflow_run:
+    workflows: ["ci"]
+    types: [completed]
+
+permissions: {}
+
+jobs:
+  attest:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      id-token: write
+      attestations: write
+      contents: write
+    steps:
+      - name: Resolve the successful CI run's exact push range
+        id: range
+        env:
+          EXPECTED_HEAD: ${{ github.event.workflow_run.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          mapfile -t artifact_records < <(
+            gh api "repos/${REPOSITORY}/actions/runs/${RUN_ID}/artifacts?per_page=100" \
+              --jq '.artifacts[] | select(.expired == false and (.name | test("^ci-release-[0-9a-f]{40}-[0-9a-f]{40}$"))) | [.id, .name, .workflow_run.id, .workflow_run.head_sha] | @tsv'
+          )
+          test "${#artifact_records[@]}" -eq 1
+          IFS=$'\t' read -r artifact_id artifact_name artifact_run_id artifact_head <<< "${artifact_records[0]}"
+          [[ "$artifact_id" =~ ^[0-9]+$ ]]
+          test "$artifact_run_id" = "$RUN_ID"
+          test "$artifact_head" = "$EXPECTED_HEAD"
+          [[ "$artifact_name" =~ ^ci-release-([0-9a-f]{40})-([0-9a-f]{40})$ ]]
+          before_sha="${BASH_REMATCH[1]}"
+          head_sha="${BASH_REMATCH[2]}"
+          test "$head_sha" = "$EXPECTED_HEAD"
+          printf 'artifact_id=%s\nartifact_name=%s\nbefore_sha=%s\n' \
+            "$artifact_id" "$artifact_name" "$before_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Download the CI-validated handoff
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: ${{ steps.range.outputs.artifact_id }}
+          path: handoff
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+
+      - name: Fetch the trusted Git trees for independent range verification
+        env:
+          EXPECTED_BEFORE: ${{ steps.range.outputs.before_sha }}
+          EXPECTED_HEAD: ${{ github.event.workflow_run.head_sha }}
+          REPOSITORY: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+        run: |
+          set -euo pipefail
+          git init --quiet --bare trusted-source.git
+          git -C trusted-source.git remote add origin "${SERVER_URL}/${REPOSITORY}.git"
+          git -C trusted-source.git fetch --quiet --no-tags origin '+refs/heads/main:refs/remotes/origin/main'
+          git -C trusted-source.git cat-file -e "${EXPECTED_BEFORE}^{commit}"
+          git -C trusted-source.git cat-file -e "${EXPECTED_HEAD}^{commit}"
+
+      - name: Verify the complete handoff before signing
+        id: handoff
+        env:
+          EXPECTED_BEFORE: ${{ steps.range.outputs.before_sha }}
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+          SIGNING_HANDOFF_LIB_SHA256: "62ed6a4653ed74d61696d409e36de0df287f81c93bf2d51e7ebd15d0aa50e4fd"
+          SIGNING_HANDOFF_CLI_SHA256: "75bf23bd809fa33d3d2aa6f7ab74909549d3003e05bfccabdd5e48578d43b361"
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' \
+            "$SIGNING_HANDOFF_LIB_SHA256" handoff/verifier/lib/signing-handoff.mjs \
+            "$SIGNING_HANDOFF_CLI_SHA256" handoff/verifier/bin/signing-handoff.mjs \
+            | sha256sum --check --strict
+          node handoff/verifier/bin/signing-handoff.mjs verify \
+            --handoff handoff \
+            --repo trusted-source.git \
+            --expected-before "$EXPECTED_BEFORE" \
+            --expected-head "$EXPECTED_SHA" \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Attest all exact bundle subjects
+        if: steps.handoff.outputs.no_op == 'false'
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
+        with:
+          subject-path: handoff/run-record-*.tar.gz
+
+      - name: Confirm attested subjects are unchanged
+        if: steps.handoff.outputs.no_op == 'false'
+        env:
+          EXPECTED_BEFORE: ${{ steps.range.outputs.before_sha }}
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: >-
+          node handoff/verifier/bin/signing-handoff.mjs verify
+          --handoff handoff
+          --repo trusted-source.git
+          --expected-before "$EXPECTED_BEFORE"
+          --expected-head "$EXPECTED_SHA"
+
+      - name: Publish each exact signed subject
+        if: steps.handoff.outputs.no_op == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          release_plan="$(jq -r '.missions[] | [.mission_id, .asset_name, .bundle_digest, .release_tag] | @tsv' handoff/metadata.json)"
+          test -n "$release_plan"
+          while IFS=$'\t' read -r mission bundle digest tag; do
+            [[ "$bundle" =~ ^run-record-${mission}-[0-9a-f]{12}\.tar\.gz$ ]]
+            notes="$(cat <<EOF
+          Attested run-record bundle for ${mission} (${digest}). Signed provenance records artifact origin and integrity; it does not witness execution or imply correctness, security, code quality, merge, or maintainer approval.
+
+          Maintain an open-source project? Request a private run for a PR already in your queue at oss@northset.ai. Nothing is published without your approval.
+          EOF
+            )"
+            gh release view "$tag" -R "$REPOSITORY" >/dev/null 2>&1 || gh release create "$tag" -R "$REPOSITORY" --title "Run record ${mission}" --notes "$notes"
+            gh release upload "$tag" "handoff/$bundle" -R "$REPOSITORY"
+          done <<< "$release_plan"

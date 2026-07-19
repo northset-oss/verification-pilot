@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-07-13T20:15:31.047Z",
+  "finished_at": "2026-07-13T20:17:01.848Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "b11081470089ca0345117951033936405d874193",
+    "base_tree_digest": "sha256:c0862548a3dbec9d579f941338f166b03e33da3b9bdd0c82308992cbcf12d968",
+    "pre_check_tree_digest": "sha256:8b38565e231723e3f3160523709a19fbddf4fa5c1d7a4a0082df84145e828a9a",
+    "approved_tracked_tree_digest": "sha256:0d457a3cabbf8e58b05bbcd5ac495ef5e399adb380e611ab7048f722da16a6ee",
+    "post_check_tree_digest": "sha256:9189af9756496b6273e8fbe768d962736006cb347df26761c9f3eaac9e3c3b9a",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:6f620bf548fc8a12cb1c45f3fc5c3dbde5d15ac90afaadd6cb5e1e59029ef1c5",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm run test:unit -- test/unit/swift-json-null-hashable.test.ts",
+      "exit_code": 0,
+      "duration_ms": 5120
+    }
+  ],
+  "notes": null,
+  "redactions": {
+    "email": 1
+  }
+}

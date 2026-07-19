@@ -1,0 +1,28 @@
+diff --git a/index.d.ts b/index.d.ts
+index 8c0ebb2..ad40e62 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -304,7 +304,7 @@ type MetricValueWithName<T extends string> = MetricValue<T> & {
+ 
+ type LabelValues<T extends string> = T extends NoLabelNameType
+ 	? Partial<Record<string, never>>
+-	: Partial<Record<T, string | number>>;
++	: Partial<Record<T, string | number | string[]>>;
+ 
+ interface MetricConfiguration<T extends string> {
+ 	name: string;
+diff --git a/test/typescript.ts b/test/typescript.ts
+index 80d899c..2a0ff38 100644
+--- a/test/typescript.ts
++++ b/test/typescript.ts
+@@ -18,8 +18,10 @@ const registry = new Registry();
+ const counter = new Counter({
+ 	name: 'typescript_test_counter',
+ 	help: 'TypeScript test counter',
++	labelNames: ['handler'],
+ 	registers: [registry],
+ });
++counter.inc({ handler: ['/a', '/b'] });
+ 
+ const metricsText: Promise<string> = registry.getMetricsAsString(counter);
+ const gatewayWithRegistry = new Pushgateway('http://127.0.0.1:9091', registry);

@@ -1,0 +1,21 @@
+{
+  "name": "northset-oss-run-records",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "northset-bundle": "bin/bundle.mjs",
+    "northset-execute": "bin/execute.mjs",
+    "northset-ledger": "bin/ledger.mjs",
+    "northset-policy-monitor": "bin/policy-monitor.mjs",
+    "northset-pr-receipt-disclosure": "bin/pr-receipt-disclosure.mjs",
+    "northset-run-mission": "bin/run-mission.mjs"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

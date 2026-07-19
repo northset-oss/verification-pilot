@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm run test:unit -- test/unit/swift-json-null-hashable.test.ts"
+  ]
+}

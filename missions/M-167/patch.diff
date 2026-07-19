@@ -1,0 +1,88 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index fbb05390e4b9a78d52d124ecb579a9c0f6163757..369f294bf70c1fe0052011791524704f23400a28 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,3 +1,5 @@
+ ## [Unreleased] - 2026-07-08
++### Fixed
++- Explain how to load TypeScript prompt files when Node reports an unknown file extension.
+ ### Maintenance
+ - Routine maintenance sync (14:47) — dependencies & docs review.
+diff --git a/docs/getting-started.md b/docs/getting-started.md
+index f030e25b7bf0df99401d263219993c2cdf149f4a..b9845085f8e34faf8b9e4ee6ab0425448cd9ca78 100644
+--- a/docs/getting-started.md
++++ b/docs/getting-started.md
+@@ -30,6 +30,10 @@ export default definePrompt<{ name: string; language?: string }>({
+ })
+ ```
+ 
++TypeScript prompt files require a runtime that supports them, such as `tsx`,
++`bun`, or `ts-node`. Plain Node cannot import `.ts` files directly, so use one
++of those runtimes or pre-compile the files to `.js`.
++
+ Render it without a model:
+ 
+ ```ts
+diff --git a/src/loader.ts b/src/loader.ts
+index 1b28d40b66a973d5453efcca87b81124c1118653..88a10b4ffad1b2fbb4717be937c51261ea1c3852 100644
+--- a/src/loader.ts
++++ b/src/loader.ts
+@@ -13,6 +13,9 @@ import { LoaderError } from './errors.js'
+ import type { PromptDefinition, PromptInput } from './types.js'
+ 
+ const SUPPORTED_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.mts', '.cts'])
++const TYPESCRIPT_EXTENSIONS = new Set(['.ts', '.mts', '.cts'])
++const TYPESCRIPT_LOADER_HINT =
++  "Node can't import `.ts` files directly. Run with `tsx`, `bun`, or `ts-node`, or pre-compile to `.js`."
+ 
+ /** Options for {@link loadPromptsFromDir}. */
+ export interface LoadOptions {
+@@ -92,8 +95,16 @@ export async function loadPromptFile(
+     const url = pathToFileURL(filePath).href
+     mod = (await import(url)) as Record<string, unknown>
+   } catch (e) {
++    const errorMessage = e instanceof Error ? e.message : String(e)
++    const needsTypeScriptLoader =
++      TYPESCRIPT_EXTENSIONS.has(extname(filePath)) &&
++      typeof e === 'object' &&
++      e !== null &&
++      'code' in e &&
++      e.code === 'ERR_UNKNOWN_FILE_EXTENSION'
++
+     throw new LoaderError(
+-      `Failed to import "${filePath}": ${e instanceof Error ? e.message : String(e)}`,
++      `Failed to import "${filePath}": ${errorMessage}${needsTypeScriptLoader ? ` ${TYPESCRIPT_LOADER_HINT}` : ''}`,
+       filePath,
+     )
+   }
+diff --git a/tests/loader.test.ts b/tests/loader.test.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..4ed49eb18bc874673a23550b64000f0780fb7786
+--- /dev/null
++++ b/tests/loader.test.ts
+@@ -0,0 +1,25 @@
++import { describe, it, expect, vi } from 'vitest'
++import { loadPromptFile } from '../src/loader.js'
++
++vi.mock('node:url', () => ({
++  pathToFileURL(path: string) {
++    if (path === 'unsupported-prompt.ts') {
++      const source = `
++          const error = new Error('Unknown file extension ".ts"')
++          error.code = 'ERR_UNKNOWN_FILE_EXTENSION'
++          throw error
++        `
++      return new URL(`data:text/javascript,${encodeURIComponent(source)}`)
++    }
++
++    throw new Error(`Unexpected test path: ${path}`)
++  },
++}))
++
++describe('loadPromptFile', () => {
++  it('explains how to load TypeScript files without a loader', async () => {
++    await expect(loadPromptFile('unsupported-prompt.ts')).rejects.toThrow(
++      "Node can't import `.ts` files directly. Run with `tsx`, `bun`, or `ts-node`, or pre-compile to `.js`.",
++    )
++  })
++})

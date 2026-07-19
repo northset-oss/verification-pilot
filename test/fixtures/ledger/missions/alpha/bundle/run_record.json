@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-07-05T18:00:00.000Z",
+  "finished_at": "2026-07-05T18:00:09.000Z",
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "4444444444444444444444444444444444444444",
+    "install_commands": ["npm ci"]
+  },
+  "commands": [
+    {"cmd": "node --test", "exit_code": 0, "duration_ms": 4000}
+  ],
+  "redactions": {"email": 1}
+}

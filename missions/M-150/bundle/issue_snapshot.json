@@ -1,0 +1,375 @@
+{
+  "fetched_at": "2026-07-16T21:15:28Z",
+  "issue": {
+    "assignees": [],
+    "author_association": "OWNER",
+    "body": null,
+    "created_at": "2021-08-05T15:44:05Z",
+    "html_url": "https://github.com/davidtkramer/typical-data/issues/35",
+    "labels": [
+      "enhancement",
+      "good first issue"
+    ],
+    "number": 35,
+    "state": "open",
+    "title": "Add error message when factory builder callback does not return the factory builder",
+    "updated_at": "2021-08-06T14:18:34Z",
+    "user": "davidtkramer"
+  },
+  "comments": [],
+  "timeline_cross_references": [],
+  "invitation_policy": null,
+  "design_policies": [],
+  "pre_author_notice": null,
+  "repository": {
+    "archived": false,
+    "default_branch": "main",
+    "fork": false,
+    "html_url": "https://github.com/davidtkramer/typical-data"
+  },
+  "default_branch_head": "6693af47e28bb6d01035ada6b61341b6ad630b95",
+  "pull_requests_reviewed": [
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "## Summary\n- migrate tests from Jest to Vitest and switch the repo from Yarn to pnpm\n- move the package to modern ESM-only TypeScript output for Node\n- infer created entity types from toCreate and remove afterCreate until a real use case appears\n\n## Test plan\n- [x] pnpm build\n- [x] pnpm test\n- [x] pnpm typecheck",
+      "closedAt": "2026-03-19T18:18:44Z",
+      "createdAt": "2026-03-17T20:46:54Z",
+      "headRefName": "add-async-factory-create",
+      "mergedAt": "2026-03-19T18:18:44Z",
+      "number": 41,
+      "state": "MERGED",
+      "title": "Modernize factory typing and test tooling",
+      "updatedAt": "2026-03-19T18:18:46Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/41"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-08-19T13:53:54Z",
+      "createdAt": "2021-08-19T13:50:31Z",
+      "headRefName": "all-method",
+      "mergedAt": "2021-08-19T13:53:53Z",
+      "number": 40,
+      "state": "MERGED",
+      "title": "Add 'all' method to entity store",
+      "updatedAt": "2021-08-19T13:53:54Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/40"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #38 ",
+      "closedAt": "2021-08-19T01:14:53Z",
+      "createdAt": "2021-08-19T01:13:18Z",
+      "headRefName": "fix-inherited-optional-keys",
+      "mergedAt": "2021-08-19T01:14:53Z",
+      "number": 39,
+      "state": "MERGED",
+      "title": "Fix optional attributes in a parent factory causing all attributes to be required in a child factory",
+      "updatedAt": "2021-08-19T01:14:54Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/39"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #36",
+      "closedAt": "2021-08-18T23:31:09Z",
+      "createdAt": "2021-08-18T23:28:36Z",
+      "headRefName": "fix-fixture-types",
+      "mergedAt": "2021-08-18T23:31:08Z",
+      "number": 37,
+      "state": "MERGED",
+      "title": "Fix types for fixtures map",
+      "updatedAt": "2021-08-18T23:31:09Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/37"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-08-05T15:38:56Z",
+      "createdAt": "2021-08-05T15:38:39Z",
+      "headRefName": "fix-readme-phone-example",
+      "mergedAt": "2021-08-05T15:38:56Z",
+      "number": 33,
+      "state": "MERGED",
+      "title": "Fix phone factory example in readme",
+      "updatedAt": "2021-08-05T15:38:56Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/33"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-08-05T15:11:02Z",
+      "createdAt": "2021-08-05T15:09:57Z",
+      "headRefName": "cleanup",
+      "mergedAt": "2021-08-05T15:11:02Z",
+      "number": 32,
+      "state": "MERGED",
+      "title": "Simplify types for build and buildList",
+      "updatedAt": "2021-08-05T15:11:02Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/32"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-08-01T18:24:43Z",
+      "createdAt": "2021-08-01T18:17:29Z",
+      "headRefName": "bug-29",
+      "mergedAt": "2021-08-01T18:24:43Z",
+      "number": 30,
+      "state": "MERGED",
+      "title": "[bug-29] Derived attributes are order-dependent",
+      "updatedAt": "2021-08-01T18:24:43Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/30"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-07-31T22:57:47Z",
+      "createdAt": "2021-07-31T22:57:21Z",
+      "headRefName": "version-0.2.0",
+      "mergedAt": "2021-07-31T22:57:47Z",
+      "number": 27,
+      "state": "MERGED",
+      "title": "v0.2.0",
+      "updatedAt": "2021-07-31T22:57:47Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/27"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #20 ",
+      "closedAt": "2021-07-31T22:55:16Z",
+      "createdAt": "2021-07-31T22:18:06Z",
+      "headRefName": "feat-20",
+      "mergedAt": "2021-07-31T22:55:16Z",
+      "number": 26,
+      "state": "MERGED",
+      "title": "[feat-20] Create shorthand notation for createFactory for attribute-only factories",
+      "updatedAt": "2021-07-31T22:55:17Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/26"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #21 ",
+      "closedAt": "2021-07-31T21:24:11Z",
+      "createdAt": "2021-07-31T21:23:38Z",
+      "headRefName": "feat-21",
+      "mergedAt": "2021-07-31T21:24:11Z",
+      "number": 25,
+      "state": "MERGED",
+      "title": "[feat-21] Rename afterCreate to afterBuild",
+      "updatedAt": "2021-07-31T21:24:12Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/25"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #17 ",
+      "closedAt": "2021-07-31T21:08:20Z",
+      "createdAt": "2021-07-31T21:07:15Z",
+      "headRefName": "feat-17",
+      "mergedAt": "2021-07-31T21:08:19Z",
+      "number": 24,
+      "state": "MERGED",
+      "title": "[feat-17] Include entity and transientParams in single object passed to afterCreate hook",
+      "updatedAt": "2021-07-31T21:22:35Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/24"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-07-31T20:53:52Z",
+      "createdAt": "2021-07-31T20:49:31Z",
+      "headRefName": "feat-22",
+      "mergedAt": "2021-07-31T20:53:52Z",
+      "number": 23,
+      "state": "MERGED",
+      "title": "[feat-22] Rename Database.create to createDatabase and Factory.define to createFactory",
+      "updatedAt": "2021-07-31T20:53:53Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/23"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #4 ",
+      "closedAt": "2021-07-31T20:43:18Z",
+      "createdAt": "2021-07-31T02:31:58Z",
+      "headRefName": "feat-4",
+      "mergedAt": "2021-07-31T20:43:18Z",
+      "number": 19,
+      "state": "MERGED",
+      "title": "[feat-4] Add documentation",
+      "updatedAt": "2021-07-31T20:43:18Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/19"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Closes #15 ",
+      "closedAt": "2021-07-31T01:53:38Z",
+      "createdAt": "2021-07-31T01:52:41Z",
+      "headRefName": "bug-15",
+      "mergedAt": "2021-07-31T01:53:37Z",
+      "number": 18,
+      "state": "MERGED",
+      "title": "[bug-15] If a trait defines multiple afterCreate hooks, only the last one is applied",
+      "updatedAt": "2021-07-31T01:53:38Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/18"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Completes #10\r\n\r\nTodo:\r\n- [x] test trait inheritance\r\n- [x] test hook inheritance\r\n- [x] test transient param inheritance\r\n- [x] test that sibling child factories do not mutate each other's definition nor the parent factory definition.\r\n- [x] fix inference of trait transient params\r\n- [x] cleanup types",
+      "closedAt": "2021-07-30T15:45:13Z",
+      "createdAt": "2021-07-29T20:26:54Z",
+      "headRefName": "feat-10",
+      "mergedAt": "2021-07-30T15:45:13Z",
+      "number": 13,
+      "state": "MERGED",
+      "title": "[feat-10] Add support for extending factories",
+      "updatedAt": "2021-07-30T15:45:14Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/13"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Completes #9 \r\n\r\nTodo:\r\n- [x] cleanup types for nested factories\r\n- [x] implement handling of nested factories",
+      "closedAt": "2021-07-28T14:48:14Z",
+      "createdAt": "2021-07-28T05:22:04Z",
+      "headRefName": "feat-9",
+      "mergedAt": "2021-07-28T14:48:14Z",
+      "number": 12,
+      "state": "MERGED",
+      "title": "[feat-9] Add support for nested factories in Database configuration",
+      "updatedAt": "2021-07-28T14:48:15Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/12"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Fixes https://github.com/davidtkramer/typical-data/issues/7",
+      "closedAt": "2021-07-28T02:27:14Z",
+      "createdAt": "2021-07-28T02:24:19Z",
+      "headRefName": "feat-7",
+      "mergedAt": "2021-07-28T02:27:14Z",
+      "number": 8,
+      "state": "MERGED",
+      "title": "[feat-7] Add support for shorthand syntax for traits that only specify attributes",
+      "updatedAt": "2021-07-28T02:27:14Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/8"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "Todo:\r\n\r\n- [x] Fix lint errors\r\n- [x] Allow transient params to be specified in same object as entity params\r\n- [x] Create new db to integrate with new factory\r\n- [x] Implement fixture support on new database\r\n- [x] Increment version number\r\n\r\n----\r\nBacklog items:\r\n- [ ] Setup github actions for linter, type checker, and tests\r\n- [ ] Fix double partial on params in trait attribute builder\r\n- [ ] Runtime warnings for invalid dsl invocations\r\n- [ ] Shorthand syntax for trait with only attributes",
+      "closedAt": "2021-07-27T21:59:08Z",
+      "createdAt": "2021-05-30T14:37:45Z",
+      "headRefName": "feat-2",
+      "mergedAt": "2021-07-27T21:59:08Z",
+      "number": 3,
+      "state": "MERGED",
+      "title": "[feat-2] Setup factory and database",
+      "updatedAt": "2021-07-27T21:59:09Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/3"
+    },
+    {
+      "author": {
+        "id": "MDQ6VXNlcjE3NDM3Njk4",
+        "is_bot": false,
+        "login": "davidtkramer",
+        "name": "David Kramer"
+      },
+      "body": "",
+      "closedAt": "2021-04-27T04:59:50Z",
+      "createdAt": "2021-04-27T04:58:53Z",
+      "headRefName": "setup",
+      "mergedAt": "2021-04-27T04:59:50Z",
+      "number": 1,
+      "state": "MERGED",
+      "title": "Project tooling setup",
+      "updatedAt": "2021-04-27T04:59:53Z",
+      "url": "https://github.com/davidtkramer/typical-data/pull/1"
+    }
+  ]
+}

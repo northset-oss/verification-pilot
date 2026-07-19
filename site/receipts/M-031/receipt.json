@@ -1,0 +1,379 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-07-19T09:41:25.047Z",
+  "receipt_id": "M-031",
+  "receipt_result": "PASS — 7/7 declared commands",
+  "passed_commands": 7,
+  "declared_commands": 7,
+  "timestamps": {
+    "started_at": "2026-07-15T11:56:44.165Z",
+    "finished_at": "2026-07-15T12:02:26.817Z"
+  },
+  "commands": [
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 5028
+    },
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 19475
+    },
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 9184
+    },
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 8022
+    },
+    {
+      "cmd": "EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 15258
+    },
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./...",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 28993
+    },
+    {
+      "cmd": "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 14745
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37",
+    "container_image_digest": "node@sha256:5647be709086c696ff32edaaf1c70cd26d1da6ab2b39c32f3c7b4c4a31957e37",
+    "container_image_id": "sha256:466e07e7ea13241d68674fadda868d14d923336eb2f4fa0022be0d866230d8b4",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "source_commit": "487ab430e17b0aa2868b33b9667c1676e6efd3be",
+    "install_commands": [
+      "mkdir -p /workspace/.northset/bootstrap-home/bin /workspace/.northset/bootstrap-home/go",
+      "cp /usr/local/bin/node /workspace/.northset/bootstrap-home/bin/node",
+      "curl -fsSL https://go.dev/dl/go1.26.5.linux-arm64.tar.gz | tar -xz --strip-components=1 -C /workspace/.northset/bootstrap-home/go",
+      "npm install --global --prefix /workspace/.northset/bootstrap-home --no-audit --no-fund pnpm@10.33.2",
+      "mkdir -p /workspace/.northset/bootstrap-home/linter-go-tmp",
+      "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOBIN=/workspace/.northset/bootstrap-home/bin GOMODCACHE=/workspace/.northset/bootstrap-home/linter-go-mod GOCACHE=/workspace/.northset/bootstrap-home/linter-go-build GOTMPDIR=/workspace/.northset/bootstrap-home/linter-go-tmp /workspace/.northset/bootstrap-home/go/bin/go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.7.2",
+      "test -x /workspace/.northset/bootstrap-home/bin/golangci-lint",
+      "rm -r /workspace/.northset/bootstrap-home/linter-go-mod /workspace/.northset/bootstrap-home/linter-go-build /workspace/.northset/bootstrap-home/linter-go-tmp",
+      "PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go mod download",
+      "PATH=/workspace/.northset/bootstrap-home/bin:$PATH pnpm --dir ui install --frozen-lockfile"
+    ]
+  },
+  "code": {
+    "base_commit": "487ab430e17b0aa2868b33b9667c1676e6efd3be",
+    "recorded_patch_commit": "689279e546d071f37a8e1219898dd8ee693586ef",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:4a1d0e072bc383e95a7307d2955d2d8e6215e7fe73e7c28fee67c845e40a1352",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "7/7 declared commands returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",
+    "signed_asset_sha256": "sha256:63670e6654fe2f1f372d310636afaae274142d35f5047a9a6e40ea27fa08ed22",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-031-5a774731726a/run-record-M-031-5a774731726a.tar.gz",
+    "attestation_verified_at": "2026-07-15T12:36:28.203Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-031/",
+    "target_repo": "https://github.com/goptics/vizb",
+    "issue_or_task": "https://github.com/goptics/vizb/issues/204",
+    "publication_pr": "https://github.com/goptics/vizb/pull/226"
+  },
+  "issue_title": "[bug]: Tooltip donut legend omits zero-value series (should show n/a)",
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification."
+  ],
+  "correction": null,
+  "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
+  "upstream_outcome": {
+    "status": "merged",
+    "link": "https://github.com/goptics/vizb/pull/226",
+    "attribution": "Linked maintainer review"
+  },
+  "economic_identity": {
+    "scope": "end_to_end_task",
+    "task": {
+      "task_id": "TASK-OSS-974F612F87373753",
+      "attempt_id": "M-031",
+      "attempt_sequence": 10,
+      "work_category": "defect_fix",
+      "external_demand": {
+        "source": "public_github_issue",
+        "issue_url": "https://github.com/goptics/vizb/issues/204",
+        "acceptance_contract_digest": "sha256:b73d85a0ba191219d87d6705a7046dfcbf3b91a406df3a121e0826eed4cf4673",
+        "invitation_type": "label",
+        "invitation_url": "https://github.com/goptics/vizb/issues/204"
+      }
+    },
+    "funding": {
+      "program": "Northset OSS Fund",
+      "initiative": "OSS mission experimentation",
+      "budget_id": null,
+      "financial_cap": null,
+      "currency": null
+    },
+    "external_transfers": {
+      "maintainer_payment": "none",
+      "merge_contingent": false
+    },
+    "authorization": {
+      "approved_manifest_digest": "sha256:43a058008fcc6314133ef97971251a3858806f817890e4da6c4e31bccc862667",
+      "approved_by": "internal-user:aeziz",
+      "approved_at": "2026-07-15T12:12:27.268Z",
+      "operational_caps": {
+        "finder_wall_seconds": 1200,
+        "qualification_wall_seconds": 300,
+        "prepare_wall_seconds": 3600,
+        "ship_wall_seconds": 3600,
+        "maximum_attempts": null
+      }
+    },
+    "attempt_lineage": {
+      "attempts_total": 10,
+      "successful_attempt_id": "M-031",
+      "attempts": [
+        {
+          "attempt_id": "M-022",
+          "attempt_sequence": 1,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-023",
+          "attempt_sequence": 2,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-024",
+          "attempt_sequence": 3,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-025",
+          "attempt_sequence": 4,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-026",
+          "attempt_sequence": 5,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-027",
+          "attempt_sequence": 6,
+          "state": "FAILED_ORACLE",
+          "terminal_reason_class": "verification"
+        },
+        {
+          "attempt_id": "M-028",
+          "attempt_sequence": 7,
+          "state": "FAILED_AUTHOR",
+          "terminal_reason_class": "authoring"
+        },
+        {
+          "attempt_id": "M-029",
+          "attempt_sequence": 8,
+          "state": "STALE",
+          "terminal_reason_class": "precondition_drift"
+        },
+        {
+          "attempt_id": "M-030",
+          "attempt_sequence": 9,
+          "state": "FAILED_AUTHOR",
+          "terminal_reason_class": "authoring"
+        },
+        {
+          "attempt_id": "M-031",
+          "attempt_sequence": 10,
+          "state": "READY",
+          "terminal_reason_class": null
+        }
+      ]
+    },
+    "usage": {
+      "discovery": {
+        "finder_run_id": "60cf6309-291a-4982-9f7a-35086087d83d",
+        "candidate_rank": 1,
+        "elapsed_ms": 1087062
+      },
+      "qualification": {
+        "review_id": "sha256:74639dfa58f3f09926de6842c0225a428ab81de8bbb990cd02b75cc009b4beec",
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 123876,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "authoring": {
+        "requested_model": "gpt-5.6-sol",
+        "actual_model": null,
+        "reasoning_effort": "xhigh",
+        "service_tier": "fast",
+        "duration_ms": 247600,
+        "bootstrap_duration_ms": 201758,
+        "bootstrap_retry_count": 0,
+        "model_requests": null,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "reasoning_tokens": null
+      },
+      "preparation": {
+        "total_duration_ms": 506681,
+        "stages": [
+          {
+            "stage": "prepare_recheck",
+            "duration_ms": 3655
+          },
+          {
+            "stage": "executor_image",
+            "duration_ms": 731
+          },
+          {
+            "stage": "clone",
+            "duration_ms": 8982
+          },
+          {
+            "stage": "author",
+            "duration_ms": 449573
+          },
+          {
+            "stage": "canonical_commit",
+            "duration_ms": 513
+          },
+          {
+            "stage": "differential_oracle",
+            "duration_ms": 43227
+          }
+        ]
+      },
+      "verification": {
+        "executor_elapsed_ms": 342652,
+        "networked_setup_elapsed_ms": 190939,
+        "dependency_install_ms": null,
+        "declared_commands_ms": 100705,
+        "unclassified_executor_ms": 51008,
+        "cpu_ms": null,
+        "peak_rss_bytes": null,
+        "measurement_status": "partial"
+      },
+      "resource_envelope": {
+        "cpus": 6,
+        "memory_mb": 6144,
+        "pids": 512,
+        "wall_clock_seconds_per_command": 2700,
+        "output_bytes_per_stream": 2000000
+      }
+    },
+    "work_scope": {
+      "files_changed": 2,
+      "changed_lines": 123,
+      "production_files": 1,
+      "test_files": 1,
+      "checks_declared": 7,
+      "checks_not_run": [
+        "Docs production build",
+        "Manual browser reproduction across every chart caller",
+        "Local GitHub Actions emulation with act"
+      ]
+    },
+    "costs": {
+      "status": "partial",
+      "currency": null,
+      "lines": [
+        {
+          "component": "maintainer_payment",
+          "measurement_class": "observed_quantity_unpriced",
+          "quantity": "0",
+          "unit": "external_transfer",
+          "unit_rate": null,
+          "amount": null,
+          "currency": null,
+          "source_refs": [
+            {
+              "artifact": "bundle/mission.json",
+              "artifact_sha256": "sha256:c62926d7ed1b5d366641a2f87785e878577b6d122df47b7002fe4fc75dee8a5b",
+              "json_pointer": "/payment/maintainer_payment"
+            }
+          ],
+          "rate_card_digest": null,
+          "allocation_method": null,
+          "finality": "final",
+          "visibility": "public"
+        }
+      ],
+      "known_direct_cost": null,
+      "allocated_shared_cost": null,
+      "human_standard_cost": null,
+      "total_economic_cost": null,
+      "missing_components": [
+        "model_inference",
+        "actual_host_compute",
+        "human_review",
+        "shared_tooling"
+      ]
+    },
+    "outcome": {
+      "technical_checks_passed": true,
+      "pr_opened": true,
+      "ci_state": "success",
+      "merged": true,
+      "accepted_as_submitted": true,
+      "time_to_close_ms": 7872000,
+      "released": null,
+      "deployed": null,
+      "business_result_observed": null
+    },
+    "completeness": {
+      "task_identity": "complete",
+      "technical_execution": "complete",
+      "attempt_lineage": "complete",
+      "usage": "partial",
+      "cost": "unpriced",
+      "external_outcome": "complete",
+      "business_value": "not_observed"
+    },
+    "provenance": {
+      "spec_sha256": "sha256:d194a065557296ba06d21e85a99d980e2776ce65e6b0a17107fefc9d8a730873",
+      "qualification_evidence_sha256": "sha256:fb2996e396b8a2d7748800e855c2e2688753f4e8b123406ce57f4c5faeeea706",
+      "issue_snapshot_sha256": "sha256:7139851564a7e9f015ca65fcf4842fafdacd72d39f126e93751f394ae0af4587"
+    }
+  }
+}

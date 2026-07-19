@@ -1,0 +1,47 @@
+{
+  "mission_id": "M-007",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "objectionary/jeo-maven-plugin maintainers",
+  "target_repo": "https://github.com/objectionary/jeo-maven-plugin",
+  "issue_or_task": "https://github.com/objectionary/jeo-maven-plugin/issues/1538",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/objectionary/jeo-maven-plugin#how-to-contribute",
+    "checked_at": "2026-07-11T22:25:38Z",
+    "ai_policy_summary": "No explicit AI-contribution policy found in README, Code of Conduct, or standard locations (CONTRIBUTING.md, AGENTS.md, CLAUDE.md, copilot-instructions absent; checked 2026-07-11). README requires the full Maven build (mvn clean install -Pqulice) to pass before sending a pull request."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "5e770723809effb4db5fba8b8e1f372da5318b62",
+  "patch_commit": "c8f904b93482c66ecab3cc7954be87d9cd170979",
+  "patch_diff_hash": "sha256:166dfda67801f85169b655791fc9b7590e1ac880887252aad3ef55488b8e70a2",
+  "commands_declared": [
+    "mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest",
+    "mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": "sha256:2b9d2cce359df63c089cb5f0b0b4ac8b5d71cf2980b486141f313f16b0fce4d1",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-007/run-record-M-007.tar.gz",
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "Declared network-off checks cover this change's regression tests plus the repository's full Qulice static-quality gate on JDK 11; the repository's complete canonical gate (mvn clean install -Pqulice) cannot run offline because its test suite downloads an XSD from eolang.org at test time, so it ran online on the same patched tree as the disclosed phase-A install commands; upstream CI additionally tests JDK 23 and more platforms."
+  ]
+}

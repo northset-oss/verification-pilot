@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-105",
+  "state": "open",
+  "pr_number": 2948,
+  "pr_url": "https://github.com/glideapps/quicktype/pull/2948",
+  "pr_head_oid": "a47489b19c182d54b14a0c8d78afda5b1e23864a",
+  "base_branch": "master",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T17:16:27Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T17:16:27Z",
+  "observed_at": "2026-07-16T19:46:55.000Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "bundle_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-105-ac1b5673f442/run-record-M-105-ac1b5673f442.tar.gz",
+  "release_asset_sha256": "sha256:c6ce05ab14819b3e2efa00c0a0189720d4f404f5813e9a44ea5244888724b385",
+  "attestation_verified_at": "2026-07-16T17:16:19.585Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
+    "verified_at": "2026-07-16T17:16:29.052Z"
+  }
+}

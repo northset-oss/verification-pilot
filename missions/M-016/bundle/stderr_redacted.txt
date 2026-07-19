@@ -1,0 +1,1 @@
+=== cmd 1: node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts ===

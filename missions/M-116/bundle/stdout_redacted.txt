@@ -1,0 +1,5 @@
+=== cmd 1: npm test -- --runInBand tests/empty-detachment.test.js ===
+
+> Elastic-Beanstalk-Sample-App@0.50.0 test
+> jest --runInBand tests/empty-detachment.test.js
+

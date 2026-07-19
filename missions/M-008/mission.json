@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-008",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "RaspberryPiFoundation/blockly-samples maintainers",
+  "target_repo": "https://github.com/RaspberryPiFoundation/blockly-samples",
+  "issue_or_task": "https://github.com/RaspberryPiFoundation/blockly-samples/issues/2510",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/RaspberryPiFoundation/blockly-samples/blob/main/.github/CONTRIBUTING.md",
+    "checked_at": "2026-07-12T01:30:00Z",
+    "ai_policy_summary": "No explicit AI-contribution policy found (no AGENTS.md, CLAUDE.md, .github/copilot-instructions.md, or GEMINI.md; README and Code of Conduct checked 2026-07-12). CONTRIBUTING.md requires a Google Contributor License Agreement (cla.developers.google.com) and PR review. CI gates on pull_request: npm run build + npm run test (node 22.x and 24.x), eslint (npm run lint), and prettier --check (npm run format:check)."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "c37ab067e848da5e8b136d4cf16d8cdffc653ee5",
+  "patch_commit": "db5ccc98b2dcb5751fb2121075e067e0439ced40",
+  "patch_diff_hash": "sha256:d171e1897e488dbb5f732e13f892ab2380eec800be4d4aea07862dd413fad922",
+  "commands_declared": [
+    "npm run test --workspace=@blockly/plugin-workspace-search"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-008/run-record-M-008.tar.gz",
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages."
+  ]
+}

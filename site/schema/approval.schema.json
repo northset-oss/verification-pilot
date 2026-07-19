@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/approval.schema.json",
+  "title": "Northset content-bound human approval record",
+  "$ref": "#/$defs/approval",
+  "$defs": {
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "mission_id", "task_id", "attempt_id", "approved_manifest_digest", "approved_by", "approved_at", "funding_program", "initiative", "budget_id", "financial_cap", "operational_caps"],
+      "properties": {
+        "schema_version": { "const": 1 },
+        "mission_id": { "$ref": "#/$defs/missionId" },
+        "task_id": { "$ref": "#/$defs/taskId" },
+        "attempt_id": { "$ref": "#/$defs/missionId" },
+        "approved_manifest_digest": { "$ref": "#/$defs/digest" },
+        "approved_by": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "funding_program": { "type": "string", "minLength": 1 },
+        "initiative": { "type": "string", "minLength": 1 },
+        "budget_id": { "$ref": "#/$defs/nullableString" },
+        "financial_cap": { "$ref": "#/$defs/nullableDecimal" },
+        "operational_caps": {
+          "type": "object", "additionalProperties": false,
+          "required": ["finder_wall_seconds", "qualification_wall_seconds", "prepare_wall_seconds", "ship_wall_seconds", "maximum_attempts"],
+          "properties": {
+            "finder_wall_seconds": { "type": "integer", "minimum": 1 },
+            "qualification_wall_seconds": { "type": "integer", "minimum": 1 },
+            "prepare_wall_seconds": { "type": "integer", "minimum": 1 },
+            "ship_wall_seconds": { "type": "integer", "minimum": 1 },
+            "maximum_attempts": { "type": ["integer", "null"], "minimum": 1 }
+          }
+        }
+      }
+    },
+    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "taskId": { "type": "string", "pattern": "^TASK-OSS-[0-9A-F]{16}$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "nullableString": { "type": ["string", "null"], "minLength": 1 },
+    "nullableDecimal": { "type": ["string", "null"], "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$" }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T21:56:45.497Z",
+  "finished_at": "2026-07-16T22:04:18.578Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "7682cf39969b1cee4914ff1ed6b8cfd4489f1d7c",
+    "base_tree_digest": "sha256:ca060d0e11bbdee8e339a2c8cdf63b36263a0eaf60b44abe2b8925f1b1a3b971",
+    "pre_check_tree_digest": "sha256:456608fe91229dbb8a86f805e544c3e58c2d5593b4c1684bb8e0daffb6f6a82f",
+    "approved_tracked_tree_digest": "sha256:ea034c4c59220eaad8298c77f84506237b35efcfabd0456a04094b6a46a2c61e",
+    "post_check_tree_digest": "sha256:00ed7534ce5a8849a178dbfe3f3aee2f801b6dcad605dc0b3be8ece30cf19333",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:b5f36fabd914b65751e92ba8890d758aef05c5321ac5ef44f0e594154b0f12e4",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm --prefix apps/frontend test -- --runInBand --runTestsByPath 'app/(protected)/note/[id]/page.test.tsx' --moduleNameMapper '{\"^react$\":\"<rootDir>/node_modules/react\",\"^react-dom$\":\"<rootDir>/node_modules/react-dom\",\"^@/(.*)$\":\"<rootDir>/$1\"}'",
+      "exit_code": 0,
+      "duration_ms": 10577
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 308003,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 10577,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

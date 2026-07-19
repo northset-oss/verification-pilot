@@ -1,0 +1,8 @@
+{
+  "commands": [
+    "corepack yarn workspace @kaoto/kaoto test src/components/Visualization/Canvas/Canvas.test.tsx packages/ui/src/components/Visualization/Canvas/Canvas.test.tsx --configLoader runner",
+    "corepack yarn workspace @kaoto/kaoto lint",
+    "corepack yarn workspace @kaoto/kaoto lint:style",
+    "corepack yarn workspace @kaoto/kaoto test --configLoader runner --maxWorkers 2"
+  ]
+}

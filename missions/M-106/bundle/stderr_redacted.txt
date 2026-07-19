@@ -1,0 +1,33 @@
+=== cmd 1: corepack pnpm@8.15.5 --dir client test:unit -- src/__tests__/utils/fetchWithTimeout.test.ts ===
+=== cmd 2: corepack pnpm@8.15.5 --dir client exec tsc --noEmit ===
+=== cmd 3: corepack pnpm@8.15.5 --dir client build:client ===
+⚠️  AUDIO_ADMIN_TOKEN not set in client/.env.development.local — /v1/audio/* requests will be rejected by nginx edge-auth (500/401). Add AUDIO_ADMIN_TOKEN=<token> to fix.
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/api/figures.ts is dynamically imported by /workspace/client/src/services/IntroductionAudioService.ts, /workspace/client/src/services/IntroductionAudioService.ts, /workspace/client/src/services/audio/introduction/navigationHelper.ts, /workspace/client/src/services/audio/introduction/navigationHelper.ts but also statically imported by /workspace/client/src/adapters/figureAdapter.ts, /workspace/client/src/components/AudioLibrary/AudioLibraryModal.tsx, /workspace/client/src/components/CommunityGovernance/computeVotingPower.ts, /workspace/client/src/components/CommunityGovernance/topicCatalog.ts, /workspace/client/src/components/CosmicCouncil/CouncilSetupModal.tsx, /workspace/client/src/components/FigureCarousel.tsx, /workspace/client/src/components/Sidebar.tsx, /workspace/client/src/components/WisdomGalleryModal.tsx, /workspace/client/src/hooks/useHelperFunctions.ts, /workspace/client/src/utils/pendingBlooms.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/utils/performanceDetector.ts is dynamically imported by /workspace/client/src/App.tsx, /workspace/client/src/hooks/useBatteryAwareGlass.ts but also statically imported by /workspace/client/src/components/ParticleEffect.tsx, /workspace/client/src/hooks/useLiquidGlass.tsx, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/node_modules/idb/build/index.js is dynamically imported by /workspace/client/src/storage/indexedDbAdapter.ts but also statically imported by /workspace/client/src/services/storage/deviceKeyManager.ts, /workspace/client/src/services/storage/keyStorageService.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/services/seedCacheInitializer.ts is dynamically imported by /workspace/client/src/stores/slices/languageSlice.ts but also statically imported by /workspace/client/src/adapters/figureAdapter.ts, /workspace/client/src/components/AudioLibrary/StoryCollection.tsx, /workspace/client/src/controllers/sessionController.ts, /workspace/client/src/index.tsx, /workspace/client/src/services/StoryIntegrationManager.ts, /workspace/client/src/services/SummaryService.ts, /workspace/client/src/services/audio/introduction/navigationHelper.ts, /workspace/client/src/services/seedAcquisition/SeedAcquisitionManager.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/storage/index.ts is dynamically imported by /workspace/client/src/services/history/historyEncryption.ts but also statically imported by /workspace/client/src/controllers/conversationController.ts, /workspace/client/src/services/history/historyClearService.ts, /workspace/client/src/services/history/historyEncryptionMigration.ts, /workspace/client/src/services/history/historyExportService.ts, /workspace/client/src/services/history/historyStorageUtils.ts, /workspace/client/src/utils/questRestart.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/services/audio/voices/index.ts is dynamically imported by /workspace/client/src/services/council/CustomCouncilService.ts but also statically imported by /workspace/client/src/components/settings/panels/VoicePanel.tsx, /workspace/client/src/services/council/generator.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/services/council/speakerRegistry.ts is dynamically imported by /workspace/client/src/services/council/generator.ts but also statically imported by /workspace/client/src/services/council/generator.ts, /workspace/client/src/services/council/parser.ts, dynamic import will not move module into another chunk.
+[39m
+[33m[plugin vite:reporter] 
+(!) /workspace/client/src/services/history/historyStorageUtils.ts is dynamically imported by /workspace/client/src/utils/storageKeysV2.ts but also statically imported by /workspace/client/src/services/history/historyDataLoader.ts, /workspace/client/src/services/history/historyEncryptionMigration.ts, /workspace/client/src/services/history/historyExportService.ts, dynamic import will not move module into another chunk.
+[39m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m

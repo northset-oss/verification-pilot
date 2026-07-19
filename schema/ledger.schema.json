@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/ledger.schema.json",
+  "title": "Northset public receipt ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "receipts"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "receipts": {
+      "type": "array",
+      "items": { "$ref": "public-receipt.schema.json" }
+    }
+  }
+}

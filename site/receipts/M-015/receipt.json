@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-19T09:41:25.047Z",
+  "receipt_id": "M-015",
+  "receipt_result": "PASS — 1/1 declared command",
+  "passed_commands": 1,
+  "declared_commands": 1,
+  "timestamps": {
+    "started_at": "2026-07-13T01:03:28.905Z",
+    "finished_at": "2026-07-13T01:04:13.457Z"
+  },
+  "commands": [
+    {
+      "cmd": "npm run compile-typescript && npm run test-unit",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 7550
+    }
+  ],
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "container_image_id": null,
+    "container_os": null,
+    "container_architecture": null,
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "workspace_mode": null,
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": null,
+    "workspace_bytes_limit": null,
+    "initial_workspace_manifest_digest": null,
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "source_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+    "install_commands": [
+      "npm_config_cache=/workspace/.npmcache npm install --no-audit --no-fund --loglevel=error"
+    ]
+  },
+  "code": {
+    "base_commit": "7c54cc43cc5443e79d92ff4b9b732c2b091b6517",
+    "recorded_patch_commit": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
+    "patch_commit_binding": "declared metadata; not execution-bound",
+    "patch_diff_hash": "sha256:7d53dca4cdd37882f4a7765881f300c5554a3e6159e778cbdb0d9f59a1c310e6",
+    "patch_diff_binding": "bound to executed patch bytes"
+  },
+  "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
+  "bundle": {
+    "bundle_contents_digest": "sha256:51214f33c28fa66ef2ddf5e2b4ac3598c3a956f1f78466764b7918805ee5f59d",
+    "signed_asset_sha256": "sha256:1653238a0a10554d744aeb91c17ae6f8445b47eb38fc6debbf6b7fcae981c0bc",
+    "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-015/run-record-M-015.tar.gz",
+    "attestation_verified_at": "2026-07-14T14:21:48Z",
+    "provenance": "Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval."
+  },
+  "classification": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION",
+  "links": {
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-015/",
+    "target_repo": "https://github.com/prometheus/client_js",
+    "issue_or_task": "https://github.com/prometheus/client_js/issues/582",
+    "publication_pr": "https://github.com/prometheus/client_js/pull/774"
+  },
+  "issue_title": null,
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification.",
+    "The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates."
+  ],
+  "correction": "Correction: compile-typescript was run; the immutable record limitation incorrectly says type-check was not run. The PR later closed without merge.",
+  "scope_note": "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification. The declared network-off check runs `npm run compile-typescript && npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates.",
+  "upstream_outcome": {
+    "status": "closed_unmerged",
+    "link": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",
+    "attribution": "Recorded upstream outcome"
+  }
+}

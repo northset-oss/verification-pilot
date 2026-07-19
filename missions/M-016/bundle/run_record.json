@@ -1,0 +1,29 @@
+{
+  "started_at": "2026-07-13T18:08:11.710Z",
+  "finished_at": "2026-07-13T18:11:10.751Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "77da69117e70421ae034f2723f8007dd6829f142",
+    "base_tree_digest": "sha256:6db7ccd755ffeb204457a5e94de26d08f42fe9f88010e9584021705bde3e18fa",
+    "pre_check_tree_digest": "sha256:bc98f7f8065b9e426da43f074f5738679174f85f837f8124d10764d07a3966a0",
+    "approved_tracked_tree_digest": "sha256:4e07d7faca70d8b7ce63348ac59c429925b2834873d234d0a651739de5039494",
+    "post_check_tree_digest": "sha256:e6c2d527fbc87fe6f1417241525c811dae52afa7997f0a9b61436113e71a0f75",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:19902c75871d1443d6dd3040ad366857a13c16c9b43c568a73fc7a0e86a49cfb",
+    "install_commands": [
+      "corepack pnpm install --frozen-lockfile"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "node_modules/.bin/vitest lib/modules/manager/quadlet/digest-replacement.spec.ts",
+      "exit_code": 0,
+      "duration_ms": 4990
+    }
+  ],
+  "notes": null,
+  "redactions": {}
+}

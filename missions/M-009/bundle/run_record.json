@@ -1,0 +1,26 @@
+{
+  "started_at": "2026-07-12T10:06:34.026Z",
+  "finished_at": "2026-07-12T10:07:48.529Z",
+  "environment": {
+    "container_image_ref": "node:22-bookworm",
+    "container_image_digest": "node@sha256:a25c9934ff6382cd4f08b6bc26c82bf4ea69b1e6f8dabfb2ead457374127c365",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "41a8b99bb8d7d68c00d90d5b8fbaed20511d4cfd",
+    "base_tree_digest": "sha256:4070f72a3328983bf9db2a3aee9a3480b3244e34d609666b9ff111d54f4210f9",
+    "pre_check_tree_digest": "sha256:bea85e5d9ab5ce24f7134867d8d1ef551009d967f34f6562134f47370c69ca5e",
+    "patch_sha256": "sha256:c29d387a39ad255b7b8e506095b4281e5b9a704b6de656b55377629dcac0a714",
+    "install_commands": [
+      "node .yarn/releases/yarn-4.17.1.cjs install",
+      "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown",
+      "exit_code": 0,
+      "duration_ms": 11655
+    }
+  ],
+  "notes": null,
+  "redactions": {}
+}

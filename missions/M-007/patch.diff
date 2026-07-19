@@ -1,0 +1,111 @@
+diff --git a/src/main/java/org/eolang/jeo/BytecodeClasses.java b/src/main/java/org/eolang/jeo/BytecodeClasses.java
+index 435b708d1d9ac5ff03dfbd4df2352b6b769f652d..7c1dde6db3957c958860e0c4b3e4c281c3682215 100644
+--- a/src/main/java/org/eolang/jeo/BytecodeClasses.java
++++ b/src/main/java/org/eolang/jeo/BytecodeClasses.java
+@@ -40,7 +40,7 @@ final class BytecodeClasses implements Classes {
+ 
+     @Override
+     public String toString() {
+-        return this.input.toString();
++        return this.checked().toString();
+     }
+ 
+     @Override
+@@ -50,7 +50,7 @@ final class BytecodeClasses implements Classes {
+ 
+     @Override
+     public Path root() {
+-        return this.input;
++        return this.checked();
+     }
+ 
+     @Override
+@@ -76,19 +76,28 @@ final class BytecodeClasses implements Classes {
+     }
+ 
+     /**
+-     * Find all bytecode files.
+-     * @return Collection of bytecode files
+-     * @throws IOException If some I/O problem arises
++     * Check that the classes directory is set.
++     * @return Classes directory
+      */
+-    private Collection<Path> classes() throws IOException {
++    private Path checked() {
+         if (Objects.isNull(this.input)) {
+             throw new IllegalStateException(
+                 "The classes directory is not set, jeo-maven-plugin does not know where to look for classes."
+             );
+         }
++        return this.input;
++    }
++
++    /**
++     * Find all bytecode files.
++     * @return Collection of bytecode files
++     * @throws IOException If some I/O problem arises
++     */
++    private Collection<Path> classes() throws IOException {
++        final Path directory = this.checked();
+         final Collection<Path> result;
+-        if (Files.exists(this.input)) {
+-            try (Stream<Path> walk = Files.walk(this.input)) {
++        if (Files.exists(directory)) {
++            try (Stream<Path> walk = Files.walk(directory)) {
+                 result = walk
+                     .filter(Files::isRegularFile)
+                     .filter(path -> path.toString().endsWith(".class"))
+@@ -99,7 +108,7 @@ final class BytecodeClasses implements Classes {
+                 this,
+                 String.format(
+                     "The classes directory '%s' does not exist, jeo-maven-plugin does not know where to look for classes.",
+-                    this.input
++                    directory
+                 )
+             );
+             result = Collections.emptyList();
+diff --git a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
+index 73621ac576b2f8eabe702ed8e59bb859eb64f925..ce84e8603743a9268810249cca6cfb5d64ff401e 100644
+--- a/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
++++ b/src/test/java/org/eolang/jeo/BytecodeClassesTest.java
+@@ -8,6 +8,7 @@ import java.nio.file.Path;
+ import java.nio.file.Paths;
+ import org.hamcrest.MatcherAssert;
+ import org.hamcrest.Matchers;
++import org.junit.jupiter.api.Assertions;
+ import org.junit.jupiter.api.Test;
+ 
+ /**
+@@ -26,6 +27,32 @@ final class BytecodeClassesTest {
+         );
+     }
+ 
++    @Test
++    void throwsDescriptiveExceptionWhenConvertingNullInputToString() {
++        final IllegalStateException exception = Assertions.assertThrows(
++            IllegalStateException.class,
++            () -> new BytecodeClasses(null).toString()
++        );
++        MatcherAssert.assertThat(
++            "BytecodeClasses toString() should describe the missing classes directory",
++            exception.getMessage(),
++            Matchers.containsString("The classes directory is not set")
++        );
++    }
++
++    @Test
++    void throwsDescriptiveExceptionWhenGettingRootFromNullInput() {
++        final IllegalStateException exception = Assertions.assertThrows(
++            IllegalStateException.class,
++            () -> new BytecodeClasses(null).root()
++        );
++        MatcherAssert.assertThat(
++            "BytecodeClasses root() should describe the missing classes directory",
++            exception.getMessage(),
++            Matchers.containsString("The classes directory is not set")
++        );
++    }
++
+     @Test
+     void doesNotThrowExceptionOnAbsentDirectory() {
+         final Path path = Paths.get("/dev/null/absent");

@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "npm test -- --runInBand tests/empty-detachment.test.js"
+  ]
+}

@@ -1,0 +1,44 @@
+diff --git a/.changeset/fix-zero-hits-per-page.md b/.changeset/fix-zero-hits-per-page.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..9865c1ffdbe0d6045eb91404c727a26fc8737e9d
+--- /dev/null
++++ b/.changeset/fix-zero-hits-per-page.md
+@@ -0,0 +1,5 @@
++---
++'@meilisearch/instant-meilisearch': patch
++---
++
++Preserve zero hits per page in non-finite pagination requests.
+diff --git a/packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts b/packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts
+index 5ebb049b4254ea1197df9dfe464325f209f3e2f9..b82114ea0a1c8484b93448fdb4dca912ff451cb5 100644
+--- a/packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts
++++ b/packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts
+@@ -375,6 +375,15 @@ describe('Pagination adapter', () => {
+     expect(searchParams.offset).toBe(6)
+   })
+ 
++  test('preserves zero hits per page in the request limit', () => {
++    const searchParams = adaptSearchParams({
++      ...DEFAULT_CONTEXT,
++      pagination: { page: 0, hitsPerPage: 0, finite: false },
++    })
++
++    expect(searchParams.limit).toBe(0)
++  })
++
+   test('adapting a finite pagination with no placeholderSearch', () => {
+     const searchParams = adaptSearchParams({
+       ...DEFAULT_CONTEXT,
+diff --git a/packages/instant-meilisearch/src/adapter/search-request-adapter/search-params-adapter.ts b/packages/instant-meilisearch/src/adapter/search-request-adapter/search-params-adapter.ts
+index 9cd89de2ace0b39497d3757ee51e98ecabc604a2..47eee22d8777109e2eb6a6671b4808ab861fea43 100644
+--- a/packages/instant-meilisearch/src/adapter/search-request-adapter/search-params-adapter.ts
++++ b/packages/instant-meilisearch/src/adapter/search-request-adapter/search-params-adapter.ts
+@@ -35,7 +35,7 @@ function setScrollPagination(
+   }
+ 
+   return {
+-    limit: hitsPerPage + 1,
++    limit: hitsPerPage === 0 ? 0 : hitsPerPage + 1,
+     offset: page * hitsPerPage,
+   }
+ }

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-170",
+  "state": "open",
+  "pr_number": 729,
+  "pr_url": "https://github.com/andrewgari/starbunk-js/pull/729",
+  "pr_head_oid": "7fa46d3bd76b359bc875340e58a1eeb9ef2db733",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T22:49:36Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T22:49:36Z",
+  "observed_at": "2026-07-16T22:49:37.522Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
+  "bundle_digest": "sha256:50b732ed85a295b042b3a1ac42d4a93aa4d29e0d5ff7b84fcdc26770515793e1",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-170-50b732ed85a2/run-record-M-170-50b732ed85a2.tar.gz",
+  "release_asset_sha256": "sha256:36d047dae3cfe12356a68d0398c7702d5ae38b6f4e694eb0ff108da5cab8fcf8",
+  "attestation_verified_at": "2026-07-16T22:49:26.091Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-170/",
+    "verified_at": "2026-07-16T22:49:37.522Z"
+  }
+}

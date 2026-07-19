@@ -1,0 +1,14 @@
+=== cmd 1: mvn -o -Dmaven.repo.local=/workspace/.m2 test -ntp --errors --batch-mode -Dtest=BytecodeClassesTest ===
+mkdir: cannot create directory ‘/root’: Permission denied
+Failed to load native library:jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so. The native library file at /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64
+java.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: /tmp/jansi-2.4.3-2fd31c368bd5a2fe-libjansi.so: failed to map segment from shared object
+SLF4J(W): Class path contains multiple SLF4J providers.
+SLF4J(W): Found provider [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]
+SLF4J(W): Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@50ad3bc1]
+SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@223aa2f7]
+SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J(I): Actual provider is of type [org.slf4j.reload4j.Reload4jServiceProvider@6c130c45]
+=== cmd 2: mvn -o -Dmaven.repo.local=/workspace/.m2 qulice:check -Pqulice -ntp --errors --batch-mode ===
+mkdir: cannot create directory ‘/root’: Permission denied
+Failed to load native library:jansi-2.4.3-8331c5d90999722e-libjansi.so. The native library file at /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/arm64
+java.lang.UnsatisfiedLinkError: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: /tmp/jansi-2.4.3-8331c5d90999722e-libjansi.so: failed to map segment from shared object

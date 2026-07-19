@@ -1,0 +1,2 @@
+=== cmd 1: node bin/validate-mission.mjs missions/M-001/mission.json ===
+=== cmd 2: node bin/bundle.mjs verify missions/M-001 ===

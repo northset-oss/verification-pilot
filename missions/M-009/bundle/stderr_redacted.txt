@@ -1,0 +1,70 @@
+=== cmd 1: node .yarn/releases/yarn-4.17.1.cjs jest tests/format/markdown ===
+PASS tests/format/markdown/trim-space/format.test.js
+PASS tests/format/markdown/splitCjkText/format.test.js
+PASS tests/format/markdown/commonmark-test-suite-legacy/format.test.js
+PASS tests/format/markdown/gfm-test-suite/format.test.js
+PASS tests/format/markdown/auto-link/format.test.js
+PASS tests/format/markdown/splitCjkText/non-bmp/format.test.js
+PASS tests/format/markdown/list/empty-list-items/format.test.js
+PASS tests/format/markdown/heading/setext/format.test.js
+PASS tests/format/markdown/wiki-link/format.test.js
+PASS tests/format/markdown/list/indent/format.test.js
+PASS tests/format/markdown/broken-plugins/format.test.js
+PASS tests/format/markdown/footnoteDefinition/format.test.js
+PASS tests/format/markdown/table/empty-table/format.test.js
+PASS tests/format/markdown/inlineCode/format.test.js
+PASS tests/format/markdown/html/format.test.js
+PASS tests/format/markdown/paragraph/format.test.js
+PASS tests/format/markdown/commonmark-test-suite/format.test.js
+PASS tests/format/markdown/link/quotes/format.test.js
+PASS tests/format/markdown/jsx-semi/format.test.js
+PASS tests/format/markdown/fenced-code-block/format.test.js
+PASS tests/format/markdown/list/huge-first-number/format.test.js
+PASS tests/format/markdown/linkReference/format.test.js
+PASS tests/format/markdown/blockquote/format.test.js
+PASS tests/format/markdown/code/lwc/format.test.js
+PASS tests/format/markdown/break/list-item/format.test.js
+PASS tests/format/markdown/code/angular/format.test.js
+PASS tests/format/markdown/liquid/format.test.js
+PASS tests/format/markdown/long-table/format.test.js
+PASS tests/format/markdown/indentation/format.test.js
+PASS tests/format/markdown/multiparser-json/format.test.js
+PASS tests/format/markdown/list/parser-regression/format.test.js
+PASS tests/format/markdown/multiparser-js/format.test.js
+PASS tests/format/markdown/link/parser-regression/format.test.js
+PASS tests/format/markdown/word/format.test.js
+PASS tests/format/markdown/thematicBreak/format.test.js
+PASS tests/format/markdown/toml/format.test.js
+PASS tests/format/markdown/table/format.test.js
+PASS tests/format/markdown/strong/format.test.js
+PASS tests/format/markdown/spec-legacy/format.test.js
+PASS tests/format/markdown/yaml/format.test.js
+PASS tests/format/markdown/link/format.test.js
+PASS tests/format/markdown/image/format.test.js
+PASS tests/format/markdown/imageReference/format.test.js
+PASS tests/format/markdown/ignore/format.test.js
+PASS tests/format/markdown/heading/format.test.js
+PASS tests/format/markdown/footnote/format.test.js
+PASS tests/format/markdown/footnoteReference/format.test.js
+PASS tests/format/markdown/emphasis/format.test.js
+PASS tests/format/markdown/list/format.test.js
+PASS tests/format/markdown/delete/format.test.js
+PASS tests/format/markdown/definition/format.test.js
+PASS tests/format/markdown/break/format.test.js
+PASS tests/format/markdown/list/blank-lines/format.test.js
+PASS tests/format/markdown/wiki-link/alias/format.test.js
+PASS tests/format/markdown/list/task-list/format.test.js
+PASS tests/format/markdown/linkReference/case-and-space/format.test.js
+PASS tests/format/markdown/html/html/format.test.js
+PASS tests/format/markdown/markdown/format.test.js
+PASS tests/format/markdown/math/format.test.js
+PASS tests/format/markdown/front-matter/format.test.js
+PASS tests/format/markdown/multiparser-css/format.test.js
+PASS tests/format/markdown/cursor/format.test.js
+PASS tests/format/markdown/code/format.test.js
+
+Test Suites: 63 passed, 63 total
+Tests:       1476 passed, 1476 total
+Snapshots:   1465 passed, 1465 total
+Time:        7.23 s
+Ran all test suites matching tests/format/markdown.

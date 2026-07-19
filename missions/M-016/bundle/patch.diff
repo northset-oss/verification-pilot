@@ -1,0 +1,51 @@
+diff --git a/lib/modules/manager/quadlet/digest-replacement.spec.ts b/lib/modules/manager/quadlet/digest-replacement.spec.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..05d30e92a567ad61e0584e65fa4a5f2e059b49a4
+--- /dev/null
++++ b/lib/modules/manager/quadlet/digest-replacement.spec.ts
+@@ -0,0 +1,32 @@
++import { codeBlock } from 'common-tags';
++import { extractPackageFile } from './extract.ts';
++
++describe('modules/manager/quadlet/digest-replacement', () => {
++  it('supports digest replacement metadata for Quadlet images', () => {
++    const image =
++      'docker.io/library/alpine:3.23.0@sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375';
++    const content = codeBlock`
++      [Container]
++      Image=${image}
++    `;
++
++    const result = extractPackageFile(content, 'alpine.container', {});
++
++    expect(result).toEqual({
++      deps: [
++        {
++          autoReplaceStringTemplate:
++            '{{depName}}{{#if newValue}}:{{newValue}}{{/if}}{{#if newDigest}}@{{newDigest}}{{/if}}',
++          currentDigest:
++            'sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375',
++          currentValue: '3.23.0',
++          datasource: 'docker',
++          depName: 'docker.io/library/alpine',
++          depType: 'image',
++          packageName: 'docker.io/library/alpine',
++          replaceString: image,
++        },
++      ],
++    });
++  });
++});
+diff --git a/lib/modules/manager/quadlet/extract.ts b/lib/modules/manager/quadlet/extract.ts
+index f7e6dcc08f0ef4a96c4d603538e86016f1147374..dcd803533fa690036170f577976af48e65942956 100644
+--- a/lib/modules/manager/quadlet/extract.ts
++++ b/lib/modules/manager/quadlet/extract.ts
+@@ -40,7 +40,7 @@ function getQuadletImage(
+     const cleanedImage = image
+       .replace(regEx(/^docker:\/\//), '')
+       .replace(regEx(/^docker-daemon:/), '');
+-    const dep = getDep(cleanedImage, false, config.registryAliases);
++    const dep = getDep(cleanedImage, true, config.registryAliases);
+     if (dep) {
+       dep.depType = 'image';
+ 

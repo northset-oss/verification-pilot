@@ -1,0 +1,44 @@
+name: Policy monitor
+
+on:
+  schedule:
+    - cron: '17 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Check target policy SHAs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          report_file="policy-monitor/report.json"
+          set +e
+          node bin/policy-monitor.mjs check \
+            --targets policy-monitor/targets.json \
+            --state policy-monitor/state.json \
+            --json > "$report_file"
+          status=$?
+          set -e
+
+          cat "$report_file"
+          {
+            echo "## Policy monitor"
+            node --input-type=module -e 'import { readFileSync } from "node:fs"; const report = JSON.parse(readFileSync(process.argv[1], "utf8")); const changes = report.results.filter(({ status }) => ["changed", "new", "removed"].includes(status)); console.log(changes.length ? changes.map(({ status, key }) => `- ${status}: \`${key}\``).join("\n") : "No policy SHA changes.");' "$report_file"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          exit "$status"
+
+      - name: Preserve the dated policy snapshot report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: policy-monitor-${{ github.run_id }}
+          path: policy-monitor/report.json
+          if-no-files-found: warn
+          retention-days: 90

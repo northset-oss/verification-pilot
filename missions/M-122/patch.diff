@@ -1,0 +1,151 @@
+diff --git a/packages/krl-parser/src/krl.ts b/packages/krl-parser/src/krl.ts
+index 163e379d4664d63145ffaf4839e7a26fe5645b05..ba499d28735b43f3f04133066c3990df825d4a59 100644
+--- a/packages/krl-parser/src/krl.ts
++++ b/packages/krl-parser/src/krl.ts
+@@ -1511,6 +1511,13 @@ function postludeStatementCore(state: State): ast.PostludeStatement {
+     };
+   }
+ 
++  if (easyLookahead(state, 2) === "SYMBOL=") {
++    throw new ParseError(
++      "Declarations are not allowed in rule postludes",
++      state.curr.token
++    );
++  }
++
+   return declaration(state);
+ }
+ 
+diff --git a/packages/krl-parser/test/postlude-declaration-errors.ts b/packages/krl-parser/test/postlude-declaration-errors.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..c37ff45151ecf6881c62a5f12b83f4a4504117cf
+--- /dev/null
++++ b/packages/krl-parser/test/postlude-declaration-errors.ts
+@@ -0,0 +1,16 @@
++import test from "ava";
++import { ParseError } from "../src/ParseError";
++import { parseRuleset } from "../src/krl";
++import tokenizer from "../src/tokenizer";
++
++test("rejects declarations in rule postludes", t => {
++  const error = t.throws(
++    () =>
++      parseRuleset(
++        tokenizer("ruleset a { rule b { always { x = 3 } } }")
++      ),
++    { instanceOf: ParseError }
++  ) as ParseError;
++
++  t.is(error.message, "Declarations are not allowed in rule postludes");
++});
+diff --git a/packages/krl-parser/test/postludeStatements.ts b/packages/krl-parser/test/postludeStatements.ts
+index 96c49824709b11119d6f8784538bc0a05ba56ea8..8553ec62c83d44599b11f7a2447c40b2c3763b30 100644
+--- a/packages/krl-parser/test/postludeStatements.ts
++++ b/packages/krl-parser/test/postludeStatements.ts
+@@ -398,22 +398,6 @@ test("GuardCondition", t => {
+     }
+   ]);
+ 
+-  testPost("foo = bar on final", [
+-    {
+-      type: "GuardCondition",
+-      condition: "on final",
+-      statement: mk.declare("=", mk.id("foo"), mk.id("bar"))
+-    }
+-  ]);
+-
+-  testPost("foo = bar if baz > 0", [
+-    {
+-      type: "GuardCondition",
+-      condition: mk.op(">", mk.id("baz"), mk(0)),
+-      statement: mk.declare("=", mk.id("foo"), mk.id("bar"))
+-    }
+-  ]);
+-
+   testPost("ent:foo := bar if baz > 0", [
+     {
+       type: "GuardCondition",
+diff --git a/packages/krl-parser/test/ruleset.ts b/packages/krl-parser/test/ruleset.ts
+index d10873256d62ca9de55eeaab2218017d5d067da8..157bd9dc1177a9a667fef92acc2ba8d518ea56a3 100644
+--- a/packages/krl-parser/test/ruleset.ts
++++ b/packages/krl-parser/test/ruleset.ts
+@@ -843,56 +843,61 @@ test("RulePostlude", t => {
+   };
+ 
+   // test location
+-  var src = "ruleset rs{rule r1{always{aaa=one();bbb=two()}}}";
++  var src =
++    "ruleset rs{rule r1{always{ent:aaa:=one();app:bbb:=two()}}}";
+   t.deepEqual(parseRuleset(tokenizer(src)).rules[0].postlude, {
+-    loc: { start: 19, end: 46 },
++    loc: { start: 19, end: 56 },
+     type: "RulePostlude",
+     fired: null,
+     notfired: null,
+     always: [
+       {
+-        loc: { start: 26, end: 35 },
+-        type: "Declaration",
+-        op: "=",
++        loc: { start: 33, end: 35 },
++        type: "PersistentVariableAssignment",
++        op: ":=",
+         left: {
+-          loc: { start: 26, end: 29 },
+-          type: "Identifier",
++          loc: { start: 26, end: 33 },
++          type: "DomainIdentifier",
++          domain: "ent",
+           value: "aaa"
+         },
++        path_expression: null,
+         right: {
+-          loc: { start: 30, end: 35 },
++          loc: { start: 35, end: 40 },
+           type: "Application",
+           callee: {
+-            loc: { start: 30, end: 33 },
++            loc: { start: 35, end: 38 },
+             type: "Identifier",
+             value: "one"
+           },
+           args: {
+-            loc: { start: 33, end: 35 },
++            loc: { start: 38, end: 40 },
+             type: "Arguments",
+             args: []
+           }
+         }
+       },
+       {
+-        loc: { start: 36, end: 45 },
+-        type: "Declaration",
+-        op: "=",
++        loc: { start: 48, end: 50 },
++        type: "PersistentVariableAssignment",
++        op: ":=",
+         left: {
+-          loc: { start: 36, end: 39 },
+-          type: "Identifier",
++          loc: { start: 41, end: 48 },
++          type: "DomainIdentifier",
++          domain: "app",
+           value: "bbb"
+         },
++        path_expression: null,
+         right: {
+-          loc: { start: 40, end: 45 },
++          loc: { start: 50, end: 55 },
+           type: "Application",
+           callee: {
+-            loc: { start: 40, end: 43 },
++            loc: { start: 50, end: 53 },
+             type: "Identifier",
+             value: "two"
+           },
+           args: {
+-            loc: { start: 43, end: 45 },
++            loc: { start: 53, end: 55 },
+             type: "Arguments",
+             args: []
+           }

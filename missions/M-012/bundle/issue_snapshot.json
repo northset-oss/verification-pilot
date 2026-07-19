@@ -1,0 +1,18 @@
+{
+  "fetched_at": "2026-07-12T22:06:14Z",
+  "issue": {
+    "assignee": null,
+    "body": "Many tools that prescribe to config file flows will look for a config file automatically. This just bit me (my mistake) in a test app\n\n[auto-config-loader](https://github.com/jaywcjlove/auto-config-loader) and [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) are examples.\n\nWe could expand our config loading to a library (perhaps not if we want to think about dependencies), or keep it tight and implement a happy path like the title suggests",
+    "created_at": "2026-07-11T17:59:37Z",
+    "html_url": "https://github.com/nodejs/doc-kit/issues/897",
+    "labels": [
+      "good first issue"
+    ],
+    "number": 897,
+    "state": "open",
+    "title": "Consideration: detect `doc-kit.config.mjs` automatically",
+    "updated_at": "2026-07-11T18:11:14Z"
+  },
+  "comments": [],
+  "timeline_cross_references": []
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-176",
+  "state": "open",
+  "pr_number": 186,
+  "pr_url": "https://github.com/gr2m/github-project/pull/186",
+  "pr_head_oid": "dad4d74f7c11eb20d8783d43caa4b29b850bd320",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T22:49:34Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T22:49:34Z",
+  "observed_at": "2026-07-16T22:49:35.705Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions.",
+  "bundle_digest": "sha256:4336cf789521039384d0a61c7ad4b6a3b8c644aa503a3d564a40ae5eace87f5a",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-176-4336cf789521/run-record-M-176-4336cf789521.tar.gz",
+  "release_asset_sha256": "sha256:f208b5838773e12407f556a788daa48194216ead0217f4dcef0cb8b76c6a1380",
+  "attestation_verified_at": "2026-07-16T22:49:26.547Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-176/",
+    "verified_at": "2026-07-16T22:49:35.705Z"
+  }
+}

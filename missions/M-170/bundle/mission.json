@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-170",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "andrewgari maintainers",
+  "target_repo": "https://github.com/andrewgari/starbunk-js",
+  "issue_or_task": "https://github.com/andrewgari/starbunk-js/issues/604",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/andrewgari/starbunk-js/blob/952368c6688835349e7d3537d8b1aaa6edc54037/CLAUDE.md",
+    "checked_at": "2026-07-16T22:05:24.247Z",
+    "ai_policy_summary": "Repository instructions require a scoped change, focused regression, patch changeset, and project checks; no CLA, DCO, or AI prohibition was identified."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "952368c6688835349e7d3537d8b1aaa6edc54037",
+  "patch_commit": "7fa46d3bd76b359bc875340e58a1eeb9ef2db733",
+  "patch_diff_hash": "sha256:aea385a8bef1fa1e406883093a410ab77790b715e33b042454a88938142cda98",
+  "commands_declared": [
+    "npm --prefix src/djcova test -- tests/music-commands.test.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions."
+  ]
+}

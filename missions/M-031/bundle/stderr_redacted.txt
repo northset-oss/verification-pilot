@@ -1,0 +1,17 @@
+=== cmd 1: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui exec vitest run src/composables/charts/shared/chartConfig.test.ts ===
+=== cmd 2: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui typecheck ===
+=== cmd 3: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui format:check ===
+=== cmd 4: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui test ===
+=== cmd 5: EMBED_UI=True PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH pnpm --dir ui build ===
+[warn] Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[warn] [33m[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vite:vue (78%)
+  - vite:worker (6%)
+  - vite:css (5%)
+  - rolldown:vite-resolve (5%)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+[39m
+=== cmd 6: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod go test -count=1 ./... ===
+=== cmd 7: PATH=/workspace/.northset/bootstrap-home/bin:/workspace/.northset/bootstrap-home/go/bin:$PATH GOMODCACHE=/workspace/.northset/bootstrap-home/project-go-mod golangci-lint run ===

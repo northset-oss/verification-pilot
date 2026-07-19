@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-150",
+  "variant": "author_contribution",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Northset contributed this fix and ran its declared checks. Contributor self-run. Not maintainer verification.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "worker_runtime_operator",
+  "external_counterparty": "davidtkramer maintainers",
+  "target_repo": "https://github.com/davidtkramer/typical-data",
+  "issue_or_task": "https://github.com/davidtkramer/typical-data/issues/35",
+  "consent_artifact": null,
+  "repo_policy_snapshot": {
+    "url": "https://github.com/davidtkramer/typical-data/blob/6693af47e28bb6d01035ada6b61341b6ad630b95/README.md",
+    "checked_at": "2026-07-16T19:53:05Z",
+    "ai_policy_summary": "The owner-authored good-first issue defines the return-value validation and the repository states no additional claim, CLA, DCO, or AI restriction."
+  },
+  "worker_identity": {
+    "runtime": "northset-oss executor v1",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "6693af47e28bb6d01035ada6b61341b6ad630b95",
+  "patch_commit": "a480182e3b703ac7d75ade1769ed02fd980d8d66",
+  "patch_diff_hash": "sha256:340ed24340c71df129e6091626cf825de3b537648209fbba115f2620446ce960",
+  "commands_declared": [
+    "npm test -- --configLoader runner src/__tests__/factory.test.ts"
+  ],
+  "environment": null,
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Contributor self-run record of Northset's own contribution; not the maintainer's verification.",
+    "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions."
+  ]
+}

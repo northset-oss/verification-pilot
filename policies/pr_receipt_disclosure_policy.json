@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "canonical_receipt_base_url": "https://northset-oss.github.io/verification-pilot/receipts/",
+  "legacy_ledger_base_url": "https://northset-oss.github.io/verification-pilot/",
+  "historical_exempt_mission_ids": [
+    "M-007",
+    "M-008",
+    "M-009",
+    "M-011",
+    "M-012",
+    "M-014",
+    "M-015",
+    "M-016",
+    "M-019",
+    "M-020",
+    "M-021"
+  ],
+  "northset_actor_logins": [
+    "AysajanE"
+  ]
+}

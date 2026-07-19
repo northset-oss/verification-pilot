@@ -1,0 +1,51 @@
+{
+  "mission_id": "M-004",
+  "variant": "V",
+  "claims_tier": [
+    "R1",
+    "R2"
+  ],
+  "grade": "B1",
+  "disclosure_label": "Verification-give mission with disclosed funding and review scope.",
+  "funding_source": "Northset verification-give budget",
+  "northset_role": "verifier",
+  "external_counterparty": "External repository maintainer",
+  "target_repo": "https://example.com/maintainer/project",
+  "issue_or_task": "https://example.com/maintainer/project/issues/42",
+  "consent_artifact": "https://example.com/maintainer/project/consent/42",
+  "repo_policy_snapshot": {
+    "url": "https://example.com/maintainer/project/contributing",
+    "checked_at": "2026-07-02T15:30:00Z",
+    "ai_policy_summary": "AI-assisted verification is allowed when disclosed."
+  },
+  "worker_identity": {
+    "runtime": "Codex CLI",
+    "human_operator": "Northset verifier"
+  },
+  "base_commit": "3333333333333333333333333333333333333333",
+  "patch_commit": null,
+  "patch_diff_hash": null,
+  "commands_declared": [
+    "node --test",
+    "node bin/validate-mission.mjs examples/M-004_verification_give.json"
+  ],
+  "environment": {
+    "container_image_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "network_policy": "Network unavailable during declared command execution"
+  },
+  "run_record_bundle_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-004/run-record-M-004.tar.gz",
+  "maintainer_outcome": {
+    "status": "rejected",
+    "link": "https://example.com/maintainer/project/pull/57#decision",
+    "decided_at": "2026-07-06T10:00:00Z"
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security"
+  ]
+}

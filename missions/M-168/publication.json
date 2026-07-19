@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-168",
+  "state": "open",
+  "pr_number": 11045,
+  "pr_url": "https://github.com/ember-cli/ember-cli/pull/11045",
+  "pr_head_oid": "cc4d361534cfca16ebf26050ed26a0c0cbbd9db1",
+  "base_branch": "master",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": "review_required",
+  "decision_url": "https://github.com/ember-cli/ember-cli/pull/11045",
+  "opened_at": "2026-07-16T22:49:36Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T22:49:36Z",
+  "observed_at": "2026-07-16T22:49:37.916Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
+  "bundle_digest": "sha256:b106baa1d6bebdad58ae2100dff0241cd552b2eb4aa88e6326a6bc0f43f587ff",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-168-b106baa1d6be/run-record-M-168-b106baa1d6be.tar.gz",
+  "release_asset_sha256": "sha256:c2d982e8c56a71d77383d7b2a33a234f6091a75737a6022f4d9b4ea1b5e4fa38",
+  "attestation_verified_at": "2026-07-16T22:49:24.995Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-168/",
+    "verified_at": "2026-07-16T22:49:37.916Z"
+  }
+}

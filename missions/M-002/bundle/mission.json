@@ -1,0 +1,46 @@
+{
+  "mission_id": "M-002",
+  "variant": "own_repo_rehearsal",
+  "claims_tier": [
+    "R0"
+  ],
+  "grade": "B0",
+  "disclosure_label": "Self-funded rehearsal. Not external validation.",
+  "funding_source": "Northset OSS Fund",
+  "northset_role": "both_sides_disclosed",
+  "external_counterparty": null,
+  "target_repo": "https://github.com/northset-oss/verification-pilot",
+  "issue_or_task": null,
+  "consent_artifact": null,
+  "repo_policy_snapshot": null,
+  "worker_identity": {
+    "runtime": "northset-oss executor v0",
+    "human_operator": "aeziz"
+  },
+  "base_commit": "af4fc4d4342dc40128828ebf95e3e49dad3934fa",
+  "patch_commit": null,
+  "patch_diff_hash": null,
+  "commands_declared": [
+    "node bin/validate-mission.mjs examples/M-001_own_repo_rehearsal.json examples/M-004_verification_give.json examples/M-005_worker_mission.json"
+  ],
+  "environment": {
+    "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "network_policy": "phaseA:bridge,phaseB:none"
+  },
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security",
+    "Self-funded rehearsal on Northset's own repository; not external validation."
+  ]
+}

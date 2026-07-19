@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-150",
+  "state": "open",
+  "pr_number": 42,
+  "pr_url": "https://github.com/davidtkramer/typical-data/pull/42",
+  "pr_head_oid": "a480182e3b703ac7d75ade1769ed02fd980d8d66",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "pending",
+  "merge_commit_oid": null,
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T22:49:33Z",
+  "closed_at": null,
+  "updated_at": "2026-07-16T22:49:33Z",
+  "observed_at": "2026-07-16T22:49:34.936Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "bundle_digest": "sha256:f841aa982fd364859c8d65d880916c864bcaba95f6c980ba6a9ce2cc16a3c6cc",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-150-f841aa982fd3/run-record-M-150-f841aa982fd3.tar.gz",
+  "release_asset_sha256": "sha256:97471690589ab12a497fd5a89ba431613f48eaf8dd20dfdb083104dc4f68c44e",
+  "attestation_verified_at": "2026-07-16T22:49:25.048Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-150/",
+    "verified_at": "2026-07-16T22:49:34.936Z"
+  }
+}

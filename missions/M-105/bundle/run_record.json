@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T16:56:19.419Z",
+  "finished_at": "2026-07-16T16:58:05.106Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "662ad5b635064fd0be6a5e27f8de06bec45d5207",
+    "base_tree_digest": "sha256:f7a3497389de6e4876b2fa411034284e4b4ccfd9c6e2b404fb20df78378b00f6",
+    "pre_check_tree_digest": "sha256:b5be192c6ed3e92218ec068f3960d25220f7731ceb17c80a66b5c8bf8fb6235f",
+    "approved_tracked_tree_digest": "sha256:b033090822c43ad988fb299585b6a198524dd9c0decb70a117def12c04adbe20",
+    "post_check_tree_digest": "sha256:8620a5bfee8d065a27c3aa6790b296b3f7573209bf5ae02df810a5bd4abb4a08",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:c7256fb67e572058e6e74d8006f6f43fd9a9077ae7d0bcb25a48695e950cb816",
+    "install_commands": [
+      "npm ci",
+      "npm run build"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm run test:unit -- test/unit/typescript-output-filename.test.ts",
+      "exit_code": 0,
+      "duration_ms": 4187
+    },
+    {
+      "cmd": "npm run lint",
+      "exit_code": 0,
+      "duration_ms": 7300
+    },
+    {
+      "cmd": "npm run build",
+      "exit_code": 0,
+      "duration_ms": 5580
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 64467,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 17067,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

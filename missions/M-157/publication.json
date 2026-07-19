@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-157",
+  "state": "merged",
+  "pr_number": 44,
+  "pr_url": "https://github.com/Nandansai08/personal-ai/pull/44",
+  "pr_head_oid": "a7f2567ab6b488bbeaa5d0ac931804ce4213f18a",
+  "base_branch": "main",
+  "head_drift": false,
+  "ci_state": "success",
+  "merge_commit_oid": "ba168a28b8655e678d034a50cd2a11c5d350c1f7",
+  "review_decision": null,
+  "decision_url": null,
+  "opened_at": "2026-07-16T22:49:33Z",
+  "closed_at": "2026-07-18T16:02:58Z",
+  "updated_at": "2026-07-18T16:02:58Z",
+  "observed_at": "2026-07-19T09:37:14.698Z",
+  "correction_note": null,
+  "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
+  "bundle_digest": "sha256:e2d2f810827e65fd59ab9255ba6aa69fb2122e99dbf1d6d96aa83753e6eac603",
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-157-e2d2f810827e/run-record-M-157-e2d2f810827e.tar.gz",
+  "release_asset_sha256": "sha256:1b718424be99791f0ec0a9b5072fcbc2d1e6c1902e7b03a7ce8a86a821c633ef",
+  "attestation_verified_at": "2026-07-16T22:49:26.997Z",
+  "pr_disclosure": {
+    "schema_version": 1,
+    "required": true,
+    "mode": "pr_body",
+    "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-157/",
+    "verified_at": "2026-07-19T09:41:25.047Z"
+  }
+}

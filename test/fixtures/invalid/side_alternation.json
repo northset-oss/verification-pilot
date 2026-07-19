@@ -1,0 +1,26 @@
+{
+  "mission_id": "M-123",
+  "variant": "V",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "Verification-give fixture",
+  "funding_source": "Self-funded fixture",
+  "northset_role": "both_sides_disclosed",
+  "external_counterparty": "External maintainer",
+  "target_repo": "https://example.com/repository",
+  "consent_artifact": "https://example.com/consent/120",
+  "commands_declared": [],
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security"
+  ]
+}

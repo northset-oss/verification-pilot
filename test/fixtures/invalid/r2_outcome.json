@@ -1,0 +1,36 @@
+{
+  "mission_id": "M-122",
+  "variant": "V",
+  "claims_tier": [
+    "R1",
+    "R2"
+  ],
+  "grade": null,
+  "disclosure_label": "Verification-give fixture",
+  "funding_source": "Self-funded fixture",
+  "northset_role": "verifier",
+  "external_counterparty": "External maintainer",
+  "target_repo": "https://example.com/repository",
+  "consent_artifact": "https://example.com/consent/120",
+  "commands_declared": [],
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "Does not prove code quality",
+    "Does not prove security"
+  ],
+  "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-122/run-record-M-122.tar.gz",
+  "run_record_bundle_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "environment": {
+    "container_image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "network_policy": "Fixture network policy"
+  },
+  "base_commit": "5555555555555555555555555555555555555555"
+}

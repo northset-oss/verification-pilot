@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-16T21:40:31.332Z",
+  "finished_at": "2026-07-16T21:41:42.569Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_digest": "node@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7",
+    "container_image_id": "sha256:6ed6ff875e9714bb845b850b08f3ad231ccbb5848812647bcf11acdd4bd1d2f8",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "e50a1befede455916214f2fc79bd0e017e5fef2a",
+    "base_tree_digest": "sha256:84c7a6cd3c1c5192fe9606962c25e951a3fc38940664908c90263c588f96e519",
+    "pre_check_tree_digest": "sha256:7166289fe348999f2cea8964850a8ca6791649de83faedd5d179e082c7381ba9",
+    "approved_tracked_tree_digest": "sha256:486e2c6a7692d15790fac6f4fb2fed44de51b32985ef27f396252285589bdb0d",
+    "post_check_tree_digest": "sha256:371ea65d62f884f8ea99e73fe8611a22cc0a3dbb8457c001d8f002ed94b882f8",
+    "check_tree_changed": true,
+    "patch_sha256": "sha256:e1ba0cde52b853946a58519fd02acbe98c99a9297fcc662d05ae509df7b4fcd8",
+    "install_commands": [
+      "npm ci"
+    ]
+  },
+  "commands": [
+    {
+      "cmd": "npm test -- tests/plugins/manager.test.ts",
+      "exit_code": 0,
+      "duration_ms": 17164
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 35850,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 17164,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

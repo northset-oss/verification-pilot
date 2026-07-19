@@ -1,0 +1,1 @@
+=== cmd 1: npm test -- --configLoader runner --no-cache packages/instant-meilisearch/src/adapter/search-request-adapter/__tests__/search-params.test.ts ===

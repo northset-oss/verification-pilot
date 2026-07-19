@@ -1,0 +1,105 @@
+# Validate source, immutable evidence, and generated public projections. On a main push this
+# workflow also packages up to 50 changed bundles (or an explicit no-op) for downstream signing.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pr-disclosure:
+    name: pr-disclosure
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+      - name: Enforce future contributor receipt disclosure
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          node bin/pr-receipt-disclosure.mjs check
+          --missions-dir missions
+          --policy policies/pr_receipt_disclosure_policy.json
+          --json
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+
+      - name: Run the complete test suite
+        env:
+          EXECUTOR_DOCKER_TEST: "1"
+        run: node --test
+
+      - name: Validate every committed receipt and signed bundle projection
+        run: |
+          set -euo pipefail
+          for mission in missions/*/mission.json; do
+            directory="$(dirname "$mission")"
+            node bin/validate-mission.mjs "$mission"
+            node bin/bundle.mjs verify "$directory"
+            node bin/verify-receipt-parity.mjs "$directory"
+            node bin/verify-proof-of-pass.mjs "$directory"
+          done
+
+      - name: Confirm committed ledger and site are reproducible
+        run: |
+          set -euo pipefail
+          generated_at="$(node -e 'const fs=require("fs");process.stdout.write(JSON.parse(fs.readFileSync("missions/index.json","utf8")).generated_at ?? "")')"
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+          node bin/ledger.mjs build --missions-dir missions --out "$work/index.json" --now "$generated_at"
+          diff -u missions/index.json "$work/index.json"
+          node bin/ledger.mjs render --index "$work/index.json" --out "$work/site/index.html"
+          diff -ru --exclude='*.png' site "$work/site"
+          for png in site/og/*.png; do
+            [ -e "$png" ] || continue
+            name="$(basename "$png" .png)"
+            if [ ! -f "$work/site/og/$name.svg" ]; then
+              echo "orphan OG PNG: $png has no rendered SVG source" >&2
+              exit 1
+            fi
+          done
+          for svg in "$work"/site/og/*.svg; do
+            [ -e "$svg" ] || continue
+            name="$(basename "$svg" .svg)"
+            if [ ! -f "site/og/$name.png" ]; then
+              echo "missing OG PNG: site/og/$name.png for rendered SVG source $svg" >&2
+              exit 1
+            fi
+          done
+
+      - name: Package exact changed bundles for the signing workflow
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: >-
+          node bin/signing-handoff.mjs create
+          --repo .
+          --before "$BEFORE_SHA"
+          --head "$HEAD_SHA"
+          --out "$RUNNER_TEMP/ci-release"
+
+      - name: Upload CI-validated signing handoff
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ci-release-${{ github.event.before }}-${{ github.sha }}
+          path: ${{ runner.temp }}/ci-release
+          if-no-files-found: error
+          retention-days: 7

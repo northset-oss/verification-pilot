@@ -1,0 +1,5 @@
+diff --git a/fixture.txt b/fixture.txt
+--- a/fixture.txt
++++ b/fixture.txt
+@@ -0,0 +1 @@
++fixture

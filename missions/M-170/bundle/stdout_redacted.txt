@@ -1,0 +1,15 @@
+=== cmd 1: npm --prefix src/djcova test -- tests/music-commands.test.ts ===
+
+> @starbunk/djcova@1.31.13 test
+> vitest run tests/music-commands.test.ts
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/workspace/src/djcova[39m
+
+ [32m✓[39m tests/music-commands.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 22:14:52
+[2m   Duration [22m 1.83s[2m (transform 911ms, setup 0ms, import 1.27s, tests 73ms, environment 0ms)[22m
+

@@ -1,0 +1,55 @@
+=== cmd 1: npm run test:unit -- test/unit/typescript-output-filename.test.ts ===
+
+> quicktype@24.0.0 test:unit
+> vitest run test/unit/typescript-output-filename.test.ts
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/workspace[39m
+
+ [32m✓[39m test/unit/typescript-output-filename.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 14[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2mType Errors [22m [2mno errors[22m
+[2m   Start at [22m 16:57:37
+[2m   Duration [22m 2.66s[2m (transform 1.90s, setup 0ms, import 2.45s, tests 14ms, environment 0ms)[22m
+
+=== cmd 2: npm run lint ===
+
+> quicktype@24.0.0 lint
+> biome check .
+
+Checked 271 files in 6s. No fixes applied.
+=== cmd 3: npm run build ===
+
+> quicktype@24.0.0 build
+> npm run clean && npm run build --workspaces --if-present && node node_modules/typescript/bin/tsc
+
+
+> quicktype@24.0.0 clean
+> rm -rf dist *~ packages/*/{dist,out}
+
+
+> quicktype-core@24.0.0 build
+> npm run build:cjs && npm run build:esm
+
+
+> quicktype-core@24.0.0 build:cjs
+> node ../../node_modules/typescript/bin/tsc -p tsconfig.json
+
+
+> quicktype-core@24.0.0 build:esm
+> node ../../node_modules/typescript/bin/tsc -p tsconfig.esm.json && node script/write-esm-package-json.mjs
+
+
+> quicktype-graphql-input@24.0.0 build
+> node ../../node_modules/typescript/bin/tsc
+
+
+> quicktype-typescript-input@24.0.0 build
+> node ../../node_modules/typescript/bin/tsc
+
+
+> quicktype@24.0.0 build
+> node ../../node_modules/typescript/bin/tsc -p ./
+

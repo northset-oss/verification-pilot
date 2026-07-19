@@ -1,0 +1,54 @@
+{
+  "fetched_at": "2026-07-12T01:15:17Z",
+  "issue": {
+    "number": 2510,
+    "state": "open",
+    "title": "workspace-search buttons need type=button",
+    "html_url": "https://github.com/RaspberryPiFoundation/blockly-samples/issues/2510",
+    "assignee": null,
+    "labels": [
+      "help wanted",
+      "good first issue",
+      "category: plugin",
+      "size: small"
+    ],
+    "created_at": "2025-05-09T18:27:09Z",
+    "updated_at": "2026-07-08T18:18:49Z",
+    "body": "Component: workspace-search's `createBtn` private helper method. We are using Blockly inside a `<form>` element, and `createBtn` does not set the `<button>` to `type='button'`, so clicking a workspace-search button (next, previous, exit) erroneously causes a form submit. The reporter suggests setting `btn.type = 'button'` in the `createBtn` helper. Reproduction: nest a Blockly instance in a `<form>`, install workspace-search, ctrl-f, click any of the three buttons, and observe the form is submitted."
+  },
+  "comments": [
+    {
+      "user": "maribethb",
+      "created_at": "2025-05-16T16:12:18Z",
+      "body": "Hi @admalledd thanks for filing! We'd accept a PR for this if you'd like to submit your fix. Thanks!"
+    },
+    {
+      "user": "admalledd",
+      "created_at": "2025-05-17T23:01:01Z",
+      "body": "@maribethb due to the language of my current work contract, that is difficult, hence provided the sample diff/line change in the issue above. I can open issues, discuss fixes, etc, but am not allowed to submit code under my own authorship if it relates to my work."
+    },
+    {
+      "user": "viky-01",
+      "created_at": "2025-05-25T07:07:37Z",
+      "body": "@rachel-fenichel kindly review the fixes"
+    },
+    {
+      "user": "viky-01",
+      "created_at": "2025-05-30T05:03:38Z",
+      "body": "@BenHenning, apologies for the delay. Also, thanks for the support and patience."
+    },
+    {
+      "user": "uniiquecornnx",
+      "created_at": "2025-07-08T06:32:18Z",
+      "body": "i want to work on this because it's a small but important fix that helps prevent bugs when using forms. Setting type=\"button\" avoids accidental form submissions..."
+    }
+  ],
+  "timeline_cross_references": [
+    {"pr": 2546, "url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2546", "state": "closed", "merged": false, "author": "viky-01"},
+    {"pr": 2547, "url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2547", "state": "closed", "merged": false, "author": "viky-01"},
+    {"pr": 2551, "url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2551", "state": "closed", "merged": false, "author": "viky-01"},
+    {"pr": 2563, "url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2563", "state": "closed", "merged": false, "author": "viky-01"},
+    {"pr": 2567, "url": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2567", "state": "closed", "merged": false, "author": "viky-01"}
+  ],
+  "note": "Live recheck at fetch time: OPEN, unassigned, labels help-wanted + good-first-issue intact; NO open/active cross-referenced PR. Five prior PRs (#2546/2547/2551/2563/2567, all by @viky-01) are all CLOSED unmerged — closed for contributor churn (opening new PRs instead of updating), an unsigned Google CLA, and a failing prettier format check, then inactivity; NOT a maintainer rejection of the fix (maintainers @maribethb/@BenHenning actively coached each attempt and confirmed the fix is correct). @uniiquecornnx expressed intent 2025-07-08 but never opened a PR and was never assigned (stale). Maintainer @maribethb curated the issue 2026-07-08 (removed type:bug), leaving it open for contribution."
+}
