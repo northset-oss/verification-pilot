@@ -253,6 +253,35 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
   assert.equal(receipt.environment.source_commit, proof.commit_oid);
 });
 
+test('factory proof attestation is shown separately from legacy signed-bundle provenance', async () => {
+  const proof = structuredProof();
+  const fixture = await setup([proof]);
+  const attestationUrl = `https://api.github.com/repos/northset-oss/verification-pilot/attestations/${sha('7')}`;
+  await writeFactoryPublication(fixture.receipts, proof, {
+    attestation_state: 'RECEIPT_ATTESTED',
+    attestation_url: attestationUrl,
+  });
+  await mergeFactoryReceipts({
+    receiptsDir: fixture.receipts,
+    receiptRevision: oid('f'),
+    indexPath: fixture.sourceIndex,
+    out: fixture.mergedIndex,
+  });
+  await renderLedger({indexPath: fixture.mergedIndex, out: path.join(fixture.site, 'index.html')});
+  const html = await readFile(path.join(fixture.site, 'receipts/M-1002/index.html'), 'utf8');
+  const homepage = await readFile(path.join(fixture.site, 'index.html'), 'utf8');
+  const receipt = JSON.parse(await readFile(path.join(fixture.site, 'receipts/M-1002/receipt.json'), 'utf8'));
+
+  assert.match(html, />proof attested<\/a>/);
+  assert.match(html, /GitHub artifact attestation for the exact proof bytes/);
+  assert.ok(html.includes(attestationUrl));
+  assert.doesNotMatch(html, /No verified signing record is present/);
+  assert.match(homepage, /<strong>1<\/strong><span>Attested<\/span>/);
+  assert.match(homepage, /attestation: recorded/);
+  assert.equal(receipt.bundle.attestation_uri, null);
+  assert.equal(receipt.source.factory_publication.attestation_url, attestationUrl);
+});
+
 test('factory adapter fails closed on digest drift and false structured PASS evidence', async () => {
   const corrupt = await setup([structuredProof()]);
   const pointerFile = path.join(corrupt.receipts, 'M-1002/current.json');
