@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "mission_id": "M-105",
-  "state": "open",
+  "state": "merged",
   "pr_number": 2948,
   "pr_url": "https://github.com/glideapps/quicktype/pull/2948",
-  "pr_head_oid": "a47489b19c182d54b14a0c8d78afda5b1e23864a",
+  "pr_head_oid": "486bca786277fc37db65978c98f74188cff11493",
   "base_branch": "master",
-  "head_drift": false,
+  "head_drift": true,
   "ci_state": "success",
-  "merge_commit_oid": null,
+  "merge_commit_oid": "c9f675f6011821caf91e72e6478eaca46e8e8db2",
   "review_decision": null,
   "decision_url": null,
   "opened_at": "2026-07-16T17:16:27Z",
-  "closed_at": null,
-  "updated_at": "2026-07-16T17:16:27Z",
-  "observed_at": "2026-07-16T19:46:55.000Z",
+  "closed_at": "2026-07-19T14:09:13Z",
+  "updated_at": "2026-07-19T15:26:01Z",
+  "observed_at": "2026-07-19T19:50:51.000Z",
   "correction_note": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "bundle_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
@@ -26,6 +26,6 @@
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
-    "verified_at": "2026-07-16T17:16:29.052Z"
+    "verified_at": "2026-07-19T23:48:30Z"
   }
 }

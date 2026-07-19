@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "generated_at": "2026-07-19T09:41:25.047Z",
+  "generated_at": "2026-07-19T23:48:30Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1115,7 +1115,7 @@
         "state": "open",
         "pr_number": 901,
         "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-        "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832",
+        "pr_head_oid": "4c8e448d249ffd4a70e57a73c1be441e3824cf0e",
         "base_branch": "main",
         "head_drift": true,
         "ci_state": "success",
@@ -1124,8 +1124,8 @@
         "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
         "opened_at": "2026-07-12T22:22:09Z",
         "closed_at": null,
-        "updated_at": "2026-07-18T15:03:14Z",
-        "observed_at": "2026-07-19T09:37:14.698Z",
+        "updated_at": "2026-07-19T21:46:36Z",
+        "observed_at": "2026-07-19T21:55:58Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
         "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1221,7 +1221,7 @@
           "state": "open",
           "pr_number": 901,
           "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
-          "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832",
+          "pr_head_oid": "4c8e448d249ffd4a70e57a73c1be441e3824cf0e",
           "base_branch": "main",
           "head_drift": true,
           "ci_state": "success",
@@ -1230,8 +1230,8 @@
           "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "opened_at": "2026-07-12T22:22:09Z",
           "closed_at": null,
-          "updated_at": "2026-07-18T15:03:14Z",
-          "observed_at": "2026-07-19T09:37:14.698Z",
+          "updated_at": "2026-07-19T21:46:36Z",
+          "observed_at": "2026-07-19T21:55:58Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
           "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
@@ -1244,7 +1244,7 @@
           "link": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
           "attribution": "Linked maintainer review",
           "head_drift": true,
-          "pr_head_oid": "bebe41e4a423fdecb1692e7b0437070d2114a832"
+          "pr_head_oid": "4c8e448d249ffd4a70e57a73c1be441e3824cf0e"
         }
       }
     },
@@ -3109,7 +3109,7 @@
       "issue_or_task": "https://github.com/glideapps/quicktype/issues/971",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/glideapps/quicktype/pull/2948"
       },
       "run_record_bundle_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
@@ -3119,20 +3119,20 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-105",
-        "state": "open",
+        "state": "merged",
         "pr_number": 2948,
         "pr_url": "https://github.com/glideapps/quicktype/pull/2948",
-        "pr_head_oid": "a47489b19c182d54b14a0c8d78afda5b1e23864a",
+        "pr_head_oid": "486bca786277fc37db65978c98f74188cff11493",
         "base_branch": "master",
-        "head_drift": false,
+        "head_drift": true,
         "ci_state": "success",
-        "merge_commit_oid": null,
+        "merge_commit_oid": "c9f675f6011821caf91e72e6478eaca46e8e8db2",
         "review_decision": null,
         "decision_url": null,
         "opened_at": "2026-07-16T17:16:27Z",
-        "closed_at": null,
-        "updated_at": "2026-07-16T17:16:27Z",
-        "observed_at": "2026-07-16T19:46:55.000Z",
+        "closed_at": "2026-07-19T14:09:13Z",
+        "updated_at": "2026-07-19T15:26:01Z",
+        "observed_at": "2026-07-19T19:50:51.000Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
@@ -3144,7 +3144,7 @@
           "required": true,
           "mode": "pr_body",
           "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
-          "verified_at": "2026-07-16T17:16:29.052Z"
+          "verified_at": "2026-07-19T23:48:30Z"
         }
       },
       "receipt": {
@@ -3406,9 +3406,9 @@
             "technical_checks_passed": true,
             "pr_opened": true,
             "ci_state": "success",
-            "merged": false,
-            "accepted_as_submitted": null,
-            "time_to_close_ms": null,
+            "merged": true,
+            "accepted_as_submitted": false,
+            "time_to_close_ms": 247966000,
             "released": null,
             "deployed": null,
             "business_result_observed": null
@@ -3419,7 +3419,7 @@
             "attempt_lineage": "complete",
             "usage": "partial",
             "cost": "unpriced",
-            "external_outcome": "partial",
+            "external_outcome": "complete",
             "business_value": "not_observed"
           },
           "provenance": {
@@ -3453,20 +3453,20 @@
         "publication": {
           "schema_version": 1,
           "mission_id": "M-105",
-          "state": "open",
+          "state": "merged",
           "pr_number": 2948,
           "pr_url": "https://github.com/glideapps/quicktype/pull/2948",
-          "pr_head_oid": "a47489b19c182d54b14a0c8d78afda5b1e23864a",
+          "pr_head_oid": "486bca786277fc37db65978c98f74188cff11493",
           "base_branch": "master",
-          "head_drift": false,
+          "head_drift": true,
           "ci_state": "success",
-          "merge_commit_oid": null,
+          "merge_commit_oid": "c9f675f6011821caf91e72e6478eaca46e8e8db2",
           "review_decision": null,
           "decision_url": null,
           "opened_at": "2026-07-16T17:16:27Z",
-          "closed_at": null,
-          "updated_at": "2026-07-16T17:16:27Z",
-          "observed_at": "2026-07-16T19:46:55.000Z",
+          "closed_at": "2026-07-19T14:09:13Z",
+          "updated_at": "2026-07-19T15:26:01Z",
+          "observed_at": "2026-07-19T19:50:51.000Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:ac1b5673f442d98aebf606a46830a747150e5341feb231aabb59d2032cc330f2",
@@ -3478,13 +3478,15 @@
             "required": true,
             "mode": "pr_body",
             "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-105/",
-            "verified_at": "2026-07-16T17:16:29.052Z"
+            "verified_at": "2026-07-19T23:48:30Z"
           }
         },
         "live_outcome": {
-          "status": "open",
+          "status": "merged",
           "link": "https://github.com/glideapps/quicktype/pull/2948",
-          "attribution": "Live upstream pull request"
+          "attribution": "Recorded upstream outcome",
+          "head_drift": true,
+          "pr_head_oid": "486bca786277fc37db65978c98f74188cff11493"
         }
       }
     },
