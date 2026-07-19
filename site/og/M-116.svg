@@ -20,7 +20,7 @@
   <text x="104" y="112" class="brand">NORTHSET</text>
   <text x="104" y="158" class="receipt-label">Proof-of-Pass Receipt</text>
   <text x="104" y="190" class="receipt-id mono">RECEIPT ID · M-116</text>
-  <rect x="836" y="83" width="258" height="48" fill="#d9f0e4" stroke="#0b6849"/><text x="965" y="114" text-anchor="middle" class="chip">OPEN</text>
+  <rect x="836" y="83" width="258" height="48" fill="#d9f0e4" stroke="#0b6849"/><text x="965" y="114" text-anchor="middle" class="chip">MERGED</text>
   <line x1="104" y1="218" x2="1094" y2="218" stroke="#9eaaa1"/>
   <text x="104" y="259" class="kicker mono">REPOSITORY</text>
   <text x="104" y="313" class="repository">thepants999/yellowscribe</text>
