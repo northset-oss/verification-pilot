@@ -118,7 +118,7 @@ test('JWT redaction requires a JWT-shaped header/payload and preserves ordinary 
   assert.deepEqual(redactions, { jwt: 1 });
 });
 
-test('CI and signing use the successful-CI handoff while Pages safely projects compact receipts', async () => {
+test('CI and signing use the successful-CI handoff while Pages merges factory proof into the canonical ledger', async () => {
   const ci = await readFile(path.join(root, '.github/workflows/ci.yml'), 'utf8');
   const attest = await readFile(path.join(root, '.github/workflows/attest-bundle.yml'), 'utf8');
   const pages = await readFile(path.join(root, '.github/workflows/pages.yml'), 'utf8');
@@ -136,10 +136,17 @@ test('CI and signing use the successful-CI handoff while Pages safely projects c
   assert.doesNotMatch(pages, /\n\s{2}push:/);
   assert.match(pages, /workflow_run\.name == 'ci'.*workflow_run\.head_branch == 'main'/s);
   assert.match(pages, /workflow_run\.name == 'receipt-pages-source'.*workflow_run\.head_branch == 'receipts'/s);
-  assert.match(pages, /ref: \$\{\{ github\.event\.workflow_run\.name == 'ci'.*github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
-  assert.match(pages, /ref: \$\{\{ github\.event\.workflow_run\.name == 'receipt-pages-source'.*github\.event\.workflow_run\.head_sha \|\| 'receipts' \}\}/);
-  assert.match(pages, /git -C compact rev-parse HEAD.*EXPECTED_RECEIPTS_SHA/);
-  assert.match(pages, /node source\/bin\/compact-receipts\.mjs render/);
+  assert.match(pages, /gh api "repos\/\$GITHUB_REPOSITORY\/git\/ref\/heads\/main" --jq \.object\.sha/);
+  assert.match(pages, /ref: \$\{\{ steps\.ledger-source\.outputs\.sha \}\}/);
+  assert.match(pages, /git -C source rev-parse HEAD.*EXPECTED_LEDGER_SHA/);
+  assert.match(pages, /gh api "repos\/\$GITHUB_REPOSITORY\/git\/ref\/heads\/receipts" --jq \.object\.sha/);
+  assert.match(pages, /ref: \$\{\{ steps\.receipt-source\.outputs\.sha \}\}/);
+  assert.match(pages, /git -C factory-proof-source rev-parse HEAD.*EXPECTED_RECEIPTS_SHA/);
+  assert.match(pages, /node source\/bin\/factory-receipts\.mjs merge/);
+  assert.match(pages, /--receipts-revision "\$EXPECTED_RECEIPTS_SHA"/);
+  assert.match(pages, /--index source\/missions\/index\.json/);
+  assert.match(pages, /node source\/bin\/ledger\.mjs render/);
+  assert.doesNotMatch(pages, /compact-receipts|compact-index/);
   assert.match(pages, /path: source\/site/);
   assert.match(receiptSignal, /branches:\s*\[receipts\]/);
   assert.match(receiptSignal, /permissions:\s*\{\}/);

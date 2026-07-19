@@ -6,18 +6,18 @@
   "additionalProperties": false,
   "required": ["schema_version", "generated_at", "receipt_id", "receipt_result", "passed_commands", "declared_commands", "timestamps", "commands", "environment", "code", "execution_summary", "bundle", "classification", "links", "issue_title", "limitations", "correction", "scope_note", "upstream_outcome"],
   "properties": {
-    "schema_version": { "enum": [1, 2] },
+    "schema_version": { "enum": [1, 2, 3] },
     "generated_at": { "$ref": "#/$defs/time" },
     "receipt_id": { "$ref": "#/$defs/missionId" },
-    "receipt_result": { "type": "string", "pattern": "^PASS — [0-9]+/[0-9]+ declared commands?$" },
+    "receipt_result": { "type": "string", "pattern": "^(?:PASS — [0-9]+/[0-9]+ declared commands?|INCOMPLETE — structured command evidence unavailable)$" },
     "passed_commands": { "type": "integer", "minimum": 0 },
     "declared_commands": { "type": "integer", "minimum": 0 },
     "timestamps": {
       "type": "object", "additionalProperties": false,
       "required": ["started_at", "finished_at"],
-      "properties": { "started_at": { "$ref": "#/$defs/time" }, "finished_at": { "$ref": "#/$defs/time" } }
+      "properties": { "started_at": { "$ref": "#/$defs/nullableTime" }, "finished_at": { "$ref": "#/$defs/nullableTime" } }
     },
-    "commands": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/command" } },
+    "commands": { "type": "array", "items": { "$ref": "#/$defs/command" } },
     "environment": {
       "type": "object", "additionalProperties": false,
       "required": ["container_image_ref", "container_image_digest", "container_image_id", "container_os", "container_architecture", "network_policy", "source_commit", "install_commands"],
@@ -46,7 +46,8 @@
       "properties": {
         "base_commit": { "$ref": "#/$defs/nullableOid" },
         "recorded_patch_commit": { "$ref": "#/$defs/nullableOid" },
-        "patch_commit_binding": { "const": "declared metadata; not execution-bound" },
+        "patch_commit_binding": { "enum": ["declared metadata; not execution-bound", "bound to verified tested tree"] },
+        "tested_tree_oid": { "$ref": "#/$defs/nullableOid" },
         "patch_diff_hash": { "$ref": "#/$defs/nullableDigest" },
         "patch_diff_binding": { "enum": ["no patch recorded", "bound to executed patch bytes"] }
       }
@@ -56,7 +57,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["bundle_contents_digest", "signed_asset_sha256", "attestation_uri", "attestation_verified_at", "provenance"],
       "properties": {
-        "bundle_contents_digest": { "$ref": "#/$defs/digest" },
+        "bundle_contents_digest": { "$ref": "#/$defs/nullableDigest" },
         "signed_asset_sha256": { "$ref": "#/$defs/nullableDigest" },
         "attestation_uri": { "$ref": "#/$defs/nullableUrl" },
         "attestation_verified_at": { "anyOf": [{ "$ref": "#/$defs/time" }, { "type": "null" }] },
@@ -94,18 +95,65 @@
         }
       ]
     },
-    "economic_identity": { "$ref": "economic-identity.schema.json#/$defs/publicEconomicIdentity" }
+    "economic_identity": { "$ref": "economic-identity.schema.json#/$defs/publicEconomicIdentity" },
+    "evidence_status": { "enum": ["complete", "incomplete"] },
+    "checks_not_run": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["check", "reason"],
+        "properties": {
+          "check": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "legacy_checks": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["receipt_class", "proof_schema_version", "proof_sha256", "raw_proof_url"],
+      "dependentRequired": {
+        "publication_sha256": ["raw_publication_url", "factory_publication"],
+        "raw_publication_url": ["publication_sha256", "factory_publication"],
+        "factory_publication": ["publication_sha256", "raw_publication_url"]
+      },
+      "properties": {
+        "receipt_class": { "const": "factory_contributor_self_run" },
+        "proof_schema_version": { "enum": [1, 2] },
+        "proof_sha256": { "$ref": "#/$defs/digest" },
+        "raw_proof_url": { "type": "string", "format": "uri" },
+        "publication_sha256": { "$ref": "#/$defs/digest" },
+        "raw_publication_url": { "type": "string", "format": "uri" },
+        "factory_publication": {
+          "type": "object", "additionalProperties": false,
+          "required": ["pr_state", "ci_state", "merged", "attestation_state", "attestation_url", "observed_at"],
+          "properties": {
+            "pr_state": { "enum": ["OPEN", "CLOSED", "MERGED"] },
+            "ci_state": { "type": ["string", "null"], "minLength": 1 },
+            "merged": { "type": "boolean" },
+            "attestation_state": { "type": "string", "minLength": 1 },
+            "attestation_url": { "$ref": "#/$defs/nullableUrl" },
+            "observed_at": { "$ref": "#/$defs/time" }
+          }
+        }
+      }
+    }
   },
   "allOf": [{
     "if": {
-      "properties": {
-        "upstream_outcome": {
-          "type": "object",
-          "properties": { "status": { "const": "prepared" } },
-          "required": ["status"]
-        }
-      },
-      "required": ["upstream_outcome"]
+      "anyOf": [{
+        "properties": {
+          "upstream_outcome": {
+            "type": "object",
+            "properties": { "status": { "const": "prepared" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["upstream_outcome"]
+      }, {
+        "properties": { "schema_version": { "const": 3 } },
+        "required": ["schema_version"]
+      }]
     },
     "then": { "properties": { "bundle": { "oneOf": [{
       "properties": {
@@ -132,6 +180,86 @@
     "if": { "properties": { "schema_version": { "const": 2 } }, "required": ["schema_version"] },
     "then": { "required": ["economic_identity"] },
     "else": { "not": { "required": ["economic_identity"] } }
+  }, {
+    "if": { "properties": { "schema_version": { "enum": [1, 2] } }, "required": ["schema_version"] },
+    "then": {
+      "properties": {
+        "receipt_result": { "pattern": "^PASS — [0-9]+/[0-9]+ declared commands?$" },
+        "timestamps": {
+          "properties": {
+            "started_at": { "$ref": "#/$defs/time" },
+            "finished_at": { "$ref": "#/$defs/time" }
+          }
+        },
+        "commands": { "minItems": 1 },
+        "bundle": { "properties": { "bundle_contents_digest": { "$ref": "#/$defs/digest" } } },
+        "code": {
+          "properties": { "patch_commit_binding": { "const": "declared metadata; not execution-bound" } },
+          "not": { "required": ["tested_tree_oid"] }
+        }
+      }
+    }
+  }, {
+    "if": { "properties": { "schema_version": { "const": 3 } }, "required": ["schema_version"] },
+    "then": {
+      "required": ["evidence_status", "checks_not_run", "legacy_checks", "source"],
+      "properties": {
+        "classification": { "const": "CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION" },
+        "code": {
+          "required": ["tested_tree_oid"],
+          "properties": {
+            "patch_commit_binding": { "const": "bound to verified tested tree" },
+            "tested_tree_oid": { "$ref": "#/$defs/oid" }
+          }
+        }
+      }
+    }
+  }, {
+    "if": {
+      "properties": {
+        "schema_version": { "const": 3 },
+        "evidence_status": { "const": "complete" }
+      },
+      "required": ["schema_version", "evidence_status"]
+    },
+    "then": {
+      "properties": {
+        "receipt_result": { "pattern": "^PASS — [1-9][0-9]*/[1-9][0-9]* declared commands?$" },
+        "passed_commands": { "minimum": 1 },
+        "declared_commands": { "minimum": 1 },
+        "timestamps": {
+          "properties": {
+            "started_at": { "$ref": "#/$defs/time" },
+            "finished_at": { "$ref": "#/$defs/time" }
+          }
+        },
+        "commands": { "minItems": 1 },
+        "legacy_checks": { "maxItems": 0 }
+      }
+    }
+  }, {
+    "if": {
+      "properties": {
+        "schema_version": { "const": 3 },
+        "evidence_status": { "const": "incomplete" }
+      },
+      "required": ["schema_version", "evidence_status"]
+    },
+    "then": {
+      "properties": {
+        "receipt_result": { "const": "INCOMPLETE — structured command evidence unavailable" },
+        "passed_commands": { "const": 0 },
+        "declared_commands": { "const": 0 },
+        "timestamps": {
+          "properties": {
+            "started_at": { "type": "null" },
+            "finished_at": { "type": "null" }
+          }
+        },
+        "commands": { "maxItems": 0 },
+        "legacy_checks": { "minItems": 1 }
+      }
+    }
   }, {
     "if": {
       "properties": { "environment": { "properties": { "workspace_mode": { "type": "string" } }, "required": ["workspace_mode"] } },
@@ -164,8 +292,10 @@
     "then": { "properties": { "environment": { "required": ["workspace_mode"] } } }
   }],
   "$defs": {
-    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3,}|E2[a-c])$" },
+    "oid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
     "time": { "type": "string", "format": "date-time" },
+    "nullableTime": { "anyOf": [{ "$ref": "#/$defs/time" }, { "type": "null" }] },
     "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
     "nullableDigest": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
     "nullableImageDigest": { "type": ["string", "null"], "pattern": "^(?:[^@ ]+@)?sha256:[0-9a-f]{64}$" },

@@ -31,29 +31,72 @@ jobs:
       pages: write
       id-token: write
     steps:
+      - name: Resolve the exact trusted ledger source revision
+        id: ledger-source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CI_LEDGER_SHA: ${{ github.event.workflow_run.name == 'ci' && github.event.workflow_run.head_sha || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$CI_LEDGER_SHA" ]]; then
+            ledger_sha="$CI_LEDGER_SHA"
+          else
+            ledger_sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)"
+          fi
+          [[ "$ledger_sha" =~ ^[0-9a-f]{40}$ ]]
+          echo "sha=$ledger_sha" >> "$GITHUB_OUTPUT"
       - name: Check out the trusted ledger source
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          ref: ${{ github.event.workflow_run.name == 'ci' && github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ steps.ledger-source.outputs.sha }}
           path: source
-      - name: Check out the exact compact receipt source
+      - name: Verify the exact trusted ledger revision
+        env:
+          EXPECTED_LEDGER_SHA: ${{ steps.ledger-source.outputs.sha }}
+        run: test "$(git -C source rev-parse HEAD)" = "$EXPECTED_LEDGER_SHA"
+      - name: Resolve the exact factory proof source revision
+        id: receipt-source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RECEIPTS_EVENT_SHA: ${{ github.event.workflow_run.name == 'receipt-pages-source' && github.event.workflow_run.head_sha || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$RECEIPTS_EVENT_SHA" ]]; then
+            receipts_sha="$RECEIPTS_EVENT_SHA"
+          else
+            receipts_sha="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/receipts" --jq .object.sha)"
+          fi
+          [[ "$receipts_sha" =~ ^[0-9a-f]{40}$ ]]
+          echo "sha=$receipts_sha" >> "$GITHUB_OUTPUT"
+      - name: Check out the exact factory proof source
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          ref: ${{ github.event.workflow_run.name == 'receipt-pages-source' && github.event.workflow_run.head_sha || 'receipts' }}
-          path: compact
+          ref: ${{ steps.receipt-source.outputs.sha }}
+          path: factory-proof-source
       - name: Verify the exact receipts revision
-        if: github.event.workflow_run.name == 'receipt-pages-source'
         env:
-          EXPECTED_RECEIPTS_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: test "$(git -C compact rev-parse HEAD)" = "$EXPECTED_RECEIPTS_SHA"
+          EXPECTED_RECEIPTS_SHA: ${{ steps.receipt-source.outputs.sha }}
+        run: test "$(git -C factory-proof-source rev-parse HEAD)" = "$EXPECTED_RECEIPTS_SHA"
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
-      - name: Validate and render compact factory receipts
+      - name: Merge factory proofs into the canonical ledger index
+        env:
+          FACTORY_LEDGER_INDEX: ${{ runner.temp }}/ledger-with-factory-receipts.json
+          EXPECTED_RECEIPTS_SHA: ${{ steps.receipt-source.outputs.sha }}
         run: >-
-          node source/bin/compact-receipts.mjs render
-          --receipts compact/receipts
-          --site source/site
+          node source/bin/factory-receipts.mjs merge
+          --receipts factory-proof-source/receipts
+          --receipts-revision "$EXPECTED_RECEIPTS_SHA"
+          --index source/missions/index.json
+          --out "$FACTORY_LEDGER_INDEX"
+      - name: Render every receipt through the canonical ledger renderer
+        env:
+          FACTORY_LEDGER_INDEX: ${{ runner.temp }}/ledger-with-factory-receipts.json
+        run: >-
+          node source/bin/ledger.mjs render
+          --index "$FACTORY_LEDGER_INDEX"
+          --out source/site/index.html
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
