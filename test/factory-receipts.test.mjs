@@ -1,17 +1,39 @@
 import assert from 'node:assert/strict';
+import {execFile} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {access, mkdir, mkdtemp, readFile, writeFile} from 'node:fs/promises';
+import {access, mkdir, mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import {fileURLToPath} from 'node:url';
+import {promisify} from 'node:util';
 
-import {mergeFactoryReceipts} from '../lib/factory-receipts.mjs';
+import {
+  mergeFactoryReceipts,
+  selectFactoryProofAttestationSubjects,
+} from '../lib/factory-receipts.mjs';
 import {renderLedger} from '../lib/ledger.mjs';
 
 const generatedAt = '2026-07-19T14:00:00Z';
 const oid = (value) => value.repeat(40);
 const sha = (value) => `sha256:${value.repeat(64)}`;
 const fileDigest = (bytes) => `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
+const execFileAsync = promisify(execFile);
+const factoryReceiptCli = fileURLToPath(new URL('../bin/factory-receipts.mjs', import.meta.url));
+
+async function git(repository, ...args) {
+  const {stdout} = await execFileAsync('git', ['-C', repository, ...args], {
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      GIT_AUTHOR_NAME: 'Factory Test',
+      GIT_AUTHOR_EMAIL: 'factory@example.test',
+      GIT_COMMITTER_NAME: 'Factory Test',
+      GIT_COMMITTER_EMAIL: 'factory@example.test',
+    },
+  });
+  return stdout.trim();
+}
 
 function observation(overrides = {}) {
   return {
@@ -32,7 +54,7 @@ function observation(overrides = {}) {
   };
 }
 
-function structuredProof() {
+function structuredProof(overrides = {}) {
   const base = observation({
     phase: 'base_observation',
     expected_result: 'failure',
@@ -65,6 +87,7 @@ function structuredProof() {
     limitations: ['Repository-wide CI was not executed.'],
     verification_started_at: '2026-07-19T13:00:00Z',
     verification_finished_at: '2026-07-19T13:00:03Z',
+    ...overrides,
   };
 }
 
@@ -281,4 +304,70 @@ test('factory adapter rejects contradictory structured observations and publicat
     indexPath: malformedPublication.sourceIndex,
     out: malformedPublication.mergedIndex,
   }), /merged state is inconsistent/);
+});
+
+test('attestation subject selection handles root, batch, status-only, and immutable-proof failure', async (t) => {
+  const workspace = await mkdtemp(path.join(os.tmpdir(), 'factory-attestation-'));
+  const repository = path.join(workspace, 'repo');
+  await mkdir(repository);
+  t.after(() => rm(workspace, {recursive: true, force: true}));
+  await git(repository, 'init', '--quiet');
+
+  const receipts = path.join(repository, 'receipts');
+  const first = legacyProof();
+  await writeFactoryProof(receipts, first);
+  await git(repository, 'add', '.');
+  await git(repository, 'commit', '--quiet', '-m', 'root proof');
+  const rootRevision = await git(repository, 'rev-parse', 'HEAD');
+  const rootOut = path.join(workspace, 'selected-root');
+  const {stdout: cliStdout} = await execFileAsync(process.execPath, [
+    factoryReceiptCli,
+    'select-attestation-subjects',
+    '--repo', repository,
+    '--receipts-revision', rootRevision,
+    '--out', rootOut,
+  ], {encoding: 'utf8'});
+  const rootSelection = JSON.parse(cliStdout);
+  assert.equal(rootSelection.subjects.length, 1);
+  assert.equal(rootSelection.subjects[0].proof_sha256,
+    fileDigest(await readFile(path.join(receipts, first.mission_id, first.commit_oid, 'proof.json'))));
+
+  const second = structuredProof();
+  const third = structuredProof({mission_id: 'M-1003', task_id: 'TASK-3', commit_oid: oid('e')});
+  await writeFactoryProof(receipts, second);
+  await writeFactoryProof(receipts, third);
+  await git(repository, 'add', '.');
+  await git(repository, 'commit', '--quiet', '-m', 'proof batch');
+  const batchRevision = await git(repository, 'rev-parse', 'HEAD');
+  const batch = await selectFactoryProofAttestationSubjects({
+    repositoryPath: repository,
+    receiptRevision: batchRevision,
+    out: path.join(workspace, 'selected-batch'),
+  });
+  assert.deepEqual(batch.subjects.map((subject) => subject.source_path), [
+    `receipts/${second.mission_id}/${second.commit_oid}/proof.json`,
+    `receipts/${third.mission_id}/${third.commit_oid}/proof.json`,
+  ]);
+
+  await writeFactoryPublication(receipts, second);
+  await git(repository, 'add', '.');
+  await git(repository, 'commit', '--quiet', '-m', 'status only');
+  const statusRevision = await git(repository, 'rev-parse', 'HEAD');
+  const status = await selectFactoryProofAttestationSubjects({
+    repositoryPath: repository,
+    receiptRevision: statusRevision,
+    out: path.join(workspace, 'selected-status'),
+  });
+  assert.deepEqual(status.subjects, []);
+
+  const proofFile = path.join(receipts, second.mission_id, second.commit_oid, 'proof.json');
+  await writeFile(proofFile, Buffer.concat([await readFile(proofFile), Buffer.from('\n')]));
+  await git(repository, 'add', '.');
+  await git(repository, 'commit', '--quiet', '-m', 'forbidden proof rewrite');
+  const mutationRevision = await git(repository, 'rev-parse', 'HEAD');
+  await assert.rejects(selectFactoryProofAttestationSubjects({
+    repositoryPath: repository,
+    receiptRevision: mutationRevision,
+    out: path.join(workspace, 'selected-mutation'),
+  }), /immutable and may only be added/);
 });

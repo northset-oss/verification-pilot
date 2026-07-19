@@ -141,10 +141,18 @@ test('CI and signing use the successful-CI handoff while Pages merges factory pr
   assert.match(pages, /git -C source rev-parse HEAD.*EXPECTED_LEDGER_SHA/);
   assert.match(pages, /gh api "repos\/\$GITHUB_REPOSITORY\/git\/ref\/heads\/receipts" --jq \.object\.sha/);
   assert.match(pages, /ref: \$\{\{ steps\.receipt-source\.outputs\.sha \}\}/);
+  assert.match(pages, /fetch-depth:\s*2/);
   assert.match(pages, /git -C factory-proof-source rev-parse HEAD.*EXPECTED_RECEIPTS_SHA/);
   assert.match(pages, /node source\/bin\/factory-receipts\.mjs merge/);
   assert.match(pages, /--receipts-revision "\$EXPECTED_RECEIPTS_SHA"/);
   assert.match(pages, /--index source\/missions\/index\.json/);
+  assert.match(pages, /attestations:\s*write/);
+  assert.match(pages, /if: github\.event\.workflow_run\.name == 'receipt-pages-source'/);
+  assert.match(pages, /factory-receipts\.mjs select-attestation-subjects/);
+  assert.match(pages, /--receipts-revision "\$EXPECTED_RECEIPTS_SHA"/);
+  assert.match(pages, /attest-build-provenance@([0-9a-f]{40})/);
+  assert.match(pages, /subject-path: \$\{\{ runner\.temp \}\}\/factory-proof-subjects\/\*\.json/);
+  assert.match(pages, /sha256sum --check --strict subjects\.sha256/);
   assert.match(pages, /node source\/bin\/ledger\.mjs render/);
   assert.doesNotMatch(pages, /compact-receipts|compact-index/);
   assert.match(pages, /path: source\/site/);
