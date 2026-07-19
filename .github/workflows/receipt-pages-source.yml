@@ -1,0 +1,20 @@
+name: receipt-pages-source
+
+on:
+  push:
+    branches: [receipts]
+
+permissions: {}
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record the exact receipts push
+        env:
+          RECEIPTS_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/receipts"
+          [[ "$RECEIPTS_SHA" =~ ^[0-9a-f]{40}$ ]]
+          echo "receipts_sha=$RECEIPTS_SHA" >> "$GITHUB_STEP_SUMMARY"
