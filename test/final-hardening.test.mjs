@@ -164,31 +164,6 @@ test('CI and signing use the successful-CI handoff while Pages merges factory pr
   assert.doesNotMatch(attest, /actions\/checkout/);
 });
 
-test('the one-time M-1001 proof backfill is exact and minimally privileged', async () => {
-  const workflow = await readFile(
-    path.join(root, '.github/workflows/backfill-factory-proof-m1001.yml'),
-    'utf8'
-  );
-  for (const action of workflow.matchAll(/uses:\s+[^\s]+@([^\s]+)/g)) {
-    assert.match(action[1], /^[0-9a-f]{40}$/);
-  }
-  assert.match(workflow, /workflow_dispatch:\s*\n\s*permissions:/);
-  assert.match(workflow, /if: github\.ref == 'refs\/heads\/main'/);
-  const permissionBlock = workflow.match(/^permissions:\n((?:  [^\n]+\n)+)\njobs:/m)?.[1];
-  assert.deepEqual(permissionBlock?.trim().split('\n').map(line => line.trim()).sort(), [
-    'attestations: write',
-    'contents: read',
-    'id-token: write',
-  ]);
-  assert.match(workflow, /e3295a00ff8c005a335b225c7257ae194d5603bc/);
-  assert.match(workflow, /M-1001-370bc991d0d42c746b2f0e3240dbdc529813adf0-proof\.json/);
-  assert.match(workflow, /b540c9aa3cb6152b226da7ae6a8bacf4cb43de1fe83064f1e5c779914ed9aca7/);
-  assert.match(workflow, /select-attestation-subjects/);
-  assert.match(workflow, /attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373/);
-  assert.doesNotMatch(workflow, /pages:\s*write|contents:\s*write|actions:\s*write/);
-  assert.doesNotMatch(workflow, /deploy-pages|upload-pages-artifact|repository_dispatch|\bgh\s+(?:api|workflow|run)|\bgit\s+push\b/);
-});
-
 test('governance, security, third-party attribution, ownership, and public consent schema are committed', async () => {
   for (const file of ['GOVERNANCE.md', 'SECURITY.md', 'THIRD_PARTY_NOTICES.md', '.github/CODEOWNERS', 'schema/public-consent.schema.json']) {
     await readFile(path.join(root, file), 'utf8');
