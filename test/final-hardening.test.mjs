@@ -122,7 +122,8 @@ test('CI and signing use the successful-CI handoff while Pages safely projects c
   const ci = await readFile(path.join(root, '.github/workflows/ci.yml'), 'utf8');
   const attest = await readFile(path.join(root, '.github/workflows/attest-bundle.yml'), 'utf8');
   const pages = await readFile(path.join(root, '.github/workflows/pages.yml'), 'utf8');
-  for (const workflow of [ci, attest, pages]) assert.doesNotMatch(workflow, /uses:\s+[^\s]+@v\d+/);
+  const receiptSignal = await readFile(path.join(root, '.github/workflows/receipt-pages-source.yml'), 'utf8');
+  for (const workflow of [ci, attest, pages, receiptSignal]) assert.doesNotMatch(workflow, /uses:\s+[^\s]+@v\d+/);
   assert.match(ci, /github\.event\.before.*github\.sha|github\.sha.*github\.event\.before/s);
   assert.match(ci, /upload-artifact@([0-9a-f]{40})/);
   for (const workflow of [attest, pages]) {
@@ -130,10 +131,20 @@ test('CI and signing use the successful-CI handoff while Pages safely projects c
     assert.match(workflow, /conclusion\s*==\s*'success'/);
     assert.doesNotMatch(workflow, /workflow_dispatch:/);
   }
-  assert.match(pages, /branches:\s*\[receipts\]/);
-  assert.match(pages, /ref: \$\{\{ github\.event_name == 'workflow_run'.*\|\| 'main' \}\}/);
+  assert.match(pages, /workflows:\s*\["ci", "receipt-pages-source"\]/);
+  assert.match(pages, /branches:\s*\[main, receipts\]/);
+  assert.doesNotMatch(pages, /\n\s{2}push:/);
+  assert.match(pages, /workflow_run\.name == 'ci'.*workflow_run\.head_branch == 'main'/s);
+  assert.match(pages, /workflow_run\.name == 'receipt-pages-source'.*workflow_run\.head_branch == 'receipts'/s);
+  assert.match(pages, /ref: \$\{\{ github\.event\.workflow_run\.name == 'ci'.*github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
+  assert.match(pages, /ref: \$\{\{ github\.event\.workflow_run\.name == 'receipt-pages-source'.*github\.event\.workflow_run\.head_sha \|\| 'receipts' \}\}/);
+  assert.match(pages, /git -C compact rev-parse HEAD.*EXPECTED_RECEIPTS_SHA/);
   assert.match(pages, /node source\/bin\/compact-receipts\.mjs render/);
   assert.match(pages, /path: source\/site/);
+  assert.match(receiptSignal, /branches:\s*\[receipts\]/);
+  assert.match(receiptSignal, /permissions:\s*\{\}/);
+  assert.match(receiptSignal, /test "\$GITHUB_REF" = "refs\/heads\/receipts"/);
+  assert.doesNotMatch(receiptSignal, /environment:|pages:\s*write|id-token:\s*write|actions\/checkout|workflow_dispatch|repository_dispatch/);
   assert.match(attest, /download-artifact@([0-9a-f]{40})/);
   assert.doesNotMatch(attest, /actions\/checkout/);
 });
