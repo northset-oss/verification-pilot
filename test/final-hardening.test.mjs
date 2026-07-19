@@ -118,7 +118,7 @@ test('JWT redaction requires a JWT-shaped header/payload and preserves ordinary 
   assert.deepEqual(redactions, { jwt: 1 });
 });
 
-test('CI, signing, and Pages use a successful-CI artifact handoff with pinned actions and no manual bypass', async () => {
+test('CI and signing use the successful-CI handoff while Pages safely projects compact receipts', async () => {
   const ci = await readFile(path.join(root, '.github/workflows/ci.yml'), 'utf8');
   const attest = await readFile(path.join(root, '.github/workflows/attest-bundle.yml'), 'utf8');
   const pages = await readFile(path.join(root, '.github/workflows/pages.yml'), 'utf8');
@@ -130,6 +130,10 @@ test('CI, signing, and Pages use a successful-CI artifact handoff with pinned ac
     assert.match(workflow, /conclusion\s*==\s*'success'/);
     assert.doesNotMatch(workflow, /workflow_dispatch:/);
   }
+  assert.match(pages, /branches:\s*\[receipts\]/);
+  assert.match(pages, /ref: \$\{\{ github\.event_name == 'workflow_run'.*\|\| 'main' \}\}/);
+  assert.match(pages, /node source\/bin\/compact-receipts\.mjs render/);
+  assert.match(pages, /path: source\/site/);
   assert.match(attest, /download-artifact@([0-9a-f]{40})/);
   assert.doesNotMatch(attest, /actions\/checkout/);
 });
