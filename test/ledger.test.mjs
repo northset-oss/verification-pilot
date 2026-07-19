@@ -788,6 +788,7 @@ test('render creates a permanent printable receipt for every committed mission a
   const m016 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'index.html'), 'utf8');
   const m019 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'index.html'), 'utf8');
   const m020 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'index.html'), 'utf8');
+  const m105 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-105', 'index.html'), 'utf8');
   const receiptArticle = m008.match(/<article class="receipt[\s\S]*?<\/article>/)?.[0];
   assert.ok(receiptArticle);
   assert.doesNotMatch(homepage, /[ \t]+$/m);
@@ -825,11 +826,18 @@ test('render creates a permanent printable receipt for every committed mission a
   const m020Publication = JSON.parse(
     await readFile(path.join(committedMissionsDirectory, 'M-020', 'publication.json'), 'utf8'),
   );
+  const m105Publication = JSON.parse(
+    await readFile(path.join(committedMissionsDirectory, 'M-105', 'publication.json'), 'utf8'),
+  );
   assert.equal(m016Json.scope_note, 'The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.');
   assert.equal(m019Json.scope_note, 'The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.');
   assert.ok(m020.includes(
     `<strong>PR changed since this record.</strong> Recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605</code>; current PR head observed <time datetime="${m020Publication.observed_at}">`,
   ));
+  assert.ok(m105.includes(
+    `<strong>PR changed since this record.</strong> Recorded patch commit <code>a47489b19c182d54b14a0c8d78afda5b1e23864a</code>; current PR head observed <time datetime="${m105Publication.observed_at}">`,
+  ));
+  assert.match(m105, /<code>486bca786277fc37db65978c98f74188cff11493<\/code>/);
   assert.doesNotMatch(m020, /This receipt tested/);
   assert.equal(m020Json.upstream_outcome.head_drift, true);
   assert.equal(m020Json.upstream_outcome.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-19T09:41:25.047Z",
+  "generated_at": "2026-07-19T21:55:58Z",
   "receipt_id": "M-105",
   "receipt_result": "PASS — 3/3 declared commands",
   "passed_commands": 3,
@@ -82,9 +82,11 @@
   "correction": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "open",
+    "status": "merged",
     "link": "https://github.com/glideapps/quicktype/pull/2948",
-    "attribution": "Live upstream pull request"
+    "attribution": "Recorded upstream outcome",
+    "head_drift": true,
+    "pr_head_oid": "486bca786277fc37db65978c98f74188cff11493"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -273,9 +275,9 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "ci_state": "success",
-      "merged": false,
-      "accepted_as_submitted": null,
-      "time_to_close_ms": null,
+      "merged": true,
+      "accepted_as_submitted": false,
+      "time_to_close_ms": 247966000,
       "released": null,
       "deployed": null,
       "business_result_observed": null
@@ -286,7 +288,7 @@
       "attempt_lineage": "complete",
       "usage": "partial",
       "cost": "unpriced",
-      "external_outcome": "partial",
+      "external_outcome": "complete",
       "business_value": "not_observed"
     },
     "provenance": {
