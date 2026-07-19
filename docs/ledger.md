@@ -100,7 +100,7 @@ canonical public URL `/receipts/<MISSION>/`. The Pages workflow always executes 
 from `main`, validates the selected proof shape and digest, and publishes both a human-readable
 page and `receipt.json`.
 
-The raw GitHub blob is evidence storage, not the contributor-facing receipt URL. Upstream PRs
-must link the canonical Pages URL, and the publisher must verify that the HTML and JSON endpoints
-are live and bind the expected mission, contribution commit, and proof digest before opening the
-PR.
+The raw GitHub blob is evidence storage, not the contributor-facing receipt URL. Upstream PRs link
+the canonical Pages URL after the exact proof bytes are committed to the receipts branch. Pages
+rendering, proof attestation, and mutable status reconciliation then proceed asynchronously; their
+availability does not block opening an already approved upstream PR.

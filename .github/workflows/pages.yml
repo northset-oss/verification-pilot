@@ -27,6 +27,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
+      attestations: write
       contents: read
       pages: write
       id-token: write
@@ -73,6 +74,7 @@ jobs:
         with:
           ref: ${{ steps.receipt-source.outputs.sha }}
           path: factory-proof-source
+          fetch-depth: 2
       - name: Verify the exact receipts revision
         env:
           EXPECTED_RECEIPTS_SHA: ${{ steps.receipt-source.outputs.sha }}
@@ -90,6 +92,36 @@ jobs:
           --receipts-revision "$EXPECTED_RECEIPTS_SHA"
           --index source/missions/index.json
           --out "$FACTORY_LEDGER_INDEX"
+      - name: Select newly published proof subjects
+        id: proof-subjects
+        if: github.event.workflow_run.name == 'receipt-pages-source'
+        env:
+          EXPECTED_RECEIPTS_SHA: ${{ steps.receipt-source.outputs.sha }}
+          SUBJECT_DIR: ${{ runner.temp }}/factory-proof-subjects
+        run: |
+          set -euo pipefail
+          node source/bin/factory-receipts.mjs select-attestation-subjects \
+            --repo factory-proof-source \
+            --receipts-revision "$EXPECTED_RECEIPTS_SHA" \
+            --out "$SUBJECT_DIR"
+          shopt -s nullglob
+          subjects=("$SUBJECT_DIR"/*.json)
+          if ((${#subjects[@]})); then
+            (cd "$SUBJECT_DIR" && sha256sum -- *.json > subjects.sha256)
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Attest newly published proof subjects
+        if: steps.proof-subjects.outputs.present == 'true'
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4
+        with:
+          subject-path: ${{ runner.temp }}/factory-proof-subjects/*.json
+      - name: Confirm attested proof subjects are unchanged
+        if: steps.proof-subjects.outputs.present == 'true'
+        env:
+          SUBJECT_DIR: ${{ runner.temp }}/factory-proof-subjects
+        run: cd "$SUBJECT_DIR" && sha256sum --check --strict subjects.sha256
       - name: Render every receipt through the canonical ledger renderer
         env:
           FACTORY_LEDGER_INDEX: ${{ runner.temp }}/ledger-with-factory-receipts.json
