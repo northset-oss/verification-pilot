@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-17T20:36:51.728Z",
+  "generated_at": "2026-07-19T09:41:25.047Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -73,7 +73,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -142,7 +142,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -217,7 +217,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -301,7 +301,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -379,7 +379,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -456,7 +456,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -535,7 +535,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -613,7 +613,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -689,7 +689,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -765,7 +765,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -840,7 +840,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -916,7 +916,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1012,7 +1012,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1108,7 +1108,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1487,7 +1487,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1776,7 +1776,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2074,7 +2074,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2378,7 +2378,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2667,7 +2667,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2954,7 +2954,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3241,7 +3241,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3310,9 +3310,9 @@
       "correction": null,
       "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/ThePants999/Yellowscribe/pull/35",
-        "attribution": "Live upstream pull request"
+        "attribution": "Recorded upstream outcome"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -3496,9 +3496,9 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "ci_state": "pending",
-          "merged": false,
-          "accepted_as_submitted": null,
-          "time_to_close_ms": null,
+          "merged": true,
+          "accepted_as_submitted": true,
+          "time_to_close_ms": 189891000,
           "released": null,
           "deployed": null,
           "business_result_observed": null
@@ -3509,7 +3509,7 @@
           "attempt_lineage": "complete",
           "usage": "partial",
           "cost": "unpriced",
-          "external_outcome": "partial",
+          "external_outcome": "complete",
           "business_value": "not_observed"
         },
         "provenance": {
@@ -3521,7 +3521,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3821,7 +3821,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4111,7 +4111,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4401,7 +4401,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4470,9 +4470,9 @@
       "correction": null,
       "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
       "upstream_outcome": {
-        "status": "open",
+        "status": "merged",
         "link": "https://github.com/Nandansai08/personal-ai/pull/44",
-        "attribution": "Live upstream pull request"
+        "attribution": "Recorded upstream outcome"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -4672,10 +4672,10 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
-          "merged": false,
-          "accepted_as_submitted": null,
-          "time_to_close_ms": null,
+          "ci_state": "success",
+          "merged": true,
+          "accepted_as_submitted": true,
+          "time_to_close_ms": 148405000,
           "released": null,
           "deployed": null,
           "business_result_observed": null
@@ -4686,7 +4686,7 @@
           "attempt_lineage": "complete",
           "usage": "partial",
           "cost": "unpriced",
-          "external_outcome": "partial",
+          "external_outcome": "complete",
           "business_value": "not_observed"
         },
         "provenance": {
@@ -4698,7 +4698,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4995,7 +4995,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5292,7 +5292,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5619,7 +5619,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5915,7 +5915,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6201,7 +6201,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6503,7 +6503,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-17T20:36:51.728Z",
+      "generated_at": "2026-07-19T09:41:25.047Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
