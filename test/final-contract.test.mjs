@@ -329,14 +329,19 @@ test('public JSON schemas are committed for publication, ledger, receipt, econom
     receiptSchema.allOf[0],
     {
       if: {
-        properties: {
-          upstream_outcome: {
-            type: 'object',
-            properties: { status: { const: 'prepared' } },
-            required: ['status'],
+        anyOf: [{
+          properties: {
+            upstream_outcome: {
+              type: 'object',
+              properties: { status: { const: 'prepared' } },
+              required: ['status'],
+            },
           },
-        },
-        required: ['upstream_outcome'],
+          required: ['upstream_outcome'],
+        }, {
+          properties: {schema_version: {const: 3}},
+          required: ['schema_version'],
+        }],
       },
       then: { properties: { bundle: { oneOf: [{
         properties: {
