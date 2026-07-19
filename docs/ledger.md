@@ -91,3 +91,16 @@ non-prepared `author_contribution` by the independent `ci / pr-disclosure` job; 
 historical exemption list lives in `policies/pr_receipt_disclosure_policy.json`. The deterministic
 ledger builder remains network-free. See [PR receipt disclosure](pr-receipt-disclosure.md) for
 the operator and enforcement flow.
+
+# Compact factory receipts
+
+The redesigned preparation factory writes immutable `proof.json` records to the append-only
+`receipts` branch. A digest-bound `current.json` pointer selects the proof projected at the
+canonical public URL `/receipts/<MISSION>/`. The Pages workflow always executes the projector
+from `main`, validates the selected proof shape and digest, and publishes both a human-readable
+page and `receipt.json`.
+
+The raw GitHub blob is evidence storage, not the contributor-facing receipt URL. Upstream PRs
+must link the canonical Pages URL, and the publisher must verify that the HTML and JSON endpoints
+are live and bind the expected mission, contribution commit, and proof digest before opening the
+PR.
