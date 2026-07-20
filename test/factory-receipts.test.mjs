@@ -145,6 +145,15 @@ async function writeFactoryPublication(receipts, proof, overrides = {}) {
     `${JSON.stringify(publication)}\n`);
 }
 
+async function writeFactoryPublicationV2(receipts, proof, overrides = {}) {
+  return writeFactoryPublication(receipts, proof, {
+    schema_version: 2,
+    pr_head_oid: proof.commit_oid,
+    merge_commit_oid: null,
+    ...overrides,
+  });
+}
+
 async function setup(proofs) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'factory-receipts-'));
   const receipts = path.join(root, 'receipts');
@@ -280,6 +289,38 @@ test('factory proof attestation is shown separately from legacy signed-bundle pr
   assert.match(homepage, /attestation: recorded/);
   assert.equal(receipt.bundle.attestation_uri, null);
   assert.equal(receipt.source.factory_publication.attestation_url, attestationUrl);
+});
+
+test('factory publication v2 preserves merged maintainer head drift and merge commit', async () => {
+  const proof = structuredProof();
+  const fixture = await setup([proof]);
+  const finalHead = oid('8');
+  const mergeCommit = oid('7');
+  await writeFactoryPublicationV2(fixture.receipts, proof, {
+    pr_state: 'MERGED',
+    merged: true,
+    ci_state: 'SUCCESS',
+    pr_head_oid: finalHead,
+    merge_commit_oid: mergeCommit,
+  });
+  await mergeFactoryReceipts({
+    receiptsDir: fixture.receipts,
+    receiptRevision: oid('f'),
+    indexPath: fixture.sourceIndex,
+    out: fixture.mergedIndex,
+  });
+  await renderLedger({indexPath: fixture.mergedIndex, out: path.join(fixture.site, 'index.html')});
+  const receipt = JSON.parse(await readFile(path.join(fixture.site, 'receipts/M-1002/receipt.json'), 'utf8'));
+  const index = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
+  const publication = index.missions.find((mission) => mission.mission_id === 'M-1002').publication;
+  const html = await readFile(path.join(fixture.site, 'receipts/M-1002/index.html'), 'utf8');
+  assert.equal(publication.state, 'merged');
+  assert.equal(publication.pr_head_oid, finalHead);
+  assert.equal(publication.head_drift, true);
+  assert.equal(publication.merge_commit_oid, mergeCommit);
+  assert.equal(receipt.upstream_outcome.head_drift, true);
+  assert.equal(receipt.upstream_outcome.pr_head_oid, finalHead);
+  assert.match(html, /PR changed since this record/i);
 });
 
 test('factory adapter fails closed on digest drift and false structured PASS evidence', async () => {
