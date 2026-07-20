@@ -265,7 +265,10 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
 test('factory proof attestation is shown separately from legacy signed-bundle provenance', async () => {
   const proof = structuredProof();
   const fixture = await setup([proof]);
-  const attestationUrl = `https://api.github.com/repos/northset-oss/verification-pilot/attestations/${sha('7')}`;
+  const pointer = JSON.parse(await readFile(
+    path.join(fixture.receipts, proof.mission_id, 'current.json'), 'utf8'));
+  const attestationUrl = 'https://api.github.com/repos/northset-oss/verification-pilot/attestations/' +
+    encodeURIComponent(pointer.proof_sha256);
   await writeFactoryPublication(fixture.receipts, proof, {
     attestation_state: 'RECEIPT_ATTESTED',
     attestation_url: attestationUrl,
@@ -346,6 +349,34 @@ test('factory adapter fails closed on digest drift and false structured PASS evi
     indexPath: falsePass.sourceIndex,
     out: falsePass.mergedIndex,
   }), /cannot publish PASS|expectation does not match its exit code/);
+
+  const mismatchedAttestationProof = structuredProof();
+  const mismatchedAttestation = await setup([mismatchedAttestationProof]);
+  await writeFactoryPublication(mismatchedAttestation.receipts, mismatchedAttestationProof, {
+    attestation_state: 'RECEIPT_ATTESTED',
+    attestation_url: 'https://api.github.com/repos/northset-oss/verification-pilot/attestations/' +
+      encodeURIComponent(sha('0')),
+  });
+  await assert.rejects(mergeFactoryReceipts({
+    receiptsDir: mismatchedAttestation.receipts,
+    receiptRevision: oid('f'),
+    indexPath: mismatchedAttestation.sourceIndex,
+    out: mismatchedAttestation.mergedIndex,
+  }), /attestation URL does not bind the current proof digest/);
+
+  const mismatchedPointer = JSON.parse(await readFile(path.join(
+    mismatchedAttestation.receipts, mismatchedAttestationProof.mission_id, 'current.json'), 'utf8'));
+  await writeFactoryPublication(mismatchedAttestation.receipts, mismatchedAttestationProof, {
+    attestation_state: 'RECEIPT_ATTESTED',
+    attestation_url: 'https://api.github.com/repos/untrusted/repository/attestations/' +
+      encodeURIComponent(mismatchedPointer.proof_sha256),
+  });
+  await assert.rejects(mergeFactoryReceipts({
+    receiptsDir: mismatchedAttestation.receipts,
+    receiptRevision: oid('f'),
+    indexPath: mismatchedAttestation.sourceIndex,
+    out: mismatchedAttestation.mergedIndex,
+  }), /attestation URL does not bind the current proof digest/);
 });
 
 test('factory adapter rejects contradictory structured observations and publication state', async () => {
