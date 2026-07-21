@@ -167,8 +167,9 @@ default gate intentionally rejects it until a human-authorized, reviewable excep
 
 ## Guarded factory merged-state sync
 
-Factory PRs are opened with the non-promotional v2 open block. The factory worker never rewrites a
-PR body after creation, and its reconciler remains read/status-only. After the adjacent factory
+New factory PRs are opened with the non-promotional v2 open block; historical pinned missions retain
+their exact v1 block. The factory worker never rewrites a PR body after creation, and its reconciler
+remains read/status-only. After the adjacent factory
 `publication.json` records `MERGED`, the read-only sync command reports either
 `merged_sync_pending` or `verified` without changing local or remote state:
 
@@ -192,9 +193,11 @@ node bin/pr-receipt-disclosure.mjs sync \
 
 Before editing, the command verifies the exact `current.json` to `proof.json` SHA-256 binding, the
 selected proof identity, a `publication.json` with the same confirmed PR URL and `MERGED` state,
-and a live body containing the exact v2 open-state marked block. It then replaces only that marked
-block with the exact merged bytes and rereads the PR to confirm them. It writes no receipt-branch
-files and records no new state files. This stateless design deliberately avoids making the ledger
+and a live body containing the exact policy-selected open-state marked block. It then replaces only
+that marked block with the exact policy-selected merged bytes and rereads the PR to confirm them.
+This lets the finite set of pinned v1 missions complete their merge transition without weakening
+the v2 default for new missions. It writes no receipt-branch files and records no new state files.
+This stateless design deliberately avoids making the ledger
 tool write into orchestrator-owned publication envelopes.
 
 PR-body rewrites are never autonomous. They occur only through this human-authorized sync path;
