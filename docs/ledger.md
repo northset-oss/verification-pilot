@@ -6,7 +6,7 @@ Build the machine-readable ledger from mission directories:
 node bin/ledger.mjs build \
   --missions-dir missions \
   --out missions/index.json \
-  --now 2026-07-15T00:00:00Z
+  --now 2026-07-21T00:00:00Z
 ```
 
 Each direct child directory is checked for `mission.json`. Receipts are validated with
@@ -15,8 +15,10 @@ receipt, bundle relationship, or normalized evidence field fails the build. The 
 `--allow-skips` diagnostic mode omits invalid entries with warnings. Add `--json` to print the
 included and skipped totals as a machine-readable summary.
 
-The index is sorted by `mission_id` and contains the public projection plus a normalized
-Proof-of-Pass Receipt view model. For every schema-valid mission, the builder reads the
+The version-1 index is sorted by `mission_id` and contains the public projection plus a normalized
+Proof-of-Pass Receipt view model. It also records deterministic `ci_agreement` counts computed
+from publication envelopes: `success` agrees with a receipt PASS, `failure` disagrees, and
+pending/null/non-conclusive states are excluded. For every schema-valid mission, the builder reads the
 committed `bundle/run_record.json` and requires exact, one-to-one command parity with
 `mission.json:commands_declared`; missing, blank, or mismatched receipt evidence fails the
 build rather than producing a partial receipt. It also binds top-level `mission.json` to the
@@ -60,22 +62,30 @@ Render the self-contained public ledger and every permanent printable receipt pa
 node bin/ledger.mjs render \
   --index missions/index.json \
   --out site/index.html \
-  --now 2026-07-15T00:00:00Z
+  --now 2026-07-21T00:00:00Z
 ```
 
 This writes `site/index.html`, `site/ledger.json`, the public schemas under `site/schema/`,
-`site/receipts/M-XXX/index.html`, and a minimized, versioned
+`site/receipts/M-XXX/index.html`, generator-owned repository pages under
+`site/repo/<owner>--<repo>/index.html`, and a minimized, versioned
 `site/receipts/M-XXX/receipt.json` summary for every mission. Every page and JSON projection
 records the deterministic ledger `generated_at`. The JSON summary excludes raw
 patches, output streams, and the mutable publication envelope. The homepage is server-rendered
 with an M-008 receipt, newest-first external receipt previews, and a lower collapsed archive for
 own-repository rehearsals; JavaScript only
-enhances filters and copy buttons. Each page is rendered from the normalized record, includes
+enhances filters and copy buttons. Each receipt page starts with a verify-first strip containing
+the existing copyable attestation command and its expected success output, then includes
 verbatim raw commands and limitations, expandable committed redacted stdout/stderr when present,
-and print CSS. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
+and print CSS. A normal-weight maintainer box is scoped to the receipt repository, with the public
+run-request issue form as the primary action and private email as the secondary action. The
+homepage and every receipt page link to the discrepancy report form and promise to publish CI
+discrepancies on the ledger. Conclusive upstream CI observations appear as ledger-wide,
+per-repository, and per-receipt agreement statements. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
 summary-first layout with dense economic, technical, and provenance evidence in expandable drawers.
-Direct rendering writes every new page
-successfully before pruning stale generator-owned `site/receipts/M-XXX/` directories, so a render
+Each external receipt links to its repository ledger page, which lists all Northset receipts and
+outcomes for that repository, its CI-agreement count, and a repository-scoped request box. Direct rendering writes every new page
+successfully before pruning stale generator-owned `site/receipts/M-XXX/` directories or marked
+generator-owned repository directories, so a render
 error cannot first remove the last complete receipt set. Unrelated site files and receipt
 directories are preserved by direct `render` invocations. The CI drift gate is stricter: it
 compares the complete committed `site/` tree with a fresh generated tree, so committed `site/`

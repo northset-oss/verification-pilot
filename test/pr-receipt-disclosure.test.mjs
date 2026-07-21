@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { mkdtemp, readFile, readdir, rm, writeFile, mkdir } from 'node:fs/promises';
 import os from 'node:os';
@@ -8,30 +9,40 @@ import { fileURLToPath } from 'node:url';
 
 import {
   auditAllDisclosures,
+  auditAllFactoryDisclosures,
   auditMissionDisclosure,
   canonicalReceiptUrl,
   createFetchRequest,
   renderDisclosureBlock,
+  syncFactoryDisclosure,
   syncMissionDisclosure,
   upsertDisclosureBlock,
   validateDisclosurePolicy,
 } from '../lib/pr-receipt-disclosure.mjs';
+import { runPrReceiptDisclosureCli } from '../bin/pr-receipt-disclosure.mjs';
 
 const repositoryRoot = fileURLToPath(new URL('../', import.meta.url));
 
 const policy = {
-  schema_version: 1,
+  schema_version: 2,
   canonical_receipt_base_url: 'https://northset-oss.github.io/verification-pilot/receipts/',
   legacy_ledger_base_url: 'https://northset-oss.github.io/verification-pilot/',
+  current_block_schema_version: 2,
   historical_exempt_mission_ids: [
     'M-007', 'M-008', 'M-009', 'M-011', 'M-012',
     'M-014', 'M-015', 'M-016', 'M-019', 'M-020',
   ],
+  factory_block_schema_versions: { 'M-1001': 1 },
   northset_actor_logins: ['AysajanE'],
 };
 
 function mission(missionId = 'M-021') {
-  return { mission_id: missionId, variant: 'author_contribution' };
+  return {
+    mission_id: missionId,
+    variant: 'author_contribution',
+    patch_commit: 'abcdef0123456789abcdef0123456789abcdef01',
+    commands_declared: ['node --test test/focused.test.mjs'],
+  };
 }
 
 function publication(missionId = 'M-021', overrides = {}) {
@@ -41,7 +52,7 @@ function publication(missionId = 'M-021', overrides = {}) {
     pr_number: 21,
     pr_url: 'https://github.com/example/project/pull/21',
     pr_disclosure: {
-      schema_version: 1,
+      schema_version: 2,
       required: true,
       mode: 'pr_body',
       canonical_url: canonicalReceiptUrl(policy, missionId),
@@ -70,11 +81,115 @@ function fakeRequest(routes) {
   return request;
 }
 
+async function writeFactoryDisclosureFixture(root, {
+  missionId,
+  commitOid,
+  prState,
+  command,
+  blockVersion = 2,
+  includeNoCiChange = false,
+  bodyState = null,
+}) {
+  const prNumber = Number(missionId.slice(2));
+  const receiptUrl = canonicalReceiptUrl(policy, missionId);
+  const prUrl = `https://github.com/example/project/pull/${prNumber}`;
+  const proof = blockVersion === 1
+    ? {
+      schema_version: 1,
+      mission_id: missionId,
+      repository: 'example/project',
+      issue_number: prNumber,
+      commit_oid: commitOid,
+      tested_tree_oid: 'b'.repeat(40),
+      patched_observation: { exit_code: 0 },
+    }
+    : {
+      schema_version: 2,
+      mission_id: missionId,
+      repository: 'example/project',
+      issue_number: prNumber,
+      commit_oid: commitOid,
+      tested_tree_oid: 'b'.repeat(40),
+      patched_observation: { command, exit_code: 0 },
+      checks: ['declared check passed'],
+      claim: { type: 'regression_fix', statement: 'regression_fix' },
+      batch_approval_digest: `sha256:${'c'.repeat(64)}`,
+      environment: { network: 'none' },
+      executed_commands: [],
+      checks_not_run: [],
+      limitations: [],
+    };
+  const proofBytes = Buffer.from(`${JSON.stringify(proof)}\n`);
+  const proofSha256 = `sha256:${createHash('sha256').update(proofBytes).digest('hex')}`;
+  const selectedDir = path.join(root, missionId, commitOid);
+  await mkdir(selectedDir, { recursive: true });
+  const proofFile = path.join(selectedDir, 'proof.json');
+  const currentFile = path.join(root, missionId, 'current.json');
+  const publicationFile = path.join(selectedDir, 'publication.json');
+  await Promise.all([
+    writeFile(proofFile, proofBytes),
+    writeFile(currentFile, `${JSON.stringify({
+      schema_version: 1,
+      mission_id: missionId,
+      contribution_commit_oid: commitOid,
+      proof_sha256: proofSha256,
+    })}\n`),
+    writeFile(publicationFile, `${JSON.stringify({
+      schema_version: blockVersion === 1 ? 1 : 2,
+      mission_id: missionId,
+      contribution_commit_oid: commitOid,
+      pr_head_oid: commitOid,
+      merge_commit_oid: prState === 'MERGED' ? 'd'.repeat(40) : null,
+      receipt_url: receiptUrl,
+      pr_url: prUrl,
+      pr_number: prNumber,
+      pr_state: prState,
+      merged: prState === 'MERGED',
+      ci_state: 'SUCCESS',
+      attestation_state: 'RECEIPT_ATTESTED',
+      attestation_url: 'https://api.github.com/example/attestation',
+      observed_at: '2026-07-21T00:00:00Z',
+    })}\n`),
+  ]);
+  const publicationState = prState === 'MERGED'
+    ? 'merged'
+    : prState === 'CLOSED' ? 'closed_unmerged' : 'open';
+  const body = renderDisclosureBlock({
+    missionId,
+    receiptUrl,
+    publicationState: bodyState ?? publicationState,
+    blockVersion,
+    command,
+    headOid: commitOid,
+    includeNoCiChange,
+  });
+  return {
+    missionId,
+    currentFile,
+    proofFile,
+    publicationFile,
+    receiptUrl,
+    prApi: `https://api.github.com/repos/example/project/pulls/${prNumber}`,
+    commentsApi: `https://api.github.com/repos/example/project/issues/${prNumber}/comments?per_page=100`,
+    prNumber,
+    prUrl,
+    body,
+  };
+}
+
 test('disclosure policy is exact, future-safe, and produces canonical per-receipt URLs', () => {
   assert.equal(validateDisclosurePolicy(policy), policy);
   assert.equal(
     canonicalReceiptUrl(policy, 'M-021'),
     'https://northset-oss.github.io/verification-pilot/receipts/M-021/',
+  );
+  assert.equal(
+    canonicalReceiptUrl(policy, 'M-1000'),
+    'https://northset-oss.github.io/verification-pilot/receipts/M-1000/',
+  );
+  assert.equal(
+    canonicalReceiptUrl(policy, 'M-E2a'),
+    'https://northset-oss.github.io/verification-pilot/receipts/M-E2a/',
   );
   assert.throws(
     () => validateDisclosurePolicy({ ...policy, surprise: true }),
@@ -85,6 +200,10 @@ test('disclosure policy is exact, future-safe, and produces canonical per-receip
     /unique/i,
   );
   assert.throws(
+    () => validateDisclosurePolicy({ ...policy, factory_block_schema_versions: { 'M-1001': 3 } }),
+    /factory_block_schema_versions.*1 or 2/i,
+  );
+  assert.throws(
     () => canonicalReceiptUrl(policy, '../M-021'),
     /mission id/i,
   );
@@ -92,10 +211,18 @@ test('disclosure policy is exact, future-safe, and produces canonical per-receip
 
 test('receipt disclosure block is state-specific, marked, and idempotently replaceable', () => {
   const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
-  const block = renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' });
-  assert.match(block, /<!-- northset-receipt:M-021:start -->/);
-  assert.match(block, /Northset proof-of-pass receipt/);
-  assert.match(block, /Contributor self-run; not maintainer verification\./);
+  const facts = { command: ['node', '--test', 'test/focused.test.mjs'], headOid: 'abcdef0123456789abcdef0123456789abcdef01' };
+  const block = renderDisclosureBlock({
+    missionId: 'M-021', receiptUrl, publicationState: 'open', ...facts, includeNoCiChange: true,
+  });
+  assert.equal(block, `<!-- northset-receipt:M-021:start -->
+### Verification
+
+\`node --test test/focused.test.mjs\` exited 0 on this exact head (\`abcdef0\`) in a network-off container, before this PR was opened.
+No workflow or CI files are modified in this change.
+Commands, environment, and hashes: [receipt M-021](${receiptUrl}) — checkable in ~30 seconds without trusting us.
+Self-run by the contributor, not maintainer verification.
+<!-- northset-receipt:M-021:end -->`);
   assert.doesNotMatch(block, /request a separate, private run/i);
   assert.equal(block.split(receiptUrl).length - 1, 1);
   assert.doesNotMatch(block, /badge|logo|attestation/i);
@@ -104,16 +231,18 @@ test('receipt disclosure block is state-specific, marked, and idempotently repla
     missionId: 'M-021',
     receiptUrl,
     publicationState: 'merged',
+    ...facts,
   });
-  assert.match(merged, /This record covers Northset’s own contribution; it is not maintainer verification\./);
-  assert.match(merged, /Maintainers can request a separate, private run for a PR already in their queue at oss@northset\.ai\./);
+  assert.match(merged, /This record covers Northset's own contribution; it is not maintainer verification\./);
+  assert.match(merged, /Maintainers: request a separate private run for any PR in your queue — open a run request: https:\/\/github\.com\/northset-oss\/verification-pilot\/issues\/new\?template=request-a-run\.yml or email oss@northset\.ai\./);
   assert.match(merged, /adding `northset-verify` to a PR requests a run on that PR\./);
-  assert.equal((merged.match(/request a separate, private run/g) ?? []).length, 1);
+  assert.equal((merged.match(/request a separate private run/g) ?? []).length, 1);
 
   const closed = renderDisclosureBlock({
     missionId: 'M-021',
     receiptUrl,
     publicationState: 'closed_unmerged',
+    ...facts,
   });
   assert.doesNotMatch(closed, /request a separate, private run/i);
 
@@ -121,6 +250,7 @@ test('receipt disclosure block is state-specific, marked, and idempotently repla
     missionId: 'M-021',
     receiptUrl,
     publicationState: 'open',
+    ...facts,
   });
   assert.equal(first.changed, true);
   assert.equal(first.body.split(receiptUrl).length - 1, 1);
@@ -128,6 +258,7 @@ test('receipt disclosure block is state-specific, marked, and idempotently repla
     missionId: 'M-021',
     receiptUrl,
     publicationState: 'open',
+    ...facts,
   });
   assert.equal(second.changed, false);
   assert.equal(second.body, first.body);
@@ -137,6 +268,7 @@ test('receipt disclosure block is state-specific, marked, and idempotently repla
       missionId: 'M-021',
       receiptUrl,
       publicationState: 'open',
+      ...facts,
     }),
     /unmarked/i,
   );
@@ -145,16 +277,33 @@ test('receipt disclosure block is state-specific, marked, and idempotently repla
       missionId: 'M-021',
       receiptUrl,
       publicationState: 'open',
+      ...facts,
     }),
     /different mission/i,
   );
+
+  const long = renderDisclosureBlock({
+    missionId: 'M-021', receiptUrl, publicationState: 'open', headOid: facts.headOid,
+    command: `node --test ${'deep/path/'.repeat(10)}focused.test.mjs`,
+  });
+  assert.match(long, /the repository's declared test command exited 0/);
+  assert.doesNotMatch(long, /No workflow or CI files are modified/);
+
+  const legacy = renderDisclosureBlock({
+    missionId: 'M-021', receiptUrl, publicationState: 'open', blockVersion: 1,
+  });
+  assert.match(legacy, /Northset proof-of-pass receipt M-021/);
+  assert.match(legacy, /Contributor self-run; not maintainer verification\./);
 });
 
 test('live audit requires one canonical body link, a live receipt, and no Northset receipt comment', async () => {
   const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
   const prApi = 'https://api.github.com/repos/example/project/pulls/21';
   const commentsApi = 'https://api.github.com/repos/example/project/issues/21/comments?per_page=100';
-  const body = renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' });
+  const body = renderDisclosureBlock({
+    missionId: 'M-021', receiptUrl, publicationState: 'open',
+    command: mission().commands_declared[0], headOid: mission().patch_commit,
+  });
   const request = fakeRequest(new Map([
     [`GET ${receiptUrl}`, response(200)],
     [`GET ${prApi}`, response(200, { number: 21, html_url: publication().pr_url, body })],
@@ -175,6 +324,18 @@ test('live audit requires one canonical body link, a live receipt, and no Norths
     legacy_occurrences: 0,
     actor_comment_occurrences: 0,
   });
+
+  const bodyWithNoCiClaim = renderDisclosureBlock({
+    missionId: 'M-021', receiptUrl, publicationState: 'open',
+    command: mission().commands_declared[0], headOid: mission().patch_commit,
+    includeNoCiChange: true,
+  });
+  const withConditionalLine = fakeRequest(new Map([
+    [`GET ${receiptUrl}`, response(200)],
+    [`GET ${prApi}`, response(200, { number: 21, html_url: publication().pr_url, body: bodyWithNoCiClaim })],
+    [`GET ${commentsApi}`, response(200, [])],
+  ]));
+  await auditMissionDisclosure({ mission: mission(), publication: publication(), policy, request: withConditionalLine });
 
   const missing = fakeRequest(new Map([
     [`GET ${receiptUrl}`, response(200)],
@@ -208,7 +369,7 @@ test('live audit requires one canonical body link, a live receipt, and no Norths
   ]));
   await assert.rejects(
     auditMissionDisclosure({ mission: mission(), publication: publication(), policy, request: promotionalRequest }),
-    /one.*ledger link|ledger link.*one/i,
+    /exactly 1 Northset URL/i,
   );
 
   const commentRequest = fakeRequest(new Map([
@@ -237,6 +398,7 @@ test('live audit enforces the merged-only invitation exactly once', async () => 
     missionId: 'M-021',
     receiptUrl,
     publicationState: 'merged',
+    command: mission().commands_declared[0], headOid: mission().patch_commit,
   });
   const valid = fakeRequest(new Map([
     [`GET ${receiptUrl}`, response(200)],
@@ -255,13 +417,16 @@ test('live audit enforces the merged-only invitation exactly once', async () => 
     [`GET ${prApi}`, response(200, {
       number: 21,
       html_url: mergedPublication.pr_url,
-      body: renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' }),
+      body: renderDisclosureBlock({
+        missionId: 'M-021', receiptUrl, publicationState: 'open',
+        command: mission().commands_declared[0], headOid: mission().patch_commit,
+      }),
     })],
     [`GET ${commentsApi}`, response(200, [])],
   ]));
   await assert.rejects(
     auditMissionDisclosure({ mission: mission(), publication: mergedPublication, policy, request: missing }),
-    /merged.*invitation|expected.*marked block/i,
+    /merged.*invitation|expected.*marked block|exactly 2 Northset URL/i,
   );
 
   const openWithInvitation = fakeRequest(new Map([
@@ -271,7 +436,7 @@ test('live audit enforces the merged-only invitation exactly once', async () => 
   ]));
   await assert.rejects(
     auditMissionDisclosure({ mission: mission(), publication: publication(), policy, request: openWithInvitation }),
-    /open.*invitation|expected.*marked block/i,
+    /open.*invitation|expected.*marked block|exactly 1 Northset URL/i,
   );
 });
 
@@ -306,6 +471,217 @@ test('repository audit explicitly exempts historical PRs but fails closed for a 
   assert.equal(requested, false);
 });
 
+test('factory receipts audit verifies versioned open, closed, and merged PR blocks offline', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-disclosure-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixtures = await Promise.all([
+    writeFactoryDisclosureFixture(root, {
+      missionId: 'M-1000',
+      commitOid: '1'.repeat(40),
+      prState: 'OPEN',
+      command: ['node', '--test', 'test/focused.test.mjs'],
+      includeNoCiChange: true,
+    }),
+    writeFactoryDisclosureFixture(root, {
+      missionId: 'M-1001',
+      commitOid: '2'.repeat(40),
+      prState: 'OPEN',
+      command: null,
+      blockVersion: 1,
+    }),
+    writeFactoryDisclosureFixture(root, {
+      missionId: 'M-1002',
+      commitOid: '3'.repeat(40),
+      prState: 'CLOSED',
+      command: 'npm test',
+    }),
+    writeFactoryDisclosureFixture(root, {
+      missionId: 'M-1003',
+      commitOid: '4'.repeat(40),
+      prState: 'MERGED',
+      command: `node --test ${'deep/path/'.repeat(10)}focused.test.mjs`,
+    }),
+    writeFactoryDisclosureFixture(root, {
+      missionId: 'M-1004',
+      commitOid: '5'.repeat(40),
+      prState: 'MERGED',
+      bodyState: 'open',
+      command: 'npm test',
+    }),
+  ]);
+  const routes = new Map();
+  for (const fixture of fixtures) {
+    routes.set(`GET ${fixture.receiptUrl}`, response(200));
+    routes.set(`GET ${fixture.prApi}`, response(200, {
+      number: fixture.prNumber,
+      html_url: fixture.prUrl,
+      body: fixture.body,
+    }));
+    routes.set(`GET ${fixture.commentsApi}`, response(200, []));
+  }
+  const request = fakeRequest(routes);
+  const report = await auditAllFactoryDisclosures({
+    factoryReceiptsDir: root,
+    policy,
+    request,
+  });
+  assert.equal(report.lane, 'factory_receipts');
+  assert.equal(report.checked, 4);
+  assert.equal(report.merged_sync_pending, 1);
+  assert.equal(report.block_v1, 1);
+  assert.equal(report.block_v2, 4);
+  assert.deepEqual(report.reports.map(({ mission_id: missionId }) => missionId), [
+    'M-1000', 'M-1001', 'M-1002', 'M-1003', 'M-1004',
+  ]);
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-1003')?.block_schema_version, 2);
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-1003')?.status, 'verified');
+  assert.equal(report.reports.find(({ mission_id: missionId }) => missionId === 'M-1004')?.status, 'merged_sync_pending');
+  assert.equal(request.calls.length, 15);
+});
+
+test('factory receipts audit rejects merged-style blocks on open and unmerged closed PRs', async (t) => {
+  for (const [index, prState] of ['OPEN', 'CLOSED'].entries()) {
+    const root = await mkdtemp(path.join(os.tmpdir(), `northset-factory-non-promotional-${index}-`));
+    t.after(() => rm(root, { recursive: true, force: true }));
+    const fixture = await writeFactoryDisclosureFixture(root, {
+      missionId: `M-101${index}`,
+      commitOid: String(index + 6).repeat(40),
+      prState,
+      bodyState: 'merged',
+      command: 'npm test',
+    });
+    const request = fakeRequest(new Map([
+      [`GET ${fixture.receiptUrl}`, response(200)],
+      [`GET ${fixture.prApi}`, response(200, {
+        number: fixture.prNumber,
+        html_url: fixture.prUrl,
+        body: fixture.body,
+      })],
+    ]));
+    await assert.rejects(
+      auditAllFactoryDisclosures({ factoryReceiptsDir: root, policy, request }),
+      /expected state-specific marked block/i,
+    );
+  }
+});
+
+test('factory receipts audit rejects a proof byte mismatch before any remote read', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-integrity-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixture = await writeFactoryDisclosureFixture(root, {
+    missionId: 'M-1000',
+    commitOid: '5'.repeat(40),
+    prState: 'OPEN',
+    command: 'npm test',
+  });
+  const proofBytes = await readFile(fixture.proofFile);
+  await writeFile(fixture.proofFile, Buffer.concat([proofBytes, Buffer.from(' ')]));
+  let requested = false;
+  const request = async () => {
+    requested = true;
+    throw new Error('network must not be reached');
+  };
+  await assert.rejects(
+    auditAllFactoryDisclosures({ factoryReceiptsDir: root, policy, request }),
+    /proof_sha256 mismatch/i,
+  );
+  assert.equal(requested, false);
+});
+
+test('CLI check accepts an empty factory receipts directory without network access', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-cli-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  let output = '';
+  let errorOutput = '';
+  const exitCode = await runPrReceiptDisclosureCli({
+    args: [
+      'check',
+      '--factory-receipts-dir', root,
+      '--policy', path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
+      '--json',
+    ],
+    env: {},
+    stdout: { write: (value) => { output += value; } },
+    stderr: { write: (value) => { errorOutput += value; } },
+    fetchImpl: async () => { throw new Error('network must not be reached'); },
+  });
+  assert.equal(exitCode, 0, errorOutput);
+  assert.deepEqual(JSON.parse(output), {
+    lane: 'factory_receipts',
+    checked: 0,
+    merged_sync_pending: 0,
+    block_v1: 0,
+    block_v2: 0,
+    reports: [],
+  });
+});
+
+test('CLI labels and counts merged_sync_pending in text and JSON output', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-cli-pending-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixture = await writeFactoryDisclosureFixture(root, {
+    missionId: 'M-1060',
+    commitOid: '8'.repeat(40),
+    prState: 'MERGED',
+    bodyState: 'open',
+    command: 'npm test',
+  });
+  const fetchImpl = async (url) => {
+    if (url === fixture.receiptUrl) return new Response('', { status: 200 });
+    if (url === fixture.prApi) {
+      return Response.json({ number: fixture.prNumber, html_url: fixture.prUrl, body: fixture.body });
+    }
+    if (url === fixture.commentsApi) return Response.json([]);
+    throw new Error(`unexpected request: ${url}`);
+  };
+  const run = async (json) => {
+    let output = '';
+    let errorOutput = '';
+    const exitCode = await runPrReceiptDisclosureCli({
+      args: [
+        'check',
+        '--factory-receipts-dir', root,
+        '--policy', path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
+        ...(json ? ['--json'] : []),
+      ],
+      env: {},
+      stdout: { write: (value) => { output += value; } },
+      stderr: { write: (value) => { errorOutput += value; } },
+      fetchImpl,
+    });
+    assert.equal(exitCode, 0, errorOutput);
+    return output;
+  };
+
+  const textOutput = await run(false);
+  assert.equal(
+    textOutput,
+    'Factory PR receipt disclosure: 0 verified, 1 merged sync pending, 0 block v1, 1 block v2\n',
+  );
+  const jsonOutput = JSON.parse(await run(true));
+  assert.equal(jsonOutput.checked, 0);
+  assert.equal(jsonOutput.merged_sync_pending, 1);
+  assert.equal(jsonOutput.reports[0].status, 'merged_sync_pending');
+
+  let syncOutput = '';
+  let syncError = '';
+  const syncExit = await runPrReceiptDisclosureCli({
+    args: [
+      'sync',
+      '--factory-receipts-dir', root,
+      '--mission', fixture.missionId,
+      '--policy', path.join(repositoryRoot, 'policies/pr_receipt_disclosure_policy.json'),
+      '--json',
+    ],
+    env: {},
+    stdout: { write: (value) => { syncOutput += value; } },
+    stderr: { write: (value) => { syncError += value; } },
+    fetchImpl,
+  });
+  assert.equal(syncExit, 0, syncError);
+  assert.equal(JSON.parse(syncOutput).status, 'merged_sync_pending');
+});
+
 test('comment pagination cannot leave the original GitHub API endpoint', async () => {
   const receiptUrl = canonicalReceiptUrl(policy, 'M-021');
   const prApi = 'https://api.github.com/repos/example/project/pulls/21';
@@ -315,7 +691,10 @@ test('comment pagination cannot leave the original GitHub API endpoint', async (
     [`GET ${prApi}`, response(200, {
       number: 21,
       html_url: publication().pr_url,
-      body: renderDisclosureBlock({ missionId: 'M-021', receiptUrl, publicationState: 'open' }),
+      body: renderDisclosureBlock({
+        missionId: 'M-021', receiptUrl, publicationState: 'open',
+        command: mission().commands_declared[0], headOid: mission().patch_commit,
+      }),
     })],
     [`GET ${commentsApi}`, response(200, [], {
       link: '<https://example.com/redirect?page=2>; rel="next"',
@@ -325,6 +704,172 @@ test('comment pagination cannot leave the original GitHub API endpoint', async (
     auditMissionDisclosure({ mission: mission(), publication: publication(), policy, request }),
     /pagination.*GitHub API endpoint/i,
   );
+});
+
+test('factory synchronizer is read-only by default and applies exact merged bytes without local writes', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixture = await writeFactoryDisclosureFixture(root, {
+    missionId: 'M-1030',
+    commitOid: '9'.repeat(40),
+    prState: 'MERGED',
+    bodyState: 'open',
+    command: ['node', '--test', 'test/focused.test.mjs'],
+    includeNoCiChange: true,
+  });
+  const originalFiles = await Promise.all([
+    readFile(fixture.currentFile),
+    readFile(fixture.proofFile),
+    readFile(fixture.publicationFile),
+  ]);
+  let body = fixture.body;
+  const request = fakeRequest(new Map([
+    [`GET ${fixture.receiptUrl}`, response(200)],
+    [`GET ${fixture.prApi}`, () => response(200, {
+      number: fixture.prNumber,
+      html_url: fixture.prUrl,
+      body,
+    })],
+    [`GET ${fixture.commentsApi}`, response(200, [])],
+    [`PATCH ${fixture.prApi}`, ({ body: next }) => {
+      body = next.body;
+      return response(200, { number: fixture.prNumber, html_url: fixture.prUrl, body });
+    }],
+  ]));
+
+  const readOnly = await syncFactoryDisclosure({
+    factoryReceiptsDir: root,
+    missionId: fixture.missionId,
+    policy,
+    request,
+  });
+  assert.equal(readOnly.status, 'merged_sync_pending');
+  assert.equal(readOnly.changed, false);
+  assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 0);
+
+  await assert.rejects(
+    syncFactoryDisclosure({
+      factoryReceiptsDir: root,
+      missionId: fixture.missionId,
+      policy,
+      request,
+      apply: true,
+      confirmPrUrl: 'https://github.com/example/project/pull/9999',
+    }),
+    /confirm PR URL.*exactly match/i,
+  );
+  assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 0);
+
+  const applied = await syncFactoryDisclosure({
+    factoryReceiptsDir: root,
+    missionId: fixture.missionId,
+    policy,
+    request,
+    apply: true,
+    confirmPrUrl: fixture.prUrl,
+  });
+  assert.equal(applied.status, 'verified');
+  assert.equal(applied.changed, true);
+  assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 1);
+  assert.equal(body, renderDisclosureBlock({
+    missionId: fixture.missionId,
+    receiptUrl: fixture.receiptUrl,
+    publicationState: 'merged',
+    blockVersion: 2,
+    command: ['node', '--test', 'test/focused.test.mjs'],
+    headOid: '9'.repeat(40),
+    includeNoCiChange: true,
+  }));
+  assert.equal((body.match(/request a separate private run/g) ?? []).length, 1);
+  assert.equal(body.split('https://').length - 1, 2);
+  await assert.rejects(
+    syncFactoryDisclosure({
+      factoryReceiptsDir: root,
+      missionId: fixture.missionId,
+      policy,
+      request,
+      apply: true,
+      confirmPrUrl: fixture.prUrl,
+    }),
+    /requires the exact open-state marked block/i,
+  );
+  assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 1);
+  const finalFiles = await Promise.all([
+    readFile(fixture.currentFile),
+    readFile(fixture.proofFile),
+    readFile(fixture.publicationFile),
+  ]);
+  assert.deepEqual(finalFiles, originalFiles);
+});
+
+test('factory synchronizer refuses a missing open block, digest mismatch, and live PR URL mismatch', async (t) => {
+  const missingRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-missing-'));
+  const digestRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-digest-'));
+  const urlRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-url-'));
+  t.after(() => Promise.all([missingRoot, digestRoot, urlRoot].map((root) => (
+    rm(root, { recursive: true, force: true })
+  ))));
+
+  const missing = await writeFactoryDisclosureFixture(missingRoot, {
+    missionId: 'M-1031', commitOid: 'a'.repeat(40), prState: 'MERGED', bodyState: 'open', command: 'npm test',
+  });
+  const missingRequest = fakeRequest(new Map([
+    [`GET ${missing.receiptUrl}`, response(200)],
+    [`GET ${missing.prApi}`, response(200, {
+      number: missing.prNumber,
+      html_url: missing.prUrl,
+      body: missing.body.replace(
+        'Self-run by the contributor, not maintainer verification.',
+        'Altered disclosure text.',
+      ),
+    })],
+  ]));
+  await assert.rejects(
+    syncFactoryDisclosure({
+      factoryReceiptsDir: missingRoot, missionId: missing.missionId, policy, request: missingRequest,
+      apply: true, confirmPrUrl: missing.prUrl,
+    }),
+    /expected state-specific marked block|exact open-state marked block/i,
+  );
+  assert.equal(missingRequest.calls.some(({ method }) => method === 'PATCH'), false);
+
+  const digest = await writeFactoryDisclosureFixture(digestRoot, {
+    missionId: 'M-1032', commitOid: 'b'.repeat(40), prState: 'MERGED', bodyState: 'open', command: 'npm test',
+  });
+  await writeFile(digest.proofFile, Buffer.concat([await readFile(digest.proofFile), Buffer.from(' ')]));
+  let digestRequested = false;
+  await assert.rejects(
+    syncFactoryDisclosure({
+      factoryReceiptsDir: digestRoot,
+      missionId: digest.missionId,
+      policy,
+      request: async () => { digestRequested = true; throw new Error('must not request'); },
+      apply: true,
+      confirmPrUrl: digest.prUrl,
+    }),
+    /proof_sha256 mismatch/i,
+  );
+  assert.equal(digestRequested, false);
+
+  const url = await writeFactoryDisclosureFixture(urlRoot, {
+    missionId: 'M-1033', commitOid: 'c'.repeat(40), prState: 'MERGED', bodyState: 'open', command: 'npm test',
+  });
+  const urlRequest = fakeRequest(new Map([
+    [`GET ${url.receiptUrl}`, response(200)],
+    [`GET ${url.prApi}`, response(200, {
+      number: url.prNumber,
+      html_url: 'https://github.com/example/project/pull/9999',
+      body: url.body,
+    })],
+  ]));
+  await assert.rejects(
+    syncFactoryDisclosure({
+      factoryReceiptsDir: urlRoot, missionId: url.missionId, policy, request: urlRequest,
+      apply: true, confirmPrUrl: url.prUrl,
+    }),
+    /GitHub PR API response does not match publication\.json/i,
+  );
+  assert.equal(urlRequest.calls.some(({ method }) => method === 'PATCH'), false);
 });
 
 test('synchronizer is read-only by default and apply requires the exact confirmed PR URL', async (t) => {
@@ -379,7 +924,7 @@ test('synchronizer is read-only by default and apply requires the exact confirme
   assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 1);
   const saved = JSON.parse(await readFile(path.join(missionDir, 'publication.json'), 'utf8'));
   assert.deepEqual(saved.pr_disclosure, {
-    schema_version: 1,
+    schema_version: 2,
     required: true,
     mode: 'pr_body',
     canonical_url: receiptUrl,
@@ -445,6 +990,9 @@ test('repository audit checks committed receipts without network access', async 
         missionId: source.mission_id,
         receiptUrl,
         publicationState: envelope.state,
+        blockVersion: envelope.pr_disclosure.schema_version,
+        command: source.commands_declared[0],
+        headOid: source.patch_commit,
       }),
     }));
     routes.set(`GET ${commentsApi}`, response(200, []));
@@ -482,6 +1030,7 @@ test('committed policy freezes the historical cutover and active Northset actors
     'M-021',
   ]);
   assert.deepEqual(committed.northset_actor_logins, ['AysajanE']);
+  assert.equal(committed.current_block_schema_version, 2);
 });
 
 test('HTTP request adapter sends GitHub credentials only to the GitHub API origin', async () => {

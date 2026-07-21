@@ -161,7 +161,9 @@ async function setup(proofs) {
   const mergedIndex = path.join(root, 'merged-index.json');
   const site = path.join(root, 'site');
   await mkdir(receipts, {recursive: true});
-  await writeFile(sourceIndex, `${JSON.stringify({version: '0', generated_at: generatedAt, missions: []})}\n`);
+  await writeFile(sourceIndex, `${JSON.stringify({
+    version: '1', generated_at: generatedAt, ci_agreement: {agreed: 0, total: 0}, missions: [],
+  })}\n`);
   for (const proof of proofs) await writeFactoryProof(receipts, proof);
   return {root, receipts, sourceIndex, mergedIndex, site};
 }

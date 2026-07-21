@@ -1,0 +1,35 @@
+name: Report a receipt discrepancy
+description: Report an upstream CI result that disagrees with a Northset receipt
+title: "[Receipt discrepancy] "
+labels: ["receipt-discrepancy"]
+assignees: []
+body:
+- type: input
+  id: receipt_id
+  attributes:
+    label: Receipt ID
+    placeholder: M-123
+  validations:
+    required: true
+- type: input
+  id: pr_url
+  attributes:
+    label: Pull request URL
+    placeholder: https://github.com/owner/repository/pull/123
+  validations:
+    required: true
+- type: input
+  id: ci_run_url
+  attributes:
+    label: CI run URL
+    placeholder: https://github.com/owner/repository/actions/runs/123456789
+  validations:
+    required: true
+- type: textarea
+  id: observed_vs_expected
+  attributes:
+    label: Observed vs expected
+    description: Describe what upstream CI reported and what the receipt reported.
+    placeholder: "Observed: ...\nExpected from receipt: ..."
+  validations:
+    required: true

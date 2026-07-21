@@ -8,7 +8,9 @@ import { fileURLToPath } from 'node:url';
 
 import {
   auditAllDisclosures,
+  auditAllFactoryDisclosures,
   createFetchRequest,
+  syncFactoryDisclosure,
   syncMissionDisclosure,
   validateDisclosurePolicy,
 } from '../lib/pr-receipt-disclosure.mjs';
@@ -18,8 +20,8 @@ function parseArgs(args) {
   if (!['check', 'sync'].includes(command)) {
     throw new Error(
       'usage: pr-receipt-disclosure.mjs <check|sync> --policy <file> '
-      + '(--missions-dir <dir> | --mission-dir <dir>) [--json] '
-      + '[--apply --confirm-pr-url <url> --now <ISO-time>]',
+      + '(--missions-dir <dir> | --factory-receipts-dir <dir> | --mission-dir <dir>) [--json] '
+      + '[--mission <M-XXX>] [--apply --confirm-pr-url <url> --now <ISO-time>]',
     );
   }
   const options = { command, apply: false, json: false };
@@ -29,7 +31,7 @@ function parseArgs(args) {
       options.apply = true;
     } else if (arg === '--json') {
       options.json = true;
-    } else if (['--policy', '--missions-dir', '--mission-dir', '--confirm-pr-url', '--now'].includes(arg)) {
+    } else if (['--policy', '--missions-dir', '--factory-receipts-dir', '--mission-dir', '--mission', '--confirm-pr-url', '--now'].includes(arg)) {
       const value = args[index + 1];
       if (!value || value.startsWith('--')) throw new Error(`${arg} requires a value`);
       options[arg.slice(2).replaceAll('-', '_')] = value;
@@ -40,13 +42,31 @@ function parseArgs(args) {
   }
   if (!options.policy) throw new Error('--policy is required');
   if (command === 'check') {
-    if (!options.missions_dir) throw new Error('--missions-dir is required for check');
-    if (options.mission_dir || options.apply || options.confirm_pr_url || options.now) {
-      throw new Error('check accepts --missions-dir, --policy, and --json only');
+    const auditDirectories = [options.missions_dir, options.factory_receipts_dir].filter(Boolean);
+    if (auditDirectories.length !== 1) {
+      throw new Error('check requires exactly one of --missions-dir or --factory-receipts-dir');
+    }
+    if (options.mission_dir || options.mission || options.apply || options.confirm_pr_url || options.now) {
+      throw new Error('check accepts one audit directory, --policy, and --json only');
     }
   } else {
-    if (!options.mission_dir) throw new Error('--mission-dir is required for sync');
-    if (options.missions_dir) throw new Error('sync does not accept --missions-dir');
+    const missionsMode = Boolean(options.mission_dir);
+    const factoryMode = Boolean(options.factory_receipts_dir || options.mission);
+    if (missionsMode === factoryMode) {
+      throw new Error('sync requires --mission-dir or both --factory-receipts-dir and --mission');
+    }
+    if (factoryMode && (!options.factory_receipts_dir || !options.mission)) {
+      throw new Error('factory sync requires both --factory-receipts-dir and --mission');
+    }
+    if (options.missions_dir) {
+      throw new Error('sync does not accept --missions-dir');
+    }
+    if (missionsMode && options.mission) {
+      throw new Error('missions sync does not accept --mission');
+    }
+    if (factoryMode && options.now) {
+      throw new Error('factory sync does not accept --now because it writes no receipt state');
+    }
     if (!options.apply && (options.confirm_pr_url || options.now)) {
       throw new Error('--confirm-pr-url and --now require --apply');
     }
@@ -76,6 +96,9 @@ function localGhToken() {
 }
 
 function formatReport(report) {
+  if (report.lane === 'factory_receipts') {
+    return `Factory PR receipt disclosure: ${report.checked} verified, ${report.merged_sync_pending} merged sync pending, ${report.block_v1} block v1, ${report.block_v2} block v2`;
+  }
   if (Object.hasOwn(report, 'checked')) {
     return `PR receipt disclosure: ${report.checked} verified, ${report.historical_exempt} historical exempt, ${report.prepared} prepared`;
   }
@@ -99,19 +122,34 @@ export async function runPrReceiptDisclosureCli({
     }
     const request = createFetchRequest({ fetchImpl, token });
     const report = options.command === 'check'
-      ? await auditAllDisclosures({
-        missionsDir: path.resolve(options.missions_dir),
-        policy,
-        request,
-      })
-      : await syncMissionDisclosure({
-        missionDir: path.resolve(options.mission_dir),
-        policy,
-        request,
-        apply: options.apply,
-        confirmPrUrl: options.confirm_pr_url ?? null,
-        now: options.now,
-      });
+      ? options.factory_receipts_dir
+        ? await auditAllFactoryDisclosures({
+          factoryReceiptsDir: path.resolve(options.factory_receipts_dir),
+          policy,
+          request,
+        })
+        : await auditAllDisclosures({
+          missionsDir: path.resolve(options.missions_dir),
+          policy,
+          request,
+        })
+      : options.factory_receipts_dir
+        ? await syncFactoryDisclosure({
+          factoryReceiptsDir: path.resolve(options.factory_receipts_dir),
+          missionId: options.mission,
+          policy,
+          request,
+          apply: options.apply,
+          confirmPrUrl: options.confirm_pr_url ?? null,
+        })
+        : await syncMissionDisclosure({
+          missionDir: path.resolve(options.mission_dir),
+          policy,
+          request,
+          apply: options.apply,
+          confirmPrUrl: options.confirm_pr_url ?? null,
+          now: options.now,
+        });
     stdout.write(options.json ? `${JSON.stringify(report, null, 2)}\n` : `${formatReport(report)}\n`);
     return 0;
   } catch (error) {

@@ -22,7 +22,7 @@
   "properties": {
     "mission_id": {
       "type": "string",
-      "pattern": "^M-(\\d{3}|E2[a-c])$"
+      "pattern": "^M-(\\d{3,}|E2[a-c])$"
     },
     "variant": {
       "type": "string",

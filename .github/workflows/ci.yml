@@ -21,12 +21,47 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
-      - name: Enforce future contributor receipt disclosure
+      - name: Enforce missions-directory contributor receipt disclosure
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
           node bin/pr-receipt-disclosure.mjs check
           --missions-dir missions
+          --policy policies/pr_receipt_disclosure_policy.json
+          --json
+
+      - name: Prepare factory receipts-branch audit
+        id: factory-receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          factory_repo="$(mktemp -d "$RUNNER_TEMP/factory-audit-repo.XXXXXX")"
+          factory_root="$(mktemp -d "$RUNNER_TEMP/factory-receipts.XXXXXX")"
+          git init --quiet "$factory_repo"
+          if ! git -C "$factory_repo" fetch --no-tags --depth=1 \
+            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git" refs/heads/receipts; then
+            echo "::notice::Factory PR disclosure audit skipped: the receipts branch is unavailable."
+            exit 0
+          fi
+          if [ -z "$(git -C "$factory_repo" ls-tree -d --name-only FETCH_HEAD -- receipts)" ]; then
+            echo "::notice::Factory PR disclosure audit skipped: the receipts branch has no receipts directory."
+            exit 0
+          fi
+          git -C "$factory_repo" archive FETCH_HEAD receipts | tar -xf - -C "$factory_root"
+          if [ -z "$(find "$factory_root/receipts" -mindepth 2 -maxdepth 2 -name current.json -print -quit)" ]; then
+            echo "::notice::Factory PR disclosure audit skipped: the receipts branch has no current receipt records."
+            exit 0
+          fi
+          echo "available=true" >> "$GITHUB_OUTPUT"
+          echo "dir=$factory_root/receipts" >> "$GITHUB_OUTPUT"
+
+      - name: Enforce factory contributor receipt disclosure
+        if: steps.factory-receipts.outputs.available == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          node bin/pr-receipt-disclosure.mjs check
+          --factory-receipts-dir "${{ steps.factory-receipts.outputs.dir }}"
           --policy policies/pr_receipt_disclosure_policy.json
           --json
 

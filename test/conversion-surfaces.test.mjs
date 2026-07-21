@@ -46,15 +46,24 @@ function decodeAttribute(value) {
   return value.replaceAll('&amp;', '&');
 }
 
-function assertCompleteRequestCta(html) {
+function assertCompleteRequestCta(html, repository = null) {
   assert.match(html, /<section class="request-run"/);
-  assert.match(html, /<h2[^>]*>Request a private run<\/h2>/);
-  assert.match(html, /Maintain an open-source project\?/);
-  assert.match(html, /repository-declared checks/);
-  assert.match(html, /Nothing is published without your approval\./);
-  assert.match(html, /Free during the pilot\./);
+  if (repository === null) {
+    assert.match(html, /<h2[^>]*>Request a private run<\/h2>/);
+    assert.match(html, /Maintain an open-source project\?/);
+    assert.match(html, /repository-declared checks/);
+    assert.match(html, /Nothing is published without your approval\./);
+    assert.match(html, /Free during the pilot\./);
+  } else {
+    assert.ok(html.includes(`<h2 id="request-run-title">Maintain ${repository}?</h2>`));
+    assert.match(html, /Get this same run for any PR in your queue — private, free during the pilot, nothing published without your approval\./);
+  }
   assert.match(html, /Open a public request/);
   assert.ok(html.includes(publicRequestUrl.replaceAll('&', '&amp;')));
+  assert.ok(
+    html.indexOf(publicRequestUrl.replaceAll('&', '&amp;')) < html.indexOf('mailto:oss@northset.ai'),
+    'the public issue-template CTA must precede the private email CTA',
+  );
   assert.match(html, /northset-verify/);
   assert.doesNotMatch(html, /run the proof/i);
 
@@ -63,7 +72,12 @@ function assertCompleteRequestCta(html) {
   const mailto = new URL(decodeAttribute(match[1]));
   assert.equal(mailto.protocol, 'mailto:');
   assert.equal(mailto.pathname, 'oss@northset.ai');
-  assert.equal(mailto.searchParams.get('subject'), 'Northset run request: owner/repository#123');
+  assert.equal(
+    mailto.searchParams.get('subject'),
+    repository === null
+      ? 'Northset run request: owner/repository#123'
+      : `Northset run request: ${repository}`,
+  );
   assert.equal(mailto.searchParams.get('body'), [
     'PR URL:',
     'Repository:',
@@ -77,12 +91,16 @@ test('ledger and every permanent receipt page expose a complete, modest conversi
   const root = await renderFixtureSite(t);
   const homepage = await readFile(path.join(root, 'index.html'), 'utf8');
   assertCompleteRequestCta(homepage);
-  assert.match(homepage, /class="button-link mast-request"[^>]*>Request a private run<\/a>/);
+  assert.match(homepage, /class="button-link mast-request request-primary"[^>]*>Open a public request<\/a>/);
   assert.match(homepage, /@media print[^}]*[\s\S]*\.request-run/);
 
-  for (const missionId of ['M-001', 'M-004', 'M-005']) {
+  for (const [missionId, repository] of [
+    ['M-001', 'northset/oss-run-records'],
+    ['M-004', 'maintainer/project'],
+    ['M-005', 'project/%3Cscript%3Ealert(1)%3C/script%3E'],
+  ]) {
     const receipt = await readFile(path.join(root, 'receipts', missionId, 'index.html'), 'utf8');
-    assertCompleteRequestCta(receipt);
+    assertCompleteRequestCta(receipt, repository);
   }
 });
 

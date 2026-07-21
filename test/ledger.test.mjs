@@ -111,8 +111,9 @@ test('build includes only valid missions in sorted deterministic projections', a
   assert.equal(firstBuild.stderr.trim().split('\n').length, 1);
 
   const index = JSON.parse(await readFile(firstPath, 'utf8'));
-  assert.equal(index.version, '0');
+  assert.equal(index.version, '1');
   assert.equal(index.generated_at, generatedAt);
+  assert.deepEqual(index.ci_agreement, { agreed: 2, total: 2 });
   assert.deepEqual(index.missions.map((mission) => mission.mission_id), [
     'M-001',
     'M-004',
@@ -328,7 +329,7 @@ test('a prepared receipt with pending attestation builds and renders without cla
   assert.match(defensiveHtml, /Attestation URL was not recorded/);
   assert.match(defensiveHtml, /Signed asset SHA-256<\/dt><dd><code>not recorded<\/code>/);
   assert.match(defensiveHtml, /Signed provenance recorded<\/dt><dd>not verified<\/dd>/);
-  assert.doesNotMatch(defensiveHtml, /Download signed bundle|gh attestation verify stale|Attestation confirms/);
+  assert.doesNotMatch(defensiveHtml, /Download signed bundle|gh attestation verify stale|attestation-scope/);
   const defensiveJson = JSON.parse(await readFile(path.join(temporaryRoot, 'defensive-site/receipts/M-020/receipt.json'), 'utf8'));
   assert.equal(defensiveJson.bundle.attestation_uri, null);
   assert.equal(defensiveJson.bundle.provenance, 'Signed provenance has not been verified.');
@@ -624,10 +625,14 @@ test('render creates a permanent printable receipt for every committed mission a
   await mkdir(path.join(temporaryRoot, 'site', 'assets'), { recursive: true });
   await mkdir(path.join(temporaryRoot, 'site', 'receipts', 'legacy'), { recursive: true });
   await mkdir(path.join(temporaryRoot, 'site', 'receipts', 'M-999'), { recursive: true });
+  await mkdir(path.join(temporaryRoot, 'site', 'repo', 'stale--repository'), { recursive: true });
+  await mkdir(path.join(temporaryRoot, 'site', 'repo', 'keep--repository'), { recursive: true });
   await Promise.all([
     writeFile(path.join(temporaryRoot, 'site', 'assets', 'keep.txt'), 'keep asset\n'),
     writeFile(path.join(temporaryRoot, 'site', 'receipts', 'legacy', 'index.html'), 'keep legacy\n'),
     writeFile(path.join(temporaryRoot, 'site', 'receipts', 'M-999', 'index.html'), 'remove stale generated receipt\n'),
+    writeFile(path.join(temporaryRoot, 'site', 'repo', 'stale--repository', '.northset-ledger-generated'), 'northset-ledger-repository-page\n'),
+    writeFile(path.join(temporaryRoot, 'site', 'repo', 'keep--repository', 'index.html'), 'keep unrelated repository page\n'),
   ]);
 
   const render = run([
@@ -655,6 +660,12 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
   assert.match(homepage, /workspace-search buttons need type=button/);
   assert.match(homepage, /for open-source work/);
+  const expectedAgreement = build.index.ci_agreement;
+  assert.match(homepage, new RegExp(`agreed with the receipt in <strong>${expectedAgreement.agreed} of ${expectedAgreement.total}<\\/strong> runs`));
+  assert.match(homepage, /If your CI disagrees with this receipt,[\s\S]*report it[\s\S]*we publish discrepancies on this ledger/);
+  const masthead = homepage.match(/<header class="mast">[\s\S]*?<\/header>/)?.[0];
+  assert.ok(masthead);
+  assert.ok(masthead.indexOf('request-a-run.yml') < masthead.indexOf('mailto:oss@northset.ai'));
   const externalGallery = homepage.match(/<section class="gallery"[\s\S]*?<\/section>/)?.[0];
   assert.ok(externalGallery);
   const externalReceipts = build.index.missions
@@ -720,6 +731,22 @@ test('render creates a permanent printable receipt for every committed mission a
     } else {
       assert.match(page, /Download signed bundle/);
       assert.match(page, /Verify this receipt/);
+      assert.match(page, /Check this receipt without trusting this site/);
+      assert.match(page, /Expected output includes <code>Verification succeeded!<\/code>/);
+    }
+    assert.match(page, /If your CI disagrees with this receipt,[\s\S]*report it[\s\S]*we publish discrepancies on this ledger/);
+    const requestBox = page.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(requestBox);
+    assert.ok(requestBox.indexOf('request-a-run.yml') < requestBox.indexOf('mailto:oss@northset.ai'));
+    const repository = new URL(build.index.missions.find((mission) => mission.mission_id === missionId).receipt.target_repo).pathname.replace(/^\//, '');
+    assert.match(page, new RegExp(`Maintain ${repository.replace('/', '\\/')}\\?`));
+    if (publication.state !== 'prepared') {
+      assert.match(page, new RegExp(`All Northset work in ${repository.replace('/', '\\/')} →`));
+    }
+    if (['success', 'failure'].includes(publication.ci_state)) {
+      assert.match(page, new RegExp(`Upstream CI ${publication.ci_state === 'success' ? 'agreed' : 'disagreed'} with this receipt`));
+    } else {
+      assert.doesNotMatch(page, /class="receipt-ci-agreement"/);
     }
     assert.match(page, /Print \/ Save receipt/);
     assert.match(page, /Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded\./);
@@ -859,7 +886,31 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(m008, /\.receipt:not\(\.receipt--economic\)\s*\{\s*width:72mm/);
   assert.equal(await readFile(path.join(temporaryRoot, 'site', 'assets', 'keep.txt'), 'utf8'), 'keep asset\n');
   assert.equal(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'legacy', 'index.html'), 'utf8'), 'keep legacy\n');
+  assert.equal(await readFile(path.join(temporaryRoot, 'site', 'repo', 'keep--repository', 'index.html'), 'utf8'), 'keep unrelated repository page\n');
   await assert.rejects(access(path.join(temporaryRoot, 'site', 'receipts', 'M-999', 'index.html')), (error) => error.code === 'ENOENT');
+  await assert.rejects(access(path.join(temporaryRoot, 'site', 'repo', 'stale--repository')), (error) => error.code === 'ENOENT');
+
+  const externalRepositories = new Map();
+  for (const receipt of externalReceipts) {
+    const repository = new URL(receipt.target_repo).pathname.replace(/^\//, '');
+    const slug = repository.replace('/', '--');
+    const list = externalRepositories.get(slug) ?? [];
+    list.push(receipt);
+    externalRepositories.set(slug, list);
+  }
+  for (const [slug, receipts] of externalRepositories) {
+    const repositoryPage = await readFile(path.join(temporaryRoot, 'site', 'repo', slug, 'index.html'), 'utf8');
+    assert.match(repositoryPage, /← Receipt ledger/);
+    for (const receipt of receipts) assert.match(repositoryPage, new RegExp(`Receipt ${receipt.mission_id}`));
+    const agreement = {
+      total: receipts.filter((receipt) => ['success', 'failure'].includes(receipt.publication?.ci_state)).length,
+      agreed: receipts.filter((receipt) => receipt.publication?.ci_state === 'success').length,
+    };
+    assert.match(repositoryPage, new RegExp(`${agreement.agreed} of ${agreement.total}<\\/strong> conclusive runs`));
+    const repositoryRequest = repositoryPage.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(repositoryRequest);
+    assert.ok(repositoryRequest.indexOf('request-a-run.yml') < repositoryRequest.indexOf('mailto:oss@northset.ai'));
+  }
 
   const allowedHosts = collectHttpHosts(JSON.parse(await readFile(indexPath, 'utf8')));
   allowedHosts.add('northset.ai');
