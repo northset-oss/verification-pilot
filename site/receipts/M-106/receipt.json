@@ -81,9 +81,9 @@
   "correction": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "open",
+    "status": "merged",
     "link": "https://github.com/chipmates/agoracosmica/pull/19",
-    "attribution": "Live upstream pull request"
+    "attribution": "Recorded upstream outcome"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -279,9 +279,9 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "ci_state": "pending",
-      "merged": false,
-      "accepted_as_submitted": null,
-      "time_to_close_ms": null,
+      "merged": true,
+      "accepted_as_submitted": true,
+      "time_to_close_ms": 393800000,
       "released": null,
       "deployed": null,
       "business_result_observed": null
@@ -292,7 +292,7 @@
       "attempt_lineage": "complete",
       "usage": "partial",
       "cost": "unpriced",
-      "external_outcome": "partial",
+      "external_outcome": "complete",
       "business_value": "not_observed"
     },
     "provenance": {

@@ -803,6 +803,52 @@ test('factory synchronizer is read-only by default and applies exact merged byte
   assert.deepEqual(finalFiles, originalFiles);
 });
 
+test('factory synchronizer applies a pinned v1 merged block during the cutover', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-v1-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixture = await writeFactoryDisclosureFixture(root, {
+    missionId: 'M-1001',
+    commitOid: '8'.repeat(40),
+    prState: 'MERGED',
+    bodyState: 'open',
+    command: null,
+    blockVersion: 1,
+  });
+  let body = fixture.body;
+  const request = fakeRequest(new Map([
+    [`GET ${fixture.receiptUrl}`, response(200)],
+    [`GET ${fixture.prApi}`, () => response(200, {
+      number: fixture.prNumber,
+      html_url: fixture.prUrl,
+      body,
+    })],
+    [`GET ${fixture.commentsApi}`, response(200, [])],
+    [`PATCH ${fixture.prApi}`, ({ body: next }) => {
+      body = next.body;
+      return response(200, { number: fixture.prNumber, html_url: fixture.prUrl, body });
+    }],
+  ]));
+
+  const applied = await syncFactoryDisclosure({
+    factoryReceiptsDir: root,
+    missionId: fixture.missionId,
+    policy,
+    request,
+    apply: true,
+    confirmPrUrl: fixture.prUrl,
+  });
+  assert.equal(applied.status, 'verified');
+  assert.equal(applied.block_schema_version, 1);
+  assert.equal(applied.changed, true);
+  assert.equal(request.calls.filter(({ method }) => method === 'PATCH').length, 1);
+  assert.equal(body, renderDisclosureBlock({
+    missionId: fixture.missionId,
+    receiptUrl: fixture.receiptUrl,
+    publicationState: 'merged',
+    blockVersion: 1,
+  }));
+});
+
 test('factory synchronizer refuses a missing open block, digest mismatch, and live PR URL mismatch', async (t) => {
   const missingRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-missing-'));
   const digestRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-sync-digest-'));

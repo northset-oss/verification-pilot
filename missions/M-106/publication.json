@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "mission_id": "M-106",
-  "state": "open",
+  "state": "merged",
   "pr_number": 19,
   "pr_url": "https://github.com/chipmates/agoracosmica/pull/19",
   "pr_head_oid": "5fbd2c8e324385c49f04b26ad92a6b082b89369d",
   "base_branch": "main",
   "head_drift": false,
   "ci_state": "pending",
-  "merge_commit_oid": null,
+  "merge_commit_oid": "5e3d687d02bcad1cbf64fd38dc28b20676df3c3a",
   "review_decision": null,
   "decision_url": null,
   "opened_at": "2026-07-16T17:16:24Z",
-  "closed_at": null,
-  "updated_at": "2026-07-16T17:16:24Z",
-  "observed_at": "2026-07-16T17:16:25.740Z",
+  "closed_at": "2026-07-21T06:39:44Z",
+  "updated_at": "2026-07-21T17:40:57Z",
+  "observed_at": "2026-07-21T17:43:15Z",
   "correction_note": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "bundle_digest": "sha256:9306fe04bc177379f12143e2c91427f6f69c3071b82b2110802e5ec31d9c0167",
@@ -22,10 +22,10 @@
   "release_asset_sha256": "sha256:5dc6578b9845068bda4685b1a189e09ce97153cd69c21e979d621f7591c5e7a8",
   "attestation_verified_at": "2026-07-16T17:16:19.522Z",
   "pr_disclosure": {
-    "schema_version": 1,
+    "schema_version": 2,
     "required": true,
     "mode": "pr_body",
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-106/",
-    "verified_at": "2026-07-16T17:16:25.741Z"
+    "verified_at": "2026-07-21T17:43:15Z"
   }
 }
