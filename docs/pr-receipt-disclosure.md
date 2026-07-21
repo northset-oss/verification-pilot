@@ -74,11 +74,12 @@ node bin/pr-receipt-disclosure.mjs check \
 For each mission directory, the checker follows `current.json:contribution_commit_oid`, verifies
 the exact selected `proof.json` bytes against `current.json:proof_sha256`, and reads the adjacent
 `publication.json`. `OPEN` and unmerged `CLOSED` records require the non-promotional block and fail
-if a merged-style block is present. For a v2 `MERGED` record, exactly two block states are accepted:
+if a merged-style block is present. For a `MERGED` record, exactly two states of its pinned block
+version are accepted:
 
-- The byte-exact v2 open block (one Northset URL, no invitation) reports
+- The byte-exact open block (one Northset URL, no invitation) reports
   `merged_sync_pending`. This is a labeled, non-failing status counted separately in text and JSON.
-- The byte-exact v2 merged block (the invitation once, two Northset URLs) reports `verified`.
+- The byte-exact merged block (the version-specific invitation once) reports `verified`.
 
 Any other body fails. Factory publication schema versions 1 and 2 are accepted for existing status
 records, but an expected block v2 requires a proof schema v2 with a recorded patched command.
@@ -86,8 +87,9 @@ records, but an expected block v2 requires a proof schema v2 with a recorded pat
 `policies/pr_receipt_disclosure_policy.json:factory_block_schema_versions` pins the historical
 factory PRs to block v1. Unlisted factory mission IDs use `current_block_schema_version` (v2), so
 future publications fail closed unless the exact v2 block is present. These version pins are not
-audit exemptions: legacy factory PR bodies are still checked against the exact v1 block, state,
-URL-count, invitation, and comment rules.
+audit exemptions: legacy factory PR bodies are still checked against the exact v1 block,
+URL-count, invitation, and comment rules. An exact v1 open block may remain after the PR merges and
+is then reported as `merged_sync_pending` rather than misrepresented as synchronized.
 
 In `ci / pr-disclosure`, the missions-directory lane runs from the checked-out branch. A separate
 step initializes an ephemeral Git repository under `$RUNNER_TEMP`, fetches the `receipts` branch

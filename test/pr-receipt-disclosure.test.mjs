@@ -485,7 +485,8 @@ test('factory receipts audit verifies versioned open, closed, and merged PR bloc
     writeFactoryDisclosureFixture(root, {
       missionId: 'M-1001',
       commitOid: '2'.repeat(40),
-      prState: 'OPEN',
+      prState: 'MERGED',
+      bodyState: 'open',
       command: null,
       blockVersion: 1,
     }),
@@ -526,8 +527,8 @@ test('factory receipts audit verifies versioned open, closed, and merged PR bloc
     request,
   });
   assert.equal(report.lane, 'factory_receipts');
-  assert.equal(report.checked, 4);
-  assert.equal(report.merged_sync_pending, 1);
+  assert.equal(report.checked, 3);
+  assert.equal(report.merged_sync_pending, 2);
   assert.equal(report.block_v1, 1);
   assert.equal(report.block_v2, 4);
   assert.deepEqual(report.reports.map(({ mission_id: missionId }) => missionId), [
