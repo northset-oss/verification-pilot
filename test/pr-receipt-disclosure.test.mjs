@@ -515,7 +515,7 @@ test('factory receipts audit verifies versioned open, closed, and merged PR bloc
     routes.set(`GET ${fixture.prApi}`, response(200, {
       number: fixture.prNumber,
       html_url: fixture.prUrl,
-      body: fixture.body,
+      body: fixture.missionId === 'M-1001' ? fixture.body.replaceAll('\n', '\r\n') : fixture.body,
     }));
     routes.set(`GET ${fixture.commentsApi}`, response(200, []));
   }
