@@ -738,6 +738,10 @@ test('render creates a permanent printable receipt for every committed mission a
     const requestBox = page.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
     assert.ok(requestBox);
     assert.ok(requestBox.indexOf('request-a-run.yml') < requestBox.indexOf('mailto:oss@northset.ai'));
+    assert.match(requestBox, /href="https:\/\/github\.com\/northset-oss\/verification-pilot\/issues\/new\?template=request-a-run\.yml">Open a public request<\/a>/);
+    assert.match(requestBox, /href="mailto:oss@northset\.ai\?/);
+    assert.match(requestBox, /<code>northset-verify<\/code>/);
+    assert.match(requestBox, /href="https:\/\/northset-oss\.github\.io\/verification-pilot\/receipts\/M-004\/">See a sample private check receipt<\/a>/);
     const repository = new URL(build.index.missions.find((mission) => mission.mission_id === missionId).receipt.target_repo).pathname.replace(/^\//, '');
     assert.match(page, new RegExp(`Maintain ${repository.replace('/', '\\/')}\\?`));
     if (publication.state !== 'prepared') {
@@ -810,7 +814,10 @@ test('render creates a permanent printable receipt for every committed mission a
   }
   const correction = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-015', 'index.html'), 'utf8');
   const m001 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-001', 'index.html'), 'utf8');
+  const m004 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-004', 'index.html'), 'utf8');
   assert.match(correction, /Correction: compile-typescript was run/);
+  assert.match(m004, /REHEARSAL — NOT EXTERNAL VALIDATION/);
+  assert.match(m004, /Self-authorized verification-lane rehearsal/);
   const m008 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-008', 'index.html'), 'utf8');
   const m016 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'index.html'), 'utf8');
   const m019 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'index.html'), 'utf8');

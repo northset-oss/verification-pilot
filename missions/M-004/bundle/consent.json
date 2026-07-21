@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-004",
+  "variant": "V",
+  "consent_artifact": "https://github.com/northset-oss/verification-pilot/blob/main/missions/M-004/consent.json",
+  "granted_at": "2026-07-21T12:00:00Z",
+  "granted_by": "northset-oss repository owner (self-authorization)",
+  "publication_consent": true,
+  "scope": [
+    "Run node --test test/v-rehearsal-sample.test.mjs against the recorded base commit plus patch.",
+    "Prepare this self-authorized verification-lane rehearsal as an unpublished sample receipt; no push or deployment is authorized."
+  ]
+}

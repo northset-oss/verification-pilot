@@ -1,0 +1,51 @@
+{
+  "mission_id": "M-004",
+  "variant": "V",
+  "claims_tier": [],
+  "grade": null,
+  "disclosure_label": "REHEARSAL — NOT EXTERNAL VALIDATION. Self-authorized verification-lane rehearsal on Northset's own repository; not a real external maintainer request.",
+  "funding_source": "Northset OSS Fund (self-funded rehearsal)",
+  "northset_role": "verifier",
+  "external_counterparty": "northset-oss repository owner (self-authorizing counterparty)",
+  "target_repo": "https://github.com/northset-oss/verification-pilot",
+  "issue_or_task": null,
+  "consent_artifact": "https://github.com/northset-oss/verification-pilot/blob/main/missions/M-004/consent.json",
+  "repo_policy_snapshot": {
+    "url": "https://github.com/northset-oss/verification-pilot/blob/main/docs/run-request-intake.md",
+    "checked_at": "2026-07-21T12:00:00Z",
+    "ai_policy_summary": "Northset owns the repository and self-authorized this bounded verification-lane rehearsal; it is not an external maintainer request."
+  },
+  "worker_identity": {
+    "runtime": "Codex CLI host fallback runner",
+    "human_operator": "Northset"
+  },
+  "base_commit": "9b6c1f38b0cc63c4bd59520cd462030c8b917805",
+  "patch_commit": null,
+  "patch_diff_hash": "sha256:7d555727a0b7e0d3c8832b0392c767489f71282e73349fd700d386e73d4b69f4",
+  "commands_declared": [
+    "node --test test/v-rehearsal-sample.test.mjs"
+  ],
+  "environment": {
+    "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "network_policy": "phaseA:bridge,phaseB:none"
+  },
+  "run_record_bundle_digest": null,
+  "attestation_uri": null,
+  "maintainer_outcome": {
+    "status": "pending",
+    "link": null,
+    "decided_at": null
+  },
+  "payment": {
+    "maintainer_payment": "none",
+    "merge_contingent": false
+  },
+  "limitations": [
+    "REHEARSAL — NOT EXTERNAL VALIDATION.",
+    "Self-authorized on Northset's own repository; not a real external maintainer request or external maintainer verification.",
+    "Docker was unavailable to this managed session, so the declared node:test check ran through the pipeline's host fallback without container or network isolation; the pinned image and phaseA:bridge,phaseB:none policy are declared targets only.",
+    "The recorded patch stands in for a small Northset-authored pull request change; no pull request was opened.",
+    "Does not prove code quality",
+    "Does not prove security"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "node --test test/v-rehearsal-sample.test.mjs"
+  ]
+}

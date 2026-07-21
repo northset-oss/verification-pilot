@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-07-21T22:05:25.848Z",
+  "finished_at": "2026-07-21T22:05:25.949Z",
+  "environment": {
+    "container_image_ref": "host-node:v22.22.3",
+    "container_image_digest": null,
+    "network_policy": "host fallback; Docker socket permission denied; no container or network isolation",
+    "source_commit": "9b6c1f38b0cc63c4bd59520cd462030c8b917805",
+    "patch_sha256": "sha256:7d555727a0b7e0d3c8832b0392c767489f71282e73349fd700d386e73d4b69f4",
+    "install_commands": []
+  },
+  "commands": [
+    {
+      "cmd": "node --test test/v-rehearsal-sample.test.mjs",
+      "exit_code": 0,
+      "duration_ms": 101
+    }
+  ],
+  "notes": "Docker was unavailable to this managed session. The declared node:test check executed on the host against a clean disposable checkout with the recorded patch applied.",
+  "redactions": {}
+}

@@ -1,0 +1,33 @@
+diff --git a/test/v-rehearsal-sample.test.mjs b/test/v-rehearsal-sample.test.mjs
+new file mode 100644
+--- /dev/null
++++ b/test/v-rehearsal-sample.test.mjs
+@@ -0,0 +1,28 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++
++import { validatePublicConsent } from '../lib/bundle.mjs';
++
++const mission = {
++  mission_id: 'M-004',
++  variant: 'V',
++  consent_artifact: 'https://github.com/northset-oss/verification-pilot/blob/main/missions/M-004/consent.json',
++};
++
++const consent = {
++  schema_version: 1,
++  mission_id: mission.mission_id,
++  variant: mission.variant,
++  consent_artifact: mission.consent_artifact,
++  granted_at: '2026-07-21T12:00:00Z',
++  granted_by: 'northset-oss repository owner (self-authorization)',
++  publication_consent: true,
++  scope: [
++    'run the declared node:test verification check',
++    'prepare the unpublished sample receipt',
++  ],
++};
++
++test('self-authorized V rehearsal consent binds to its mission', () => {
++  assert.deepEqual(validatePublicConsent(consent, mission), { valid: true, errors: [] });
++});
