@@ -7,7 +7,7 @@
   "required": ["schema_version", "mission_id", "variant", "consent_artifact", "granted_at", "granted_by", "publication_consent", "scope"],
   "properties": {
     "schema_version": { "const": 1 },
-    "mission_id": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "mission_id": { "type": "string", "pattern": "^M-(?:[0-9]{3,}|E2[a-c])$" },
     "variant": { "enum": ["V", "W", "F"] },
     "consent_artifact": { "type": "string", "format": "uri", "pattern": "^https://" },
     "granted_at": { "type": "string", "format": "date-time" },

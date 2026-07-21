@@ -26,7 +26,7 @@
     h1,h2,h3,p { margin-top:0; } h1 { max-width:18ch; margin-bottom:.65rem; font-size:clamp(2rem,7vw,4.8rem); line-height:1.02; letter-spacing:-.06em; } h2 { line-height:1.15; } h3,.eyebrow { font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; }
     a { color:inherit; overflow-wrap:anywhere; text-decoration-thickness:1px; text-underline-offset:3px; } a:focus-visible,button:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
     .visually-hidden { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    .mast { max-width:68ch; margin-bottom:2rem; } .mast-cta { margin:1.2rem 0 .8rem; }
+    .mast { max-width:68ch; margin-bottom:2rem; } .mast-cta { margin:1.2rem 0 .8rem; display:flex; flex-wrap:wrap; gap:.65rem; }
     .northset-brand { display:block; width:min(100%,32rem); margin-bottom:.2rem; color:var(--ink); line-height:0; text-decoration:none; } .northset-wordmark { display:block; width:min(100%,32rem); height:auto; } .northset-domain { margin:0 0 1.75rem; font-size:clamp(1.15rem,3vw,1.5rem); font-weight:800; letter-spacing:.04em; } .northset-domain a { color:#b5edce; text-decoration:none; } .northset-domain a:hover { text-decoration:underline; }
     .hero-stats { margin:0 0 2.2rem; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-block:1px solid var(--line); } .hero-stats a { min-width:0; padding:.8rem .75rem; display:flex; flex-direction:column; color:var(--muted); text-decoration:none; } .hero-stats a + a { border-left:1px solid var(--line); } .hero-stats strong { color:#b5edce; font:800 clamp(1.7rem,4vw,2.7rem)/1 var(--sans); letter-spacing:-.04em; } .hero-stats span { margin-top:.3rem; font-size:.68rem; line-height:1.3; text-transform:uppercase; letter-spacing:.04em; } .hero-stats a:hover span { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
     .eyebrow { margin-bottom:.45rem; color:#9dd9bd; font-weight:700; } .hero { display:grid; grid-template-columns:minmax(15rem,1fr) minmax(0,34rem); gap:1rem 3rem; align-items:start; } .hero-intro { grid-column:1; grid-row:1; max-width:38rem; } .hero-intro h2 { font-size:clamp(1.2rem,3vw,1.8rem); } .hero > .receipt { grid-column:2; grid-row:1; margin-top:0; } .hero-notes { width:100%; margin:1.5rem 0 0; padding:0; display:grid; gap:.6rem; list-style:none; } .hero-note { padding:.7rem; border:1px solid var(--line); color:var(--muted); font-size:.76rem; } .hero-note strong,.hero-note span { display:block; } .hero-note strong { color:#b5edce; margin-bottom:.2rem; text-transform:uppercase; letter-spacing:.06em; }
@@ -220,12 +220,10 @@
     .gallery { margin-top:3rem; } .gallery-head { display:flex; gap:1rem; justify-content:space-between; align-items:end; flex-wrap:wrap; } .gallery-head h2 { margin-bottom:0; } .filters { display:flex; flex-wrap:wrap; gap:.4rem; } .filters button { color:var(--ink); border-color:var(--line); background:transparent; } .filters button[aria-pressed="true"] { color:#082d20; background:#b5edce; }
     .preview-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:.8rem; margin-top:1rem; } .receipt-preview { min-width:0; padding:1rem; border:1px solid var(--line); border-left-width:4px; background:#21342f; } .receipt-preview[hidden] { display:none; } .receipt-preview[data-status-tone="merged"] { border-left-color:#4ed18e; background:#203932; } .receipt-preview[data-status-tone="changes-requested"] { border-left-color:#d8a94d; background:#3a3428; } .receipt-preview[data-status-tone="closed"] { border-left-color:#77867f; background:#29332f; opacity:.72; } .receipt-preview[data-status-tone="open"] { border-left-color:#7d9188; background:#24342f; } .receipt-preview.receipt--rehearsal { background:#3d4641; filter:saturate(.45); } .preview-id,.preview-repo,.preview-work,.preview-status,.preview-result,.preview-state-detail,.preview-scope,.preview-attestation,.preview-class,.preview-outcome { margin-bottom:.5rem; } .preview-id { color:#90a69c; font-size:.66rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; } .preview-repo { margin-bottom:.55rem; font-family:var(--sans); font-size:clamp(1.12rem,2.2vw,1.38rem); font-weight:800; line-height:1.08; letter-spacing:-.025em; text-transform:none; } .preview-repo a { color:#f0f5f1; text-decoration-thickness:2px; } .preview-work { color:#d4ded8; font-family:var(--sans); font-size:.88rem; line-height:1.35; } .preview-work > span { display:block; margin-bottom:.08rem; color:#91a69d; font:800 .62rem/1.2 var(--mono); letter-spacing:.05em; text-transform:uppercase; } .preview-status { margin:.8rem 0 .4rem; padding-top:.65rem; border-top:1px solid #465a52; } .preview-status strong { color:#c7d3cd; font-size:.75rem; letter-spacing:.035em; text-transform:uppercase; } .receipt-preview[data-status-tone="merged"] .preview-status strong { color:#73dba5; font-weight:900; } .receipt-preview[data-status-tone="changes-requested"] .preview-status strong { color:#f0c466; } .receipt-preview[data-status-tone="closed"] .preview-status strong { color:#9caaa4; text-decoration:line-through; } .preview-result { color:#9fd2b8; font-size:.7rem; font-weight:700; } .preview-state-detail,.preview-class,.preview-scope,.preview-attestation,.preview-outcome { color:var(--muted); font-size:.68rem; line-height:1.4; } .preview-class { display:inline-block; padding:.2rem .32rem; border:1px solid currentColor; color:#9bc8b5; font-size:.6rem; font-weight:800; } .receipt-preview.receipt--rehearsal .preview-class { color:#bdc4c0; } .receipt-preview.receipt--verification .preview-class { color:#78dca9; } .receipt-preview.receipt--declared .preview-class { color:#d4aa5e; } .preview-link { display:inline-block; margin-top:.4rem; color:#b5edce; font-weight:800; }.noscript { color:var(--muted); }
     .rehearsal-archive { margin:3rem 0 0; padding:1rem; border:1px solid var(--line); color:var(--muted); } .rehearsal-archive > summary { color:var(--ink); cursor:pointer; font-weight:800; } .rehearsal-archive > p { margin:.8rem 0 0; font-size:.82rem; }
-    .request-run { max-width:58rem; margin:3.5rem 0 0; padding:clamp(1rem,3vw,1.6rem); border:1px solid #689781; border-left:6px solid #9dd9bd; background:#21342f; } .receipt-page > .request-run { width:min(100%,58rem); margin:2.4rem auto 0; } .request-run h2 { margin-bottom:.75rem; font-size:clamp(1.35rem,4vw,2rem); } .request-run > p { max-width:68ch; } .request-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.15rem 0 .9rem; } .request-primary { font-weight:800; } .request-secondary { background:transparent; color:var(--ink); } .request-secondary:hover { color:#064b34; } .request-public-note,.request-onboarded { margin-bottom:.5rem; color:var(--muted); font-size:.78rem; } .request-onboarded code { color:#b5edce; }
+    .request-run { max-width:58rem; margin:3.5rem 0 0; padding:clamp(1rem,3vw,1.6rem); border:1px solid #689781; border-left:6px solid #9dd9bd; background:#21342f; } .receipt-page > .request-run { width:min(100%,58rem); margin:2.4rem auto 0; } .request-run h2 { margin-bottom:.75rem; font-size:clamp(1.35rem,4vw,2rem); } .request-run > p { max-width:68ch; } .request-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.15rem 0 .9rem; } .request-primary { font-weight:800; } .request-secondary { background:transparent; color:var(--ink); } .request-secondary:hover { color:#b5edce; } .request-public-note,.request-onboarded { margin-bottom:.5rem; color:var(--muted); font-size:.78rem; } .request-onboarded code { color:#b5edce; }
     .claims { max-width:58rem; margin:3.5rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); }.claims h2 { color:var(--ink); }.site-footer { max-width:58rem; margin:2rem 0 0; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.78rem; }.page-nav { width:min(100%,58rem); margin:0 auto 1rem; color:var(--muted); font-size:.78rem; }.page-nav p { margin:.5rem 0 0; overflow-wrap:anywhere; }.page-actions,.page-action-buttons { display:flex; align-items:center; gap:.6rem; }.page-actions { justify-content:space-between; }.page-action-buttons { justify-content:flex-end; flex-wrap:wrap; }
-    .receipt-page > .request-run { margin-top:1.5rem; padding:.8rem 0 0; border:0; border-top:1px solid var(--line); background:transparent; opacity:.68; font-size:.72rem; }
-    .receipt-page > .request-run .eyebrow { margin-bottom:.25rem; color:var(--muted); font-size:.65rem; }
-    .receipt-page > .request-run h2 { margin-bottom:.45rem; font-size:1rem; letter-spacing:0; }
-    .receipt-page > .request-run .request-actions { margin:.65rem 0 .5rem; }
+    .verify-first { width:min(100%,58rem); margin:0 auto 1rem; padding:1rem; border:1px solid #689781; border-left:6px solid #9dd9bd; background:#21342f; } .verify-first h2 { margin-bottom:.65rem; font-size:1.15rem; } .verify-first pre { font-size:.72rem; } .verify-first p { margin:.55rem 0 0; color:var(--muted); font-size:.78rem; }
+    .ci-agreement-stat,.receipt-ci-agreement,.discrepancy-pledge,.repository-ledger-nav { max-width:58rem; margin:1.25rem 0; padding:.85rem 1rem; border-left:4px solid #9dd9bd; background:#21342f; } .receipt-page > :is(.receipt-ci-agreement,.discrepancy-pledge,.repository-ledger-nav) { width:min(100%,58rem); margin-left:auto; margin-right:auto; } .preview-repo-ledger { margin:.6rem 0 0; color:var(--muted); font-size:.68rem; }
     .receipt-page-claims,.receipt-page-footer { margin-top:1.3rem; opacity:.6; font-size:.7rem; }
     .receipt-page-claims h2 { font-size:.9rem; }
     @media (max-width:58rem) { .hero { grid-template-columns:1fr; } .hero-intro,.hero > .receipt { grid-column:1; grid-row:auto; } .hero-notes { grid-template-columns:repeat(2,minmax(0,1fr)); } }
@@ -299,15 +297,16 @@
       .facts dd,.receipt-meta dd { margin-bottom:.55rem; }
     }
     @media (prefers-reduced-motion:reduce) { .anatomy-segment { animation:none; } }
-    @media print { @page { margin:8mm; } :root,html,body { color-scheme:light; background:#fff; color:#000; } body { font-size:9pt; } main,.receipt-page { width:auto; padding:0; margin:0; } .mast,.hero-stats,.gallery,.claims,.site-footer,.page-nav,.verify-ledger,.receipt-open,.outcome-stub,.request-run { display:none !important; } .patch,.evidence-output { display:none !important; } .receipt { display:block; width:auto; max-width:100%; margin:0; box-shadow:none; transform:none; } .receipt--economic { background:#fff; border:1px solid #777; } .receipt--economic::before,.receipt--economic::after { display:none; } .receipt:not(.receipt--economic) { width:72mm; } .facts,.receipt-meta { grid-template-columns:1fr; gap:.15rem; } .facts dd,.receipt-meta dd { margin-bottom:.45rem; } .receipt .button-link,.receipt button { display:none; } .proof-scope,.compact-identities,.cryptographic-detail,.limitations,.verification,.receipt-disclosure,.qr-link,.proof-hero,.proofline-anatomy,.proofline-stage,.identity-flow>li,.receipt-cost-total,.receipt-provenance { break-inside:avoid; page-break-inside:avoid; } .anatomy-segment { animation:none; } .qr-link { display:flex; } .evidence-drawer:not([open]) > :not(summary),.annex-chapter:not([open]) > :not(summary) { display:block !important; } a { color:inherit; text-decoration:none; } }
+    @media print { @page { margin:8mm; } :root,html,body { color-scheme:light; background:#fff; color:#000; } body { font-size:9pt; } main,.receipt-page { width:auto; padding:0; margin:0; } .mast,.hero-stats,.gallery,.claims,.site-footer,.page-nav,.verify-ledger,.verify-first,.receipt-open,.outcome-stub,.request-run,.receipt-ci-agreement,.discrepancy-pledge,.repository-ledger-nav { display:none !important; } .patch,.evidence-output { display:none !important; } .receipt { display:block; width:auto; max-width:100%; margin:0; box-shadow:none; transform:none; } .receipt--economic { background:#fff; border:1px solid #777; } .receipt--economic::before,.receipt--economic::after { display:none; } .receipt:not(.receipt--economic) { width:72mm; } .facts,.receipt-meta { grid-template-columns:1fr; gap:.15rem; } .facts dd,.receipt-meta dd { margin-bottom:.45rem; } .receipt .button-link,.receipt button { display:none; } .proof-scope,.compact-identities,.cryptographic-detail,.limitations,.verification,.receipt-disclosure,.qr-link,.proof-hero,.proofline-anatomy,.proofline-stage,.identity-flow>li,.receipt-cost-total,.receipt-provenance { break-inside:avoid; page-break-inside:avoid; } .anatomy-segment { animation:none; } .qr-link { display:flex; } .evidence-drawer:not([open]) > :not(summary),.annex-chapter:not([open]) > :not(summary) { display:block !important; } a { color:inherit; text-decoration:none; } }
   </style>
 </head>
 <body>
 <main>
   <header class="mast"><a class="northset-brand" href="https://northset.ai"><svg class="northset-wordmark" role="img" aria-label="NORTHSET" viewBox="0 18.35 475 96">
   <g transform="translate(-11.52,10.89) scale(1.075)"><g transform="translate(5.24,-0.04)"><rect x="18.5" y="26.0" width="11.0" height="56.0" fill="currentColor"/><polygon points="26.6,26.0 29.4,26.0 56.79,62.82 74.03,20.0 85.97,20.0 59.4,83.0 19.64,31.36" fill="currentColor"/></g></g><g transform="translate(110.18,99.0)"><path d="M5.93 0V-60.2H25.71L39.9 -6.97H41.28V-60.2H51.51V0H31.82L17.63 -53.23H16.17V0Z M81.25 1.2Q74.89 1.2 69.85 -1.42Q64.82 -4.04 61.94 -8.9Q59.06 -13.76 59.06 -20.55V-21.93Q59.06 -28.72 61.94 -33.63Q64.82 -38.53 69.85 -41.11Q74.89 -43.69 81.25 -43.69Q87.61 -43.69 92.6 -41.11Q97.59 -38.53 100.47 -33.63Q103.35 -28.72 103.35 -21.93V-20.55Q103.35 -13.76 100.47 -8.9Q97.59 -4.04 92.6 -1.42Q87.61 1.2 81.25 1.2ZM81.25 -7.57Q86.67 -7.57 90.11 -11.05Q93.55 -14.53 93.55 -20.81V-21.67Q93.55 -27.95 90.11 -31.43Q86.67 -34.92 81.25 -34.92Q75.83 -34.92 72.39 -31.43Q68.95 -27.95 68.95 -21.67V-20.81Q68.95 -14.53 72.39 -11.05Q75.83 -7.57 81.25 -7.57Z M111.24 0V-42.48H120.96V-37.58H122.42Q123.37 -40.25 125.61 -41.45Q127.84 -42.66 130.94 -42.66H136.1V-33.88H130.77Q126.47 -33.88 123.8 -31.6Q121.13 -29.33 121.13 -24.6V0Z M158.44 0Q154.31 0 151.86 -2.45Q149.41 -4.9 149.41 -9.12V-34.31H138.31V-42.48H149.41V-56.16H159.3V-42.48H171.51V-34.31H159.3V-10.75Q159.3 -8.17 161.71 -8.17H170.22V0Z M178.97 0V-60.2H188.86V-36.89H190.32Q191.01 -38.36 192.56 -39.82Q194.11 -41.28 196.64 -42.23Q199.18 -43.17 203.05 -43.17Q207.95 -43.17 211.74 -40.98Q215.52 -38.79 217.63 -34.83Q219.74 -30.87 219.74 -25.46V0H209.85V-24.68Q209.85 -29.84 207.31 -32.38Q204.77 -34.92 200.13 -34.92Q194.88 -34.92 191.87 -31.43Q188.86 -27.95 188.86 -21.5V0Z M246.81 1.2Q238.55 1.2 233.22 -2.41Q227.89 -6.02 226.77 -12.99L235.88 -15.31Q236.49 -12.04 238.03 -10.15Q239.58 -8.26 241.86 -7.48Q244.14 -6.71 246.81 -6.71Q250.85 -6.71 252.87 -8.17Q254.89 -9.63 254.89 -11.87Q254.89 -14.19 252.95 -15.31Q251.02 -16.43 247.06 -17.2L244.4 -17.63Q240.01 -18.49 236.4 -19.99Q232.79 -21.5 230.59 -24.12Q228.4 -26.75 228.4 -30.79Q228.4 -36.98 233 -40.33Q237.6 -43.69 245.09 -43.69Q252.22 -43.69 256.87 -40.51Q261.51 -37.32 262.89 -31.99L253.77 -29.24Q253.08 -32.85 250.76 -34.36Q248.44 -35.86 245.09 -35.86Q241.65 -35.86 239.8 -34.66Q237.95 -33.45 237.95 -31.22Q237.95 -28.98 239.84 -27.86Q241.73 -26.75 244.91 -26.23L247.58 -25.71Q252.31 -24.85 256.14 -23.48Q259.96 -22.1 262.2 -19.52Q264.44 -16.94 264.44 -12.56Q264.44 -5.93 259.66 -2.36Q254.89 1.2 246.81 1.2Z M291.25 1.2Q284.88 1.2 280.02 -1.5Q275.17 -4.21 272.46 -9.16Q269.75 -14.1 269.75 -20.73V-21.76Q269.75 -28.47 272.41 -33.37Q275.08 -38.27 279.9 -40.98Q284.71 -43.69 290.99 -43.69Q297.18 -43.69 301.83 -40.98Q306.47 -38.27 309.05 -33.37Q311.63 -28.47 311.63 -21.93V-18.4H279.72Q279.9 -13.42 283.25 -10.41Q286.6 -7.4 291.51 -7.4Q296.32 -7.4 298.64 -9.5Q300.97 -11.61 302.17 -14.28L310.34 -10.06Q309.14 -7.74 306.86 -5.12Q304.58 -2.49 300.79 -0.64Q297.01 1.2 291.25 1.2ZM279.81 -25.89H301.57Q301.22 -30.1 298.34 -32.59Q295.46 -35.09 290.9 -35.09Q286.17 -35.09 283.34 -32.59Q280.5 -30.1 279.81 -25.89Z M333.88 0Q329.76 0 327.3 -2.45Q324.85 -4.9 324.85 -9.12V-34.31H313.76V-42.48H324.85V-56.16H334.74V-42.48H346.96V-34.31H334.74V-10.75Q334.74 -8.17 337.15 -8.17H345.67V0Z" fill="currentColor"/></g>
-</svg></a><p class="northset-domain"><a href="https://northset.ai">northset.ai</a></p><h1>Proof-of-Pass Receipts</h1><p>Proof-of-pass receipts for open-source work record exactly which declared commands returned exit 0, on named code and in a named environment. Each receipt is scoped evidence, not a verdict on code quality or maintainer approval.</p><p class="mast-cta"><a class="button-link mast-request" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Request a private run</a></p></header>
+</svg></a><p class="northset-domain"><a href="https://northset.ai">northset.ai</a></p><h1>Proof-of-Pass Receipts</h1><p>Proof-of-pass receipts for open-source work record exactly which declared commands returned exit 0, on named code and in a named environment. Each receipt is scoped evidence, not a verdict on code quality or maintainer approval.</p><p class="mast-cta"><a class="button-link mast-request request-primary" href="https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml">Open a public request</a><a class="button-link request-secondary" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Email a private request</a></p></header>
   <nav class="hero-stats" aria-label="Ledger headline statistics"><a href="#receipt-gallery" data-select-filter="all"><strong>30</strong><span>External receipts</span></a><a href="#receipt-gallery" data-select-filter="merged"><strong>11</strong><span>Merged upstream</span></a><a href="#receipt-gallery"><strong>26</strong><span>Distinct repositories</span></a><a href="#receipt-gallery"><strong>30</strong><span>Attested</span></a></nav>
+  <p class="ci-agreement-stat">Where maintainers ran upstream CI on a receipt head, it agreed with the receipt in <strong>14 of 18</strong> runs.</p>
   <section class="hero"><div class="hero-intro"><p class="eyebrow">FEATURED RECEIPT</p><h2>One real receipt, readable top to bottom.</h2><ol class="hero-notes" aria-label="How to read the featured receipt"><li class="hero-note"><strong>Declared commands</strong><span>Exact command evidence unfolds on the canonical receipt.</span></li><li class="hero-note"><strong>Recorded environment</strong><span>Image, digest, and network policy remain named.</span></li><li class="hero-note"><strong>Separate outcome</strong><span>Later upstream decisions stay detached from run evidence.</span></li></ol></div><article class="receipt featured-stub receipt--self-run" id="M-008" aria-labelledby="featured-stub-title">
   <header class="receipt-head featured-stub-head">
     <div><p class="brand">NORTHSET</p><h3 id="featured-stub-title">Proof-of-Pass Receipt</h3><p class="featured-receipt-id">Receipt M-008</p></div>
@@ -333,6 +332,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-176/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/gr2m--github-project/">All Northset work in gr2m/github-project →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-171" aria-labelledby="preview-title-M-171" data-publication-state="open" data-review-decision="review_required" data-status-tone="open">
   <p class="preview-id">Receipt M-171</p>
   <h3 id="preview-title-M-171" class="preview-repo"><a class="" href="https://github.com/meilisearch/meilisearch-js-plugins">meilisearch/meilisearch-js-plugins</a></h3>
@@ -345,6 +345,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-171/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/meilisearch--meilisearch-js-plugins/">All Northset work in meilisearch/meilisearch-js-plugins →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-168" aria-labelledby="preview-title-M-168" data-publication-state="open" data-review-decision="review_required" data-status-tone="open">
   <p class="preview-id">Receipt M-168</p>
   <h3 id="preview-title-M-168" class="preview-repo"><a class="" href="https://github.com/ember-cli/ember-cli">ember-cli/ember-cli</a></h3>
@@ -357,6 +358,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-168/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/ember-cli--ember-cli/">All Northset work in ember-cli/ember-cli →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-170" aria-labelledby="preview-title-M-170" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-170</p>
   <h3 id="preview-title-M-170" class="preview-repo"><a class="" href="https://github.com/andrewgari/starbunk-js">andrewgari/starbunk-js</a></h3>
@@ -369,6 +371,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-170/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/andrewgari--starbunk-js/">All Northset work in andrewgari/starbunk-js →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-161" aria-labelledby="preview-title-M-161" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-161</p>
   <h3 id="preview-title-M-161" class="preview-repo"><a class="" href="https://github.com/ahmed-175/notion-clone-nestjs">ahmed-175/notion-clone-nestjs</a></h3>
@@ -381,6 +384,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-161/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/ahmed-175--notion-clone-nestjs/">All Northset work in ahmed-175/notion-clone-nestjs →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-167" aria-labelledby="preview-title-M-167" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-167</p>
   <h3 id="preview-title-M-167" class="preview-repo"><a class="" href="https://github.com/cryptoteep/promptkit">cryptoteep/promptkit</a></h3>
@@ -393,6 +397,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-167/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/cryptoteep--promptkit/">All Northset work in cryptoteep/promptkit →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-160" aria-labelledby="preview-title-M-160" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-160</p>
   <h3 id="preview-title-M-160" class="preview-repo"><a class="" href="https://github.com/dankeboy36/boardlab">dankeboy36/boardlab</a></h3>
@@ -405,6 +410,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-160/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/dankeboy36--boardlab/">All Northset work in dankeboy36/boardlab →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-157" aria-labelledby="preview-title-M-157" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-157</p>
   <h3 id="preview-title-M-157" class="preview-repo"><a class="" href="https://github.com/nandansai08/personal-ai">nandansai08/personal-ai</a></h3>
@@ -417,6 +423,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-157/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/nandansai08--personal-ai/">All Northset work in nandansai08/personal-ai →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-147" aria-labelledby="preview-title-M-147" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-147</p>
   <h3 id="preview-title-M-147" class="preview-repo"><a class="" href="https://github.com/datadave-dev/weftmap">datadave-dev/weftmap</a></h3>
@@ -429,6 +436,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-147/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/datadave-dev--weftmap/">All Northset work in datadave-dev/weftmap →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-150" aria-labelledby="preview-title-M-150" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-150</p>
   <h3 id="preview-title-M-150" class="preview-repo"><a class="" href="https://github.com/davidtkramer/typical-data">davidtkramer/typical-data</a></h3>
@@ -441,6 +449,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-150/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/davidtkramer--typical-data/">All Northset work in davidtkramer/typical-data →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-116" aria-labelledby="preview-title-M-116" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-116</p>
   <h3 id="preview-title-M-116" class="preview-repo"><a class="" href="https://github.com/thepants999/yellowscribe">thepants999/yellowscribe</a></h3>
@@ -453,6 +462,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-116/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/thepants999--yellowscribe/">All Northset work in thepants999/yellowscribe →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-122" aria-labelledby="preview-title-M-122" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-122</p>
   <h3 id="preview-title-M-122" class="preview-repo"><a class="" href="https://github.com/picolab/pico-engine">picolab/pico-engine</a></h3>
@@ -465,6 +475,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-122/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/picolab--pico-engine/">All Northset work in picolab/pico-engine →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-112" aria-labelledby="preview-title-M-112" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-112</p>
   <h3 id="preview-title-M-112" class="preview-repo"><a class="" href="https://github.com/dreamstick9/filedrop">dreamstick9/filedrop</a></h3>
@@ -477,6 +488,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>85f57f1ee66eebbddbd41ce89ada31a413437593</code>; current PR head <code>5079b2942172d6092654a537b475b7f3921b6103</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-112/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/dreamstick9--filedrop/">All Northset work in dreamstick9/filedrop →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-115" aria-labelledby="preview-title-M-115" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-115</p>
   <h3 id="preview-title-M-115" class="preview-repo"><a class="" href="https://github.com/rokucommunity/bslint">rokucommunity/bslint</a></h3>
@@ -489,6 +501,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-115/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/rokucommunity--bslint/">All Northset work in rokucommunity/bslint →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-114" aria-labelledby="preview-title-M-114" data-publication-state="open" data-review-decision="review_required" data-status-tone="open">
   <p class="preview-id">Receipt M-114</p>
   <h3 id="preview-title-M-114" class="preview-repo"><a class="" href="https://github.com/node-fetch/node-fetch">node-fetch/node-fetch</a></h3>
@@ -501,6 +514,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-114/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/node-fetch--node-fetch/">All Northset work in node-fetch/node-fetch →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-106" aria-labelledby="preview-title-M-106" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-106</p>
   <h3 id="preview-title-M-106" class="preview-repo"><a class="" href="https://github.com/chipmates/agoracosmica">chipmates/agoracosmica</a></h3>
@@ -513,6 +527,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-106/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/chipmates--agoracosmica/">All Northset work in chipmates/agoracosmica →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-105" aria-labelledby="preview-title-M-105" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-105</p>
   <h3 id="preview-title-M-105" class="preview-repo"><a class="" href="https://github.com/glideapps/quicktype">glideapps/quicktype</a></h3>
@@ -525,6 +540,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>a47489b19c182d54b14a0c8d78afda5b1e23864a</code>; current PR head <code>486bca786277fc37db65978c98f74188cff11493</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-105/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/glideapps--quicktype/">All Northset work in glideapps/quicktype →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-104" aria-labelledby="preview-title-M-104" data-publication-state="open" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-104</p>
   <h3 id="preview-title-M-104" class="preview-repo"><a class="" href="https://github.com/soghayarmahmoud/procode-edu-pulse-lms">soghayarmahmoud/procode-edu-pulse-lms</a></h3>
@@ -537,6 +553,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-104/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/soghayarmahmoud--procode-edu-pulse-lms/">All Northset work in soghayarmahmoud/procode-edu-pulse-lms →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-031" aria-labelledby="preview-title-M-031" data-publication-state="merged" data-review-decision="approved" data-status-tone="merged">
   <p class="preview-id">Receipt M-031</p>
   <h3 id="preview-title-M-031" class="preview-repo"><a class="" href="https://github.com/goptics/vizb">goptics/vizb</a></h3>
@@ -549,6 +566,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-031/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/goptics--vizb/">All Northset work in goptics/vizb →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-021" aria-labelledby="preview-title-M-021" data-publication-state="merged" data-review-decision="approved" data-status-tone="merged">
   <p class="preview-id">Receipt M-021</p>
   <h3 id="preview-title-M-021" class="preview-repo"><a class="" href="https://github.com/KaotoIO/kaoto">KaotoIO/kaoto</a></h3>
@@ -561,6 +579,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>19be9992371505fcddf498cdd93c59a08c0bb152</code>; current PR head <code>07fb69366cdcb45863073a1daa65084916829eb4</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-021/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/KaotoIO--kaoto/">All Northset work in KaotoIO/kaoto →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-020" aria-labelledby="preview-title-M-020" data-publication-state="merged" data-review-decision="approved" data-status-tone="merged">
   <p class="preview-id">Receipt M-020</p>
   <h3 id="preview-title-M-020" class="preview-repo"><a class="" href="https://github.com/KaotoIO/kaoto">KaotoIO/kaoto</a></h3>
@@ -573,6 +592,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>ffc3e052480163e7338e3164008c6a7a26a77605</code>; current PR head <code>00d27e70410dc78f0fcda582b987d515dc8b5817</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-020/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/KaotoIO--kaoto/">All Northset work in KaotoIO/kaoto →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-019" aria-labelledby="preview-title-M-019" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-019</p>
   <h3 id="preview-title-M-019" class="preview-repo"><a class="" href="https://github.com/glideapps/quicktype">glideapps/quicktype</a></h3>
@@ -585,6 +605,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-019/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/glideapps--quicktype/">All Northset work in glideapps/quicktype →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-016" aria-labelledby="preview-title-M-016" data-publication-state="open" data-review-decision="review_required" data-status-tone="open">
   <p class="preview-id">Receipt M-016</p>
   <h3 id="preview-title-M-016" class="preview-repo"><a class="" href="https://github.com/renovatebot/renovate">renovatebot/renovate</a></h3>
@@ -597,6 +618,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-016/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/renovatebot--renovate/">All Northset work in renovatebot/renovate →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-015" aria-labelledby="preview-title-M-015" data-publication-state="closed_unmerged" data-review-decision="review_required" data-status-tone="closed">
   <p class="preview-id">Receipt M-015</p>
   <h3 id="preview-title-M-015" class="preview-repo"><a class="" href="https://github.com/prometheus/client_js">prometheus/client_js</a></h3>
@@ -609,6 +631,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-015/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/prometheus--client_js/">All Northset work in prometheus/client_js →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-014" aria-labelledby="preview-title-M-014" data-publication-state="closed_unmerged" data-review-decision="changes_requested" data-status-tone="changes-requested">
   <p class="preview-id">Receipt M-014</p>
   <h3 id="preview-title-M-014" class="preview-repo"><a class="" href="https://github.com/prometheus/client_js">prometheus/client_js</a></h3>
@@ -621,6 +644,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-014/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/prometheus--client_js/">All Northset work in prometheus/client_js →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-012" aria-labelledby="preview-title-M-012" data-publication-state="open" data-review-decision="changes_requested" data-status-tone="changes-requested">
   <p class="preview-id">Receipt M-012</p>
   <h3 id="preview-title-M-012" class="preview-repo"><a class="" href="https://github.com/nodejs/doc-kit">nodejs/doc-kit</a></h3>
@@ -633,6 +657,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>a0bdd2de6a81b60e2f8a607a40d39b4fa0b22751</code>; current PR head <code>4c8e448d249ffd4a70e57a73c1be441e3824cf0e</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-012/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/nodejs--doc-kit/">All Northset work in nodejs/doc-kit →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-011" aria-labelledby="preview-title-M-011" data-publication-state="merged" data-review-decision="approved" data-status-tone="merged">
   <p class="preview-id">Receipt M-011</p>
   <h3 id="preview-title-M-011" class="preview-repo"><a class="" href="https://github.com/prometheus/client_js">prometheus/client_js</a></h3>
@@ -645,6 +670,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
   <p class="preview-outcome"><strong>PR changed since this record.</strong> recorded patch commit <code>e345d993c4d2e1ad54e7367e38e07bcc283ccbca</code>; current PR head <code>b64dc651cb3a1a22ed5e51095bbea2296d2b57ad</code>. The current head is mutable external status and was not executed by this record.</p>
   <a class="preview-link" href="receipts/M-011/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/prometheus--client_js/">All Northset work in prometheus/client_js →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-009" aria-labelledby="preview-title-M-009" data-publication-state="closed_unmerged" data-review-decision="none" data-status-tone="closed">
   <p class="preview-id">Receipt M-009</p>
   <h3 id="preview-title-M-009" class="preview-repo"><a class="" href="https://github.com/prettier/prettier">prettier/prettier</a></h3>
@@ -657,6 +683,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-009/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/prettier--prettier/">All Northset work in prettier/prettier →</a></p>
 </article><article class="receipt-preview receipt--self-run" aria-labelledby="preview-title-M-008" data-publication-state="merged" data-review-decision="approved" data-status-tone="merged">
   <p class="preview-id">Receipt M-008</p>
   <h3 id="preview-title-M-008" class="preview-repo"><a class="" href="https://github.com/RaspberryPiFoundation/blockly-samples">RaspberryPiFoundation/blockly-samples</a></h3>
@@ -669,6 +696,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-008/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/RaspberryPiFoundation--blockly-samples/">All Northset work in RaspberryPiFoundation/blockly-samples →</a></p>
 </article><article class="receipt-preview receipt--self-run" id="M-007" aria-labelledby="preview-title-M-007" data-publication-state="merged" data-review-decision="none" data-status-tone="merged">
   <p class="preview-id">Receipt M-007</p>
   <h3 id="preview-title-M-007" class="preview-repo"><a class="" href="https://github.com/objectionary/jeo-maven-plugin">objectionary/jeo-maven-plugin</a></h3>
@@ -681,6 +709,7 @@
   <p class="preview-class">CONTRIBUTOR SELF-RUN — NOT MAINTAINER VERIFICATION</p>
 
   <a class="preview-link" href="receipts/M-007/">Open receipt →</a>
+  <p class="preview-repo-ledger"><a class="" href="repo/objectionary--jeo-maven-plugin/">All Northset work in objectionary/jeo-maven-plugin →</a></p>
 </article></div></section>
   <details class="rehearsal-archive"><summary>Own-repository rehearsal archive (3)</summary><p>Rehearsals exercise the receipt system. They are not external validation.</p><div class="preview-grid"><article class="receipt-preview receipt--rehearsal" id="M-003" aria-labelledby="preview-title-M-003" data-publication-state="prepared" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-003</p>
@@ -694,6 +723,7 @@
   <p class="preview-class">REHEARSAL — NOT EXTERNAL VALIDATION</p>
 
   <a class="preview-link" href="receipts/M-003/">Open receipt →</a>
+
 </article><article class="receipt-preview receipt--rehearsal" id="M-002" aria-labelledby="preview-title-M-002" data-publication-state="prepared" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-002</p>
   <h3 id="preview-title-M-002" class="preview-repo"><a class="" href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a></h3>
@@ -706,6 +736,7 @@
   <p class="preview-class">REHEARSAL — NOT EXTERNAL VALIDATION</p>
 
   <a class="preview-link" href="receipts/M-002/">Open receipt →</a>
+
 </article><article class="receipt-preview receipt--rehearsal" id="M-001" aria-labelledby="preview-title-M-001" data-publication-state="prepared" data-review-decision="none" data-status-tone="open">
   <p class="preview-id">Receipt M-001</p>
   <h3 id="preview-title-M-001" class="preview-repo"><a class="" href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a></h3>
@@ -718,17 +749,19 @@
   <p class="preview-class">REHEARSAL — NOT EXTERNAL VALIDATION</p>
 
   <a class="preview-link" href="receipts/M-001/">Open receipt →</a>
+
 </article></div></details>
   <section class="request-run" aria-labelledby="request-run-title">
   <p class="eyebrow">FOR MAINTAINERS</p>
   <h2 id="request-run-title">Request a private run</h2>
   <p><strong>Maintain an open-source project?</strong> Send Northset a PR already in your queue. We run its repository-declared checks in an isolated container and return the run record privately. We do not modify the PR. Nothing is published without your approval. Free during the pilot.</p>
-  <div class="request-actions"><a class="button-link request-primary" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Email a private request</a><a class="button-link request-secondary" href="https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml">Open a public request</a></div>
+  <div class="request-actions"><a class="button-link request-primary" href="https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml">Open a public request</a><a class="button-link request-secondary" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Email a private request</a></div>
   <p class="request-public-note">The issue form is public. Do not include secrets or private repository details there; use email instead.</p>
   <p class="request-onboarded"><strong>Already onboarded?</strong> Add <code>northset-verify</code> to a PR to request a run on that PR.</p>
 </section>
+  <p class="discrepancy-pledge">If your CI disagrees with this receipt, <a href="https://github.com/northset-oss/verification-pilot/issues/new?template=report-a-discrepancy.yml">report it</a> — we publish discrepancies on this ledger.</p>
   <section class="claims"><p class="eyebrow">CLAIMS BOUNDARY</p><h2>What a receipt does and does not say</h2><p>A complete proof-of-pass receipt reports the exact declared commands, their recorded exit status, and the recorded execution environment from immutable evidence. Migrated legacy records that lack structured command evidence are marked incomplete and do not claim PASS.</p><p>It does not prove code quality, security, full CI coverage, production readiness, or maintainer approval. An attestation confirms bundle provenance; it does not broaden the receipt's claim.</p><p>Live upstream outcomes are detached because a later maintainer decision is a different fact from the recorded run. Read the full <a href="https://github.com/northset-oss/verification-pilot/blob/main/policies/claims_boundary.md">Claims Boundary policy</a>.</p></section>
-  <footer class="site-footer"><span class="footer-generated">Ledger generated <time datetime="2026-07-19T23:48:30Z">Jul 19, 2026</time>.</span> <strong>SELF-FUNDED FIELD-TESTING.</strong> A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment. Maintainer outcome is reported separately and remains fully outside Northset’s control. Source: <a href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a>. Machine-readable: <a href="ledger.json">ledger.json</a> · <a href="schema/ledger.schema.json">JSON Schemas</a>. <a class="footer-request" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Request a private run</a>.</footer>
+  <footer class="site-footer"><span class="footer-generated">Ledger generated <time datetime="2026-07-21T00:00:00Z">Jul 21, 2026</time>.</span> <strong>SELF-FUNDED FIELD-TESTING.</strong> A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment. Maintainer outcome is reported separately and remains fully outside Northset’s control. Source: <a href="https://github.com/northset-oss/verification-pilot">northset-oss/verification-pilot</a>. Machine-readable: <a href="ledger.json">ledger.json</a> · <a href="schema/ledger.schema.json">JSON Schemas</a>. <a class="footer-request" href="mailto:oss@northset.ai?subject=Northset%20run%20request%3A%20owner%2Frepository%23123&amp;body=PR%20URL%3A%0ARepository%3A%0AI%20am%20a%20maintainer%20or%20authorized%20representative%3A%0AChecks%20to%20run%2C%20if%20different%20from%20repo%20defaults%3A%0AAnything%20Northset%20should%20know%3A">Request a private run</a>.</footer>
 </main>
 <script>
   (() => {

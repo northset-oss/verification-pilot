@@ -75,7 +75,7 @@ jobs:
         env:
           EXPECTED_BEFORE: ${{ steps.range.outputs.before_sha }}
           EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
-          SIGNING_HANDOFF_LIB_SHA256: "62ed6a4653ed74d61696d409e36de0df287f81c93bf2d51e7ebd15d0aa50e4fd"
+          SIGNING_HANDOFF_LIB_SHA256: "a864e261befb0827e6d6c16eac4612d1eb0520015f4260fe7f64dc2a55ad19f9"
           SIGNING_HANDOFF_CLI_SHA256: "75bf23bd809fa33d3d2aa6f7ab74909549d3003e05bfccabdd5e48578d43b361"
         run: |
           set -euo pipefail

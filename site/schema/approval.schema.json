@@ -33,7 +33,7 @@
         }
       }
     },
-    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3}|E2[a-c])$" },
+    "missionId": { "type": "string", "pattern": "^M-(?:[0-9]{3,}|E2[a-c])$" },
     "taskId": { "type": "string", "pattern": "^TASK-OSS-[0-9A-F]{16}$" },
     "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
     "nullableString": { "type": ["string", "null"], "minLength": 1 },

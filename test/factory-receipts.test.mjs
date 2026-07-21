@@ -161,7 +161,9 @@ async function setup(proofs) {
   const mergedIndex = path.join(root, 'merged-index.json');
   const site = path.join(root, 'site');
   await mkdir(receipts, {recursive: true});
-  await writeFile(sourceIndex, `${JSON.stringify({version: '0', generated_at: generatedAt, missions: []})}\n`);
+  await writeFile(sourceIndex, `${JSON.stringify({
+    version: '1', generated_at: generatedAt, ci_agreement: {agreed: 0, total: 0}, missions: [],
+  })}\n`);
   for (const proof of proofs) await writeFactoryProof(receipts, proof);
   return {root, receipts, sourceIndex, mergedIndex, site};
 }
@@ -405,6 +407,52 @@ test('factory adapter rejects contradictory structured observations and publicat
     indexPath: malformedPublication.sourceIndex,
     out: malformedPublication.mergedIndex,
   }), /merged state is inconsistent/);
+});
+
+test('factory publication PR URL is bound to the proof repository and PR number', async () => {
+  for (const prUrl of [
+    'https://github.com/other/repo/pull/4222',
+    'https://github.com/owner/repo/pull/4223',
+  ]) {
+    const proof = structuredProof();
+    const fixture = await setup([proof]);
+    await writeFactoryPublication(fixture.receipts, proof, {pr_url: prUrl});
+    await assert.rejects(mergeFactoryReceipts({
+      receiptsDir: fixture.receipts,
+      receiptRevision: oid('f'),
+      indexPath: fixture.sourceIndex,
+      out: fixture.mergedIndex,
+    }), /publication pr_url must exactly match https:\/\/github\.com\/owner\/repo\/pull\/4222/);
+  }
+});
+
+test('factory merge generated_at includes the latest projected publication observation', async () => {
+  const first = structuredProof();
+  const second = structuredProof({
+    mission_id: 'M-1003',
+    task_id: 'TASK-3',
+    commit_oid: oid('e'),
+  });
+  const fixture = await setup([first, second]);
+  await writeFactoryPublication(fixture.receipts, first, {
+    observed_at: '2026-07-19T15:00:00Z',
+  });
+  await writeFactoryPublication(fixture.receipts, second, {
+    observed_at: '2026-07-19T14:30:00Z',
+  });
+
+  await mergeFactoryReceipts({
+    receiptsDir: fixture.receipts,
+    receiptRevision: oid('f'),
+    indexPath: fixture.sourceIndex,
+    out: fixture.mergedIndex,
+  });
+
+  const merged = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
+  assert.equal(merged.generated_at, '2026-07-19T15:00:00Z');
+  for (const mission of merged.missions) {
+    assert.ok(Date.parse(merged.generated_at) >= Date.parse(mission.publication.observed_at));
+  }
 });
 
 test('attestation subject selection handles root, batch, status-only, and immutable-proof failure', async (t) => {

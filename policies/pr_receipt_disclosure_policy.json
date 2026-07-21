@@ -1,7 +1,8 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "canonical_receipt_base_url": "https://northset-oss.github.io/verification-pilot/receipts/",
   "legacy_ledger_base_url": "https://northset-oss.github.io/verification-pilot/",
+  "current_block_schema_version": 2,
   "historical_exempt_mission_ids": [
     "M-007",
     "M-008",
@@ -15,6 +16,42 @@
     "M-020",
     "M-021"
   ],
+  "factory_block_schema_versions": {
+    "M-1001": 1,
+    "M-1009": 1,
+    "M-1010": 1,
+    "M-1011": 1,
+    "M-1013": 1,
+    "M-1014": 1,
+    "M-1018": 1,
+    "M-1020": 1,
+    "M-1021": 1,
+    "M-1025": 1,
+    "M-1027": 1,
+    "M-1028": 1,
+    "M-1029": 1,
+    "M-1030": 1,
+    "M-1031": 1,
+    "M-1032": 1,
+    "M-1033": 1,
+    "M-1034": 1,
+    "M-1035": 1,
+    "M-1036": 1,
+    "M-1037": 1,
+    "M-1038": 1,
+    "M-1039": 1,
+    "M-1040": 1,
+    "M-1041": 1,
+    "M-1042": 1,
+    "M-1044": 1,
+    "M-1047": 1,
+    "M-1048": 1,
+    "M-1050": 1,
+    "M-1051": 1,
+    "M-1052": 1,
+    "M-1054": 1,
+    "M-1055": 1
+  },
   "northset_actor_logins": [
     "AysajanE"
   ]

@@ -1,6 +1,10 @@
 {
-  "version": "0",
-  "generated_at": "2026-07-19T23:48:30Z",
+  "version": "1",
+  "generated_at": "2026-07-21T00:00:00Z",
+  "ci_agreement": {
+    "agreed": 14,
+    "total": 18
+  },
   "missions": [
     {
       "mission_id": "M-001",
