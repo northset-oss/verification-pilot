@@ -50,6 +50,12 @@ most 32 normalized relative paths in `workspace_write_allowlist`. Those paths ar
 untracked outputs allowed to differ after the declared checks; newly created symlinks and final
 changes to tracked file bytes or modes always fail closed.
 
+The executor validates the workspace manifest after every declared command, before starting the
+next container. In `writable_copy`, only allowlisted artifacts may therefore cross from one command
+to the next; a tracked change, mode change, unapproved path, or new symlink aborts the run before a
+later command can consume and then hide it. This remains final-state evidence at each command
+boundary: a command that restores bytes before it exits is not represented as a change.
+
 The executor copies `repo_dir` to a temporary workspace before invoking Docker. If
 `patch_file` is set, the host applies those exact hashed bytes with `git apply --index --binary`.
 The original repository and patch paths are never mounted in a container. The executor records a
@@ -71,10 +77,15 @@ Every phase-A and phase-B container uses the following posture:
 - a read-only root filesystem and a writable `/tmp` tmpfs capped at 512 MiB
 - the temporary workspace bind-mounted writable at `/workspace` during phase A, then read-only
   during phase B unless the configuration explicitly selects `writable_copy`
-- only fixed `PATH`, `HOME`, `CI`, `COREPACK_HOME`, `NPM_CONFIG_CACHE`, `XDG_CACHE_HOME`, and
-  `XDG_DATA_HOME` container environment values
+- the image entrypoint replaced by `/usr/bin/env -i`, so foreign commands start with only fixed
+  `PATH`, `HOME`, `CI`, `COREPACK_HOME`, `NPM_CONFIG_CACHE`, `XDG_CACHE_HOME`, and
+  `XDG_DATA_HOME` values (plus fixed profile values and non-secret variables synthesized by the
+  shell itself), rather than image-declared or Docker-client proxy environment values
 
-The executor monitors the copied workspace every 250 ms during writable container phases and
+Before copying, the executor rejects a `repo_dir` symlink/non-directory and traverses the source
+without following symlinks to enforce the configured byte and file-count caps. It rechecks the
+copied tree immediately before Git inspection or Docker starts. The executor then monitors the
+copied workspace every 250 ms during writable container phases and
 rechecks it after each phase, without following symlinks. It stops the named container if the
 workspace exceeds the configured byte or file-count cap (2 GiB and 200,000 entries by default).
 The watchdog is not a filesystem quota, so a short burst can exceed a cap between samples before
