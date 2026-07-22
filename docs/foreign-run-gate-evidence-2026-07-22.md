@@ -4,14 +4,14 @@ Decision: **GO for consent-first foreign-PR offers.** This is not blanket permis
 PR. Each accepted offer must still pass the candidate-bound `foreign-runner.mjs run` command
 against the exact approved base commit, config, and patch before foreign code executes.
 
-- Evidence time: `2026-07-22T15:26:49Z`
-- Runner source commit: `684577901cee08865a0ce91aa25d97f945108753`
+- Evidence time: `2026-07-22T15:31:15Z`
+- Runner source commit: `a197177a2edae7b39b43fe326ba5631156ec16df`
 - Runner source SHA-256: `f926efa30ea5664a4bdf109f1c8312a245c85039aff869b9ab603b554824182a`
-- Acceptance-test SHA-256: `e3465b71d17cf4c463d9f0ae3b236d011c5f536effc7903cd2dc336dda55ab06`
+- Acceptance-test SHA-256: `044217ab69c6ea8474b5d753fe0405d9773fb566385a7ecd2b93bf796085628b`
 - `sbx`: `v0.35.0` (`01e01520456e4126a9653471e7072e4d9b280321`)
 - Production Docker daemon in the disposable VM: `29.6.1`, cgroup v2
 - Production image ID: `sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5`
-- Gate sandbox ID: `95060d94-3392-4f0c-816e-4c878a7b29a4` (removed after evidence collection)
+- Gate sandbox ID: `eb651253-0672-4928-9601-8e344539170c` (removed after evidence collection)
 
 ## Checklist disposition
 
@@ -30,12 +30,12 @@ against the exact approved base commit, config, and patch before foreign code ex
 5. **PASS — quiescent intake.** Intake cloned the exact detached commit, verified a clean tree,
    changed ownership to root, removed every write bit, and proved the executor user could not
    create a writer-probe file. Gate evidence bound commit
-   `684577901cee08865a0ce91aa25d97f945108753` to tree
-   `88c576b70d83475f89f6c73c8759be1ead224873`.
+   `a197177a2edae7b39b43fe326ba5631156ec16df` to tree
+   `8b76ad150c0bf298c347cc2fd9218d0ae89512ff`.
 6. **PASS — external reaper.** After an executor-shaped child created
    `northset-executor-a-reaper-probe` plus a `northset-executor-reaper-probe` workspace and was
    killed with `SIGKILL`, the host wrapper identified both leftovers and removed the entire VM in
-   `7671 ms`. `sbx ls --json` was empty afterward.
+   `7040 ms`. `sbx ls --json` was empty afterward.
 7. **PASS — exact production battery.** The battery completed `71/71`, with `0` failures and `0`
    skips, on the same VM daemon and hard-capped mount named above.
 8. **PASS — writable-copy caveat avoided.** The runner refuses any profile other than Node, the
