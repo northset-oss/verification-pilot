@@ -65,4 +65,3 @@ or push occurred.
 - Explicit maintainer consent for that PR is required before running it.
 - After consent, use only `foreign-runner.mjs run`; any non-`GO_AND_EXECUTED` result is a no-go.
 - Publication and every GitHub mutation remain separate human-authorized actions.
-
