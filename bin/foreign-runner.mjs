@@ -15,7 +15,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-const ROOT = fileURLToPath(new URL('../', import.meta.url));
+const ROOT = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
 const IMAGE = 'node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5';
 const REGISTRY = 'registry.npmjs.org';
 const DOCKER_PULL_HOSTS = [

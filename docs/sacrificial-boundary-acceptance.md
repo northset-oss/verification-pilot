@@ -18,6 +18,10 @@ are present, with the reason stated below. `REQUIRED-PRECONDITION (blocks foreig
 provided by this executor and must be enforced and verified before any foreign PR is run. See
 [`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md) for the operational gate.
 
+The approved pilot deployment closes those preconditions only when `bin/foreign-runner.mjs`
+reports `INFRASTRUCTURE_GO` or `GO_AND_EXECUTED`. Ordinary Docker execution does not inherit that
+decision. See [Foreign PR production runner](foreign-production-runner.md).
+
 | Fixture class | Disposition | Boundary evidence |
 | --- | --- | --- |
 | 1. Metadata access | REQUIRED-PRECONDITION (blocks foreign-run #1) | Acceptance test 1 proves phase B argv only. Phase A uses bridge networking, so deployment isolation must make `169.254.169.254` unreachable. The gated real-Docker metadata probe must pass on the production daemon. The campaign requirement is “metadata fails”; reachability is not an accepted residual. |
