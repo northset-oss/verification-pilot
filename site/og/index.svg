@@ -19,5 +19,5 @@
   <text x="106" y="270" class="lede">Scoped command evidence · named code · named environment</text>
   <line x1="104" y1="323" x2="1094" y2="323" stroke="#9eaaa1"/>
   <g transform="translate(111 0)"><text x="0" y="426" class="stat-value mono">31</text><text x="0" y="463" class="stat-label mono">EXTERNAL RECEIPTS</text></g><g transform="translate(369 0)"><text x="0" y="426" class="stat-value mono">13</text><text x="0" y="463" class="stat-label mono">MERGED UPSTREAM</text></g><g transform="translate(627 0)"><text x="0" y="426" class="stat-value mono">27</text><text x="0" y="463" class="stat-label mono">DISTINCT REPOSITORIES</text></g><g transform="translate(885 0)"><text x="0" y="426" class="stat-value mono">30</text><text x="0" y="463" class="stat-label mono">ATTESTED</text></g>
-  <text x="106" y="548" class="generated mono">LEDGER GENERATED JUL 21, 2026 · EVIDENCE, NOT A CODE-QUALITY VERDICT</text>
+  <text x="106" y="548" class="generated mono">LEDGER GENERATED JUL 22, 2026 · EVIDENCE, NOT A CODE-QUALITY VERDICT</text>
 </svg>

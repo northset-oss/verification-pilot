@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-21T22:05:23.310Z",
+  "generated_at": "2026-07-22T12:25:15.024Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -73,7 +73,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -142,7 +142,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -217,35 +217,35 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-004",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
       "declared_commands": 1,
       "timestamps": {
-        "started_at": "2026-07-21T22:05:25.848Z",
-        "finished_at": "2026-07-21T22:05:25.949Z"
+        "started_at": "2026-07-22T12:25:05.773Z",
+        "finished_at": "2026-07-22T12:25:14.587Z"
       },
       "commands": [
         {
           "cmd": "node --test test/v-rehearsal-sample.test.mjs",
           "exit_code": 0,
           "timed_out": false,
-          "duration_ms": 101
+          "duration_ms": 428
         }
       ],
       "environment": {
-        "container_image_ref": "host-node:v22.22.3",
-        "container_image_digest": null,
-        "container_image_id": null,
-        "container_os": null,
-        "container_architecture": null,
-        "network_policy": "host fallback; Docker socket permission denied; no container or network isolation",
-        "workspace_mode": null,
+        "container_image_ref": "node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5",
+        "container_image_digest": "node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5",
+        "container_image_id": "sha256:197941e0d0b6415af3939acdf594cf7af7dfe2f6ca5e014dddde1461f0bb1d4d",
+        "container_os": "linux",
+        "container_architecture": "arm64",
+        "network_policy": "phaseA:bridge,phaseB:none",
+        "workspace_mode": "readonly",
         "workspace_write_allowlist": [],
-        "workspace_file_count_limit": null,
-        "workspace_bytes_limit": null,
-        "initial_workspace_manifest_digest": null,
+        "workspace_file_count_limit": 200000,
+        "workspace_bytes_limit": 2147483648,
+        "initial_workspace_manifest_digest": "sha256:c2543a120ebd9818f800fb2e2c353532f52377b59e511438941f18cb3ff7b37b",
         "post_run_changed_tracked_paths": [],
         "post_run_untracked_paths": [],
         "post_run_mode_changes": [],
@@ -261,7 +261,7 @@
       },
       "execution_summary": "1/1 declared command returned exit 0 in the recorded environment",
       "bundle": {
-        "bundle_contents_digest": "sha256:1f1f2d524b412c61e96c512d9b995731ed64104f47626f417d42415c85d91939",
+        "bundle_contents_digest": "sha256:49fe27d115dca83adab4188be47b81e7932353563174f56573e0dc35e397695a",
         "signed_asset_sha256": null,
         "attestation_uri": null,
         "attestation_verified_at": null,
@@ -278,13 +278,13 @@
       "limitations": [
         "REHEARSAL — NOT EXTERNAL VALIDATION.",
         "Self-authorized on Northset's own repository; not a real external maintainer request or external maintainer verification.",
-        "Docker was unavailable to this managed session, so the declared node:test check ran through the pipeline's host fallback without container or network isolation; the pinned image and phaseA:bridge,phaseB:none policy are declared targets only.",
+        "Executed through the production Docker executor path. This local rehearsal does not establish that the foreign-code deployment preconditions are satisfied on a production host.",
         "The recorded patch stands in for a small Northset-authored pull request change; no pull request was opened.",
         "Does not prove code quality",
         "Does not prove security"
       ],
       "correction": null,
-      "scope_note": "Self-authorized V-lane rehearsal on Northset's own repository; not a real external maintainer request. Docker was unavailable, so the recorded node:test check used the disclosed host fallback.",
+      "scope_note": "Self-authorized V-lane rehearsal on Northset's own repository, executed through the production Docker executor path; not a real external maintainer request. No pull request was opened and the receipt remains unpublished.",
       "upstream_outcome": {
         "status": "prepared",
         "link": null,
@@ -293,7 +293,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -377,7 +377,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -455,7 +455,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -532,7 +532,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -611,7 +611,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-012",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -689,7 +689,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -765,7 +765,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -841,7 +841,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -916,7 +916,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -992,7 +992,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1088,7 +1088,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1184,7 +1184,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1563,7 +1563,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1852,7 +1852,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2152,7 +2152,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2456,7 +2456,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2745,7 +2745,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3032,7 +3032,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3319,7 +3319,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3599,7 +3599,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3899,7 +3899,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4189,7 +4189,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4479,7 +4479,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4776,7 +4776,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5073,7 +5073,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5370,7 +5370,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5697,7 +5697,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5993,7 +5993,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6279,7 +6279,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6581,7 +6581,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-21T22:05:23.310Z",
+      "generated_at": "2026-07-22T12:25:15.024Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,

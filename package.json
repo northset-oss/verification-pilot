@@ -16,6 +16,7 @@
     "northset-run-mission": "bin/run-mission.mjs"
   },
   "scripts": {
+    "rehearse:v": "node bin/rehearse-v-lane.mjs",
     "test": "node --test"
   }
 }

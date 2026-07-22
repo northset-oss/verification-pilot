@@ -1,6 +1,6 @@
 {
   "version": "0",
-  "created_at": "2026-07-21T22:05:23.310Z",
+  "created_at": "2026-07-22T12:25:05.769Z",
   "files": [
     {
       "path": "base_commit.txt",
@@ -29,8 +29,8 @@
     },
     {
       "path": "mission.json",
-      "sha256": "4c67acb65c4beab81eece399a1911732e7d027c5c930cb01b4322c5040305d04",
-      "bytes": 2425
+      "sha256": "94fe00d0814db165681f77d1d0300e16bba61519db236a2f53619c4d191f7221",
+      "bytes": 2372
     },
     {
       "path": "patch.diff",
@@ -39,8 +39,8 @@
     },
     {
       "path": "run_record.json",
-      "sha256": "a0f2e8b3621afb402c5e9f24e0971f2f35a2132309b762b39a223a0438573ff5",
-      "bytes": 837
+      "sha256": "dc1a6ec31c31c355f0ad929ded3e73fc69d591c8ba7dacf61c1fbf339342fa2b",
+      "bytes": 1978
     },
     {
       "path": "stderr_redacted.txt",
@@ -49,9 +49,9 @@
     },
     {
       "path": "stdout_redacted.txt",
-      "sha256": "34921265bf5dfcd6ab259ff9d7a10c390f43c26e29905f219393d60fa116063e",
-      "bytes": 361
+      "sha256": "e0a61f83c9e77a68aed222011c198eab53cd85a4ca0ac6221414aff3ad95abbf",
+      "bytes": 347
     }
   ],
-  "bundle_digest": "sha256:1f1f2d524b412c61e96c512d9b995731ed64104f47626f417d42415c85d91939"
+  "bundle_digest": "sha256:49fe27d115dca83adab4188be47b81e7932353563174f56573e0dc35e397695a"
 }

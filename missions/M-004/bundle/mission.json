@@ -16,7 +16,7 @@
     "ai_policy_summary": "Northset owns the repository and self-authorized this bounded verification-lane rehearsal; it is not an external maintainer request."
   },
   "worker_identity": {
-    "runtime": "Codex CLI host fallback runner",
+    "runtime": "northset-oss production Docker executor v1",
     "human_operator": "Northset"
   },
   "base_commit": "9b6c1f38b0cc63c4bd59520cd462030c8b917805",
@@ -26,7 +26,7 @@
     "node --test test/v-rehearsal-sample.test.mjs"
   ],
   "environment": {
-    "container_image_digest": "node@sha256:2cf067cfed83d5ea958367df9f966191a942351a2df77d6f0193e162b5febfc0",
+    "container_image_digest": "node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5",
     "network_policy": "phaseA:bridge,phaseB:none"
   },
   "run_record_bundle_digest": null,
@@ -43,7 +43,7 @@
   "limitations": [
     "REHEARSAL — NOT EXTERNAL VALIDATION.",
     "Self-authorized on Northset's own repository; not a real external maintainer request or external maintainer verification.",
-    "Docker was unavailable to this managed session, so the declared node:test check ran through the pipeline's host fallback without container or network isolation; the pinned image and phaseA:bridge,phaseB:none policy are declared targets only.",
+    "Executed through the production Docker executor path. This local rehearsal does not establish that the foreign-code deployment preconditions are satisfied on a production host.",
     "The recorded patch stands in for a small Northset-authored pull request change; no pull request was opened.",
     "Does not prove code quality",
     "Does not prove security"
