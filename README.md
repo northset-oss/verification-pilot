@@ -101,12 +101,15 @@ as the outcome.
 If the honest answer is "not interested," that's a complete answer. We thank you and close, and
 we don't argue a rejection or criticize maintainers publicly.
 
-**About the sandbox, honestly.** Checks run in a hardened, stock Docker container: non-root, all
-Linux capabilities dropped, `no-new-privileges`, a read-only root filesystem, and — while your
-checks run — no network. (Installing dependencies, a separate earlier step, does use the network;
-every record discloses that.) We treat all pull-request code as hostile and isolate it
-accordingly, and we review that isolation adversarially. It is not a kernel-grade sandbox against
-a determined privilege-escalation exploit, and we won't pretend otherwise.
+**About the sandbox, honestly.** Northset-authored checks run in a hardened Docker container:
+non-root, all Linux capabilities dropped, `no-new-privileges`, a read-only root filesystem, and —
+while the declared checks run — no network. Installing dependencies is a separate networked step
+and every record discloses that. Foreign pull-request code remains disabled until the production
+runner proves the stronger isolation, credential-free phase-A networking, hard quotas, external
+cleanup, and real-runtime probes in the
+[foreign-run gate checklist](docs/foreign-run-gate-checklist.md). Stock Docker arguments alone are
+not that proof, and the sandbox is never described as a code-quality, security, or kernel-escape
+guarantee.
 
 **About money.** It's free to you. During this pilot we aren't moving money at all — no payments,
 no honoraria, no bounties. The [Payment Policy](policies/payment_policy.md) is the rule set for if

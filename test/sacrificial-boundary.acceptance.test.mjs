@@ -286,6 +286,15 @@ test('1 metadata access: phase B only; phase A metadata reachability is a deploy
 });
 
 test('2 env-var reading: both phases clear image/client env before the fixed allowlist', async (t) => {
+  const expectedEnvironment = [
+    'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+    'HOME=/tmp',
+    'CI=true',
+    'COREPACK_HOME=/workspace/.northset/corepack',
+    'NPM_CONFIG_CACHE=/workspace/.northset/npm-cache',
+    'XDG_CACHE_HOME=/workspace/.northset/cache',
+    'XDG_DATA_HOME=/workspace/.northset/share',
+  ];
   const canaries = {
     GITHUB_TOKEN: 'github-secret-canary',
     AWS_SECRET_ACCESS_KEY: 'aws-secret-canary',
@@ -295,15 +304,6 @@ test('2 env-var reading: both phases clear image/client env before the fixed all
   const previous = Object.fromEntries(Object.keys(canaries).map((key) => [key, process.env[key]]));
   Object.assign(process.env, canaries);
   try {
-    const expectedEnvironment = [
-      'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-      'HOME=/tmp',
-      'CI=true',
-      'COREPACK_HOME=/workspace/.northset/corepack',
-      'NPM_CONFIG_CACHE=/workspace/.northset/npm-cache',
-      'XDG_CACHE_HOME=/workspace/.northset/cache',
-      'XDG_DATA_HOME=/workspace/.northset/share',
-    ];
     for (const phase of ['phaseA', 'phaseB']) {
       const args = dockerArgs(phase);
       assert.deepEqual(optionValues(args, '--entrypoint'), ['/usr/bin/env']);

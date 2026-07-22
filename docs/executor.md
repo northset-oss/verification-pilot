@@ -140,16 +140,25 @@ command and no run record is written. The environment also reports the literal n
 The executor always attempts to remove phase containers and removes its temporary workspace
 in a `finally` block.
 
-## Isolation ceiling and accepted residuals
+## Isolation ceiling and foreign-run preconditions
 
-This is a hardened stock-Docker sandbox (non-root, all caps dropped, `no-new-privileges`,
-read-only root, default seccomp, no Docker socket), adequate for semi-trusted, maintainer-
-consented code on known repositories. It is **not** a guarantee against an attacker running a
-kernel local-privilege-escalation exploit; it uses no user-namespace remap, gVisor, or Kata.
-Two reviews found no host-escape path in the container posture. Known, accepted residuals for
-the pilot: phase A runs install/lifecycle scripts **with network** (inherent to dependency
-fetch — the accepted exfiltration surface; the container carries no secrets and only the public
-repo copy); the Docker **client** process inherits the operator's host environment (operator-
-controlled — run it in a clean shell without `DOCKER_HOST`/secret env); and sequential phase-B
-commands share one workspace, so a run record attests only *what ran*, never test honesty or
-code quality (see the Claims Boundary).
+The emitted container posture is hardened (non-root, all caps dropped, `no-new-privileges`,
+read-only root, default seccomp, no Docker-socket mount), but unremapped stock Docker is **not an
+accepted deployment for foreign PR code**. Before foreign run #1, the actual runner must satisfy
+every item in [`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md): stronger isolation
+through userns-remap, gVisor, Kata, or a disposable per-job micro-VM; credential-free execution;
+hard workspace quotas; external cleanup; constrained phase-A networking; and the complete
+real-Docker battery passing on the production daemon.
+
+Phase A runs dependency install/lifecycle scripts with network access. IMDS, Docker TCP endpoints,
+host/LAN services, and unrelated internal services must be unreachable; this exposure is a
+blocking deployment precondition, not an accepted exfiltration residual. The Docker client process
+inherits the operator environment, while `/usr/bin/env -i` prevents those values and image-defined
+environment variables from reaching the foreign shell. The runner itself must still hold no host,
+cloud, GitHub, signing, or model credentials.
+
+After those controls are proved, two residuals remain explicit: no container or VM stack can prove
+the absence of every kernel/runtime escape, and a `writable_copy` command can mutate, consume, and
+restore a file before its command-boundary manifest is recorded. A run record attests what ran and
+the observed final state; it never proves test honesty, code quality, or security (see the Claims
+Boundary).
