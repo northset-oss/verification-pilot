@@ -10,6 +10,7 @@
   "bin": {
     "northset-bundle": "bin/bundle.mjs",
     "northset-execute": "bin/execute.mjs",
+    "northset-foreign-runner": "bin/foreign-runner.mjs",
     "northset-ledger": "bin/ledger.mjs",
     "northset-policy-monitor": "bin/policy-monitor.mjs",
     "northset-pr-receipt-disclosure": "bin/pr-receipt-disclosure.mjs",

@@ -11,6 +11,13 @@ Candidate PR and immutable commit: ____________________
 
 Operator: ____________________  Date/time (UTC): ____________________
 
+The approved pilot runner profile is `bin/foreign-runner.mjs` on `sbx >= 0.35.0`, using a fresh
+per-job micro-VM and its private Docker daemon. See
+[Foreign PR production runner](foreign-production-runner.md). `foreign-runner.mjs gate` produces
+an infrastructure decision for whether the team may make foreign-PR offers. Every accepted offer
+still requires `foreign-runner.mjs run` to repeat the checks against the exact candidate commit
+before code executes.
+
 ## Ordered blocking checks
 
 - [ ] **1. The job is isolated and credential-free.** The runner/job has no cloud instance role,
@@ -51,6 +58,10 @@ Operator: ____________________  Date/time (UTC): ____________________
   `/tmp` tmpfs, and the 250 ms workspace watchdog do not cap writes to the host bind mount. Mount,
   quota, and probe evidence: ____________________. **Finding: H1.**
 
+  The approved runner uses a daemon-owned tmpfs volume capped at 1 GiB and 32,768 inodes and keeps
+  it mounted for the complete executor lifetime. The gate requires both a byte-over-limit and an
+  inode-over-limit probe to fail with `ENOSPC` on that exact mount.
+
 - [ ] **5. Intake owns a quiescent `repo_dir`.** The intake stage creates an immutable clean clone
   or otherwise prevents every concurrent writer from the start of executor preflight until the
   source copy completes. A preflight traversal followed by `fs.cp` is not a race-proof bounded
@@ -83,6 +94,10 @@ Operator: ____________________  Date/time (UTC): ____________________
   32-PID limit. **Any skipped runtime probe is a gate failure**, including a skip caused by an
   unavailable Docker daemon. Attach complete TAP output, daemon version/config, runtime, image ID,
   and cgroup mode: ____________________. **Finding: C2; runtime checks also exercise C1, C3, H2.**
+
+  For the approved runner, use `node bin/foreign-runner.mjs gate --json` for infrastructure
+  evidence or the candidate-bound `run` command. The wrapper additionally requires phase A to
+  reach the declared npm registry while DNS and HTTP to a non-allowlisted host remain denied.
 
 - [ ] **8. The `writable_copy` verification caveat is explicitly accepted or avoided.** Prefer the
   default read-only phase-B workspace. If `writable_copy` is required, record why and accept that a

@@ -702,7 +702,54 @@ socket.setTimeout(1_500, () => {
   assert.equal(result.status, 0, `phase A reached IMDS or the probe failed:\n${dockerFailure(result)}`);
 });
 
-test('real Docker gate: phase A cannot reach the host Docker daemon socket or TCP ports', {
+test('real Docker gate: phase A reaches only the declared package registry', {
+  skip: dockerTestSkipReason(),
+}, async (t) => {
+  const allowedUrl = process.env.EXECUTOR_PHASE_A_ALLOWED_URL
+    ?? 'https://registry.npmjs.org/-/ping';
+  const deniedHost = process.env.EXECUTOR_PHASE_A_DENIED_HOST ?? 'example.com';
+  const result = await runRuntimePhase(t, 'phaseA', String.raw`
+import dns from 'node:dns/promises';
+
+const allowedUrl = ${JSON.stringify(allowedUrl)};
+const deniedHost = ${JSON.stringify(deniedHost)};
+const allowed = await fetch(allowedUrl, {signal: AbortSignal.timeout(5_000)});
+if (allowed.status < 200 || allowed.status >= 400) {
+  console.error('declared package registry returned', allowed.status);
+  process.exit(42);
+}
+
+try {
+  await dns.lookup(deniedHost);
+  console.error('denied phase-A hostname resolved:', deniedHost);
+  process.exit(43);
+} catch (error) {
+  if (!['ENOTFOUND', 'EAI_AGAIN'].includes(error.code)) {
+    console.error('denied hostname failed for an unexpected reason:', error);
+    process.exit(44);
+  }
+}
+
+try {
+  const response = await fetch('https://' + deniedHost + '/', {
+    signal: AbortSignal.timeout(5_000),
+  });
+  if (response.status < 400) {
+    console.error('denied phase-A HTTP target returned', response.status);
+    process.exit(45);
+  }
+} catch {
+  // A DNS refusal, connection refusal, or policy reset is the expected deployment behavior.
+}
+`);
+  assert.equal(
+    result.status,
+    0,
+    `phase A was not limited to the declared package registry:\n${dockerFailure(result)}`,
+  );
+});
+
+test('real Docker gate: phase A cannot use the host Docker daemon socket or TCP API', {
   skip: dockerTestSkipReason(),
 }, async (t) => {
   const configuredHosts = (process.env.EXECUTOR_DOCKER_DAEMON_PROBE_HOSTS ?? '')
@@ -722,6 +769,7 @@ test('real Docker gate: phase A cannot reach the host Docker daemon socket or TC
   const result = await runRuntimePhase(t, 'phaseA', String.raw`
 import {existsSync, readFileSync} from 'node:fs';
 import net from 'node:net';
+import tls from 'node:tls';
 
 for (const socketPath of ['/var/run/docker.sock', '/run/docker.sock']) {
   if (existsSync(socketPath)) {
@@ -751,16 +799,29 @@ const hosts = [...new Set([
   ...configuredHosts,
 ].filter(Boolean))];
 
-function canConnect(host, port) {
+function canUseDockerApi(host, port) {
   return new Promise((resolve) => {
-    const socket = net.connect({host, port});
-    const finish = (reachable) => {
+    const socket = port === 2376
+      ? tls.connect({host, port, rejectUnauthorized: false})
+      : net.connect({host, port});
+    let response = '';
+    const finish = () => {
       socket.destroy();
-      resolve(reachable);
+      resolve(
+        /^HTTP\/1\.[01] 200\b/m.test(response)
+        && (/\r?\n\r?\nOK\s*$/m.test(response) || /\bApi-Version:/i.test(response)),
+      );
     };
-    socket.once('connect', () => finish(true));
-    socket.once('error', () => finish(false));
-    socket.setTimeout(1_000, () => finish(false));
+    socket.once(port === 2376 ? 'secureConnect' : 'connect', () => {
+      socket.write('GET /_ping HTTP/1.1\r\nHost: docker\r\nConnection: close\r\n\r\n');
+    });
+    socket.on('data', (chunk) => {
+      response += chunk.toString('utf8');
+      if (response.length > 8_192) finish();
+    });
+    socket.once('end', finish);
+    socket.once('error', () => finish());
+    socket.setTimeout(1_500, finish);
   });
 }
 
@@ -770,18 +831,18 @@ const probes = [
 ];
 const results = await Promise.all(probes.map(async (probe) => ({
   ...probe,
-  reachable: await canConnect(probe.host, probe.port),
+  dockerApiReachable: await canUseDockerApi(probe.host, probe.port),
 })));
-const reachable = results.filter((probe) => probe.reachable);
+const reachable = results.filter((probe) => probe.dockerApiReachable);
 if (reachable.length > 0) {
-  console.error('Docker TCP endpoint reachable:', reachable);
+  console.error('Docker TCP API usable:', reachable);
   process.exit(42);
 }
 `);
   assert.equal(
     result.status,
     0,
-    `phase A reached a Docker daemon endpoint or the probe failed:\n${dockerFailure(result)}`,
+    `phase A could use a Docker daemon endpoint or the probe failed:\n${dockerFailure(result)}`,
   );
 });
 
