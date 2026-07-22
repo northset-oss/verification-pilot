@@ -100,7 +100,9 @@ function sandboxList() {
 }
 
 function checkDenied(sandbox, target) {
-  const result = command('sbx', ['policy', 'check', 'network', '--sandbox', sandbox, target]);
+  const result = command('sbx', ['policy', 'check', 'network', '--sandbox', sandbox, target], {
+    allowFailure: true,
+  });
   if (!/^Denied:/m.test(result.stdout)) fail(`sandbox policy unexpectedly allows ${target}`);
   return result.stdout.trim().split('\n')[0];
 }
@@ -119,7 +121,9 @@ function assertHostPreconditions() {
   }
   const secrets = command('sbx', ['secret', 'ls']).stdout;
   if (!/No secrets found/.test(secrets)) fail('sbx secret store must be empty');
-  const globalCheck = command('sbx', ['policy', 'check', 'network', 'example.com']);
+  const globalCheck = command('sbx', ['policy', 'check', 'network', 'example.com'], {
+    allowFailure: true,
+  });
   if (!/^Denied:/m.test(globalCheck.stdout)) fail('global sbx network policy must be initialized deny-all');
   return {sbx_version: version, secret_inventory: 'empty', global_policy: 'deny-all'};
 }
@@ -167,10 +171,7 @@ function setupQuota(sandbox, volume, keeper) {
   const mountpoint = `/var/lib/docker/volumes/${volume}/_data`;
   guest(sandbox, [
     `docker volume create --driver local --opt type=tmpfs --opt device=tmpfs --opt o=size=1073741824,nr_inodes=32768,mode=1777 ${shellQuote(volume)} >/dev/null`,
-    `docker run -d --name ${shellQuote(keeper)} --network=none --read-only --cap-drop=ALL`,
-    '  --security-opt no-new-privileges --pids-limit 16 --memory 32m --cpus .25',
-    `  --mount type=volume,source=${shellQuote(volume)},target=/workspace`,
-    `  ${shellQuote(IMAGE)} sleep 86400 >/dev/null`,
+    `docker run -d --name ${shellQuote(keeper)} --network=none --read-only --cap-drop=ALL --security-opt no-new-privileges --pids-limit 16 --memory 32m --cpus .25 --mount type=volume,source=${shellQuote(volume)},target=/workspace ${shellQuote(IMAGE)} sleep 86400 >/dev/null`,
     `sudo chmod 0711 /var/lib/docker /var/lib/docker/volumes /var/lib/docker/volumes/${shellQuote(volume)}`,
     `test -w ${shellQuote(mountpoint)}`,
   ].join('\n'));
