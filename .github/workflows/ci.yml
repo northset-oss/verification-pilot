@@ -75,6 +75,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Pre-pull Docker test image
+        run: docker pull node:20-bookworm
+
       - name: Run the complete test suite
         env:
           EXECUTOR_DOCKER_TEST: "1"

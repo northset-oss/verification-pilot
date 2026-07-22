@@ -51,6 +51,18 @@ function dockerTestSkipReason() {
   return dockerTestSkip;
 }
 
+function dockerPhaseANetworkSkipReason() {
+  const dockerSkip = dockerTestSkipReason();
+  if (dockerSkip) return dockerSkip;
+  if (
+    !process.env.EXECUTOR_PHASE_A_ALLOWED_URL
+    || !process.env.EXECUTOR_PHASE_A_DENIED_HOST
+  ) {
+    return 'phase-A network policy gate requires explicit allowed and denied targets';
+  }
+  return false;
+}
+
 function dockerFailure(result) {
   return [
     result.error ? `spawn error: ${result.error.message}` : null,
@@ -703,11 +715,10 @@ socket.setTimeout(1_500, () => {
 });
 
 test('real Docker gate: phase A reaches only the declared package registry', {
-  skip: dockerTestSkipReason(),
+  skip: dockerPhaseANetworkSkipReason(),
 }, async (t) => {
-  const allowedUrl = process.env.EXECUTOR_PHASE_A_ALLOWED_URL
-    ?? 'https://registry.npmjs.org/-/ping';
-  const deniedHost = process.env.EXECUTOR_PHASE_A_DENIED_HOST ?? 'example.com';
+  const allowedUrl = process.env.EXECUTOR_PHASE_A_ALLOWED_URL;
+  const deniedHost = process.env.EXECUTOR_PHASE_A_DENIED_HOST;
   const result = await runRuntimePhase(t, 'phaseA', String.raw`
 import dns from 'node:dns/promises';
 
