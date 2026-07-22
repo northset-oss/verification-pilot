@@ -694,7 +694,7 @@ test('archive parsing bypass: executor treats hostile archives as opaque bytes (
 });
 
 test('real Docker gate: phase A cannot connect to 169.254.169.254 metadata', {
-  skip: dockerTestSkipReason(),
+  skip: dockerPhaseANetworkSkipReason(),
 }, async (t) => {
   const result = await runRuntimePhase(t, 'phaseA', String.raw`
 import net from 'node:net';
