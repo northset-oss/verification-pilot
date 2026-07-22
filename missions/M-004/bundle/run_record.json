@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "started_at": "2026-07-22T12:25:05.773Z",
+  "finished_at": "2026-07-22T12:25:14.587Z",
+  "environment": {
+    "executor_profile": "node",
+    "container_image_ref": "node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5",
+    "container_image_digest": "node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5",
+    "container_image_id": "sha256:197941e0d0b6415af3939acdf594cf7af7dfe2f6ca5e014dddde1461f0bb1d4d",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "network_policy": "phaseA:bridge,phaseB:none",
+    "source_commit": "9b6c1f38b0cc63c4bd59520cd462030c8b917805",
+    "base_tree_digest": "sha256:87a36c41ab57e8e5c90e7171efc8648bcd6c21ff4ef0f8585ea65692f3232025",
+    "pre_check_tree_digest": "sha256:c2543a120ebd9818f800fb2e2c353532f52377b59e511438941f18cb3ff7b37b",
+    "approved_tracked_tree_digest": "sha256:583d881d011b95bc350ba7efbca770a8c321168312f769d77d3a138e62175a75",
+    "post_check_tree_digest": "sha256:c2543a120ebd9818f800fb2e2c353532f52377b59e511438941f18cb3ff7b37b",
+    "check_tree_changed": false,
+    "workspace_mode": "readonly",
+    "workspace_write_allowlist": [],
+    "workspace_file_count_limit": 200000,
+    "workspace_bytes_limit": 2147483648,
+    "initial_workspace_manifest_digest": "sha256:c2543a120ebd9818f800fb2e2c353532f52377b59e511438941f18cb3ff7b37b",
+    "post_run_changed_tracked_paths": [],
+    "post_run_untracked_paths": [],
+    "post_run_mode_changes": [],
+    "patch_sha256": "sha256:7d555727a0b7e0d3c8832b0392c767489f71282e73349fd700d386e73d4b69f4",
+    "install_commands": []
+  },
+  "commands": [
+    {
+      "cmd": "node --test test/v-rehearsal-sample.test.mjs",
+      "exit_code": 0,
+      "duration_ms": 428
+    }
+  ],
+  "usage": {
+    "networked_setup_elapsed_ms": 636,
+    "dependency_install_ms": null,
+    "declared_commands_ms": 428,
+    "cpu_ms": null,
+    "peak_rss_bytes": null
+  },
+  "notes": null,
+  "redactions": {}
+}

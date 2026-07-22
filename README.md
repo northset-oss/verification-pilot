@@ -101,12 +101,17 @@ as the outcome.
 If the honest answer is "not interested," that's a complete answer. We thank you and close, and
 we don't argue a rejection or criticize maintainers publicly.
 
-**About the sandbox, honestly.** Checks run in a hardened, stock Docker container: non-root, all
-Linux capabilities dropped, `no-new-privileges`, a read-only root filesystem, and — while your
-checks run — no network. (Installing dependencies, a separate earlier step, does use the network;
-every record discloses that.) We treat all pull-request code as hostile and isolate it
-accordingly, and we review that isolation adversarially. It is not a kernel-grade sandbox against
-a determined privilege-escalation exploit, and we won't pretend otherwise.
+**About the sandbox, honestly.** Northset-authored checks run in a hardened Docker container:
+non-root, all Linux capabilities dropped, `no-new-privileges`, a read-only root filesystem, and —
+while the declared checks run — no network. Installing dependencies is a separate networked step
+and every record discloses that. Foreign pull-request code is disabled on ordinary Docker and may
+run only after explicit per-PR consent through the
+[foreign PR production runner](docs/foreign-production-runner.md). That runner creates a fresh
+micro-VM, allows phase-A access only to the declared npm registry, uses a hard byte/inode workspace
+cap, repeats the zero-skip runtime battery on the job daemon, and destroys the VM from a host-side
+reaper. Every accepted offer still gets a candidate-bound final review under the
+[foreign-run gate checklist](docs/foreign-run-gate-checklist.md). This is containment evidence, not
+a code-quality, security-review, or kernel-escape guarantee.
 
 **About money.** It's free to you. During this pilot we aren't moving money at all — no payments,
 no honoraria, no bounties. The [Payment Policy](policies/payment_policy.md) is the rule set for if

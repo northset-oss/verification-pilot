@@ -10,12 +10,14 @@
   "bin": {
     "northset-bundle": "bin/bundle.mjs",
     "northset-execute": "bin/execute.mjs",
+    "northset-foreign-runner": "bin/foreign-runner.mjs",
     "northset-ledger": "bin/ledger.mjs",
     "northset-policy-monitor": "bin/policy-monitor.mjs",
     "northset-pr-receipt-disclosure": "bin/pr-receipt-disclosure.mjs",
     "northset-run-mission": "bin/run-mission.mjs"
   },
   "scripts": {
+    "rehearse:v": "node bin/rehearse-v-lane.mjs",
     "test": "node --test"
   }
 }

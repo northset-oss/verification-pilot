@@ -183,6 +183,29 @@ test('publication envelopes overlay immutable mission records with factual PR st
   assert.equal(mission.maintainer_outcome.status, 'closed_unmerged');
 });
 
+test('M-004 is a real production-executor rehearsal, not a host fallback', async () => {
+  const missionDirectory = path.join(committedMissionsDirectory, 'M-004');
+  const mission = JSON.parse(await readFile(path.join(missionDirectory, 'mission.json'), 'utf8'));
+  const runRecord = JSON.parse(await readFile(
+    path.join(missionDirectory, 'bundle', 'run_record.json'),
+    'utf8',
+  ));
+  const publication = JSON.parse(await readFile(path.join(missionDirectory, 'publication.json'), 'utf8'));
+
+  assert.equal(runRecord.environment.container_image_ref, mission.environment.container_image_digest);
+  assert.equal(runRecord.environment.container_image_digest, mission.environment.container_image_digest);
+  assert.match(runRecord.environment.container_image_digest, /@sha256:[0-9a-f]{64}$/);
+  assert.equal(runRecord.environment.network_policy, 'phaseA:bridge,phaseB:none');
+  assert.equal(runRecord.environment.source_commit, mission.base_commit);
+  assert.equal(runRecord.environment.patch_sha256, mission.patch_diff_hash);
+  assert.equal(runRecord.environment.check_tree_changed, false);
+  assert.equal(publication.state, 'prepared');
+  assert.equal(publication.pr_url, null);
+  assert.equal(publication.attestation_uri, null);
+  assert.match(publication.scope_note, /production Docker executor path/);
+  assert.doesNotMatch(JSON.stringify({ mission, runRecord, publication }), /host fallback|Docker was unavailable/i);
+});
+
 test('open PR review decisions are projected as maintainer outcomes', () => {
   assert.equal(publicationOutcome({state: 'open', review_decision: 'changes_requested'}), 'changes_requested');
   assert.equal(publicationOutcome({state: 'open', review_decision: 'approved'}), 'approved');
@@ -738,6 +761,10 @@ test('render creates a permanent printable receipt for every committed mission a
     const requestBox = page.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
     assert.ok(requestBox);
     assert.ok(requestBox.indexOf('request-a-run.yml') < requestBox.indexOf('mailto:oss@northset.ai'));
+    assert.match(requestBox, /href="https:\/\/github\.com\/northset-oss\/verification-pilot\/issues\/new\?template=request-a-run\.yml">Open a public request<\/a>/);
+    assert.match(requestBox, /href="mailto:oss@northset\.ai\?/);
+    assert.match(requestBox, /<code>northset-verify<\/code>/);
+    assert.match(requestBox, /href="https:\/\/northset-oss\.github\.io\/verification-pilot\/receipts\/M-004\/">See a sample private check receipt<\/a>/);
     const repository = new URL(build.index.missions.find((mission) => mission.mission_id === missionId).receipt.target_repo).pathname.replace(/^\//, '');
     assert.match(page, new RegExp(`Maintain ${repository.replace('/', '\\/')}\\?`));
     if (publication.state !== 'prepared') {
@@ -810,7 +837,12 @@ test('render creates a permanent printable receipt for every committed mission a
   }
   const correction = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-015', 'index.html'), 'utf8');
   const m001 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-001', 'index.html'), 'utf8');
+  const m004 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-004', 'index.html'), 'utf8');
   assert.match(correction, /Correction: compile-typescript was run/);
+  assert.match(m004, /REHEARSAL — NOT EXTERNAL VALIDATION/);
+  assert.match(m004, /Self-authorized verification-lane rehearsal/);
+  assert.match(m004, /production Docker executor path/);
+  assert.doesNotMatch(m004, /host fallback|Docker was unavailable/i);
   const m008 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-008', 'index.html'), 'utf8');
   const m016 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'index.html'), 'utf8');
   const m019 = await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'index.html'), 'utf8');

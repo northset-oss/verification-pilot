@@ -166,7 +166,7 @@ function containerNameFromArgs(args) {
 }
 
 function imageFromRunArgs(args) {
-  return args[args.indexOf('/bin/sh') - 1];
+  return args[args.indexOf('-i') - 1];
 }
 
 function fakeDocker({
@@ -529,7 +529,8 @@ test('writable_copy restored tracked bytes are honestly reported as final-state-
 });
 
 test('writable_copy watchdog stops a running command when the workspace cap is exceeded', async (t) => {
-  const repo = await trackedFixture(t);
+  const repo = await temporaryDirectory(t, 'northset-writable-watchdog-repo-');
+  await writeFile(path.join(repo, 'source.txt'), 'x');
   const outDir = await temporaryDirectory(t, 'northset-writable-watchdog-');
   let fake;
   fake = fakeDocker({responses: {'first-check': {code: 0, beforeClose: async () => {
