@@ -31,6 +31,9 @@ external reaper removed the disposable VM after an executor-shaped child was kil
 `SIGKILL`. It authorizes the team to make an accurate, consent-first offer. It is not permission to
 execute a specific PR.
 
+The current signed-off local evidence is recorded in
+[Foreign PR offer infrastructure gate evidence — 2026-07-22](foreign-run-gate-evidence-2026-07-22.md).
+
 ## Candidate-bound run
 
 After the maintainer explicitly consents to one PR, hydrate its public repository locally and
@@ -39,15 +42,19 @@ profile, and use the read-only workspace mode. Then run:
 
 ```sh
 node bin/foreign-runner.mjs run <executor-config.json> \
+  --config-sha256 <sha256-of-the-reviewed-config> \
   --source-commit <exact-40-hex-base-commit> \
+  --patch-sha256 <sha256-of-the-approved-patch-or-none> \
   --out <new-empty-output-directory> \
   --json
 ```
 
 The runner clones that exact commit inside the micro-VM, copies the approved patch as immutable
-input, repeats the quota and zero-skip production battery, rechecks the final policy and runtime,
-and only then calls the existing executor. It copies out only `run_record.json`, `stdout.txt`, and
-`stderr.txt`, then destroys the VM. A failure at any point is a no-go and produces no public action.
+input, and rejects a config or patch whose bytes do not match the operator-supplied digest. It
+repeats the quota and zero-skip production battery, rechecks the staged input hashes, final policy,
+and runtime, and only then calls the existing executor. It copies out only `run_record.json`,
+`stdout.txt`, and `stderr.txt`, then destroys the VM. A failure at any point is a no-go and produces
+no public action.
 
 The output remains private by default. Publishing a receipt, pushing code, opening or modifying a
 PR, and posting a comment remain separate human-authorized actions.
@@ -63,8 +70,9 @@ sbx policy check network example.com
 ```
 
 The expected state is `sbx` 0.35.0 or newer, `No secrets found`, and `Denied`. Initialize a new
-host once with `sbx policy init deny-all`. Do not substitute Docker Desktop's ordinary daemon or
-the older `docker sandbox` plugin: neither is the production target named by this runbook.
+host once with `sbx policy init deny-all`. The runner repository must also be clean so the host
+wrapper and the reviewed commit cannot diverge. Do not substitute Docker Desktop's ordinary daemon
+or the older `docker sandbox` plugin: neither is the production target named by this runbook.
 
 ## Authorization boundary
 
@@ -72,4 +80,3 @@ the older `docker sandbox` plugin: neither is the production target named by thi
 - A maintainer's explicit per-PR consent is required before the candidate-bound run.
 - The run itself does not authorize publication or any GitHub mutation.
 - A separate content-bound human approval is required for any later public action.
-

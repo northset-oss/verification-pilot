@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import {spawnSync} from 'node:child_process';
-import {randomUUID} from 'node:crypto';
+import {createHash, randomUUID} from 'node:crypto';
 import {
   lstat,
   mkdir,
@@ -31,7 +31,9 @@ class RunnerError extends Error {}
 function usage() {
   return `usage:
   foreign-runner.mjs gate [--json]
-  foreign-runner.mjs run <executor-config.json> --source-commit <40-hex> --out <empty-dir> [--json]
+  foreign-runner.mjs run <executor-config.json> --config-sha256 <sha256:hex> \
+    --source-commit <40-hex> --patch-sha256 <sha256:hex|none> \
+    --out <empty-dir> [--json]
 
 The host must have sbx >= 0.35.0, an initialized deny-all sandbox policy, no sbx secrets,
 and the production Node image must remain pinned to ${IMAGE}.`;
@@ -85,13 +87,22 @@ function parseArguments(argv) {
       result.json = true;
       continue;
     }
-    if (!['--source-commit', '--out'].includes(flag) || mode !== 'run') fail(usage());
-    const key = flag === '--source-commit' ? 'sourceCommit' : 'outDir';
+    if (!['--config-sha256', '--source-commit', '--patch-sha256', '--out'].includes(flag)
+        || mode !== 'run') fail(usage());
+    const key = {
+      '--config-sha256': 'configSha256',
+      '--source-commit': 'sourceCommit',
+      '--patch-sha256': 'patchSha256',
+      '--out': 'outDir',
+    }[flag];
     if (result[key] !== undefined) fail(`duplicate ${flag}`);
     result[key] = args.shift();
     if (!result[key] || result[key].startsWith('--')) fail(`${flag} requires a value`);
   }
-  if (mode === 'run' && (!result.sourceCommit || !result.outDir)) fail(usage());
+  if (mode === 'run'
+      && (!result.configSha256 || !result.sourceCommit || !result.patchSha256 || !result.outDir)) {
+    fail(usage());
+  }
   return result;
 }
 
@@ -125,7 +136,14 @@ function assertHostPreconditions() {
     allowFailure: true,
   });
   if (!/^Denied:/m.test(globalCheck.stdout)) fail('global sbx network policy must be initialized deny-all');
-  return {sbx_version: version, secret_inventory: 'empty', global_policy: 'deny-all'};
+  const status = command('git', ['-C', ROOT, 'status', '--porcelain']).stdout;
+  if (status !== '') fail('foreign runner repository must be clean; commit or remove local changes');
+  return {
+    sbx_version: version,
+    secret_inventory: 'empty',
+    global_policy: 'deny-all',
+    runner_commit: command('git', ['-C', ROOT, 'rev-parse', 'HEAD']).stdout.trim(),
+  };
 }
 
 function createSandbox(sandbox, sourceDirectory) {
@@ -263,10 +281,17 @@ function runBattery(sandbox, mountpoint) {
   return summary;
 }
 
-function finalReview(sandbox, mountpoint, sourceCommit) {
+function finalReview(sandbox, mountpoint, sourceCommit, stagedInputs = null) {
   const policy = configureFinalPolicyEvidence(sandbox);
+  const inputChecks = stagedInputs === null ? [] : [
+    `test "$(sha256sum /var/lib/northset-intake/executor-config.json | cut -d' ' -f1)" = ${shellQuote(stagedInputs.staged_config_sha256.slice(7))}`,
+    ...(stagedInputs.patch_sha256 === 'none' ? [] : [
+      `test "$(sha256sum /var/lib/northset-intake/approved.patch | cut -d' ' -f1)" = ${shellQuote(stagedInputs.patch_sha256.slice(7))}`,
+    ]),
+  ];
   const runtime = guest(sandbox, [
     `test "$(git -C /var/lib/northset-intake/repo rev-parse HEAD)" = ${shellQuote(sourceCommit)}`,
+    ...inputChecks,
     `findmnt -no FSTYPE,OPTIONS ${shellQuote(mountpoint)}`,
     `docker image inspect ${shellQuote(IMAGE)} --format 'id={{.Id}} os={{.Os}} arch={{.Architecture}}'`,
     "docker info --format 'server={{.ServerVersion}} cgroup={{.CgroupVersion}} security={{json .SecurityOptions}}'",
@@ -303,21 +328,34 @@ function runReaperProbe(sandbox, mountpoint) {
   return {identified, started};
 }
 
-async function prepareRunInput(sandbox, config, sourceCommit, temporaryDirectory) {
+function digest(bytes) {
+  return `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
+}
+
+async function prepareRunInput(sandbox, run, temporaryDirectory) {
+  const {config} = run;
   const adjusted = {
     ...config,
     repo_dir: '/var/lib/northset-intake/repo',
     patch_file: config.patch_file === null ? null : '/var/lib/northset-intake/approved.patch',
   };
-  if (config.patch_file !== null) {
-    command('sbx', ['cp', config.patch_file, `${sandbox}:/var/lib/northset-intake/approved.patch`]);
+  if (run.patchBytes !== null) {
+    const localPatch = path.join(temporaryDirectory, 'approved.patch');
+    await writeFile(localPatch, run.patchBytes, {mode: 0o600});
+    command('sbx', ['cp', localPatch, `${sandbox}:/var/lib/northset-intake/approved.patch`]);
     guest(sandbox, 'sudo chown root:root /var/lib/northset-intake/approved.patch && sudo chmod 0444 /var/lib/northset-intake/approved.patch');
   }
   const localConfig = path.join(temporaryDirectory, 'executor-config.json');
-  await writeFile(localConfig, `${JSON.stringify(adjusted, null, 2)}\n`, {mode: 0o600});
+  const adjustedBytes = Buffer.from(`${JSON.stringify(adjusted, null, 2)}\n`);
+  await writeFile(localConfig, adjustedBytes, {mode: 0o600});
   command('sbx', ['cp', localConfig, `${sandbox}:/var/lib/northset-intake/executor-config.json`]);
   guest(sandbox, 'sudo chown root:root /var/lib/northset-intake/executor-config.json && sudo chmod 0444 /var/lib/northset-intake/executor-config.json');
-  return sourceCommit;
+  return {
+    config_sha256: run.configSha256,
+    staged_config_sha256: digest(adjustedBytes),
+    patch_sha256: run.patchSha256,
+    source_commit: run.sourceCommit,
+  };
 }
 
 async function executeCandidate(sandbox, mountpoint, outputDirectory) {
@@ -344,13 +382,21 @@ async function executeCandidate(sandbox, mountpoint, outputDirectory) {
 
 async function loadRunConfig(parsed) {
   if (!/^[0-9a-f]{40}$/.test(parsed.sourceCommit)) fail('--source-commit must be 40 lowercase hex characters');
+  if (!/^sha256:[0-9a-f]{64}$/.test(parsed.configSha256)) fail('--config-sha256 must be sha256: plus 64 lowercase hex characters');
+  if (parsed.patchSha256 !== 'none' && !/^sha256:[0-9a-f]{64}$/.test(parsed.patchSha256)) {
+    fail('--patch-sha256 must be sha256: plus 64 lowercase hex characters, or none');
+  }
   const configFile = path.resolve(parsed.configFile);
+  let configBytes;
   let config;
   try {
-    config = JSON.parse(await readFile(configFile, 'utf8'));
+    configBytes = await readFile(configFile);
+    config = JSON.parse(configBytes.toString('utf8'));
   } catch (error) {
     fail(`cannot read executor config: ${error.message}`);
   }
+  const configSha256 = digest(configBytes);
+  if (configSha256 !== parsed.configSha256) fail('executor config digest does not match --config-sha256');
   if (config.profile !== 'node') fail('foreign production runner currently permits only the node profile');
   if (config.image !== IMAGE) fail(`executor image must be exactly ${IMAGE}`);
   if (config.workspace_mode !== undefined && config.workspace_mode !== 'readonly') {
@@ -360,7 +406,22 @@ async function loadRunConfig(parsed) {
   const source = await lstat(config.repo_dir).catch(() => null);
   if (!source?.isDirectory() || source.isSymbolicLink()) fail('config repo_dir must be a real directory');
   if (config.patch_file !== null && !path.isAbsolute(config.patch_file)) fail('config patch_file must be absolute or null');
-  return {config, sourceDirectory: config.repo_dir, sourceCommit: parsed.sourceCommit};
+  let patchBytes = null;
+  if (config.patch_file === null) {
+    if (parsed.patchSha256 !== 'none') fail('--patch-sha256 must be none when config patch_file is null');
+  } else {
+    if (parsed.patchSha256 === 'none') fail('--patch-sha256 cannot be none when config patch_file is set');
+    patchBytes = await readFile(config.patch_file).catch((error) => fail(`cannot read approved patch: ${error.message}`));
+    if (digest(patchBytes) !== parsed.patchSha256) fail('approved patch digest does not match --patch-sha256');
+  }
+  return {
+    config,
+    configSha256,
+    patchBytes,
+    patchSha256: parsed.patchSha256,
+    sourceDirectory: config.repo_dir,
+    sourceCommit: parsed.sourceCommit,
+  };
 }
 
 async function main() {
@@ -388,12 +449,13 @@ async function main() {
     evidence.quota = quota.evidence;
     evidence.intake = prepareIntake(sandbox, run.sourceDirectory, run.sourceCommit).evidence;
     evidence.battery = runBattery(sandbox, quota.mountpoint);
-    evidence.final_review = finalReview(sandbox, quota.mountpoint, run.sourceCommit);
     if (parsed.mode === 'run') {
-      await prepareRunInput(sandbox, run.config, run.sourceCommit, temporaryDirectory);
+      evidence.inputs = await prepareRunInput(sandbox, run, temporaryDirectory);
+      evidence.final_review = finalReview(sandbox, quota.mountpoint, run.sourceCommit, evidence.inputs);
       evidence.execution = await executeCandidate(sandbox, quota.mountpoint, path.resolve(parsed.outDir));
       evidence.decision = 'GO_AND_EXECUTED';
     } else {
+      evidence.final_review = finalReview(sandbox, quota.mountpoint, run.sourceCommit);
       reaperProbe = runReaperProbe(sandbox, quota.mountpoint);
       evidence.decision = 'INFRASTRUCTURE_GO';
     }
