@@ -244,6 +244,7 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
   assert.match(html, /PASS: a free-form legacy check/);
   assert.match(html, /PR #4222/);
   assert.match(html, /CI state<\/dt><dd>PENDING/);
+  assert.match(html, /An attestation confirms bundle provenance/);
   assert.equal(receipt.evidence_status, 'incomplete');
   assert.equal(receipt.receipt_result, 'INCOMPLETE — structured command evidence unavailable');
   assert.deepEqual(receipt.timestamps, {started_at: null, finished_at: null});
@@ -285,14 +286,49 @@ test('factory proof attestation is shown separately from legacy signed-bundle pr
   const html = await readFile(path.join(fixture.site, 'receipts/M-1002/index.html'), 'utf8');
   const homepage = await readFile(path.join(fixture.site, 'index.html'), 'utf8');
   const receipt = JSON.parse(await readFile(path.join(fixture.site, 'receipts/M-1002/receipt.json'), 'utf8'));
+  const merged = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
+  const mergedReceipt = merged.missions.find(({mission_id: missionId}) =>
+    missionId === proof.mission_id).receipt;
+  const proofSubject = `M-1002-${proof.commit_oid}-proof.json`;
+  const sourceProofUrl = `https://github.com/northset-oss/verification-pilot/blob/${oid('f')}/` +
+    `receipts/M-1002/${proof.commit_oid}/proof.json`;
+  const rawProofUrl = `https://raw.githubusercontent.com/northset-oss/verification-pilot/${oid('f')}/` +
+    `receipts/M-1002/${proof.commit_oid}/proof.json`;
+  const factoryVerifyCommand = `curl --fail --silent --show-error --location --output ${proofSubject} ` +
+    `'${rawProofUrl}'\n` +
+    `gh attestation verify ${proofSubject} ` +
+    '--repo northset-oss/verification-pilot ' +
+    '--signer-workflow northset-oss/verification-pilot/.github/workflows/pages.yml';
+  const renderedFactoryVerifyCommand = factoryVerifyCommand.replaceAll("'", '&#39;');
 
   assert.match(html, />proof attested<\/a>/);
   assert.match(html, /GitHub artifact attestation for the exact proof bytes/);
   assert.ok(html.includes(attestationUrl));
+  assert.match(html, /Factory proof attestation/);
+  assert.ok(html.includes(renderedFactoryVerifyCommand));
+  assert.ok(html.includes(rawProofUrl));
+  assert.ok(html.includes(sourceProofUrl));
+  assert.doesNotMatch(factoryVerifyCommand, /github\.com\/northset-oss\/verification-pilot\/blob\//);
+  assert.match(factoryVerifyCommand, new RegExp(
+    `raw\\.githubusercontent\\.com/northset-oss/verification-pilot/${oid('f')}/` +
+    `receipts/M-1002/${proof.commit_oid}/proof\\.json`,
+  ));
+  assert.match(html, /exact immutable factory proof bytes/);
+  assert.match(html, /factory proof attestation is bound to the exact proof bytes/i);
+  assert.doesNotMatch(html, /An attestation confirms bundle provenance/);
   assert.doesNotMatch(html, /No verified signing record is present/);
+  assert.doesNotMatch(html, /signed provenance has not been recorded/i);
+  assert.doesNotMatch(html, /Attestation URL was not recorded/i);
+  assert.doesNotMatch(html, /Signed provenance recorded<\/dt><dd>not verified/i);
+  assert.doesNotMatch(html, /Signed asset SHA-256<\/dt><dd>not recorded/i);
   assert.match(homepage, /<strong>1<\/strong><span>Attested<\/span>/);
   assert.match(homepage, /attestation: recorded/);
+  assert.equal(mergedReceipt.attestation_uri, null);
+  assert.equal(mergedReceipt.release_asset_sha256, null);
+  assert.equal(mergedReceipt.attestation_verified_at, null);
   assert.equal(receipt.bundle.attestation_uri, null);
+  assert.equal(receipt.bundle.signed_asset_sha256, null);
+  assert.equal(receipt.bundle.attestation_verified_at, null);
   assert.equal(receipt.source.factory_publication.attestation_url, attestationUrl);
 });
 
