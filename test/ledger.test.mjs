@@ -203,6 +203,9 @@ test('M-004 is a real production-executor rehearsal, not a host fallback', async
   assert.equal(publication.pr_url, null);
   assert.equal(publication.attestation_uri, null);
   assert.match(publication.scope_note, /production Docker executor path/);
+  assert.match(publication.scope_note, /publicly visible as the sample receipt/);
+  assert.match(publication.correction_note, /original consent scope described this as an unpublished sample/);
+  assert.doesNotMatch(publication.scope_note, /remains unpublished/);
   assert.doesNotMatch(JSON.stringify({ mission, runRecord, publication }), /host fallback|Docker was unavailable/i);
 });
 

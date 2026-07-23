@@ -124,8 +124,8 @@ async function main() {
       closed_at: null,
       updated_at: null,
       observed_at: null,
-      correction_note: null,
-      scope_note: "Self-authorized V-lane rehearsal on Northset's own repository, executed through the production Docker executor path; not a real external maintainer request. No pull request was opened and the receipt remains unpublished.",
+      correction_note: 'The original consent scope described this as an unpublished sample. It is now publicly visible as the sample receipt. This correction does not alter the immutable run evidence; no external maintainer requested the run, no pull request was opened, and no attestation was issued.',
+      scope_note: "Self-authorized V-lane rehearsal on Northset's own repository, executed through the production Docker executor path; not a real external maintainer request. No pull request was opened. The prepared rehearsal receipt is publicly visible as the sample receipt, unsigned and unattested; publication is not external validation.",
       attestation_uri: null,
       bundle_digest: result.bundleDigest,
       release_asset_sha256: null,
@@ -154,7 +154,9 @@ async function main() {
       image: digest,
       bundle_digest: result.bundleDigest,
       publication_state: 'prepared',
-      published: false,
+      public_receipt_already_visible: true,
+      remote_publication_performed: false,
+      attested: false,
     }, null, 2)}\n`);
     completed = true;
   } finally {
