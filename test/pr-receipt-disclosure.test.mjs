@@ -89,6 +89,12 @@ async function writeFactoryDisclosureFixture(root, {
   blockVersion = 2,
   includeNoCiChange = false,
   bodyState = null,
+  prCreatedAt = '2026-07-21T00:01:00Z',
+  verificationStartedAt = '2026-07-21T00:00:00Z',
+  verificationFinishedAt = '2026-07-21T00:00:30Z',
+  bodyPublicationAction = null,
+  bodyEditedAt = '2026-07-21T00:04:00Z',
+  prHeadOid = commitOid,
 }) {
   const prNumber = Number(missionId.slice(2));
   const receiptUrl = canonicalReceiptUrl(policy, missionId);
@@ -99,6 +105,7 @@ async function writeFactoryDisclosureFixture(root, {
       mission_id: missionId,
       repository: 'example/project',
       issue_number: prNumber,
+      base_oid: 'f'.repeat(40),
       commit_oid: commitOid,
       tested_tree_oid: 'b'.repeat(40),
       patched_observation: { exit_code: 0 },
@@ -108,6 +115,7 @@ async function writeFactoryDisclosureFixture(root, {
       mission_id: missionId,
       repository: 'example/project',
       issue_number: prNumber,
+      base_oid: 'f'.repeat(40),
       commit_oid: commitOid,
       tested_tree_oid: 'b'.repeat(40),
       patched_observation: { command, exit_code: 0 },
@@ -118,6 +126,8 @@ async function writeFactoryDisclosureFixture(root, {
       executed_commands: [],
       checks_not_run: [],
       limitations: [],
+      verification_started_at: verificationStartedAt,
+      verification_finished_at: verificationFinishedAt,
     };
   const proofBytes = Buffer.from(`${JSON.stringify(proof)}\n`);
   const proofSha256 = `sha256:${createHash('sha256').update(proofBytes).digest('hex')}`;
@@ -126,7 +136,7 @@ async function writeFactoryDisclosureFixture(root, {
   const proofFile = path.join(selectedDir, 'proof.json');
   const currentFile = path.join(root, missionId, 'current.json');
   const publicationFile = path.join(selectedDir, 'publication.json');
-  await Promise.all([
+  const writes = [
     writeFile(proofFile, proofBytes),
     writeFile(currentFile, `${JSON.stringify({
       schema_version: 1,
@@ -138,7 +148,7 @@ async function writeFactoryDisclosureFixture(root, {
       schema_version: blockVersion === 1 ? 1 : 2,
       mission_id: missionId,
       contribution_commit_oid: commitOid,
-      pr_head_oid: commitOid,
+      pr_head_oid: prHeadOid,
       merge_commit_oid: prState === 'MERGED' ? 'd'.repeat(40) : null,
       receipt_url: receiptUrl,
       pr_url: prUrl,
@@ -150,7 +160,8 @@ async function writeFactoryDisclosureFixture(root, {
       attestation_url: 'https://api.github.com/example/attestation',
       observed_at: '2026-07-21T00:00:00Z',
     })}\n`),
-  ]);
+  ];
+  await Promise.all(writes);
   const publicationState = prState === 'MERGED'
     ? 'merged'
     : prState === 'CLOSED' ? 'closed_unmerged' : 'open';
@@ -162,6 +173,9 @@ async function writeFactoryDisclosureFixture(root, {
     command,
     headOid: commitOid,
     includeNoCiChange,
+    publicationAction: bodyPublicationAction ?? (
+      Date.parse(verificationFinishedAt) < Date.parse(prCreatedAt) ? 'opened' : 'updated'
+    ),
   });
   return {
     missionId,
@@ -170,10 +184,46 @@ async function writeFactoryDisclosureFixture(root, {
     publicationFile,
     receiptUrl,
     prApi: `https://api.github.com/repos/example/project/pulls/${prNumber}`,
+    commitsApi: `https://api.github.com/repos/example/project/pulls/${prNumber}/commits?per_page=100`,
     commentsApi: `https://api.github.com/repos/example/project/issues/${prNumber}/comments?per_page=100`,
     prNumber,
     prUrl,
+    prCreatedAt,
+    commitOid,
+    prHeadOid,
+    bodyEditedAt,
     body,
+  };
+}
+
+function factoryPullRequest(fixture, overrides = {}) {
+  return {
+    number: fixture.prNumber,
+    html_url: fixture.prUrl,
+    created_at: fixture.prCreatedAt,
+    head: { sha: fixture.prHeadOid },
+    body: fixture.body,
+    ...overrides,
+  };
+}
+
+function factoryBodyHistory(fixture, bodies = [fixture.body]) {
+  return {
+    data: {
+      repository: {
+        pullRequest: {
+          userContentEdits: {
+            totalCount: bodies.length,
+            nodes: bodies.map((body, index) => ({
+              editedAt: new Date(Date.parse(fixture.bodyEditedAt) + index * 1_000).toISOString(),
+              deletedAt: null,
+              diff: body,
+            })),
+            pageInfo: { hasNextPage: false, endCursor: null },
+          },
+        },
+      },
+    },
   };
 }
 
@@ -513,11 +563,9 @@ test('factory receipts audit verifies versioned open, closed, and merged PR bloc
   const routes = new Map();
   for (const fixture of fixtures) {
     routes.set(`GET ${fixture.receiptUrl}`, response(200));
-    routes.set(`GET ${fixture.prApi}`, response(200, {
-      number: fixture.prNumber,
-      html_url: fixture.prUrl,
+    routes.set(`GET ${fixture.prApi}`, response(200, factoryPullRequest(fixture, {
       body: fixture.missionId === 'M-1001' ? fixture.body.replaceAll('\n', '\r\n') : fixture.body,
-    }));
+    })));
     routes.set(`GET ${fixture.commentsApi}`, response(200, []));
   }
   const request = fakeRequest(routes);
@@ -540,6 +588,149 @@ test('factory receipts audit verifies versioned open, closed, and merged PR bloc
   assert.equal(request.calls.length, 15);
 });
 
+test('factory receipts bind initial and amendment wording to proof and PR creation times', async (t) => {
+  const amendmentRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-amendment-'));
+  const initialRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-initial-'));
+  t.after(() => Promise.all([amendmentRoot, initialRoot].map((root) => (
+    rm(root, { recursive: true, force: true })
+  ))));
+
+  const amendment = await writeFactoryDisclosureFixture(amendmentRoot, {
+    missionId: 'M-1005',
+    commitOid: '6'.repeat(40),
+    prState: 'OPEN',
+    command: 'npm test',
+    prCreatedAt: '2026-07-21T00:00:00Z',
+    verificationStartedAt: '2026-07-21T00:02:00Z',
+    verificationFinishedAt: '2026-07-21T00:03:00Z',
+  });
+  assert.match(amendment.body, /before this PR update was published\./);
+  const amendmentRequest = fakeRequest(new Map([
+    [`GET ${amendment.receiptUrl}`, response(200)],
+    [`GET ${amendment.prApi}`, response(200, factoryPullRequest(amendment))],
+    ['POST https://api.github.com/graphql', response(200, factoryBodyHistory(amendment))],
+    [`GET ${amendment.commentsApi}`, response(200, [])],
+  ]));
+  const report = await auditAllFactoryDisclosures({
+    factoryReceiptsDir: amendmentRoot,
+    policy,
+    request: amendmentRequest,
+  });
+  assert.equal(report.checked, 1);
+
+  const earlyHistory = factoryBodyHistory(amendment);
+  earlyHistory.data.repository.pullRequest.userContentEdits.nodes[0].editedAt =
+    '2026-07-21T00:02:30Z';
+  const earlyHistoryRequest = fakeRequest(new Map([
+    [`GET ${amendment.receiptUrl}`, response(200)],
+    [`GET ${amendment.prApi}`, response(200, factoryPullRequest(amendment))],
+    ['POST https://api.github.com/graphql', response(200, earlyHistory)],
+  ]));
+  await assert.rejects(
+    auditAllFactoryDisclosures({
+      factoryReceiptsDir: amendmentRoot,
+      policy,
+      request: earlyHistoryRequest,
+    }),
+    /amendment block appeared before verification finished/i,
+  );
+
+  const wrongHeadRequest = fakeRequest(new Map([
+    [`GET ${amendment.receiptUrl}`, response(200)],
+    [`GET ${amendment.prApi}`, response(200, factoryPullRequest(amendment, {
+      head: { sha: '0'.repeat(40) },
+    }))],
+  ]));
+  await assert.rejects(
+    auditAllFactoryDisclosures({
+      factoryReceiptsDir: amendmentRoot,
+      policy,
+      request: wrongHeadRequest,
+    }),
+    /live PR head must equal the recorded publication head/i,
+  );
+
+  const wrongAmendmentRequest = fakeRequest(new Map([
+    [`GET ${amendment.receiptUrl}`, response(200)],
+    [`GET ${amendment.prApi}`, response(200, factoryPullRequest(amendment, {
+      body: amendment.body.replace(
+        'before this PR update was published.',
+        'before this PR was opened.',
+      ),
+    }))],
+  ]));
+  await assert.rejects(
+    auditAllFactoryDisclosures({
+      factoryReceiptsDir: amendmentRoot,
+      policy,
+      request: wrongAmendmentRequest,
+    }),
+    /expected state-specific marked block/i,
+  );
+
+  const initial = await writeFactoryDisclosureFixture(initialRoot, {
+    missionId: 'M-1006',
+    commitOid: '7'.repeat(40),
+    prState: 'OPEN',
+    command: 'npm test',
+    bodyPublicationAction: 'updated',
+  });
+  const wrongInitialRequest = fakeRequest(new Map([
+    [`GET ${initial.receiptUrl}`, response(200)],
+    [`GET ${initial.prApi}`, response(200, factoryPullRequest(initial))],
+  ]));
+  await assert.rejects(
+    auditAllFactoryDisclosures({
+      factoryReceiptsDir: initialRoot,
+      policy,
+      request: wrongInitialRequest,
+    }),
+    /expected state-specific marked block/i,
+  );
+
+});
+
+test('factory receipts bind merged head drift to the recorded head and PR commit set', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'northset-factory-pr-merged-drift-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const fixture = await writeFactoryDisclosureFixture(root, {
+    missionId: 'M-1008',
+    commitOid: '9'.repeat(40),
+    prHeadOid: 'a'.repeat(40),
+    prState: 'MERGED',
+    command: 'npm test',
+  });
+  const passingRequest = fakeRequest(new Map([
+    [`GET ${fixture.receiptUrl}`, response(200)],
+    [`GET ${fixture.prApi}`, response(200, factoryPullRequest(fixture))],
+    [`GET ${fixture.commitsApi}`, response(200, [
+      { sha: fixture.commitOid },
+      { sha: fixture.prHeadOid },
+    ])],
+    [`GET ${fixture.commentsApi}`, response(200, [])],
+  ]));
+  const report = await auditAllFactoryDisclosures({
+    factoryReceiptsDir: root,
+    policy,
+    request: passingRequest,
+  });
+  assert.equal(report.checked, 1);
+
+  const missingContributionRequest = fakeRequest(new Map([
+    [`GET ${fixture.receiptUrl}`, response(200)],
+    [`GET ${fixture.prApi}`, response(200, factoryPullRequest(fixture))],
+    [`GET ${fixture.commitsApi}`, response(200, [{ sha: fixture.prHeadOid }])],
+  ]));
+  await assert.rejects(
+    auditAllFactoryDisclosures({
+      factoryReceiptsDir: root,
+      policy,
+      request: missingContributionRequest,
+    }),
+    /proof commit is not contained in the live PR/i,
+  );
+});
+
 test('factory receipts audit rejects merged-style blocks on open and unmerged closed PRs', async (t) => {
   for (const [index, prState] of ['OPEN', 'CLOSED'].entries()) {
     const root = await mkdtemp(path.join(os.tmpdir(), `northset-factory-non-promotional-${index}-`));
@@ -553,11 +744,7 @@ test('factory receipts audit rejects merged-style blocks on open and unmerged cl
     });
     const request = fakeRequest(new Map([
       [`GET ${fixture.receiptUrl}`, response(200)],
-      [`GET ${fixture.prApi}`, response(200, {
-        number: fixture.prNumber,
-        html_url: fixture.prUrl,
-        body: fixture.body,
-      })],
+      [`GET ${fixture.prApi}`, response(200, factoryPullRequest(fixture))],
     ]));
     await assert.rejects(
       auditAllFactoryDisclosures({ factoryReceiptsDir: root, policy, request }),
@@ -630,7 +817,7 @@ test('CLI labels and counts merged_sync_pending in text and JSON output', async 
   const fetchImpl = async (url) => {
     if (url === fixture.receiptUrl) return new Response('', { status: 200 });
     if (url === fixture.prApi) {
-      return Response.json({ number: fixture.prNumber, html_url: fixture.prUrl, body: fixture.body });
+      return Response.json(factoryPullRequest(fixture));
     }
     if (url === fixture.commentsApi) return Response.json([]);
     throw new Error(`unexpected request: ${url}`);
@@ -717,6 +904,9 @@ test('factory synchronizer is read-only by default and applies exact merged byte
     bodyState: 'open',
     command: ['node', '--test', 'test/focused.test.mjs'],
     includeNoCiChange: true,
+    prCreatedAt: '2026-07-21T00:00:00Z',
+    verificationStartedAt: '2026-07-21T00:02:00Z',
+    verificationFinishedAt: '2026-07-21T00:03:00Z',
   });
   const originalFiles = await Promise.all([
     readFile(fixture.currentFile),
@@ -724,17 +914,19 @@ test('factory synchronizer is read-only by default and applies exact merged byte
     readFile(fixture.publicationFile),
   ]);
   let body = fixture.body;
+  const bodyHistory = [body];
   const request = fakeRequest(new Map([
     [`GET ${fixture.receiptUrl}`, response(200)],
-    [`GET ${fixture.prApi}`, () => response(200, {
-      number: fixture.prNumber,
-      html_url: fixture.prUrl,
-      body,
-    })],
+    [`GET ${fixture.prApi}`, () => response(200, factoryPullRequest(fixture, { body }))],
     [`GET ${fixture.commentsApi}`, response(200, [])],
+    ['POST https://api.github.com/graphql', () => response(
+      200,
+      factoryBodyHistory(fixture, bodyHistory),
+    )],
     [`PATCH ${fixture.prApi}`, ({ body: next }) => {
       body = next.body;
-      return response(200, { number: fixture.prNumber, html_url: fixture.prUrl, body });
+      bodyHistory.push(body);
+      return response(200, factoryPullRequest(fixture, { body }));
     }],
   ]));
 
@@ -780,6 +972,7 @@ test('factory synchronizer is read-only by default and applies exact merged byte
     command: ['node', '--test', 'test/focused.test.mjs'],
     headOid: '9'.repeat(40),
     includeNoCiChange: true,
+    publicationAction: 'updated',
   }));
   assert.equal((body.match(/request a separate private run/g) ?? []).length, 1);
   assert.equal(body.split('https://').length - 1, 2);
@@ -817,15 +1010,11 @@ test('factory synchronizer applies a pinned v1 merged block during the cutover',
   let body = fixture.body;
   const request = fakeRequest(new Map([
     [`GET ${fixture.receiptUrl}`, response(200)],
-    [`GET ${fixture.prApi}`, () => response(200, {
-      number: fixture.prNumber,
-      html_url: fixture.prUrl,
-      body,
-    })],
+    [`GET ${fixture.prApi}`, () => response(200, factoryPullRequest(fixture, { body }))],
     [`GET ${fixture.commentsApi}`, response(200, [])],
     [`PATCH ${fixture.prApi}`, ({ body: next }) => {
       body = next.body;
-      return response(200, { number: fixture.prNumber, html_url: fixture.prUrl, body });
+      return response(200, factoryPullRequest(fixture, { body }));
     }],
   ]));
 
@@ -862,14 +1051,12 @@ test('factory synchronizer refuses a missing open block, digest mismatch, and li
   });
   const missingRequest = fakeRequest(new Map([
     [`GET ${missing.receiptUrl}`, response(200)],
-    [`GET ${missing.prApi}`, response(200, {
-      number: missing.prNumber,
-      html_url: missing.prUrl,
+    [`GET ${missing.prApi}`, response(200, factoryPullRequest(missing, {
       body: missing.body.replace(
         'Self-run by the contributor, not maintainer verification.',
         'Altered disclosure text.',
       ),
-    })],
+    }))],
   ]));
   await assert.rejects(
     syncFactoryDisclosure({
@@ -903,11 +1090,9 @@ test('factory synchronizer refuses a missing open block, digest mismatch, and li
   });
   const urlRequest = fakeRequest(new Map([
     [`GET ${url.receiptUrl}`, response(200)],
-    [`GET ${url.prApi}`, response(200, {
-      number: url.prNumber,
+    [`GET ${url.prApi}`, response(200, factoryPullRequest(url, {
       html_url: 'https://github.com/example/project/pull/9999',
-      body: url.body,
-    })],
+    }))],
   ]));
   await assert.rejects(
     syncFactoryDisclosure({
@@ -1122,6 +1307,8 @@ test('HTTP request adapter falls back to authenticated GraphQL for GitHub PR RES
             number: 21,
             url: 'https://github.com/example/project/pull/21',
             body: 'PR body',
+            createdAt: '2026-07-21T00:01:00Z',
+            headRefOid: 'a'.repeat(40),
           } } } };
       },
     };
@@ -1132,6 +1319,8 @@ test('HTTP request adapter falls back to authenticated GraphQL for GitHub PR RES
     number: 21,
     html_url: 'https://github.com/example/project/pull/21',
     body: 'PR body',
+    created_at: '2026-07-21T00:01:00Z',
+    head: { sha: 'a'.repeat(40) },
   });
   const comments = await request('https://api.github.com/repos/example/project/issues/21/comments?per_page=100');
   assert.deepEqual(comments.json, [{ body: 'No receipt link.', user: { login: 'maintainer' } }]);
