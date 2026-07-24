@@ -206,10 +206,16 @@ test('generated public ledger fails closed and keeps correction-only records unl
   await renderLedger({ indexPath, out: siteFile, now: generatedAt });
   const html = await readFile(siteFile, 'utf8');
   assert.match(html, /M-004/);
+  assert.match(html, /M-008/);
   assert.doesNotMatch(html, /M-012|M-020|Upstream CI agreed|mailto:|request a run/i);
   const publicLedger = JSON.parse(await readFile(path.join(temporaryRoot, 'site/ledger.json'), 'utf8'));
   assert.equal(publicLedger.generated_at, generatedAt);
-  assert.deepEqual(publicLedger.receipts.map(({ receipt_id: receiptId }) => receiptId), ['M-004']);
+  assert.deepEqual(publicLedger.receipts.map(({ receipt_id: receiptId }) => receiptId), ['M-004', 'M-008']);
+
+  const m008Page = await readFile(path.join(temporaryRoot, 'site/receipts/M-008/index.html'), 'utf8');
+  assert.match(m008Page, /Receipt ID<\/span> <code>M-008<\/code>/);
+  assert.match(m008Page, /Contributor self-run\. Not maintainer verification\./);
+  assert.doesNotMatch(m008Page, /PR state:|Review signal:|CI state:|Upstream CI agreed/i);
 
   const correctionPage = await readFile(path.join(temporaryRoot, 'site/receipts/M-012/index.html'), 'utf8');
   assert.match(correctionPage, /noindex,nofollow/);

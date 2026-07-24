@@ -414,6 +414,12 @@ test('receipt view models copy command-level evidence from committed sources and
   assert.equal(receipt.evidence_classification, 'LEGACY_SELF_RUN_RECORD');
   assert.equal(receipt.environment.container_image_ref, 'node:22-bookworm');
   assert.equal(receipt.publication.state, 'merged');
+  assert.equal(receipt.public_listing, 'listed');
+  assert.equal(
+    receipt.consent_scopes.scopes.receipt_publication_consent.status,
+    'granted',
+  );
+  assert.equal(receipt.marketing_reference, false);
   assert.match(receipt.stdout_redacted, /Building tests for @blockly\/plugin-workspace-search/);
   assert.match(receipt.stderr_redacted, /Tried to move a non-movable workspace/);
 
