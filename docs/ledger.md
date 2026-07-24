@@ -1,116 +1,60 @@
 # Public mission ledger
 
-Build the machine-readable ledger from mission directories:
+The ledger has two stages:
+
+1. `build` validates every committed mission and produces an internal deterministic index.
+2. `render` applies publication policy and emits only authorized public artifacts.
 
 ```sh
 node bin/ledger.mjs build \
   --missions-dir missions \
   --out missions/index.json \
-  --now 2026-07-21T00:00:00Z
-```
+  --now 2026-07-24T00:22:16Z
 
-Each direct child directory is checked for `mission.json`. Receipts are validated with
-the mission validator. Strict mode is the default: a missing/invalid publication envelope,
-receipt, bundle relationship, or normalized evidence field fails the build. The explicit
-`--allow-skips` diagnostic mode omits invalid entries with warnings. Add `--json` to print the
-included and skipped totals as a machine-readable summary.
-
-The version-1 index is sorted by `mission_id` and contains the public projection plus a normalized
-Proof-of-Pass Receipt view model. It also records deterministic `ci_agreement` counts computed
-from publication envelopes: `success` agrees with a receipt PASS, `failure` disagrees, and
-pending/null/non-conclusive states are excluded. For every schema-valid mission, the builder reads the
-committed `bundle/run_record.json` and requires exact, one-to-one command parity with
-`mission.json:commands_declared`; missing, blank, or mismatched receipt evidence fails the
-build rather than producing a partial receipt. It also binds top-level `mission.json` to the
-signed `bundle/mission.json` (only the post-signing digest and attestation envelope may differ)
-and requires every declared command to have returned exit `0` without timing out. When present,
-only the nested issue title from `bundle/issue_snapshot.json` is exposed, and its `html_url` must
-match `mission.json:issue_or_task`; bodies and comments are never projected. `generated_at` is
-the exact `--now` value;
-when the optional flag is omitted it is `null`, and the builder never reads the wall clock.
-
-Schema-v2 receipts additionally require signed `bundle/economic.json` and an immutable top-level
-`approval.json`; either both exist or neither exists. The builder verifies task and funding
-identity, complete contiguous attempt lineage, run usage reconciliation, approval after run finish,
-issue-snapshot provenance, and every cost source reference down to its public bundle-member digest
-and JSON pointer. The economic file must have a matching `bundle.manifest.json` entry. It then
-projects those facts into the same receipt. Existing missions with neither
-artifact remain schema v1 and are not rewritten. See [Economic identity](economic-identity.md).
-
-A required sibling `publication.json` is a mutable factual envelope for an immutable mission. It
-records the direct PR URL and head OID, base/head drift, CI state, merge commit,
-`prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
-an optional public `scope_note`, verified release-asset evidence, and an optional structured
-`pr_disclosure` observation. A scope note is a nullable,
-validated, transparent public interpretation of the receipt's scope. It stays in the mutable
-publication envelope, is shown separately from the immutable signed limitations, and must not
-claim checks absent from the signed command evidence. Ledger builds overlay
-that envelope without modifying `mission.json` or any file inside `bundle/`.
-
-During the `prepared` bootstrap stage, `attestation_uri`, `release_asset_sha256`, and
-`attestation_verified_at` remain present and must be either all `null` or all populated. The
-prepared publication envelope is authoritative over any stale mission-level attestation value;
-an all-null envelope renders the asset as not recorded and its provenance as not verified, and
-the ledger index reports `attested: false`. Once publication moves to `open`, `closed_unmerged`,
-or `merged`, all three fields are required and strictly validated.
-
-The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
-
-Render the self-contained public ledger and every permanent printable receipt page from an index:
-
-```sh
 node bin/ledger.mjs render \
   --index missions/index.json \
   --out site/index.html \
-  --now 2026-07-21T00:00:00Z
+  --now 2026-07-24T00:22:16Z
 ```
 
-This writes `site/index.html`, `site/ledger.json`, the public schemas under `site/schema/`,
-`site/receipts/M-XXX/index.html`, generator-owned repository pages under
-`site/repo/<owner>--<repo>/index.html`, and a minimized, versioned
-`site/receipts/M-XXX/receipt.json` summary for every mission. Every page and JSON projection
-records the deterministic ledger `generated_at`. The JSON summary excludes raw
-patches, output streams, and the mutable publication envelope. The homepage is server-rendered
-with an M-008 receipt, newest-first external receipt previews, and a lower collapsed archive for
-own-repository rehearsals; JavaScript only
-enhances filters and copy buttons. Each receipt page starts with a verify-first strip containing
-the existing copyable attestation command and its expected success output, then includes
-verbatim raw commands and limitations, expandable committed redacted stdout/stderr when present,
-and print CSS. A normal-weight maintainer box is scoped to the receipt repository, with the public
-run-request issue form as the primary action and private email as the secondary action. The
-homepage and every receipt page link to the discrepancy report form and promise to publish CI
-discrepancies on the ledger. Conclusive upstream CI observations appear as ledger-wide,
-per-repository, and per-receipt agreement statements. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
-summary-first layout with dense economic, technical, and provenance evidence in expandable drawers.
-Each external receipt links to its repository ledger page, which lists all Northset receipts and
-outcomes for that repository, its CI-agreement count, and a repository-scoped request box. Direct rendering writes every new page
-successfully before pruning stale generator-owned `site/receipts/M-XXX/` directories or marked
-generator-owned repository directories, so a render
-error cannot first remove the last complete receipt set. Unrelated site files and receipt
-directories are preserved by direct `render` invocations. The CI drift gate is stricter: it
-compares the complete committed `site/` tree with a fresh generated tree, so committed `site/`
-is currently generator-only. The renderer never reads the network or
-the wall clock, uses no external scripts,
-stylesheets, fonts, images, or runtime APIs, and works when opened with `file://`.
+The internal index retains normalized technical evidence for local validation. It is not itself
+the public ledger. The public renderer reads the four independent consent scopes and fails closed:
 
-Future contributor PR disclosure uses at most one short canonical per-receipt
-`receipts/M-XXX/` URL in the PR body, not the legacy homepage `#M-XXX` anchor. Do not add a
-separate comment unless a maintainer invites one. Existing PR bodies are historical records and
-are not rewritten by the ledger generator. This is mechanically enforced for every future
-non-prepared `author_contribution` by the independent `ci / pr-disclosure` job; the checked
-historical exemption list lives in `policies/pr_receipt_disclosure_policy.json`. The deterministic
-ledger builder remains network-free. See [PR receipt disclosure](pr-receipt-disclosure.md) for
-the operator and enforcement flow.
+- `listed` requires explicit `receipt_publication_consent`;
+- `private_internal` emits no named public artifact; and
+- `correction_only` is reserved for M-012 and emits its direct, unlisted incident correction page
+  and sparse JSON record.
 
-# Compact factory receipts
+The normal public output contains `index.html`, `ledger.json`, public schemas,
+`receipts/<MISSION>/index.html`, `receipts/<MISSION>/receipt.json`, and deterministic OG sources
+only for explicitly listed technical records. Repository aggregate pages are not generated.
+Mutable pull-request, review, CI, and outcome observations are not projected into immutable
+receipt pages or their JSON summaries.
 
-The redesigned preparation factory writes immutable `proof.json` records to the append-only
-`receipts` branch. A digest-bound `current.json` pointer selects the proof projected at the
-canonical public URL `/receipts/<MISSION>/`. The Pages workflow always executes the projector
-from `main`, validates the selected proof shape and digest, and publishes both a human-readable
-page and `receipt.json`.
+The builder still verifies exact mission/bundle parity, declared-command parity, proof-of-pass
+evidence, patch and bundle digests, attestation identity, economic identity where present, and
+the mutable publication envelope. Correcting publication state does not alter immutable mission,
+bundle, patch, or run-record bytes.
 
-The raw GitHub blob is evidence storage, not the contributor-facing receipt URL. Upstream PRs link
-the canonical Pages URL after the exact proof bytes are committed to the receipts branch. Pages
-rendering, proof attestation, and mutable status reconciliation then proceed asynchronously; their
-availability does not block opening an already approved upstream PR.
+Publication schema v1 remains valid for existing records. Schema v2 adds an explicit listing and
+a correction record containing the correction identity, time, reason, source, superseded claims,
+and prior/replacement rendered hashes.
+
+Factory proof schema v3 adds the exact ledger `consent_scopes` v2 object to the structured proof.
+Older factory proof versions remain `private_internal`; consent is never inferred from a PR,
+proof, publication observation, or attestation.
+
+After rendering:
+
+```sh
+node bin/publication-policy.mjs validate --site site --index missions/index.json
+```
+
+The validator rejects unconsented listings, marketing references without independent consent,
+acquisition links, repository aggregates, mutable status fields, CI-agreement claims, and the
+known stale M-012 incident facts.
+
+The deployment workflow renders into a fresh directory and writes
+`deployment-manifest.json`. The manifest binds each output path, byte count, and SHA-256 to the
+exact ledger and receipts source revisions plus the merged index digest. The workflow verifies
+the local manifest before upload and every deployed byte after Pages returns its URL.

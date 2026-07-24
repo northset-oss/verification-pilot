@@ -125,13 +125,37 @@ jobs:
       - name: Render every receipt through the canonical ledger renderer
         env:
           FACTORY_LEDGER_INDEX: ${{ runner.temp }}/ledger-with-factory-receipts.json
+          RENDERED_SITE: ${{ runner.temp }}/rendered-site
+          LEDGER_SOURCE_OID: ${{ steps.ledger-source.outputs.sha }}
+          RECEIPTS_SOURCE_OID: ${{ steps.receipt-source.outputs.sha }}
         run: >-
           node source/bin/ledger.mjs render
           --index "$FACTORY_LEDGER_INDEX"
-          --out source/site/index.html
+          --out "$RENDERED_SITE/index.html"
+          &&
+          node source/bin/publication-policy.mjs validate
+          --site "$RENDERED_SITE"
+          --index "$FACTORY_LEDGER_INDEX"
+          &&
+          node source/bin/publication-policy.mjs manifest
+          --site "$RENDERED_SITE"
+          --index "$FACTORY_LEDGER_INDEX"
+          --ledger-source-oid "$LEDGER_SOURCE_OID"
+          --receipts-source-oid "$RECEIPTS_SOURCE_OID"
+          &&
+          node source/bin/publication-policy.mjs verify-manifest
+          --site "$RENDERED_SITE"
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          path: source/site
+          path: ${{ runner.temp }}/rendered-site
       - id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Verify deployed bytes match the source manifest
+        env:
+          RENDERED_SITE: ${{ runner.temp }}/rendered-site
+          DEPLOYMENT_URL: ${{ steps.deployment.outputs.page_url }}
+        run: >-
+          node source/bin/publication-policy.mjs verify-live
+          --site "$RENDERED_SITE"
+          --base-url "$DEPLOYMENT_URL"

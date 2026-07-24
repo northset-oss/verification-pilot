@@ -121,8 +121,6 @@ jobs:
             [[ "$bundle" =~ ^run-record-${mission}-[0-9a-f]{12}\.tar\.gz$ ]]
             notes="$(cat <<EOF
           Attested run-record bundle for ${mission} (${digest}). Signed provenance records artifact origin and integrity; it does not witness execution or imply correctness, security, code quality, merge, or maintainer approval.
-
-          Maintain an open-source project? Request a private run for a PR already in your queue at oss@northset.ai. Nothing is published without your approval.
           EOF
             )"
             gh release view "$tag" -R "$REPOSITORY" >/dev/null 2>&1 || gh release create "$tag" -R "$REPOSITORY" --title "Run record ${mission}" --notes "$notes"

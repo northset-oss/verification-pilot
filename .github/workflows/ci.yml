@@ -12,59 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  pr-disclosure:
-    name: pr-disclosure
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: "20"
-      - name: Enforce missions-directory contributor receipt disclosure
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: >-
-          node bin/pr-receipt-disclosure.mjs check
-          --missions-dir missions
-          --policy policies/pr_receipt_disclosure_policy.json
-          --json
-
-      - name: Prepare factory receipts-branch audit
-        id: factory-receipts
-        shell: bash
-        run: |
-          set -euo pipefail
-          factory_repo="$(mktemp -d "$RUNNER_TEMP/factory-audit-repo.XXXXXX")"
-          factory_root="$(mktemp -d "$RUNNER_TEMP/factory-receipts.XXXXXX")"
-          git init --quiet "$factory_repo"
-          if ! git -C "$factory_repo" fetch --no-tags --depth=1 \
-            "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git" refs/heads/receipts; then
-            echo "::notice::Factory PR disclosure audit skipped: the receipts branch is unavailable."
-            exit 0
-          fi
-          if [ -z "$(git -C "$factory_repo" ls-tree -d --name-only FETCH_HEAD -- receipts)" ]; then
-            echo "::notice::Factory PR disclosure audit skipped: the receipts branch has no receipts directory."
-            exit 0
-          fi
-          git -C "$factory_repo" archive FETCH_HEAD receipts | tar -xf - -C "$factory_root"
-          if [ -z "$(find "$factory_root/receipts" -mindepth 2 -maxdepth 2 -name current.json -print -quit)" ]; then
-            echo "::notice::Factory PR disclosure audit skipped: the receipts branch has no current receipt records."
-            exit 0
-          fi
-          echo "available=true" >> "$GITHUB_OUTPUT"
-          echo "dir=$factory_root/receipts" >> "$GITHUB_OUTPUT"
-
-      - name: Enforce factory contributor receipt disclosure
-        if: steps.factory-receipts.outputs.available == 'true'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: >-
-          node bin/pr-receipt-disclosure.mjs check
-          --factory-receipts-dir "${{ steps.factory-receipts.outputs.dir }}"
-          --policy policies/pr_receipt_disclosure_policy.json
-          --json
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -103,23 +50,8 @@ jobs:
           node bin/ledger.mjs build --missions-dir missions --out "$work/index.json" --now "$generated_at"
           diff -u missions/index.json "$work/index.json"
           node bin/ledger.mjs render --index "$work/index.json" --out "$work/site/index.html"
-          diff -ru --exclude='*.png' site "$work/site"
-          for png in site/og/*.png; do
-            [ -e "$png" ] || continue
-            name="$(basename "$png" .png)"
-            if [ ! -f "$work/site/og/$name.svg" ]; then
-              echo "orphan OG PNG: $png has no rendered SVG source" >&2
-              exit 1
-            fi
-          done
-          for svg in "$work"/site/og/*.svg; do
-            [ -e "$svg" ] || continue
-            name="$(basename "$svg" .svg)"
-            if [ ! -f "site/og/$name.png" ]; then
-              echo "missing OG PNG: site/og/$name.png for rendered SVG source $svg" >&2
-              exit 1
-            fi
-          done
+          node bin/publication-policy.mjs validate --site "$work/site" --index "$work/index.json"
+          diff -ru site "$work/site"
 
       - name: Package exact changed bundles for the signing workflow
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

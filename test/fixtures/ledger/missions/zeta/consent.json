@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "mission_id": "M-004",
+  "variant": "V",
+  "consent_artifact": "https://example.com/maintainer/project/consent/42",
+  "granted_at": "2026-07-12T00:00:00Z",
+  "granted_by": "fixture repository owner",
+  "publication_consent": true,
+  "scope": [
+    "publish this fixture receipt"
+  ]
+}

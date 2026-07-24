@@ -67,10 +67,10 @@ around it.
 
 ## How we talk about outcomes
 
-- A maintainer's merge, approval, rejection, or silence is theirs. When we record an attributed
-  decision — merged, approved, rejected, or closed — the record must carry a link to that
-  decision; we do not put an unlinked "the maintainer rejected this" on a public page. We report
-  it as their decision, never as our result or our endorsement.
+- A maintainer's merge, approval, rejection, or silence is theirs. Mutable pull-request, review,
+  and CI status is not part of an immutable public receipt page or machine-readable receipt.
+- An incident correction may name the final upstream fact and its direct source only to withdraw
+  a false or stale public claim. It remains unlisted and does not become a new product claim.
 - When we run our own pipeline on our own repositories to rehearse it, we label that plainly as
   our own rehearsal, not outside validation, and we don't count it as either.
 - When Northset is itself the contributor to your project, a run record describes our own change

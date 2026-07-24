@@ -174,7 +174,11 @@ test('all committed missions have complete publication envelopes and freshness m
   );
   for (const { mission_id: missionId } of committedIndex.missions) {
     const publication = JSON.parse(await readFile(path.join(root, 'missions', missionId, 'publication.json'), 'utf8'));
-    const expectedFields = [...publicationFields, ...(publication.pr_disclosure ? ['pr_disclosure'] : [])].sort();
+    const expectedFields = [
+      ...publicationFields,
+      ...(publication.pr_disclosure ? ['pr_disclosure'] : []),
+      ...(publication.schema_version === 2 ? ['listing', 'correction'] : []),
+    ].sort();
     assert.deepEqual(Object.keys(publication).sort(), expectedFields, missionId);
     if (publication.state === 'prepared' && publication.attestation_uri === null) {
       assert.equal(publication.attestation_uri, null);
@@ -188,7 +192,7 @@ test('all committed missions have complete publication envelopes and freshness m
   }
 });
 
-test('generated open ledger exposes exact state counts, freshness, provenance, drift, and machine-readable ledger', async (t) => {
+test('generated public ledger fails closed and keeps correction-only records unlisted', async (t) => {
   const temporaryRoot = await mkdtemp(path.join(os.tmpdir(), 'northset-final-contract-'));
   t.after(() => rm(temporaryRoot, { recursive: true, force: true }));
   const indexPath = path.join(temporaryRoot, 'index.json');
@@ -201,45 +205,42 @@ test('generated open ledger exposes exact state counts, freshness, provenance, d
   assert.equal(built.index.missions.length, committedIndex.missions.length);
   await renderLedger({ indexPath, out: siteFile, now: generatedAt });
   const html = await readFile(siteFile, 'utf8');
-  assert.match(html, new RegExp(`Ledger generated <time datetime="${generatedAt}">Jul 14, 2026<\\/time>`));
-  const externalReceipts = built.index.missions
-    .map(({ receipt }) => receipt)
-    .filter(({ variant }) => variant !== 'own_repo_rehearsal');
-  const expectedSummaries = [
-    [externalReceipts.length, 'External receipts'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'merged').length, 'Merged upstream'],
-    [new Set(externalReceipts.map(({ target_repo: targetRepo }) => targetRepo)).size, 'Distinct repositories'],
-    [externalReceipts.filter(({ attestation_uri: attestationUri }) => attestationUri !== null).length, 'Attested'],
-  ];
-  for (const [number, label] of expectedSummaries) {
-    assert.match(html, new RegExp(`<strong>${number}</strong><span>${label}</span>`));
-  }
-  const filterCounts = [
-    ['all', 'All', externalReceipts.length],
-    ['merged', 'Merged', externalReceipts.filter(({ publication }) => publication?.state === 'merged').length],
-    ['open', 'Open', externalReceipts.filter(({ publication }) => publication?.state === 'open').length],
-    ['closed_unmerged', 'Closed', externalReceipts.filter(({ publication }) => publication?.state === 'closed_unmerged').length],
-    ['changes_requested', 'Changes requested', externalReceipts.filter(({ publication }) => publication?.review_decision === 'changes_requested').length],
-  ];
-  for (const [filter, label, number] of filterCounts) {
-    assert.match(html, new RegExp(`data-filter="${filter}"[^>]*>${label} \\(${number}\\)<`));
-  }
-  assert.match(html, /External status.*mutable.*unattested/is);
-  assert.match(html, /M-011[\s\S]*recorded patch commit[\s\S]*current PR head/i);
-  assert.match(html, /M-020[\s\S]*recorded patch commit[\s\S]*current PR head/i);
-  assert.doesNotMatch(html, /This receipt tested/i);
-  const receipt = JSON.parse(await readFile(path.join(temporaryRoot, 'site/receipts/M-020/receipt.json'), 'utf8'));
-  assert.equal(receipt.generated_at, generatedAt);
-  assert.ok(receipt.execution_summary);
-  assert.ok(receipt.code.recorded_patch_commit);
-  assert.equal(receipt.code.patch_commit_binding, 'declared metadata; not execution-bound');
-  assert.equal(receipt.code.patch_diff_binding, 'bound to executed patch bytes');
-  assert.ok(receipt.bundle.bundle_contents_digest);
-  assert.ok(receipt.bundle.signed_asset_sha256);
-  assert.equal(receipt.bundle.attestation_verified_at, '2026-07-14T14:21:48Z');
+  assert.match(html, /M-004/);
+  assert.doesNotMatch(html, /M-012|M-020|Upstream CI agreed|mailto:|request a run/i);
   const publicLedger = JSON.parse(await readFile(path.join(temporaryRoot, 'site/ledger.json'), 'utf8'));
   assert.equal(publicLedger.generated_at, generatedAt);
-  assert.equal(publicLedger.receipts.length, built.included);
+  assert.deepEqual(publicLedger.receipts.map(({ receipt_id: receiptId }) => receiptId), ['M-004']);
+
+  const correctionPage = await readFile(path.join(temporaryRoot, 'site/receipts/M-012/index.html'), 'utf8');
+  assert.match(correctionPage, /noindex,nofollow/);
+  assert.match(correctionPage, /PR #901 was closed unmerged after a maintainer objected/);
+  assert.match(correctionPage, /LEGACY_SELF_RUN_RECORD/);
+  assert.match(
+    correctionPage,
+    /gh attestation verify run-record-M-012\.tar\.gz --repo northset-oss\/verification-pilot --signer-workflow northset-oss\/verification-pilot\/\.github\/workflows\/attest-bundle\.yml/,
+  );
+  assert.doesNotMatch(correctionPage, /data-filter|external-receipts|navigator\.clipboard|window\.print/);
+  assert.doesNotMatch(correctionPage, /mailto:|request a run|Upstream CI agreed/i);
+  const correctionReceipt = JSON.parse(
+    await readFile(path.join(temporaryRoot, 'site/receipts/M-012/receipt.json'), 'utf8'),
+  );
+  assert.equal(
+    correctionReceipt.artifact_verification.verify_command,
+    'gh attestation verify run-record-M-012.tar.gz --repo northset-oss/verification-pilot --signer-workflow northset-oss/verification-pilot/.github/workflows/attest-bundle.yml',
+  );
+  assert.equal(
+    correctionReceipt.artifact_verification.release_asset_sha256,
+    'sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf',
+  );
+
+  await assert.rejects(
+    readFile(path.join(temporaryRoot, 'site/receipts/M-020/receipt.json'), 'utf8'),
+    { code: 'ENOENT' },
+  );
+  await assert.rejects(
+    readFile(path.join(temporaryRoot, 'site/repo/nodejs--doc-kit/index.html'), 'utf8'),
+    { code: 'ENOENT' },
+  );
 });
 
 test('render rejects unknown index fields instead of trusting hand-authored projections', async (t) => {
@@ -277,8 +278,16 @@ test('ledger build is strict by default and allow-skips is an explicit diagnosti
   );
 });
 
-test('public JSON schemas are committed for publication, ledger, receipt, economic identity, approval, and run record', async () => {
-  const publicSchemas = ['publication.schema.json', 'ledger.schema.json', 'public-receipt.schema.json', 'run-record.schema.json', 'economic-identity.schema.json', 'approval.schema.json'];
+test('public JSON schemas commit the fail-closed consent and correction contract', async () => {
+  const publicSchemas = [
+    'publication.schema.json',
+    'ledger.schema.json',
+    'public-receipt.schema.json',
+    'run-record.schema.json',
+    'economic-identity.schema.json',
+    'approval.schema.json',
+    'consent-scopes.schema.json',
+  ];
   for (const name of publicSchemas) {
     const schema = JSON.parse(await readFile(path.join(root, 'schema', name), 'utf8'));
     if (name === 'economic-identity.schema.json') {
@@ -293,86 +302,29 @@ test('public JSON schemas are committed for publication, ledger, receipt, econom
   }
   const publicationSchema = JSON.parse(await readFile(path.join(root, 'schema/publication.schema.json'), 'utf8'));
   assert.deepEqual([...publicationSchema.required].sort(), publicationFields);
-  assert.deepEqual(
-    publicationSchema.allOf,
-    [{
-      if: { properties: { state: { const: 'prepared' } }, required: ['state'] },
-      then: { oneOf: [{
-        properties: {
-          attestation_uri: { type: 'null' },
-          release_asset_sha256: { type: 'null' },
-          attestation_verified_at: { type: 'null' },
-        },
-      }, {
-        properties: {
-          attestation_uri: { type: 'string', format: 'uri', pattern: '^https://github\\.com/northset-oss/verification-pilot/releases/download/' },
-          release_asset_sha256: { $ref: '#/$defs/digest' },
-          attestation_verified_at: { type: 'string', format: 'date-time' },
-        },
-      }] },
-      else: {
-        properties: {
-          attestation_uri: { type: 'string', format: 'uri', pattern: '^https://github\\.com/northset-oss/verification-pilot/releases/download/' },
-          release_asset_sha256: { $ref: '#/$defs/digest' },
-          attestation_verified_at: { type: 'string', format: 'date-time' },
-        },
-      },
-    }],
-  );
+  assert.deepEqual(publicationSchema.properties.schema_version.enum, [1, 2]);
+  assert.deepEqual(publicationSchema.properties.listing.enum, ['listed', 'correction_only', 'private_internal']);
+  assert.deepEqual(publicationSchema.allOf[0].then.required, ['listing', 'correction']);
   assert.equal(publicationSchema.properties.pr_disclosure.$ref, '#/$defs/prDisclosure');
+
+  const consentSchema = JSON.parse(await readFile(path.join(root, 'schema/consent-scopes.schema.json'), 'utf8'));
+  assert.deepEqual(consentSchema.required, ['schema_version', 'mission_id', 'scopes']);
   assert.deepEqual(
-    [...publicationSchema.$defs.prDisclosure.required].sort(),
-    ['canonical_url', 'mode', 'required', 'schema_version', 'verified_at'],
+    consentSchema.properties.scopes.required,
+    [
+      'contribution_invitation',
+      'verification_execution_consent',
+      'receipt_publication_consent',
+      'marketing_reference_consent',
+    ],
   );
+
   const receiptSchema = JSON.parse(await readFile(path.join(root, 'schema/public-receipt.schema.json'), 'utf8'));
-  assert.deepEqual(
-    receiptSchema.allOf[0],
-    {
-      if: {
-        anyOf: [{
-          properties: {
-            upstream_outcome: {
-              type: 'object',
-              properties: { status: { const: 'prepared' } },
-              required: ['status'],
-            },
-          },
-          required: ['upstream_outcome'],
-        }, {
-          properties: {schema_version: {const: 3}},
-          required: ['schema_version'],
-        }],
-      },
-      then: { properties: { bundle: { oneOf: [{
-        properties: {
-          signed_asset_sha256: { type: 'null' },
-          attestation_uri: { type: 'null' },
-          attestation_verified_at: { type: 'null' },
-          provenance: { const: 'Signed provenance has not been verified.' },
-        },
-      }, {
-        properties: {
-          signed_asset_sha256: { $ref: '#/$defs/digest' },
-          attestation_uri: { type: 'string', format: 'uri' },
-          attestation_verified_at: { $ref: '#/$defs/time' },
-          provenance: { const: 'Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval.' },
-        },
-      }] } } },
-      else: { properties: { bundle: { properties: {
-        signed_asset_sha256: { $ref: '#/$defs/digest' },
-        attestation_uri: { type: 'string', format: 'uri' },
-        attestation_verified_at: { $ref: '#/$defs/time' },
-        provenance: { const: 'Signed provenance recorded; the signer records artifact origin, not execution witnessing or maintainer approval.' },
-      } } } },
-    },
-  );
-  assert.deepEqual(receiptSchema.allOf[1], {
-    if: {properties: {schema_version: {const: 2}}, required: ['schema_version']},
-    then: {required: ['economic_identity']},
-    else: {not: {required: ['economic_identity']}},
-  });
-  const receipt = JSON.parse(await readFile(path.join(root, 'site/receipts/M-020/receipt.json'), 'utf8'));
-  assert.deepEqual(Object.keys(receipt).sort(), [...receiptSchema.required].sort());
+  assert.ok(receiptSchema.required.includes('consent_scopes'));
+  assert.ok(receiptSchema.required.includes('evidence_classification'));
+  assert.equal(receiptSchema.properties.upstream_outcome, undefined);
+  assert.equal(receiptSchema.properties.links.properties.publication_pr, undefined);
+
   const ledgerSchema = JSON.parse(await readFile(path.join(root, 'schema/ledger.schema.json'), 'utf8'));
   const ledger = JSON.parse(await readFile(path.join(root, 'site/ledger.json'), 'utf8'));
   assert.deepEqual(Object.keys(ledger).sort(), [...ledgerSchema.required].sort());
