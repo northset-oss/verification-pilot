@@ -144,11 +144,10 @@ in a `finally` block.
 
 The emitted container posture is hardened (non-root, all caps dropped, `no-new-privileges`,
 read-only root, default seccomp, no Docker-socket mount), but unremapped stock Docker is **not an
-accepted deployment for foreign PR code**. Before foreign run #1, the actual runner must satisfy
-every item in [`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md): stronger isolation
-through userns-remap, gVisor, Kata, or a disposable per-job micro-VM; credential-free execution;
-hard workspace quotas; external cleanup; constrained phase-A networking; and the complete
-real-Docker battery passing on the production daemon.
+accepted deployment for foreign PR code**. The retired
+[`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md) records historical containment
+considerations only and does not authorize outreach or execution. Any current execution authority
+must come from current operator instructions and explicit verification-execution consent.
 
 Phase A runs dependency install/lifecycle scripts with network access. IMDS, Docker TCP endpoints,
 host/LAN services, and unrelated internal services must be unreachable; this exposure is a

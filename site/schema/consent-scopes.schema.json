@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://northset-oss.github.io/verification-pilot/schema/consent-scopes.schema.json",
+  "title": "Northset independent consent scopes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mission_id", "scopes"],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "mission_id": { "type": "string", "pattern": "^M-(?:[0-9]{3,}|E2[a-c])$" },
+    "scopes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contribution_invitation",
+        "verification_execution_consent",
+        "receipt_publication_consent",
+        "marketing_reference_consent"
+      ],
+      "properties": {
+        "contribution_invitation": { "$ref": "#/$defs/scope" },
+        "verification_execution_consent": { "$ref": "#/$defs/scope" },
+        "receipt_publication_consent": { "$ref": "#/$defs/scope" },
+        "marketing_reference_consent": { "$ref": "#/$defs/scope" }
+      }
+    }
+  },
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence", "granted_at", "granted_by"],
+      "properties": {
+        "status": { "enum": ["granted", "absent", "not_applicable"] },
+        "evidence": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "value"],
+              "properties": {
+                "kind": { "enum": ["public_url", "private_digest"] },
+                "value": { "type": "string", "minLength": 1 }
+              }
+            }
+          ]
+        },
+        "granted_at": { "type": ["string", "null"], "format": "date-time" },
+        "granted_by": { "type": ["string", "null"], "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "granted" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "evidence": { "type": "object" },
+              "granted_at": { "type": "string", "format": "date-time" },
+              "granted_by": { "type": "string", "minLength": 1 }
+            }
+          },
+          "else": {
+            "properties": {
+              "evidence": { "type": "null" },
+              "granted_at": { "type": "null" },
+              "granted_by": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence": {
+                "type": "object",
+                "properties": { "kind": { "const": "private_digest" } },
+                "required": ["kind"]
+              }
+            },
+            "required": ["evidence"]
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "properties": {
+                  "value": { "pattern": "^sha256:[0-9a-f]{64}$" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence": {
+                "type": "object",
+                "properties": { "kind": { "const": "public_url" } },
+                "required": ["kind"]
+              }
+            },
+            "required": ["evidence"]
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "properties": {
+                  "value": { "type": "string", "format": "uri", "pattern": "^https?://" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

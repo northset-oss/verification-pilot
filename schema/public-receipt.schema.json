@@ -4,7 +4,7 @@
   "title": "Northset public proof-of-pass receipt",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "generated_at", "receipt_id", "receipt_result", "passed_commands", "declared_commands", "timestamps", "commands", "environment", "code", "execution_summary", "bundle", "classification", "links", "issue_title", "limitations", "correction", "scope_note", "upstream_outcome"],
+  "required": ["schema_version", "generated_at", "receipt_id", "receipt_result", "passed_commands", "declared_commands", "timestamps", "commands", "environment", "code", "execution_summary", "bundle", "classification", "evidence_classification", "consent_scopes", "links", "issue_title", "limitations", "correction", "scope_note"],
   "properties": {
     "schema_version": { "enum": [1, 2, 3] },
     "generated_at": { "$ref": "#/$defs/time" },
@@ -65,36 +65,21 @@
       }
     },
     "classification": { "type": "string", "minLength": 1 },
+    "evidence_classification": { "enum": ["CURRENT_RECEIPT_RECORD", "LEGACY_SELF_RUN_RECORD"] },
+    "consent_scopes": { "$ref": "consent-scopes.schema.json" },
     "links": {
       "type": "object", "additionalProperties": false,
-      "required": ["canonical_url", "target_repo", "issue_or_task", "publication_pr"],
+      "required": ["canonical_url", "target_repo", "issue_or_task"],
       "properties": {
         "canonical_url": { "type": "string", "format": "uri" },
         "target_repo": { "type": "string", "format": "uri" },
-        "issue_or_task": { "$ref": "#/$defs/nullableUrl" },
-        "publication_pr": { "$ref": "#/$defs/nullableUrl" }
+        "issue_or_task": { "$ref": "#/$defs/nullableUrl" }
       }
     },
     "issue_title": { "$ref": "#/$defs/nullableString" },
     "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
     "correction": { "$ref": "#/$defs/nullableString" },
     "scope_note": { "$ref": "#/$defs/nullableString" },
-    "upstream_outcome": {
-      "oneOf": [
-        { "type": "null" },
-        {
-          "type": "object", "additionalProperties": false,
-          "required": ["status", "link", "attribution"],
-          "properties": {
-            "status": { "type": "string", "minLength": 1 },
-            "link": { "$ref": "#/$defs/nullableUrl" },
-            "attribution": { "type": "string", "minLength": 1 },
-            "head_drift": { "const": true },
-            "pr_head_oid": { "$ref": "#/$defs/nullableOid" }
-          }
-        }
-      ]
-    },
     "economic_identity": { "$ref": "economic-identity.schema.json#/$defs/publicEconomicIdentity" },
     "evidence_status": { "enum": ["complete", "incomplete"] },
     "checks_not_run": {
@@ -119,7 +104,7 @@
       },
       "properties": {
         "receipt_class": { "const": "factory_contributor_self_run" },
-        "proof_schema_version": { "enum": [1, 2] },
+        "proof_schema_version": { "enum": [1, 2, 3] },
         "proof_sha256": { "$ref": "#/$defs/digest" },
         "raw_proof_url": { "type": "string", "format": "uri" },
         "publication_sha256": { "$ref": "#/$defs/digest" },
@@ -141,19 +126,8 @@
   },
   "allOf": [{
     "if": {
-      "anyOf": [{
-        "properties": {
-          "upstream_outcome": {
-            "type": "object",
-            "properties": { "status": { "const": "prepared" } },
-            "required": ["status"]
-          }
-        },
-        "required": ["upstream_outcome"]
-      }, {
-        "properties": { "schema_version": { "const": 3 } },
-        "required": ["schema_version"]
-      }]
+      "properties": { "schema_version": { "const": 3 } },
+      "required": ["schema_version"]
     },
     "then": { "properties": { "bundle": { "oneOf": [{
       "properties": {

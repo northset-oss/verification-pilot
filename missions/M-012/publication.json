@@ -1,24 +1,39 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "mission_id": "M-012",
-  "state": "open",
+  "state": "closed_unmerged",
   "pr_number": 901,
   "pr_url": "https://github.com/nodejs/doc-kit/pull/901",
   "pr_head_oid": "4c8e448d249ffd4a70e57a73c1be441e3824cf0e",
   "base_branch": "main",
   "head_drift": true,
-  "ci_state": "success",
+  "ci_state": null,
   "merge_commit_oid": null,
   "review_decision": "changes_requested",
-  "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4683515567",
+  "decision_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4767280794",
   "opened_at": "2026-07-12T22:22:09Z",
-  "closed_at": null,
-  "updated_at": "2026-07-19T21:46:36Z",
-  "observed_at": "2026-07-19T21:55:58Z",
-  "correction_note": null,
+  "closed_at": "2026-07-23T19:02:03Z",
+  "updated_at": "2026-07-23T19:02:11Z",
+  "observed_at": "2026-07-24T00:22:16Z",
+  "correction_note": "Correction — July 23, 2026\nPR #901 was closed unmerged after a maintainer objected to Northset’s use of the project and its review process in a product demonstration. M-012 remains only an immutable record of the original `a0bdd2d…` patch and the single listed command. Earlier rendered status showing the PR as open, and language describing upstream CI as agreeing with M-012, were inaccurate and have been withdrawn. The later PR head was not executed by M-012.",
   "scope_note": "The declared network-off check runs only the configuration unit test (src/utils/configuration/__tests__/index.test.mjs) on node:22 after a disclosed online npm ci. It does not run the full test suite, eslint, prettier, or the TypeScript/JSDoc type-check gates that upstream CI also runs.",
   "bundle_digest": "sha256:2c6b24a0e00782c386b6faf42945791584006b7e510c63b337acec7d621ef891",
   "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-012/run-record-M-012.tar.gz",
   "release_asset_sha256": "sha256:653a46b74e428acb75738ae1e7b8a1b2b66cb36933087927538a971032561cdf",
-  "attestation_verified_at": "2026-07-14T14:21:48Z"
+  "attestation_verified_at": "2026-07-14T14:21:48Z",
+  "listing": "correction_only",
+  "correction": {
+    "correction_id": "M-012-2026-07-23-final-upstream",
+    "corrected_at": "2026-07-24T00:22:16Z",
+    "reason": "The previously rendered page showed stale mutable upstream state and an external recommendation after the pull request had received a CHANGES_REQUESTED review and closed without merge.",
+    "source_url": "https://github.com/nodejs/doc-kit/pull/901#pullrequestreview-4767280794",
+    "prior_rendered_sha256": "sha256:a8a4c6dae8a1c22da658d1212ce74a25793af9edf05d48c6b3b4c1a18baf3cb2",
+    "prior_rendered_bytes": 84797,
+    "replacement_rendered_sha256": "sha256:ce5f5293366cd12bc94f625c17484d427b31629971d6e5323953c541445310c5",
+    "superseded_claims": [
+      "The pull request was open.",
+      "Upstream CI was successful.",
+      "The receipt could be presented as an external recommendation to merge."
+    ]
+  }
 }

@@ -91,6 +91,52 @@ function structuredProof(overrides = {}) {
   };
 }
 
+function publishableStructuredProof(overrides = {}) {
+  const missionId = overrides.mission_id ?? 'M-1002';
+  const granted = {
+    status: 'granted',
+    evidence: {kind: 'public_url', value: 'https://example.test/consent/M-1002'},
+    granted_at: '2026-07-19T12:00:00Z',
+    granted_by: 'repository owner',
+  };
+  const absent = {status: 'absent', evidence: null, granted_at: null, granted_by: null};
+  return structuredProof({
+    schema_version: 3,
+    receipt_visibility: 'public_opt_in',
+    consent_scopes: {
+      schema_version: 2,
+      mission_id: missionId,
+      scopes: {
+        contribution_invitation: {...granted},
+        verification_execution_consent: {...granted},
+        receipt_publication_consent: {...granted},
+        marketing_reference_consent: {...absent},
+      },
+    },
+    ...overrides,
+  });
+}
+
+function privateStructuredProof(overrides = {}) {
+  const missionId = overrides.mission_id ?? 'M-1002';
+  const absent = {status: 'absent', evidence: null, granted_at: null, granted_by: null};
+  return structuredProof({
+    schema_version: 3,
+    receipt_visibility: 'private_internal',
+    consent_scopes: {
+      schema_version: 2,
+      mission_id: missionId,
+      scopes: {
+        contribution_invitation: {...absent},
+        verification_execution_consent: {...absent},
+        receipt_publication_consent: {...absent},
+        marketing_reference_consent: {...absent},
+      },
+    },
+    ...overrides,
+  });
+}
+
 function legacyProof() {
   return {
     schema_version: 1,
@@ -162,14 +208,19 @@ async function setup(proofs) {
   const site = path.join(root, 'site');
   await mkdir(receipts, {recursive: true});
   await writeFile(sourceIndex, `${JSON.stringify({
-    version: '1', generated_at: generatedAt, ci_agreement: {agreed: 0, total: 0}, missions: [],
+    version: '1', generated_at: generatedAt, missions: [],
   })}\n`);
   for (const proof of proofs) await writeFactoryProof(receipts, proof);
   return {root, receipts, sourceIndex, mergedIndex, site};
 }
 
-test('factory v2 proof is merged into the normal ledger and rendered by the canonical folio', async () => {
-  const fixture = await setup([structuredProof()]);
+test('real cross-repo factory v3 shape requires visibility and consent before canonical rendering', async () => {
+  const proof = publishableStructuredProof();
+  assert.deepEqual(
+    Object.keys(proof).filter((key) => ['receipt_visibility', 'consent_scopes'].includes(key)).sort(),
+    ['consent_scopes', 'receipt_visibility'],
+  );
+  const fixture = await setup([proof]);
   const result = await mergeFactoryReceipts({
     receiptsDir: fixture.receipts,
     receiptRevision: oid('f'),
@@ -198,7 +249,7 @@ test('factory v2 proof is merged into the normal ledger and rendered by the cano
   assert.equal(receipt.receipt_result, 'PASS — 1/1 declared command');
   assert.deepEqual(receipt.commands.map((command) => command.exit_code), [0]);
   assert.equal(receipt.checks_not_run[0].check, 'npm test');
-  assert.equal(receipt.source.proof_schema_version, 2);
+  assert.equal(receipt.source.proof_schema_version, 3);
   assert.equal(receipt.bundle.bundle_contents_digest, null);
   assert.ok(schema.properties.schema_version.enum.includes(3));
   const v3 = schema.allOf.find((entry) => entry.if?.properties?.schema_version?.const === 3 &&
@@ -224,7 +275,7 @@ test('factory v2 proof is merged into the normal ledger and rendered by the cano
   }
 });
 
-test('immutable legacy factory proof becomes an incomplete canonical record without invented PASS data', async () => {
+test('immutable legacy factory proof remains internal without publication consent', async () => {
   const proof = legacyProof();
   const fixture = await setup([proof]);
   await writeFactoryPublication(fixture.receipts, proof);
@@ -235,26 +286,22 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
     out: fixture.mergedIndex,
   });
   await renderLedger({indexPath: fixture.mergedIndex, out: path.join(fixture.site, 'index.html')});
-  const html = await readFile(path.join(fixture.site, 'receipts/M-1001/index.html'), 'utf8');
-  const receipt = JSON.parse(await readFile(path.join(fixture.site, 'receipts/M-1001/receipt.json'), 'utf8'));
-
-  assert.match(html, /Receipt Evidence Record/);
-  assert.match(html, /structured command evidence unavailable/i);
-  assert.match(html, /Legacy declarations/);
-  assert.match(html, /PASS: a free-form legacy check/);
-  assert.match(html, /PR #4222/);
-  assert.match(html, /CI state<\/dt><dd>PENDING/);
-  assert.match(html, /An attestation confirms bundle provenance/);
+  await assert.rejects(
+    access(path.join(fixture.site, 'receipts/M-1001/index.html')),
+    (error) => error.code === 'ENOENT',
+  );
+  const merged = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
+  const receipt = merged.missions.find((mission) => mission.mission_id === 'M-1001').receipt;
+  assert.equal(receipt.public_listing, 'private_internal');
   assert.equal(receipt.evidence_status, 'incomplete');
-  assert.equal(receipt.receipt_result, 'INCOMPLETE — structured command evidence unavailable');
-  assert.deepEqual(receipt.timestamps, {started_at: null, finished_at: null});
+  assert.equal(receipt.result, 'INCOMPLETE — structured command evidence unavailable');
+  assert.equal(receipt.started_at, null);
+  assert.equal(receipt.finished_at, null);
   assert.deepEqual(receipt.commands, []);
-  assert.equal(receipt.passed_commands, 0);
-  assert.equal(receipt.declared_commands, 0);
+  assert.equal(receipt.successful_checks, 0);
+  assert.equal(receipt.declared_checks, 0);
   assert.equal(receipt.legacy_checks.length, 2);
-  assert.equal(receipt.bundle.bundle_contents_digest, null);
-  assert.equal(receipt.links.publication_pr, 'https://github.com/owner/repo/pull/4222');
-  assert.equal(receipt.upstream_outcome.status, 'open');
+  assert.equal(receipt.bundle_digest, null);
   assert.equal(receipt.source.factory_publication.ci_state, 'PENDING');
   assert.equal(receipt.source.raw_proof_url,
     `https://github.com/northset-oss/verification-pilot/blob/${oid('f')}/receipts/M-1001/${proof.commit_oid}/proof.json`);
@@ -266,7 +313,7 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
 });
 
 test('factory proof attestation is shown separately from legacy signed-bundle provenance', async () => {
-  const proof = structuredProof();
+  const proof = publishableStructuredProof();
   const fixture = await setup([proof]);
   const pointer = JSON.parse(await readFile(
     path.join(fixture.receipts, proof.mission_id, 'current.json'), 'utf8'));
@@ -321,7 +368,6 @@ test('factory proof attestation is shown separately from legacy signed-bundle pr
   assert.doesNotMatch(html, /Attestation URL was not recorded/i);
   assert.doesNotMatch(html, /Signed provenance recorded<\/dt><dd>not verified/i);
   assert.doesNotMatch(html, /Signed asset SHA-256<\/dt><dd>not recorded/i);
-  assert.match(homepage, /<strong>1<\/strong><span>Attested<\/span>/);
   assert.match(homepage, /attestation: recorded/);
   assert.equal(mergedReceipt.attestation_uri, null);
   assert.equal(mergedReceipt.release_asset_sha256, null);
@@ -329,11 +375,11 @@ test('factory proof attestation is shown separately from legacy signed-bundle pr
   assert.equal(receipt.bundle.attestation_uri, null);
   assert.equal(receipt.bundle.signed_asset_sha256, null);
   assert.equal(receipt.bundle.attestation_verified_at, null);
-  assert.equal(receipt.source.factory_publication.attestation_url, attestationUrl);
+  assert.equal(mergedReceipt.source.factory_publication.attestation_url, attestationUrl);
 });
 
 test('factory publication v2 preserves merged maintainer head drift and merge commit', async () => {
-  const proof = structuredProof();
+  const proof = publishableStructuredProof();
   const fixture = await setup([proof]);
   const finalHead = oid('8');
   const mergeCommit = oid('7');
@@ -351,17 +397,14 @@ test('factory publication v2 preserves merged maintainer head drift and merge co
     out: fixture.mergedIndex,
   });
   await renderLedger({indexPath: fixture.mergedIndex, out: path.join(fixture.site, 'index.html')});
-  const receipt = JSON.parse(await readFile(path.join(fixture.site, 'receipts/M-1002/receipt.json'), 'utf8'));
   const index = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
   const publication = index.missions.find((mission) => mission.mission_id === 'M-1002').publication;
-  const html = await readFile(path.join(fixture.site, 'receipts/M-1002/index.html'), 'utf8');
   assert.equal(publication.state, 'merged');
   assert.equal(publication.pr_head_oid, finalHead);
   assert.equal(publication.head_drift, true);
   assert.equal(publication.merge_commit_oid, mergeCommit);
-  assert.equal(receipt.upstream_outcome.head_drift, true);
-  assert.equal(receipt.upstream_outcome.pr_head_oid, finalHead);
-  assert.match(html, /PR changed since this record/i);
+  const html = await readFile(path.join(fixture.site, 'receipts/M-1002/index.html'), 'utf8');
+  assert.doesNotMatch(html, /PR changed since this record|PR state:|Review signal:|CI state:/i);
 });
 
 test('factory adapter fails closed on digest drift and false structured PASS evidence', async () => {
@@ -415,6 +458,25 @@ test('factory adapter fails closed on digest drift and false structured PASS evi
     indexPath: mismatchedAttestation.sourceIndex,
     out: mismatchedAttestation.mergedIndex,
   }), /attestation URL does not bind the current proof digest/);
+
+  const missingVisibilityProof = publishableStructuredProof();
+  delete missingVisibilityProof.receipt_visibility;
+  const missingVisibility = await setup([missingVisibilityProof]);
+  await assert.rejects(mergeFactoryReceipts({
+    receiptsDir: missingVisibility.receipts,
+    receiptRevision: oid('f'),
+    indexPath: missingVisibility.sourceIndex,
+    out: missingVisibility.mergedIndex,
+  }), /structured proof\.json has an invalid shape/);
+
+  const privateWithConsentProof = publishableStructuredProof({receipt_visibility: 'private_internal'});
+  const privateWithConsent = await setup([privateWithConsentProof]);
+  await assert.rejects(mergeFactoryReceipts({
+    receiptsDir: privateWithConsent.receipts,
+    receiptRevision: oid('f'),
+    indexPath: privateWithConsent.sourceIndex,
+    out: privateWithConsent.mergedIndex,
+  }), /private_internal cannot claim receipt publication consent/);
 });
 
 test('factory adapter rejects contradictory structured observations and publication state', async () => {
@@ -491,7 +553,7 @@ test('factory merge generated_at includes the latest projected publication obser
   }
 });
 
-test('attestation subject selection handles root, batch, status-only, and immutable-proof failure', async (t) => {
+test('attestation subjects include only consented public v3 proofs', async (t) => {
   const workspace = await mkdtemp(path.join(os.tmpdir(), 'factory-attestation-'));
   const repository = path.join(workspace, 'repo');
   await mkdir(repository);
@@ -513,14 +575,22 @@ test('attestation subject selection handles root, batch, status-only, and immuta
     '--out', rootOut,
   ], {encoding: 'utf8'});
   const rootSelection = JSON.parse(cliStdout);
-  assert.equal(rootSelection.subjects.length, 1);
-  assert.equal(rootSelection.subjects[0].proof_sha256,
-    fileDigest(await readFile(path.join(receipts, first.mission_id, first.commit_oid, 'proof.json'))));
+  assert.deepEqual(rootSelection.subjects, [], 'legacy v1 proof must remain private');
 
-  const second = structuredProof();
-  const third = structuredProof({mission_id: 'M-1003', task_id: 'TASK-3', commit_oid: oid('e')});
+  const second = privateStructuredProof();
+  const third = publishableStructuredProof({
+    mission_id: 'M-1003',
+    task_id: 'TASK-3',
+    commit_oid: oid('e'),
+  });
+  const fourth = structuredProof({
+    mission_id: 'M-1004',
+    task_id: 'TASK-4',
+    commit_oid: oid('8'),
+  });
   await writeFactoryProof(receipts, second);
   await writeFactoryProof(receipts, third);
+  await writeFactoryProof(receipts, fourth);
   await git(repository, 'add', '.');
   await git(repository, 'commit', '--quiet', '-m', 'proof batch');
   const batchRevision = await git(repository, 'rev-parse', 'HEAD');
@@ -530,9 +600,12 @@ test('attestation subject selection handles root, batch, status-only, and immuta
     out: path.join(workspace, 'selected-batch'),
   });
   assert.deepEqual(batch.subjects.map((subject) => subject.source_path), [
-    `receipts/${second.mission_id}/${second.commit_oid}/proof.json`,
     `receipts/${third.mission_id}/${third.commit_oid}/proof.json`,
   ]);
+  assert.equal(
+    batch.subjects[0].proof_sha256,
+    fileDigest(await readFile(path.join(receipts, third.mission_id, third.commit_oid, 'proof.json'))),
+  );
 
   await writeFactoryPublication(receipts, second);
   await git(repository, 'add', '.');

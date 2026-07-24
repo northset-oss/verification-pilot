@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-22T12:25:15.024Z",
+  "generated_at": "2026-07-24T00:22:16Z",
   "receipt_id": "M-004",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -51,11 +51,47 @@
     "provenance": "Signed provenance has not been verified."
   },
   "classification": "REHEARSAL — NOT EXTERNAL VALIDATION",
+  "evidence_classification": "CURRENT_RECEIPT_RECORD",
+  "consent_scopes": {
+    "schema_version": 2,
+    "mission_id": "M-004",
+    "scopes": {
+      "contribution_invitation": {
+        "status": "not_applicable",
+        "evidence": null,
+        "granted_at": null,
+        "granted_by": null
+      },
+      "verification_execution_consent": {
+        "status": "granted",
+        "evidence": {
+          "kind": "public_url",
+          "value": "https://github.com/northset-oss/verification-pilot/blob/main/missions/M-004/consent.json"
+        },
+        "granted_at": "2026-07-21T12:00:00Z",
+        "granted_by": "northset-oss repository owner (self-authorization)"
+      },
+      "receipt_publication_consent": {
+        "status": "granted",
+        "evidence": {
+          "kind": "public_url",
+          "value": "https://github.com/northset-oss/verification-pilot/blob/main/missions/M-004/consent.json"
+        },
+        "granted_at": "2026-07-21T12:00:00Z",
+        "granted_by": "northset-oss repository owner (self-authorization)"
+      },
+      "marketing_reference_consent": {
+        "status": "absent",
+        "evidence": null,
+        "granted_at": null,
+        "granted_by": null
+      }
+    }
+  },
   "links": {
     "canonical_url": "https://northset-oss.github.io/verification-pilot/receipts/M-004/",
     "target_repo": "https://github.com/northset-oss/verification-pilot",
-    "issue_or_task": null,
-    "publication_pr": null
+    "issue_or_task": null
   },
   "issue_title": null,
   "limitations": [
@@ -66,11 +102,6 @@
     "Does not prove code quality",
     "Does not prove security"
   ],
-  "correction": null,
-  "scope_note": "Self-authorized V-lane rehearsal on Northset's own repository, executed through the production Docker executor path; not a real external maintainer request. No pull request was opened and the receipt remains unpublished.",
-  "upstream_outcome": {
-    "status": "prepared",
-    "link": null,
-    "attribution": "Recorded upstream outcome"
-  }
+  "correction": "The original consent scope described this as an unpublished sample. It is now publicly visible as the sample receipt. This correction does not alter the immutable run evidence; no external maintainer requested the run, no pull request was opened, and no attestation was issued.",
+  "scope_note": "Self-authorized V-lane rehearsal on Northset's own repository, executed through the production Docker executor path; not a real external maintainer request. No pull request was opened. The prepared rehearsal receipt is publicly visible as the sample receipt, unsigned and unattested; publication is not external validation."
 }

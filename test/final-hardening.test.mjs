@@ -126,13 +126,8 @@ test('CI and signing use the successful-CI handoff while Pages merges factory pr
   for (const workflow of [ci, attest, pages, receiptSignal]) assert.doesNotMatch(workflow, /uses:\s+[^\s]+@v\d+/);
   assert.match(ci, /github\.event\.before.*github\.sha|github\.sha.*github\.event\.before/s);
   assert.match(ci, /upload-artifact@([0-9a-f]{40})/);
-  assert.match(ci, /factory_repo="\$\(mktemp -d "\$RUNNER_TEMP\/factory-audit-repo\.XXXXXX"\)"/);
-  assert.match(ci, /git init --quiet "\$factory_repo"/);
-  assert.match(ci, /git -C "\$factory_repo" fetch/);
-  assert.match(ci, /git -C "\$factory_repo" ls-tree/);
-  assert.match(ci, /git -C "\$factory_repo" archive/);
-  assert.doesNotMatch(ci, /refs\/factory-audit\/receipts/);
-  assert.doesNotMatch(ci, /\n\s+git fetch /);
+  assert.match(ci, /publication-policy\.mjs validate/);
+  assert.doesNotMatch(ci, /pr-disclosure:|pr-receipt-disclosure\.mjs/);
   for (const workflow of [attest, pages]) {
     assert.match(workflow, /workflow_run:/);
     assert.match(workflow, /conclusion\s*==\s*'success'/);
@@ -162,7 +157,9 @@ test('CI and signing use the successful-CI handoff while Pages merges factory pr
   assert.match(pages, /sha256sum --check --strict subjects\.sha256/);
   assert.match(pages, /node source\/bin\/ledger\.mjs render/);
   assert.doesNotMatch(pages, /compact-receipts|compact-index/);
-  assert.match(pages, /path: source\/site/);
+  assert.match(pages, /path: \$\{\{ runner\.temp \}\}\/rendered-site/);
+  assert.match(pages, /publication-policy\.mjs manifest/);
+  assert.match(pages, /publication-policy\.mjs verify-live/);
   assert.match(receiptSignal, /branches:\s*\[receipts\]/);
   assert.match(receiptSignal, /permissions:\s*\{\}/);
   assert.match(receiptSignal, /test "\$GITHUB_REF" = "refs\/heads\/receipts"/);

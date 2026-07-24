@@ -190,6 +190,23 @@ async function v2Mission(t, { economic = economicIdentity(), approval = approval
     mission.payment = { maintainer_payment: 'none', merge_contingent: false };
     await writeFile(file, `${JSON.stringify(mission, null, 2)}\n`);
   }
+  const granted = {
+    status: 'granted',
+    evidence: {kind: 'private_digest', value: `sha256:${'c'.repeat(64)}`},
+    granted_at: '2026-07-15T11:00:00Z',
+    granted_by: 'economic receipt fixture owner',
+  };
+  const absent = {status: 'absent', evidence: null, granted_at: null, granted_by: null};
+  await writeFile(path.join(missionDirectory, 'consent-scopes.json'), `${JSON.stringify({
+    schema_version: 2,
+    mission_id: 'M-005',
+    scopes: {
+      contribution_invitation: {...granted},
+      verification_execution_consent: {...granted},
+      receipt_publication_consent: {...granted},
+      marketing_reference_consent: {...absent},
+    },
+  }, null, 2)}\n`);
   const bundledMissionSource = await readFile(path.join(missionDirectory, 'bundle', 'mission.json'));
   economic.costs.lines[0].source_refs[0].artifact_sha256 = `sha256:${createHash('sha256').update(bundledMissionSource).digest('hex')}`;
   const issueSnapshotSource = `${JSON.stringify({

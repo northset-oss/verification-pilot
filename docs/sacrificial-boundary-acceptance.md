@@ -15,12 +15,10 @@ node --test test/sacrificial-boundary.acceptance.test.mjs test/executor.test.mjs
 `NEWLY-CLOSED` identifies a boundary gap closed by the accompanying executor change.
 `RESIDUAL (accepted)` is an explicit limitation accepted only after the required deployment controls
 are present, with the reason stated below. `REQUIRED-PRECONDITION (blocks foreign-run #1)` is not
-provided by this executor and must be enforced and verified before any foreign PR is run. See
-[`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md) for the operational gate.
-
-The approved pilot deployment closes those preconditions only when `bin/foreign-runner.mjs`
-reports `INFRASTRUCTURE_GO` or `GO_AND_EXECUTED`. Ordinary Docker execution does not inherit that
-decision. See [Foreign PR production runner](foreign-production-runner.md).
+provided by this executor and must be enforced and verified before any foreign PR is run. The
+former [`foreign-run-gate-checklist.md`](foreign-run-gate-checklist.md) and
+[Foreign PR production runner](foreign-production-runner.md) are retired historical references.
+They do not provide a current operational gate or authorize outreach, execution, or publication.
 
 | Fixture class | Disposition | Boundary evidence |
 | --- | --- | --- |
