@@ -407,6 +407,33 @@ test('factory publication v2 preserves merged maintainer head drift and merge co
   assert.doesNotMatch(html, /PR changed since this record|PR state:|Review signal:|CI state:/i);
 });
 
+test('render truth gate refuses a factory merged flag that contradicts pr_state', async () => {
+  const proof = publishableStructuredProof();
+  const fixture = await setup([proof]);
+  await writeFactoryPublicationV2(fixture.receipts, proof, {
+    pr_state: 'MERGED',
+    merged: true,
+    ci_state: 'SUCCESS',
+    merge_commit_oid: oid('7'),
+  });
+  await mergeFactoryReceipts({
+    receiptsDir: fixture.receipts,
+    receiptRevision: oid('f'),
+    indexPath: fixture.sourceIndex,
+    out: fixture.mergedIndex,
+  });
+  const index = JSON.parse(await readFile(fixture.mergedIndex, 'utf8'));
+  const receipt = index.missions.find((mission) => mission.mission_id === 'M-1002').receipt;
+  receipt.source.factory_publication.merged = false;
+  await writeFile(fixture.mergedIndex, `${JSON.stringify(index, null, 2)}\n`);
+  const siteFile = path.join(fixture.site, 'index.html');
+  await assert.rejects(
+    renderLedger({indexPath: fixture.mergedIndex, out: siteFile}),
+    /M-1002 receipt\.source\.factory_publication\.merged contradicts receipt\.source\.factory_publication\.pr_state/i,
+  );
+  await assert.rejects(readFile(siteFile, 'utf8'), /ENOENT/);
+});
+
 test('factory adapter fails closed on digest drift and false structured PASS evidence', async () => {
   const corrupt = await setup([structuredProof()]);
   const pointerFile = path.join(corrupt.receipts, 'M-1002/current.json');

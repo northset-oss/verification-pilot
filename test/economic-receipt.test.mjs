@@ -242,6 +242,23 @@ async function v2Mission(t, { economic = economicIdentity(), approval = approval
   return { directory, missionDirectory };
 }
 
+async function builtV2Index(t, mutatePublication = null) {
+  const {directory, missionDirectory} = await v2Mission(t);
+  if (mutatePublication !== null) {
+    const publicationFile = path.join(missionDirectory, 'publication.json');
+    const publication = JSON.parse(await readFile(publicationFile, 'utf8'));
+    mutatePublication(publication);
+    await writeFile(publicationFile, `${JSON.stringify(publication, null, 2)}\n`);
+  }
+  const indexFile = path.join(directory, 'missions', 'index.json');
+  await buildLedger({missionsDir: path.join(directory, 'missions'), out: indexFile, now: generatedAt});
+  return {
+    directory,
+    indexFile,
+    index: JSON.parse(await readFile(indexFile, 'utf8')),
+  };
+}
+
 test('economic evidence and approval produce one factual schema-v2 receipt', async (t) => {
   const { missionDirectory } = await v2Mission(t);
   const receipt = await buildReceiptViewModel({ missionFile: path.join(missionDirectory, 'mission.json') });
@@ -252,6 +269,111 @@ test('economic evidence and approval produce one factual schema-v2 receipt', asy
   assert.equal(receipt.economic_identity.costs.status, 'partial');
   assert.equal(receipt.economic_identity.costs.total_economic_cost, null);
   assert.equal(receipt.economic_identity.outcome.time_to_close_ms, null);
+});
+
+test('doc-kit regression: pre-workflow CI capture renders not observed and cannot be forced to success', async (t) => {
+  const capturedAt = '2026-07-19T21:55:58Z';
+  const requiredWorkflowsStartedAt = '2026-07-21T23:35:00Z';
+  assert.ok(Date.parse(capturedAt) < Date.parse(requiredWorkflowsStartedAt));
+  const prepared = await builtV2Index(t, (publication) => {
+    publication.observed_at = capturedAt;
+    publication.updated_at = '2026-07-19T21:55:00Z';
+    publication.ci_state = 'success';
+  });
+  const receipt = prepared.index.missions[0].receipt;
+  assert.equal(receipt.publication.ci_state, 'success');
+  assert.equal(receipt.economic_identity.outcome.ci_state, null);
+
+  const safeSiteFile = path.join(prepared.directory, 'safe-site', 'index.html');
+  await renderLedger({indexPath: prepared.indexFile, out: safeSiteFile, now: generatedAt});
+  const safeHtml = await readFile(
+    path.join(prepared.directory, 'safe-site/receipts/M-005/index.html'),
+    'utf8',
+  );
+  assert.match(safeHtml, /<dt>CI<\/dt><dd><span class="evidence-null">not observed<\/span><\/dd>/);
+  assert.doesNotMatch(safeHtml, /<dt>CI<\/dt><dd>success<\/dd>/);
+
+  const forced = structuredClone(prepared.index);
+  const mission = forced.missions[0];
+  mission.target_repo = 'https://github.com/nodejs/doc-kit';
+  mission.receipt.target_repo = 'https://github.com/nodejs/doc-kit';
+  mission.publication.pr_number = 901;
+  mission.publication.pr_url = 'https://github.com/nodejs/doc-kit/pull/901';
+  mission.publication.observed_at = capturedAt;
+  mission.receipt.publication = structuredClone(mission.publication);
+  mission.receipt.economic_identity.outcome.ci_state = 'success';
+  const forcedIndex = path.join(prepared.directory, 'forced-index.json');
+  await writeFile(forcedIndex, `${JSON.stringify(forced, null, 2)}\n`);
+  const refusedSiteFile = path.join(prepared.directory, 'refused-site', 'index.html');
+  await assert.rejects(
+    renderLedger({indexPath: forcedIndex, out: refusedSiteFile, now: generatedAt}),
+    /render truth gate failed: M-005 receipt\.economic_identity\.outcome\.ci_state cannot render as success.*required CI runs concluded/i,
+  );
+  await assert.rejects(readFile(refusedSiteFile, 'utf8'), /ENOENT/);
+});
+
+test('a concluded merged PR state renders while unproven CI remains not observed', async (t) => {
+  const prepared = await builtV2Index(t, (publication) => {
+    publication.state = 'merged';
+    publication.merge_commit_oid = '9'.repeat(40);
+    publication.closed_at = '2026-07-10T00:01:30Z';
+    publication.updated_at = '2026-07-10T00:01:30Z';
+    publication.observed_at = '2026-07-10T00:02:00Z';
+  });
+  const siteFile = path.join(prepared.directory, 'site', 'index.html');
+  await renderLedger({indexPath: prepared.indexFile, out: siteFile, now: generatedAt});
+  const receiptJson = JSON.parse(await readFile(
+    path.join(prepared.directory, 'site/receipts/M-005/receipt.json'),
+    'utf8',
+  ));
+  const html = await readFile(
+    path.join(prepared.directory, 'site/receipts/M-005/index.html'),
+    'utf8',
+  );
+  assert.equal(receiptJson.economic_identity.outcome.merged, true);
+  assert.equal(receiptJson.economic_identity.outcome.ci_state, null);
+  assert.match(html, />MERGED</);
+  assert.match(html, /<dt>CI<\/dt><dd><span class="evidence-null">not observed<\/span><\/dd>/);
+});
+
+test('render truth gate refuses external-party endorsement language before writing', async (t) => {
+  const prepared = await builtV2Index(t);
+  prepared.index.missions[0].receipt.disclosure_label =
+    'The maintainers agreed with this receipt and validated the result.';
+  await writeFile(prepared.indexFile, `${JSON.stringify(prepared.index, null, 2)}\n`);
+  const siteFile = path.join(prepared.directory, 'site', 'index.html');
+  await assert.rejects(
+    renderLedger({indexPath: prepared.indexFile, out: siteFile, now: generatedAt}),
+    /M-005 receipt\.disclosure_label contains endorsement implication \(agreed\)/i,
+  );
+  await assert.rejects(readFile(siteFile, 'utf8'), /ENOENT/);
+});
+
+test('render truth gate refuses a named-project solicitation before writing', async (t) => {
+  const prepared = await builtV2Index(t);
+  prepared.index.missions[0].receipt.disclosure_label =
+    'Maintain maintainer/worker-project? Contact Northset to request a run.';
+  await writeFile(prepared.indexFile, `${JSON.stringify(prepared.index, null, 2)}\n`);
+  const siteFile = path.join(prepared.directory, 'site', 'index.html');
+  await assert.rejects(
+    renderLedger({indexPath: prepared.indexFile, out: siteFile, now: generatedAt}),
+    /M-005 receipt\.disclosure_label contains repository-targeted solicitation \(maintain\)/i,
+  );
+  await assert.rejects(readFile(siteFile, 'utf8'), /ENOENT/);
+});
+
+test('render truth gate refuses a stale canonical PR state before writing', async (t) => {
+  const prepared = await builtV2Index(t);
+  prepared.index.missions[0].receipt.publication.state = 'merged';
+  prepared.index.missions[0].receipt.publication.merge_commit_oid = '9'.repeat(40);
+  prepared.index.missions[0].receipt.economic_identity.outcome.merged = true;
+  await writeFile(prepared.indexFile, `${JSON.stringify(prepared.index, null, 2)}\n`);
+  const siteFile = path.join(prepared.directory, 'site', 'index.html');
+  await assert.rejects(
+    renderLedger({indexPath: prepared.indexFile, out: siteFile, now: generatedAt}),
+    /M-005 receipt\.publication\.state \(merged\) does not match mission\.publication\.state \(open\)/i,
+  );
+  await assert.rejects(readFile(siteFile, 'utf8'), /ENOENT/);
 });
 
 test('receipt rejects a zero total while known economic components are missing', async (t) => {

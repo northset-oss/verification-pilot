@@ -3386,7 +3386,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 7872000,
@@ -3799,7 +3799,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "failure",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -4221,7 +4221,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": false,
             "time_to_close_ms": 247966000,
@@ -4651,7 +4651,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 393800000,
@@ -5062,7 +5062,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": false,
             "time_to_close_ms": 83075000,
@@ -5475,7 +5475,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -5886,7 +5886,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -6290,7 +6290,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 189891000,
@@ -6713,7 +6713,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -7128,7 +7128,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 706856000,
@@ -7542,7 +7542,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -7963,7 +7963,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 148405000,
@@ -8384,7 +8384,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "failure",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -8805,7 +8805,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -9256,7 +9256,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -9676,7 +9676,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -10086,7 +10086,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
@@ -10512,7 +10512,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "success",
+            "ci_state": null,
             "merged": true,
             "accepted_as_submitted": true,
             "time_to_close_ms": 359794000,
@@ -10920,7 +10920,7 @@
           "outcome": {
             "technical_checks_passed": true,
             "pr_opened": true,
-            "ci_state": "pending",
+            "ci_state": null,
             "merged": false,
             "accepted_as_submitted": null,
             "time_to_close_ms": null,
