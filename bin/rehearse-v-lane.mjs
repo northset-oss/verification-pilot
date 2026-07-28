@@ -116,7 +116,6 @@ async function main() {
       pr_head_oid: null,
       base_branch: null,
       head_drift: false,
-      ci_state: null,
       merge_commit_oid: null,
       review_decision: null,
       decision_url: null,

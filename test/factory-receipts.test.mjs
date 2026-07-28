@@ -135,7 +135,6 @@ async function writeFactoryPublication(receipts, proof, overrides = {}) {
     pr_number: 4222,
     pr_state: 'OPEN',
     merged: false,
-    ci_state: 'PENDING',
     attestation_state: 'ATTESTATION_PENDING',
     attestation_url: null,
     observed_at: '2026-07-19T13:30:00Z',
@@ -340,7 +339,6 @@ test('factory publication v2 preserves merged maintainer head drift and merge co
   await writeFactoryPublicationV2(fixture.receipts, proof, {
     pr_state: 'MERGED',
     merged: true,
-    ci_state: 'SUCCESS',
     pr_head_oid: finalHead,
     merge_commit_oid: mergeCommit,
   });

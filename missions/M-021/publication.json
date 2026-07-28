@@ -7,7 +7,6 @@
   "pr_head_oid": "07fb69366cdcb45863073a1daa65084916829eb4",
   "base_branch": "main",
   "head_drift": true,
-  "ci_state": "pending",
   "merge_commit_oid": "b23f012ab27ea3d41fc59083c7a4e49567bb43c5",
   "review_decision": "approved",
   "decision_url": "https://github.com/KaotoIO/kaoto/pull/3487#pullrequestreview-4712093111",

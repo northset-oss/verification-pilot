@@ -7,7 +7,6 @@
   "pr_head_oid": "61c9e8de3d36ec9bcca22fb6185668aa68666c66",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "success",
   "merge_commit_oid": null,
   "review_decision": null,
   "decision_url": null,

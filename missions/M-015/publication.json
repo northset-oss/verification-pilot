@@ -7,7 +7,6 @@
   "pr_head_oid": "266b86e8d077e05732e8339fcdfe6bdfdcde6707",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "success",
   "merge_commit_oid": null,
   "review_decision": "review_required",
   "decision_url": "https://github.com/prometheus/client_js/pull/774#pullrequestreview-4681204372",

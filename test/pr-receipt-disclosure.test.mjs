@@ -155,7 +155,6 @@ async function writeFactoryDisclosureFixture(root, {
       pr_number: prNumber,
       pr_state: prState,
       merged: prState === 'MERGED',
-      ci_state: 'SUCCESS',
       attestation_state: 'RECEIPT_ATTESTED',
       attestation_url: 'https://api.github.com/example/attestation',
       observed_at: '2026-07-21T00:00:00Z',

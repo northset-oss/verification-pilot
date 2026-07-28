@@ -160,7 +160,6 @@ test('publication envelopes overlay immutable mission records with factual PR st
     pr_head_oid: 'a'.repeat(40),
     base_branch: 'main',
     head_drift: true,
-    ci_state: 'success',
     merge_commit_oid: null,
     review_decision: 'changes_requested',
     decision_url: 'https://github.com/example/project/pull/44#pullrequestreview-1',
@@ -239,7 +238,7 @@ test('M-020 records the confirmed upstream merge without implying the receipt te
   assert.equal(receipt.publication.review_decision, 'approved');
   assert.equal(receipt.publication.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
   assert.equal(receipt.publication.head_drift, true);
-  assert.equal(receipt.publication.ci_state, 'success');
+  assert.equal(receipt.publication.ci_state, undefined);
   assert.equal(receipt.publication.merge_commit_oid, 'b419d921c8de0b68e7eb7054f412b05ee69336a2');
   assert.equal(receipt.publication.closed_at, '2026-07-14T13:27:04Z');
   assert.equal(receipt.publication.decision_url, 'https://github.com/KaotoIO/kaoto/pull/3478#pullrequestreview-4694480971');
@@ -258,7 +257,6 @@ test('publication attestation overlays cannot point outside the signing reposito
     pr_head_oid: 'a'.repeat(40),
     base_branch: 'main',
     head_drift: false,
-    ci_state: 'success',
     merge_commit_oid: 'b'.repeat(40),
     review_decision: 'approved',
     decision_url: 'https://github.com/example/project/pull/8#pullrequestreview-1',
@@ -297,7 +295,6 @@ test('a prepared receipt with pending attestation builds and renders without cla
     pr_head_oid: null,
     base_branch: null,
     head_drift: false,
-    ci_state: null,
     merge_commit_oid: null,
     review_decision: null,
     decision_url: null,
