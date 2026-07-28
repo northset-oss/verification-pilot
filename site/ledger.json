@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-28T15:15:41.000Z",
+  "generated_at": "2026-07-28T15:33:58Z",
   "receipts": [
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-001",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -73,7 +73,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-002",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -142,7 +142,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-003",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -217,7 +217,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-004",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -293,7 +293,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-007",
       "receipt_result": "PASS — 2/2 declared commands",
       "passed_commands": 2,
@@ -377,7 +377,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-008",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -455,7 +455,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-009",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -532,7 +532,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-011",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -611,7 +611,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-014",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -687,7 +687,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-015",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -763,7 +763,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-016",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -838,7 +838,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-019",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -914,7 +914,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-020",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1010,7 +1010,7 @@
     },
     {
       "schema_version": 1,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-021",
       "receipt_result": "PASS — 4/4 declared commands",
       "passed_commands": 4,
@@ -1106,7 +1106,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-031",
       "receipt_result": "PASS — 7/7 declared commands",
       "passed_commands": 7,
@@ -1459,7 +1459,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": true,
           "accepted_as_submitted": true,
           "time_to_close_ms": 7872000,
@@ -1485,7 +1484,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-104",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -1748,7 +1747,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "failure",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -1774,7 +1772,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-105",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2048,7 +2046,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": true,
           "accepted_as_submitted": false,
           "time_to_close_ms": 247966000,
@@ -2074,7 +2071,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-106",
       "receipt_result": "PASS — 3/3 declared commands",
       "passed_commands": 3,
@@ -2352,7 +2349,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": true,
           "accepted_as_submitted": true,
           "time_to_close_ms": 393800000,
@@ -2378,7 +2374,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-112",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2641,7 +2637,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": true,
           "accepted_as_submitted": false,
           "time_to_close_ms": 83075000,
@@ -2667,7 +2662,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-114",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -2928,7 +2923,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -2954,7 +2948,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-115",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3215,7 +3209,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3241,7 +3234,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-116",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3495,7 +3488,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": true,
           "accepted_as_submitted": true,
           "time_to_close_ms": 189891000,
@@ -3521,7 +3513,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-122",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -3795,7 +3787,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -3821,7 +3812,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-147",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4085,7 +4076,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4111,7 +4101,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-150",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4375,7 +4365,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4401,7 +4390,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-157",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4672,7 +4661,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": true,
           "accepted_as_submitted": true,
           "time_to_close_ms": 148405000,
@@ -4698,7 +4686,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-160",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -4969,7 +4957,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "failure",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -4995,7 +4982,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-161",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5266,7 +5253,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5292,7 +5278,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-167",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5593,7 +5579,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5619,7 +5604,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-168",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -5889,7 +5874,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -5915,7 +5899,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-170",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6175,7 +6159,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,
@@ -6201,7 +6184,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-171",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6477,7 +6460,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "success",
           "merged": true,
           "accepted_as_submitted": true,
           "time_to_close_ms": 359794000,
@@ -6503,7 +6485,7 @@
     },
     {
       "schema_version": 2,
-      "generated_at": "2026-07-28T15:15:41.000Z",
+      "generated_at": "2026-07-28T15:33:58Z",
       "receipt_id": "M-176",
       "receipt_result": "PASS — 1/1 declared command",
       "passed_commands": 1,
@@ -6761,7 +6743,6 @@
         "outcome": {
           "technical_checks_passed": true,
           "pr_opened": true,
-          "ci_state": "pending",
           "merged": false,
           "accepted_as_submitted": null,
           "time_to_close_ms": null,

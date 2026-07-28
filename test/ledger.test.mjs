@@ -113,7 +113,7 @@ test('build includes only valid missions in sorted deterministic projections', a
   const index = JSON.parse(await readFile(firstPath, 'utf8'));
   assert.equal(index.version, '1');
   assert.equal(index.generated_at, generatedAt);
-  assert.deepEqual(index.ci_agreement, { agreed: 2, total: 2 });
+  assert.equal(index.ci_agreement, undefined);
   assert.deepEqual(index.missions.map((mission) => mission.mission_id), [
     'M-001',
     'M-004',
@@ -682,9 +682,10 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
   assert.match(homepage, /workspace-search buttons need type=button/);
   assert.match(homepage, /for open-source work/);
-  const expectedAgreement = build.index.ci_agreement;
-  assert.match(homepage, new RegExp(`agreed with the receipt in <strong>${expectedAgreement.agreed} of ${expectedAgreement.total}<\\/strong> runs`));
-  assert.match(homepage, /If your CI disagrees with this receipt,[\s\S]*report it[\s\S]*we publish discrepancies on this ledger/);
+  assert.doesNotMatch(
+    homepage,
+    /Where maintainers ran upstream CI|CI state|ci.agreement|conclusive runs|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt|If your CI disagrees|receipt discrepancy/i,
+  );
   const masthead = homepage.match(/<header class="mast">[\s\S]*?<\/header>/)?.[0];
   assert.ok(masthead);
   assert.ok(masthead.indexOf('request-a-run.yml') < masthead.indexOf('mailto:oss@northset.ai'));
@@ -756,7 +757,7 @@ test('render creates a permanent printable receipt for every committed mission a
       assert.match(page, /Check this receipt without trusting this site/);
       assert.match(page, /Expected output includes <code>Verification succeeded!<\/code>/);
     }
-    assert.match(page, /If your CI disagrees with this receipt,[\s\S]*report it[\s\S]*we publish discrepancies on this ledger/);
+    assert.doesNotMatch(page, /CI state|upstream CI (?:agreed|disagreed)|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt|receipt discrepancy/i);
     const requestBox = page.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
     assert.ok(requestBox);
     assert.ok(requestBox.indexOf('request-a-run.yml') < requestBox.indexOf('mailto:oss@northset.ai'));
@@ -769,17 +770,14 @@ test('render creates a permanent printable receipt for every committed mission a
     if (publication.state !== 'prepared') {
       assert.match(page, new RegExp(`All Northset work in ${repository.replace('/', '\\/')} →`));
     }
-    if (['success', 'failure'].includes(publication.ci_state)) {
-      assert.match(page, new RegExp(`Upstream CI ${publication.ci_state === 'success' ? 'agreed' : 'disagreed'} with this receipt`));
-    } else {
-      assert.doesNotMatch(page, /class="receipt-ci-agreement"/);
-    }
+    assert.doesNotMatch(page, /class="receipt-ci-agreement"/);
     assert.match(page, /Print \/ Save receipt/);
     assert.match(page, /Unlisted test, lint, typecheck, build, coverage, compiler, full-suite, and CI gates are not implied or recorded\./);
     const receiptJson = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', missionId, 'receipt.json'), 'utf8'));
     assert.equal(receiptJson.schema_version, receiptVersions.get(missionId), missionId);
     assert.equal(receiptJson.receipt_id, missionId);
     assert.match(receiptJson.receipt_result, /^PASS — \d+\/\d+ declared command/);
+    assert.doesNotMatch(JSON.stringify(receiptJson), /"ci_state"|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt/i);
     assert.equal(receiptJson.passed_commands, receiptJson.declared_commands);
     assert.ok(Array.isArray(receiptJson.commands));
     assert.ok(receiptJson.environment);
@@ -933,11 +931,7 @@ test('render creates a permanent printable receipt for every committed mission a
     const repositoryPage = await readFile(path.join(temporaryRoot, 'site', 'repo', slug, 'index.html'), 'utf8');
     assert.match(repositoryPage, /← Receipt ledger/);
     for (const receipt of receipts) assert.match(repositoryPage, new RegExp(`Receipt ${receipt.mission_id}`));
-    const agreement = {
-      total: receipts.filter((receipt) => ['success', 'failure'].includes(receipt.publication?.ci_state)).length,
-      agreed: receipts.filter((receipt) => receipt.publication?.ci_state === 'success').length,
-    };
-    assert.match(repositoryPage, new RegExp(`${agreement.agreed} of ${agreement.total}<\\/strong> conclusive runs`));
+    assert.doesNotMatch(repositoryPage, /upstream CI|conclusive runs|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt/i);
     const repositoryRequest = repositoryPage.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
     assert.ok(repositoryRequest);
     assert.ok(repositoryRequest.indexOf('request-a-run.yml') < repositoryRequest.indexOf('mailto:oss@northset.ai'));

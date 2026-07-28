@@ -162,7 +162,7 @@ async function setup(proofs) {
   const site = path.join(root, 'site');
   await mkdir(receipts, {recursive: true});
   await writeFile(sourceIndex, `${JSON.stringify({
-    version: '1', generated_at: generatedAt, ci_agreement: {agreed: 0, total: 0}, missions: [],
+    version: '1', generated_at: generatedAt, missions: [],
   })}\n`);
   for (const proof of proofs) await writeFactoryProof(receipts, proof);
   return {root, receipts, sourceIndex, mergedIndex, site};
@@ -243,7 +243,7 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
   assert.match(html, /Legacy declarations/);
   assert.match(html, /PASS: a free-form legacy check/);
   assert.match(html, /PR #4222/);
-  assert.match(html, /CI state<\/dt><dd>PENDING/);
+  assert.doesNotMatch(html, /CI state|Factory CI state/);
   assert.match(html, /An attestation confirms bundle provenance/);
   assert.equal(receipt.evidence_status, 'incomplete');
   assert.equal(receipt.receipt_result, 'INCOMPLETE — structured command evidence unavailable');
@@ -255,7 +255,7 @@ test('immutable legacy factory proof becomes an incomplete canonical record with
   assert.equal(receipt.bundle.bundle_contents_digest, null);
   assert.equal(receipt.links.publication_pr, 'https://github.com/owner/repo/pull/4222');
   assert.equal(receipt.upstream_outcome.status, 'open');
-  assert.equal(receipt.source.factory_publication.ci_state, 'PENDING');
+  assert.equal(receipt.source.factory_publication.ci_state, undefined);
   assert.equal(receipt.source.raw_proof_url,
     `https://github.com/northset-oss/verification-pilot/blob/${oid('f')}/receipts/M-1001/${proof.commit_oid}/proof.json`);
   assert.equal(receipt.source.raw_publication_url,
