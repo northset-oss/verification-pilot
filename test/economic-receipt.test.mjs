@@ -392,6 +392,8 @@ test('legacy missions remain schema v1 while v2 renders the proofline visual hie
   const receiptJson = JSON.parse(await readFile(path.join(directory, 'site/receipts/M-005/receipt.json'), 'utf8'));
   assert.equal(receiptJson.schema_version, 2);
   assert.equal(receiptJson.economic_identity.task.task_id, taskId);
+  assert.equal(receiptJson.economic_identity.outcome.ci_state, undefined);
+  assert.doesNotMatch(html, /<dt>CI<\/dt>/);
   assert.match(html, /class="economic-overview"/);
   assert.match(html, /class="proof-hero"/);
   assert.match(html, /class="proofline-instrument"/);

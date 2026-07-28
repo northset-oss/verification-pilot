@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-28T15:15:41.000Z",
+  "generated_at": "2026-07-28T15:33:58Z",
   "receipt_id": "M-106",
   "receipt_result": "PASS — 3/3 declared commands",
   "passed_commands": 3,
@@ -278,7 +278,6 @@
     "outcome": {
       "technical_checks_passed": true,
       "pr_opened": true,
-      "ci_state": "pending",
       "merged": true,
       "accepted_as_submitted": true,
       "time_to_close_ms": 393800000,

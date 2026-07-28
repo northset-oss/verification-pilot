@@ -16,9 +16,7 @@ receipt, bundle relationship, or normalized evidence field fails the build. The 
 included and skipped totals as a machine-readable summary.
 
 The version-1 index is sorted by `mission_id` and contains the public projection plus a normalized
-Proof-of-Pass Receipt view model. It also records deterministic `ci_agreement` counts computed
-from publication envelopes: `success` agrees with a receipt PASS, `failure` disagrees, and
-pending/null/non-conclusive states are excluded. For every schema-valid mission, the builder reads the
+Proof-of-Pass Receipt view model. For every schema-valid mission, the builder reads the
 committed `bundle/run_record.json` and requires exact, one-to-one command parity with
 `mission.json:commands_declared`; missing, blank, or mismatched receipt evidence fails the
 build rather than producing a partial receipt. It also binds top-level `mission.json` to the
@@ -38,7 +36,7 @@ projects those facts into the same receipt. Existing missions with neither
 artifact remain schema v1 and are not rewritten. See [Economic identity](economic-identity.md).
 
 A required sibling `publication.json` is a mutable factual envelope for an immutable mission. It
-records the direct PR URL and head OID, base/head drift, CI state, merge commit,
+records the direct PR URL and head OID, base/head drift, merge commit,
 `prepared`/`open`/`closed_unmerged`/`merged` state, review decision, timestamps, correction note,
 an optional public `scope_note`, verified release-asset evidence, and an optional structured
 `pr_disclosure` observation. A scope note is a nullable,
@@ -78,12 +76,11 @@ the existing copyable attestation command and its expected success output, then 
 verbatim raw commands and limitations, expandable committed redacted stdout/stderr when present,
 and print CSS. A normal-weight maintainer box is scoped to the receipt repository, with the public
 run-request issue form as the primary action and private email as the secondary action. The
-homepage and every receipt page link to the discrepancy report form and promise to publish CI
-discrepancies on the ledger. Conclusive upstream CI observations appear as ledger-wide,
-per-repository, and per-receipt agreement statements. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
+homepage and every receipt page omit upstream-CI observations and comparisons between an upstream
+result and a receipt. Schema-v1 pages retain their narrow receipt layout; schema-v2 pages use a wider
 summary-first layout with dense economic, technical, and provenance evidence in expandable drawers.
 Each external receipt links to its repository ledger page, which lists all Northset receipts and
-outcomes for that repository, its CI-agreement count, and a repository-scoped request box. Direct rendering writes every new page
+outcomes for that repository plus a repository-scoped request box. Direct rendering writes every new page
 successfully before pruning stale generator-owned `site/receipts/M-XXX/` directories or marked
 generator-owned repository directories, so a render
 error cannot first remove the last complete receipt set. Unrelated site files and receipt

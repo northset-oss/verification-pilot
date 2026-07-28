@@ -126,10 +126,9 @@
         "raw_publication_url": { "type": "string", "format": "uri" },
         "factory_publication": {
           "type": "object", "additionalProperties": false,
-          "required": ["pr_state", "ci_state", "merged", "attestation_state", "attestation_url", "observed_at"],
+          "required": ["pr_state", "merged", "attestation_state", "attestation_url", "observed_at"],
           "properties": {
             "pr_state": { "enum": ["OPEN", "CLOSED", "MERGED"] },
-            "ci_state": { "type": ["string", "null"], "minLength": 1 },
             "merged": { "type": "boolean" },
             "attestation_state": { "type": "string", "minLength": 1 },
             "attestation_url": { "$ref": "#/$defs/nullableUrl" },
