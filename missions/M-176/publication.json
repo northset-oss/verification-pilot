@@ -13,7 +13,7 @@
   "opened_at": "2026-07-16T22:49:34Z",
   "closed_at": null,
   "updated_at": "2026-07-16T22:49:34Z",
-  "observed_at": "2026-07-16T22:49:35.705Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "The receipt proves the focused constructor regression only; maintainer review, CI, and merge remain independent decisions.",
   "bundle_digest": "sha256:4336cf789521039384d0a61c7ad4b6a3b8c644aa503a3d564a40ae5eace87f5a",

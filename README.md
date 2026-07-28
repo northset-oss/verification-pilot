@@ -186,12 +186,10 @@ unknown; estimates and value/ROI claims are not accepted. A recorded zero mainta
 only that no external maintainer payment occurred, never that the work cost zero. See
 [Economic identity in Proof-of-Pass receipts](docs/economic-identity.md).
 
-For future Northset-authored contributions, publication is fail-closed on the PR disclosure
-rule: the live receipt must return `200`, its exact canonical URL must appear once in the PR
-body, no legacy ledger anchor or second Northset ledger link may appear there, and configured
-Northset accounts must not post the receipt as a separate PR comment. The ten receipts published
-before this gate are explicitly listed as historical exemptions and are never rewritten by the
-checker. See [PR receipt disclosure](docs/pr-receipt-disclosure.md).
+Northset-authored contributions are private-record by default. A normal upstream PR body does
+not contain a mission ID, receipt or ledger link, product claim, trust claim, or call to action.
+Historical public receipts remain available as records of their original publication; new public
+receipt publication requires separate explicit consent.
 
 ## Our promises
 
@@ -212,7 +210,6 @@ Node.js + the built-in test runner):
 | `lib/pipeline.mjs` + `bin/run-mission.mjs` | Consent gate → sandbox → bundle → ledger, binding the record to what actually ran | [docs/pipeline.md](docs/pipeline.md) |
 | `lib/ledger.mjs` + `bin/ledger.mjs` | Builds the public mission ledger and its static page | [docs/ledger.md](docs/ledger.md) |
 | `lib/economic-identity.mjs` | Validates, finalizes, and projects factual task economics | [docs/economic-identity.md](docs/economic-identity.md) |
-| `lib/pr-receipt-disclosure.mjs` + `bin/pr-receipt-disclosure.mjs` | Checks and safely synchronizes the one-link contributor PR-body disclosure | [docs/pr-receipt-disclosure.md](docs/pr-receipt-disclosure.md) |
 | `lib/signing-handoff.mjs` + `bin/signing-handoff.mjs` | Packages zero-to-50 HEAD-tree bundles and independently verifies their range, archive contents, and exact bytes while retaining one artifact per receipt | [docs/attestation.md](docs/attestation.md) |
 | `.github/workflows/attest-bundle.yml` | Attests exact per-mission bundles together, then publishes each under its receipt-specific release | [docs/attestation.md](docs/attestation.md) |
 

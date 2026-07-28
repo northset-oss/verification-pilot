@@ -92,14 +92,10 @@ is currently generator-only. The renderer never reads the network or
 the wall clock, uses no external scripts,
 stylesheets, fonts, images, or runtime APIs, and works when opened with `file://`.
 
-Future contributor PR disclosure uses at most one short canonical per-receipt
-`receipts/M-XXX/` URL in the PR body, not the legacy homepage `#M-XXX` anchor. Do not add a
-separate comment unless a maintainer invites one. Existing PR bodies are historical records and
-are not rewritten by the ledger generator. This is mechanically enforced for every future
-non-prepared `author_contribution` by the independent `ci / pr-disclosure` job; the checked
-historical exemption list lives in `policies/pr_receipt_disclosure_policy.json`. The deterministic
-ledger builder remains network-free. See [PR receipt disclosure](pr-receipt-disclosure.md) for
-the operator and enforcement flow.
+Contributor PRs are private-record by default and do not contain receipt or ledger links.
+Existing PR bodies and historical public receipts are not rewritten by the ledger generator.
+Publishing a new named receipt requires separate explicit consent. The deterministic ledger
+builder remains network-free.
 
 # Compact factory receipts
 

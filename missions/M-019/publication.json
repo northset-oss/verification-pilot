@@ -13,7 +13,7 @@
   "opened_at": "2026-07-13T20:22:36Z",
   "closed_at": "2026-07-13T20:39:02Z",
   "updated_at": "2026-07-13T20:39:02Z",
-  "observed_at": "2026-07-14T23:05:52.071Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "The focused test inspects generated Swift output. It does not invoke a Swift compiler or run the full quicktype test suite.",
   "bundle_digest": "sha256:94b543f5e5903302950564b67d36708109e6efd6d08c1f15e5c8e3d5ec2d28ef",

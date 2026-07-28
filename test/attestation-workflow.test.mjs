@@ -24,8 +24,6 @@ test('CI proves every committed public receipt passed before checking generated 
   assert.match(workflow, /node bin\/verify-proof-of-pass\.mjs/);
   assert.match(workflow, /actions\/upload-artifact@[0-9a-f]{40}/);
   assert.match(workflow, /github\.event\.before/);
-  assert.match(workflow, /pr-disclosure:/);
-  assert.match(workflow, /node bin\/pr-receipt-disclosure\.mjs check/);
-  assert.match(workflow, /policies\/pr_receipt_disclosure_policy\.json/);
+  assert.doesNotMatch(workflow, /pr-disclosure|pr-receipt-disclosure/);
   assert.doesNotMatch(workflow, /pull-requests:\s*write|issues:\s*write/);
 });
