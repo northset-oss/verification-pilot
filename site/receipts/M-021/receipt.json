@@ -89,7 +89,7 @@
   "upstream_outcome": {
     "status": "merged",
     "link": "https://github.com/KaotoIO/kaoto/pull/3487#pullrequestreview-4712093111",
-    "attribution": "Linked maintainer review",
+    "attribution": "Linked upstream record",
     "head_drift": true,
     "pr_head_oid": "07fb69366cdcb45863073a1daa65084916829eb4"
   }

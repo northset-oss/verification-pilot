@@ -71,7 +71,7 @@
   "upstream_outcome": {
     "status": "merged",
     "link": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502#pullrequestreview-4740775324",
-    "attribution": "Linked maintainer review"
+    "attribution": "Linked upstream record"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -277,7 +277,7 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "merged": true,
-      "accepted_as_submitted": true,
+      "merged_pr_head_matches_recorded_commit": true,
       "time_to_close_ms": 359794000,
       "released": null,
       "deployed": null,

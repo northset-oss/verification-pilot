@@ -67,10 +67,10 @@ around it.
 
 ## How we talk about outcomes
 
-- A maintainer's merge, approval, rejection, or silence is theirs. When we record an attributed
-  decision — merged, approved, rejected, or closed — the record must carry a link to that
-  decision; we do not put an unlinked "the maintainer rejected this" on a public page. We report
-  it as their decision, never as our result or our endorsement.
+- A maintainer's merge, approval, rejection, or silence is theirs. When we record mutable PR state
+  or a GitHub review-decision field, the receipt carries a link to the relevant upstream record.
+  We report it as unattested upstream metadata, never as approval of the receipt, our result, or
+  our endorsement.
 - When we run our own pipeline on our own repositories to rehearse it, we label that plainly as
   our own rehearsal, not outside validation, and we don't count it as either.
 - When Northset is itself the contributor to your project, a run record describes our own change

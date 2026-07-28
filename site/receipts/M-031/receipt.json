@@ -116,7 +116,7 @@
   "upstream_outcome": {
     "status": "merged",
     "link": "https://github.com/goptics/vizb/pull/226",
-    "attribution": "Linked maintainer review"
+    "attribution": "Linked upstream record"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -354,7 +354,7 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "merged": true,
-      "accepted_as_submitted": true,
+      "merged_pr_head_matches_recorded_commit": true,
       "time_to_close_ms": 7872000,
       "released": null,
       "deployed": null,

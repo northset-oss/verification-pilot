@@ -264,7 +264,7 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "merged": true,
-      "accepted_as_submitted": false,
+      "merged_pr_head_matches_recorded_commit": false,
       "time_to_close_ms": 83075000,
       "released": null,
       "deployed": null,

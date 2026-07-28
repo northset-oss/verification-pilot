@@ -52,7 +52,9 @@ an all-null envelope renders the asset as not recorded and its provenance as not
 the ledger index reports `attested: false`. Once publication moves to `open`, `closed_unmerged`,
 or `merged`, all three fields are required and strictly validated.
 
-The public ledger shows an attributed maintainer decision (`merged`, `approved`, `rejected`, or `closed`) only when the receipt links to that decision; `silent` and `pending` carry no link by nature.
+The public ledger reports mutable PR state and GitHub review-decision fields only with a link to
+the relevant upstream record. These fields are unattested metadata, not maintainer approval of a
+receipt or its claims.
 
 Render the self-contained public ledger and every permanent printable receipt page from an index:
 

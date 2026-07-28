@@ -205,12 +205,12 @@
     },
     "outcome": {
       "type": "object", "additionalProperties": false,
-      "required": ["technical_checks_passed", "pr_opened", "merged", "accepted_as_submitted", "time_to_close_ms", "released", "deployed", "business_result_observed"],
+      "required": ["technical_checks_passed", "pr_opened", "merged", "merged_pr_head_matches_recorded_commit", "time_to_close_ms", "released", "deployed", "business_result_observed"],
       "properties": {
         "technical_checks_passed": { "type": "boolean" },
         "pr_opened": { "type": "boolean" },
         "merged": { "type": "boolean" },
-        "accepted_as_submitted": { "type": ["boolean", "null"] },
+        "merged_pr_head_matches_recorded_commit": { "type": ["boolean", "null"] },
         "time_to_close_ms": { "$ref": "#/$defs/nullableInteger" },
         "released": { "type": ["boolean", "null"] },
         "deployed": { "type": ["boolean", "null"] },
