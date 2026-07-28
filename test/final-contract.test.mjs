@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const generatedAt = '2026-07-14T14:30:00Z';
 const publicationFields = [
   'schema_version', 'mission_id', 'state', 'pr_number', 'pr_url', 'pr_head_oid',
-  'base_branch', 'head_drift', 'ci_state', 'merge_commit_oid', 'review_decision',
+  'base_branch', 'head_drift', 'merge_commit_oid', 'review_decision',
   'decision_url', 'opened_at', 'closed_at', 'updated_at', 'observed_at',
   'correction_note', 'scope_note', 'attestation_uri', 'bundle_digest',
   'release_asset_sha256', 'attestation_verified_at',
@@ -27,7 +27,6 @@ function completePublication(overrides = {}) {
     pr_head_oid: 'a'.repeat(40),
     base_branch: 'main',
     head_drift: false,
-    ci_state: 'success',
     merge_commit_oid: null,
     review_decision: 'review_required',
     decision_url: null,
@@ -67,7 +66,6 @@ test('publication schema is exact, complete, and enforces state-dependent facts'
     pr_head_oid: null,
     base_branch: null,
     head_drift: false,
-    ci_state: null,
     merge_commit_oid: null,
     review_decision: null,
     decision_url: null,

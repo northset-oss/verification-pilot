@@ -7,7 +7,6 @@
   "pr_head_oid": "92e0d82d5bea6a93d8947ff63ee7ea4652591ec5",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "success",
   "merge_commit_oid": "af64cfdbc59fb02689e298ccf0063f709613a37e",
   "review_decision": "approved",
   "decision_url": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502#pullrequestreview-4740775324",

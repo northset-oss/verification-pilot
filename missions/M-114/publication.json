@@ -7,7 +7,6 @@
   "pr_head_oid": "56531be33fda3097c6541a7b987fa7f525489987",
   "base_branch": "main",
   "head_drift": false,
-  "ci_state": "pending",
   "merge_commit_oid": null,
   "review_decision": "review_required",
   "decision_url": "https://github.com/node-fetch/node-fetch/pull/1904",
