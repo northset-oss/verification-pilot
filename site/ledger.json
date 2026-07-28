@@ -450,7 +450,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/RaspberryPiFoundation/blockly-samples/pull/2748#pullrequestreview-4685905315",
-        "attribution": "Linked maintainer review"
+        "attribution": "Linked upstream record"
       }
     },
     {
@@ -604,7 +604,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/prometheus/client_js/pull/771#pullrequestreview-4689926060",
-        "attribution": "Linked maintainer review",
+        "attribution": "Linked upstream record",
         "head_drift": true,
         "pr_head_oid": "b64dc651cb3a1a22ed5e51095bbea2296d2b57ad"
       }
@@ -682,7 +682,7 @@
       "upstream_outcome": {
         "status": "closed_unmerged",
         "link": "https://github.com/prometheus/client_js/pull/773#issuecomment-4953870322",
-        "attribution": "Linked maintainer review"
+        "attribution": "Linked upstream record"
       }
     },
     {
@@ -1003,7 +1003,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/KaotoIO/kaoto/pull/3478#pullrequestreview-4694480971",
-        "attribution": "Linked maintainer review",
+        "attribution": "Linked upstream record",
         "head_drift": true,
         "pr_head_oid": "00d27e70410dc78f0fcda582b987d515dc8b5817"
       }
@@ -1099,7 +1099,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/KaotoIO/kaoto/pull/3487#pullrequestreview-4712093111",
-        "attribution": "Linked maintainer review",
+        "attribution": "Linked upstream record",
         "head_drift": true,
         "pr_head_oid": "07fb69366cdcb45863073a1daa65084916829eb4"
       }
@@ -1222,7 +1222,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/goptics/vizb/pull/226",
-        "attribution": "Linked maintainer review"
+        "attribution": "Linked upstream record"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -1460,7 +1460,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": true,
+          "merged_pr_head_matches_recorded_commit": true,
           "time_to_close_ms": 7872000,
           "released": null,
           "deployed": null,
@@ -1748,7 +1748,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -2047,7 +2047,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": false,
+          "merged_pr_head_matches_recorded_commit": false,
           "time_to_close_ms": 247966000,
           "released": null,
           "deployed": null,
@@ -2350,7 +2350,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": true,
+          "merged_pr_head_matches_recorded_commit": true,
           "time_to_close_ms": 393800000,
           "released": null,
           "deployed": null,
@@ -2638,7 +2638,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": false,
+          "merged_pr_head_matches_recorded_commit": false,
           "time_to_close_ms": 83075000,
           "released": null,
           "deployed": null,
@@ -2924,7 +2924,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -3210,7 +3210,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -3489,7 +3489,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": true,
+          "merged_pr_head_matches_recorded_commit": true,
           "time_to_close_ms": 189891000,
           "released": null,
           "deployed": null,
@@ -3788,7 +3788,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -4077,7 +4077,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -4366,7 +4366,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -4662,7 +4662,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": true,
+          "merged_pr_head_matches_recorded_commit": true,
           "time_to_close_ms": 148405000,
           "released": null,
           "deployed": null,
@@ -4958,7 +4958,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -5254,7 +5254,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -5580,7 +5580,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -5875,7 +5875,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -6160,7 +6160,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,
@@ -6255,7 +6255,7 @@
       "upstream_outcome": {
         "status": "merged",
         "link": "https://github.com/meilisearch/meilisearch-js-plugins/pull/1502#pullrequestreview-4740775324",
-        "attribution": "Linked maintainer review"
+        "attribution": "Linked upstream record"
       },
       "economic_identity": {
         "scope": "end_to_end_task",
@@ -6461,7 +6461,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": true,
-          "accepted_as_submitted": true,
+          "merged_pr_head_matches_recorded_commit": true,
           "time_to_close_ms": 359794000,
           "released": null,
           "deployed": null,
@@ -6744,7 +6744,7 @@
           "technical_checks_passed": true,
           "pr_opened": true,
           "merged": false,
-          "accepted_as_submitted": null,
+          "merged_pr_head_matches_recorded_commit": null,
           "time_to_close_ms": null,
           "released": null,
           "deployed": null,

@@ -205,7 +205,7 @@ test('generated open ledger exposes exact state counts, freshness, provenance, d
     .filter(({ variant }) => variant !== 'own_repo_rehearsal');
   const expectedSummaries = [
     [externalReceipts.length, 'External receipts'],
-    [externalReceipts.filter(({ publication }) => publication?.state === 'merged').length, 'Merged upstream'],
+    [externalReceipts.filter(({ publication }) => publication?.state === 'merged').length, 'PRs recorded merged'],
     [new Set(externalReceipts.map(({ target_repo: targetRepo }) => targetRepo)).size, 'Distinct repositories'],
     [externalReceipts.filter(({ attestation_uri: attestationUri }) => attestationUri !== null).length, 'Attested'],
   ];

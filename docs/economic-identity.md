@@ -15,8 +15,9 @@ One receipt combines three deliberately different evidence layers:
    It records the stable operator identity, approval time, approved manifest digest, funding
    identity, and operational caps. It cannot truthfully be placed inside the earlier prepared
    bundle.
-3. `publication.json` remains mutable. It records observable upstream PR, CI, decision, and timing
-   changes without rewriting either immutable layer.
+3. `publication.json` remains mutable. It records observable upstream PR state, GitHub
+   review-decision fields, head identity, and timing changes without rewriting either immutable
+   layer.
 
 The ledger requires both `economic.json` and `approval.json` for schema v2. If both are absent, it
 renders the existing schema-v1 receipt. A partial upgrade fails closed. Existing signed bundles are
@@ -80,9 +81,11 @@ token counters, those fields remain `null`; the configured model name is never c
 
 The v2 page leads with a compact at-a-glance band, then a summary grid, an effort strip, and a
 plain-language known/unknown/unpriced section. Dense economic, technical, and provenance evidence
-is retained in expandable drawers and the machine-readable `receipt.json`. Upstream outcome stays
-visually marked as mutable. Print styles preserve the complete evidence without forcing the screen
-view into a long undifferentiated field list.
+is retained in expandable drawers and the machine-readable `receipt.json`. Upstream metadata stays
+visually marked as mutable. For merged PRs, the projection reports only whether the observed PR
+head matched the recorded commit; it does not characterize that comparison as maintainer
+acceptance. Print styles preserve the complete evidence without forcing the screen view into a
+long undifferentiated field list.
 
 The formal structures are in
 [`economic-identity.schema.json`](../schema/economic-identity.schema.json),

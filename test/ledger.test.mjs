@@ -205,7 +205,7 @@ test('M-004 is a real production-executor rehearsal, not a host fallback', async
   assert.doesNotMatch(JSON.stringify({ mission, runRecord, publication }), /host fallback|Docker was unavailable/i);
 });
 
-test('open PR review decisions are projected as maintainer outcomes', () => {
+test('open PR review decisions are projected as mutable upstream states', () => {
   assert.equal(publicationOutcome({state: 'open', review_decision: 'changes_requested'}), 'changes_requested');
   assert.equal(publicationOutcome({state: 'open', review_decision: 'approved'}), 'approved');
   assert.equal(publicationOutcome({state: 'open', review_decision: null}), 'open');
@@ -215,10 +215,10 @@ test('open PR review decisions are projected as maintainer outcomes', () => {
 test('outcome attribution follows recorded state and decision evidence, never URL presence alone', async () => {
   const expected = new Map([
     ['M-016', ['open', 'Live upstream pull request']],
-    ['M-020', ['merged', 'Linked maintainer review']],
+    ['M-020', ['merged', 'Linked upstream record']],
     ['M-019', ['merged', 'Recorded upstream outcome']],
     ['M-009', ['closed_unmerged', 'Recorded upstream outcome']],
-    ['M-011', ['merged', 'Linked maintainer review']],
+    ['M-011', ['merged', 'Linked upstream record']],
   ]);
   for (const [missionId, [status, attribution]] of expected) {
     const receipt = await buildReceiptViewModel({
@@ -674,8 +674,12 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.match(featuredArticle, /SELF-FUNDED FIELD-TESTING/);
   assert.match(homepage, /<details class="rehearsal-archive">/);
   assert.match(homepage, /External receipts/);
-  assert.match(homepage, /Merged upstream/);
+  assert.match(homepage, /PRs recorded merged/);
   assert.match(homepage, /Open · awaiting review/);
+  assert.doesNotMatch(
+    homepage,
+    /Merged upstream|review signal|Linked maintainer review|accepted as submitted/i,
+  );
   assert.match(homepage, /A proof-of-pass receipt records that the declared commands returned exit 0 on the named code in the named environment\./);
   assert.match(homepage, /workspace-search buttons need type=button/);
   assert.match(homepage, /for open-source work/);
@@ -876,6 +880,7 @@ test('render creates a permanent printable receipt for every committed mission a
   const m016Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-016', 'receipt.json'), 'utf8'));
   const m019Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-019', 'receipt.json'), 'utf8'));
   const m020Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-020', 'receipt.json'), 'utf8'));
+  const m105Json = JSON.parse(await readFile(path.join(temporaryRoot, 'site', 'receipts', 'M-105', 'receipt.json'), 'utf8'));
   const m020Publication = JSON.parse(
     await readFile(path.join(committedMissionsDirectory, 'M-020', 'publication.json'), 'utf8'),
   );
@@ -894,6 +899,8 @@ test('render creates a permanent printable receipt for every committed mission a
   assert.doesNotMatch(m020, /This receipt tested/);
   assert.equal(m020Json.upstream_outcome.head_drift, true);
   assert.equal(m020Json.upstream_outcome.pr_head_oid, '00d27e70410dc78f0fcda582b987d515dc8b5817');
+  assert.equal(m105Json.economic_identity.outcome.merged_pr_head_matches_recorded_commit, false);
+  assert.equal(Object.hasOwn(m105Json.economic_identity.outcome, 'accepted_as_submitted'), false);
   assert.doesNotMatch(m016, /OPEN[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m019, /MERGED[\s\S]{0,160}Maintainer decision/);
   assert.doesNotMatch(m008, /<h3>/);
@@ -960,7 +967,7 @@ test('render emits deterministic standalone OG SVGs and absolute PNG social meta
   const externalReceipts = index.missions.map(({receipt}) => receipt).filter(({variant}) => variant !== 'own_repo_rehearsal');
   const homepageStats = [
     [externalReceipts.length, 'EXTERNAL RECEIPTS'],
-    [externalReceipts.filter(({publication}) => publication?.state === 'merged').length, 'MERGED UPSTREAM'],
+    [externalReceipts.filter(({publication}) => publication?.state === 'merged').length, 'PRS RECORDED MERGED'],
     [new Set(externalReceipts.map(({target_repo: targetRepo}) => targetRepo)).size, 'DISTINCT REPOSITORIES'],
     [externalReceipts.filter(({attestation_uri: attestationUri}) => attestationUri !== null).length, 'ATTESTED'],
   ];

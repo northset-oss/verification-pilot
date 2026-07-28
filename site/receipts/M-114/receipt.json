@@ -262,7 +262,7 @@
       "technical_checks_passed": true,
       "pr_opened": true,
       "merged": false,
-      "accepted_as_submitted": null,
+      "merged_pr_head_matches_recorded_commit": null,
       "time_to_close_ms": null,
       "released": null,
       "deployed": null,
