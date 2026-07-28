@@ -29,7 +29,7 @@ const policy = {
   legacy_ledger_base_url: 'https://northset-oss.github.io/verification-pilot/',
   current_block_schema_version: 2,
   historical_exempt_mission_ids: [
-    'M-007', 'M-008', 'M-009', 'M-011', 'M-012',
+    'M-007', 'M-008', 'M-009', 'M-011',
     'M-014', 'M-015', 'M-016', 'M-019', 'M-020',
   ],
   factory_block_schema_versions: { 'M-1001': 1 },
