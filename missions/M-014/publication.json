@@ -13,7 +13,7 @@
   "opened_at": "2026-07-13T00:31:54Z",
   "closed_at": "2026-07-13T02:23:13Z",
   "updated_at": "2026-07-13T02:23:33Z",
-  "observed_at": "2026-07-14T23:05:49.565Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "Contributor self-run record of Northset’s own contribution; not the maintainer’s verification. The declared network-off check runs `npm run test-unit` on node:22-bookworm after a disclosed online install. It does not run lint, type-check, or the full upstream CI gates.",
   "bundle_digest": "sha256:8d24baf5c1f7ed157ee0f9b4d268e7f55afead025ca21e85095a986ef174209f",

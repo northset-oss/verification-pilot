@@ -13,7 +13,7 @@
   "opened_at": "2026-07-16T19:32:30Z",
   "closed_at": null,
   "updated_at": "2026-07-16T19:32:30Z",
-  "observed_at": "2026-07-16T19:32:31.886Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions. Two existing parser tests are intentionally updated because they assert the behavior the maintainer declared illegal; this is recorded as an elevated test-change risk.",
   "bundle_digest": "sha256:276e60f2c7a19bbbe5eb9daf2bb6f4eb707a866a4ea7a67692836333e29ed122",

@@ -13,7 +13,7 @@
   "opened_at": "2026-07-15T12:36:33Z",
   "closed_at": "2026-07-15T14:47:45Z",
   "updated_at": "2026-07-15T15:35:36Z",
-  "observed_at": "2026-07-15T15:54:58.854Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "The focused regression verifies the shared renderDonutSvg output but does not manually exercise every chart caller in a browser.",
   "bundle_digest": "sha256:5a774731726a0464e901d7c64203effe29c2893b9b6e359198e8e944845b0584",

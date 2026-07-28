@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-28T15:43:23Z",
+  "generated_at": "2026-07-28T17:27:07Z",
   "receipt_id": "M-168",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -69,9 +69,9 @@
   "correction": null,
   "scope_note": "The receipt proves the declared automated check only; maintainer review, CI, and merge remain independent decisions.",
   "upstream_outcome": {
-    "status": "open",
+    "status": "closed_unmerged",
     "link": "https://github.com/ember-cli/ember-cli/pull/11045",
-    "attribution": "Live upstream pull request"
+    "attribution": "Recorded upstream outcome"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
@@ -272,7 +272,7 @@
       "pr_opened": true,
       "merged": false,
       "merged_pr_head_matches_recorded_commit": null,
-      "time_to_close_ms": null,
+      "time_to_close_ms": 1010714000,
       "released": null,
       "deployed": null,
       "business_result_observed": null
@@ -283,7 +283,7 @@
       "attempt_lineage": "complete",
       "usage": "partial",
       "cost": "unpriced",
-      "external_outcome": "partial",
+      "external_outcome": "complete",
       "business_value": "not_observed"
     },
     "provenance": {

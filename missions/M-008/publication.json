@@ -13,7 +13,7 @@
   "opened_at": "2026-07-12T02:18:47Z",
   "closed_at": "2026-07-13T19:03:50Z",
   "updated_at": "2026-07-13T19:03:50Z",
-  "observed_at": "2026-07-14T23:05:45.867Z",
+  "observed_at": "2026-07-28T17:27:07Z",
   "correction_note": null,
   "scope_note": "The declared network-off check runs the workspace-search plugin's Mocha unit suite (17 tests including the new button-type regression test) on Node 22, after a disclosed online phase-A install (npm ci + the plugin's build, npm cache redirected to /workspace/.npmcache). It does not run the full monorepo test/lint/format matrix; upstream CI additionally runs Node 22 and 24, eslint, and prettier --check across all packages.",
   "bundle_digest": "sha256:58c3a6dd0c2e142a486cdf7c7e112fa6aa75affcc6c77a139fd5a694cf0cd64c",
