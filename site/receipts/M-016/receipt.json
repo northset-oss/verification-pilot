@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-28T17:27:07Z",
+  "generated_at": "2026-08-10T19:55:20Z",
   "receipt_id": "M-016",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -68,8 +68,8 @@
   "correction": null,
   "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
   "upstream_outcome": {
-    "status": "open",
-    "link": "https://github.com/renovatebot/renovate/pull/44538",
-    "attribution": "Live upstream pull request"
+    "status": "merged",
+    "link": "https://github.com/renovatebot/renovate/pull/44538#pullrequestreview-4847402100",
+    "attribution": "Linked upstream record"
   }
 }

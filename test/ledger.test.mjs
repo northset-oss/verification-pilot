@@ -214,7 +214,7 @@ test('open PR review decisions are projected as mutable upstream states', () => 
 
 test('outcome attribution follows recorded state and decision evidence, never URL presence alone', async () => {
   const expected = new Map([
-    ['M-016', ['open', 'Live upstream pull request']],
+    ['M-016', ['merged', 'Linked upstream record']],
     ['M-020', ['merged', 'Linked upstream record']],
     ['M-019', ['merged', 'Recorded upstream outcome']],
     ['M-009', ['closed_unmerged', 'Recorded upstream outcome']],
