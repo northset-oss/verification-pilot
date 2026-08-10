@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-07-28T17:27:07Z",
+  "generated_at": "2026-08-10T19:55:20Z",
   "missions": [
     {
       "mission_id": "M-001",
@@ -1551,8 +1551,8 @@
       "issue_or_task": "https://github.com/renovatebot/renovate/issues/44500",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
-        "link": "https://github.com/renovatebot/renovate/pull/44538"
+        "status": "merged",
+        "link": "https://github.com/renovatebot/renovate/pull/44538#pullrequestreview-4847402100"
       },
       "run_record_bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-016-4a0512e8d6e6/run-record-M-016-4a0512e8d6e6.tar.gz",
@@ -1561,19 +1561,19 @@
       "publication": {
         "schema_version": 1,
         "mission_id": "M-016",
-        "state": "open",
+        "state": "merged",
         "pr_number": 44538,
         "pr_url": "https://github.com/renovatebot/renovate/pull/44538",
         "pr_head_oid": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
         "base_branch": "main",
         "head_drift": false,
-        "merge_commit_oid": null,
-        "review_decision": "review_required",
-        "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
+        "merge_commit_oid": "2c185ea5117ca6ba4c28815fcd96157394e6184e",
+        "review_decision": "approved",
+        "decision_url": "https://github.com/renovatebot/renovate/pull/44538#pullrequestreview-4847402100",
         "opened_at": "2026-07-13T18:20:19Z",
-        "closed_at": null,
-        "updated_at": "2026-07-19T10:04:43Z",
-        "observed_at": "2026-07-28T17:27:07Z",
+        "closed_at": "2026-08-03T18:39:20Z",
+        "updated_at": "2026-08-03T18:56:50Z",
+        "observed_at": "2026-08-10T19:38:18Z",
         "correction_note": null,
         "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
         "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
@@ -1665,19 +1665,19 @@
         "publication": {
           "schema_version": 1,
           "mission_id": "M-016",
-          "state": "open",
+          "state": "merged",
           "pr_number": 44538,
           "pr_url": "https://github.com/renovatebot/renovate/pull/44538",
           "pr_head_oid": "77ba52c5b58855836bb00545c37f81cb7d2d1747",
           "base_branch": "main",
           "head_drift": false,
-          "merge_commit_oid": null,
-          "review_decision": "review_required",
-          "decision_url": "https://github.com/renovatebot/renovate/pull/44538",
+          "merge_commit_oid": "2c185ea5117ca6ba4c28815fcd96157394e6184e",
+          "review_decision": "approved",
+          "decision_url": "https://github.com/renovatebot/renovate/pull/44538#pullrequestreview-4847402100",
           "opened_at": "2026-07-13T18:20:19Z",
-          "closed_at": null,
-          "updated_at": "2026-07-19T10:04:43Z",
-          "observed_at": "2026-07-28T17:27:07Z",
+          "closed_at": "2026-08-03T18:39:20Z",
+          "updated_at": "2026-08-03T18:56:50Z",
+          "observed_at": "2026-08-10T19:38:18Z",
           "correction_note": null,
           "scope_note": "The declared network-off check runs one focused Vitest spec for Quadlet digest replacement. It does not run Renovate’s full test, lint, typecheck, or coverage gates.",
           "bundle_digest": "sha256:4a0512e8d6e6ed0dc578b9a8f13e8551592127d98ed6a0bd9a8b5bff0f759ef2",
@@ -1686,9 +1686,9 @@
           "attestation_verified_at": "2026-07-14T14:21:48Z"
         },
         "live_outcome": {
-          "status": "open",
-          "link": "https://github.com/renovatebot/renovate/pull/44538",
-          "attribution": "Live upstream pull request"
+          "status": "merged",
+          "link": "https://github.com/renovatebot/renovate/pull/44538#pullrequestreview-4847402100",
+          "attribution": "Linked upstream record"
         }
       }
     },
@@ -4601,8 +4601,8 @@
       "issue_or_task": "https://github.com/rokucommunity/bslint/issues/61",
       "consent_artifact": null,
       "maintainer_outcome": {
-        "status": "open",
-        "link": "https://github.com/rokucommunity/bslint/pull/197"
+        "status": "changes_requested",
+        "link": "https://github.com/rokucommunity/bslint/pull/197#pullrequestreview-4874062336"
       },
       "run_record_bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
       "attestation_uri": "https://github.com/northset-oss/verification-pilot/releases/download/run-record-M-115-5e882b216537/run-record-M-115-5e882b216537.tar.gz",
@@ -4614,16 +4614,16 @@
         "state": "open",
         "pr_number": 197,
         "pr_url": "https://github.com/rokucommunity/bslint/pull/197",
-        "pr_head_oid": "4de9666cb9885e9fc9737a055c5bdd2b5ca1997c",
+        "pr_head_oid": "927b72eeca445f7fda54feb3c7f44ba6aef5cdfa",
         "base_branch": "master",
-        "head_drift": false,
+        "head_drift": true,
         "merge_commit_oid": null,
-        "review_decision": null,
-        "decision_url": null,
+        "review_decision": "changes_requested",
+        "decision_url": "https://github.com/rokucommunity/bslint/pull/197#pullrequestreview-4874062336",
         "opened_at": "2026-07-16T19:32:30Z",
         "closed_at": null,
-        "updated_at": "2026-07-16T19:32:30Z",
-        "observed_at": "2026-07-28T17:27:07Z",
+        "updated_at": "2026-08-10T19:54:32Z",
+        "observed_at": "2026-08-10T19:55:20Z",
         "correction_note": null,
         "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
         "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
@@ -4935,16 +4935,16 @@
           "state": "open",
           "pr_number": 197,
           "pr_url": "https://github.com/rokucommunity/bslint/pull/197",
-          "pr_head_oid": "4de9666cb9885e9fc9737a055c5bdd2b5ca1997c",
+          "pr_head_oid": "927b72eeca445f7fda54feb3c7f44ba6aef5cdfa",
           "base_branch": "master",
-          "head_drift": false,
+          "head_drift": true,
           "merge_commit_oid": null,
-          "review_decision": null,
-          "decision_url": null,
+          "review_decision": "changes_requested",
+          "decision_url": "https://github.com/rokucommunity/bslint/pull/197#pullrequestreview-4874062336",
           "opened_at": "2026-07-16T19:32:30Z",
           "closed_at": null,
-          "updated_at": "2026-07-16T19:32:30Z",
-          "observed_at": "2026-07-28T17:27:07Z",
+          "updated_at": "2026-08-10T19:54:32Z",
+          "observed_at": "2026-08-10T19:55:20Z",
           "correction_note": null,
           "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
           "bundle_digest": "sha256:5e882b21653755cc4b05e400fa521d36821123f53ae3157f24274a54f1ceed7a",
@@ -4960,9 +4960,11 @@
           }
         },
         "live_outcome": {
-          "status": "open",
-          "link": "https://github.com/rokucommunity/bslint/pull/197",
-          "attribution": "Live upstream pull request"
+          "status": "changes_requested",
+          "link": "https://github.com/rokucommunity/bslint/pull/197#pullrequestreview-4874062336",
+          "attribution": "Linked upstream record",
+          "head_drift": true,
+          "pr_head_oid": "927b72eeca445f7fda54feb3c7f44ba6aef5cdfa"
         }
       }
     },

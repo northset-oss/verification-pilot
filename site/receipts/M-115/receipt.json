@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-07-28T17:27:07Z",
+  "generated_at": "2026-08-10T19:55:20Z",
   "receipt_id": "M-115",
   "receipt_result": "PASS — 1/1 declared command",
   "passed_commands": 1,
@@ -69,9 +69,11 @@
   "correction": null,
   "scope_note": "The receipt proves the declared automated checks only; maintainer review and merge remain independent human decisions.",
   "upstream_outcome": {
-    "status": "open",
-    "link": "https://github.com/rokucommunity/bslint/pull/197",
-    "attribution": "Live upstream pull request"
+    "status": "changes_requested",
+    "link": "https://github.com/rokucommunity/bslint/pull/197#pullrequestreview-4874062336",
+    "attribution": "Linked upstream record",
+    "head_drift": true,
+    "pr_head_oid": "927b72eeca445f7fda54feb3c7f44ba6aef5cdfa"
   },
   "economic_identity": {
     "scope": "end_to_end_task",
