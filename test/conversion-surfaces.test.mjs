@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { access, mkdtemp, readFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -9,7 +9,6 @@ import { fileURLToPath } from 'node:url';
 const repositoryRoot = fileURLToPath(new URL('../', import.meta.url));
 const ledgerCli = path.join(repositoryRoot, 'bin/ledger.mjs');
 const generatedAt = '2026-07-15T00:00:00Z';
-const publicRequestUrl = 'https://github.com/northset-oss/verification-pilot/issues/new?template=request-a-run.yml';
 
 async function renderFixtureSite(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'northset-conversion-surfaces-'));
@@ -42,103 +41,43 @@ async function renderFixtureSite(t) {
   return root;
 }
 
-function decodeAttribute(value) {
-  return value.replaceAll('&amp;', '&');
+function assertPilotEndedNotice(html) {
+  const notice = html.match(/<section class="pilot-ended"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(notice);
+  assert.match(notice, /<p class="eyebrow">PILOT ENDED<\/p>/);
+  assert.match(notice, /<h2 id="pilot-ended-title">This pilot has ended<\/h2>/);
+  assert.match(notice, /Northset ran this pilot from July 10 to July 28, 2026\./);
+  assert.match(notice, /The receipts here record checks Northset ran on its own pull requests and on rehearsals, and they are kept unchanged as published\./);
+  assert.match(notice, /Northset no longer takes run requests or publishes new receipts\./);
+  assert.match(notice, /To have an entry removed, email <a href="mailto:oss@northset\.ai">oss@northset\.ai<\/a>\./);
+  assert.doesNotMatch(html, /Maintain [A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\?|Request a private run|Email a private request|Open a public request|northset-verify|request-a-run|FOR MAINTAINERS/);
 }
 
-function assertCompleteRequestCta(html, repository = null) {
-  assert.match(html, /<section class="request-run"/);
-  if (repository === null) {
-    assert.match(html, /<h2[^>]*>Request a private run<\/h2>/);
-    assert.match(html, /Maintain an open-source project\?/);
-    assert.match(html, /repository-declared checks/);
-    assert.match(html, /Nothing is published without your approval\./);
-    assert.match(html, /Free during the pilot\./);
-  } else {
-    assert.ok(html.includes(`<h2 id="request-run-title">Maintain ${repository}?</h2>`));
-    assert.match(html, /Get this same run for any PR in your queue — private, free during the pilot, nothing published without your approval\./);
-  }
-  assert.match(html, /Open a public request/);
-  assert.ok(html.includes(publicRequestUrl.replaceAll('&', '&amp;')));
-  assert.ok(
-    html.indexOf(publicRequestUrl.replaceAll('&', '&amp;')) < html.indexOf('mailto:oss@northset.ai'),
-    'the public issue-template CTA must precede the private email CTA',
-  );
-  assert.match(html, /northset-verify/);
-  assert.doesNotMatch(html, /run the proof/i);
-
-  const match = html.match(/href="(mailto:oss@northset\.ai\?[^\"]+)"/);
-  assert.ok(match, 'CTA must contain a prefilled email request');
-  const mailto = new URL(decodeAttribute(match[1]));
-  assert.equal(mailto.protocol, 'mailto:');
-  assert.equal(mailto.pathname, 'oss@northset.ai');
-  assert.equal(
-    mailto.searchParams.get('subject'),
-    repository === null
-      ? 'Northset run request: owner/repository#123'
-      : `Northset run request: ${repository}`,
-  );
-  assert.equal(mailto.searchParams.get('body'), [
-    'PR URL:',
-    'Repository:',
-    'I am a maintainer or authorized representative:',
-    'Checks to run, if different from repo defaults:',
-    'Anything Northset should know:',
-  ].join('\n'));
-}
-
-test('ledger and every permanent receipt page expose a complete, modest conversion CTA', async (t) => {
+test('ledger and every permanent receipt page show the ended notice without run requests', async (t) => {
   const root = await renderFixtureSite(t);
   const homepage = await readFile(path.join(root, 'index.html'), 'utf8');
-  assertCompleteRequestCta(homepage);
-  assert.match(homepage, /class="button-link mast-request request-primary"[^>]*>Open a public request<\/a>/);
-  assert.match(homepage, /@media print[^}]*[\s\S]*\.request-run/);
+  assertPilotEndedNotice(homepage);
+  assert.match(homepage, /@media print[^}]*[\s\S]*\.pilot-ended/);
 
-  for (const [missionId, repository] of [
-    ['M-001', 'northset/oss-run-records'],
-    ['M-004', 'maintainer/project'],
-    ['M-005', 'project/%3Cscript%3Ealert(1)%3C/script%3E'],
-  ]) {
+  for (const missionId of ['M-001', 'M-004', 'M-005']) {
     const receipt = await readFile(path.join(root, 'receipts', missionId, 'index.html'), 'utf8');
-    assertCompleteRequestCta(receipt, repository);
+    assertPilotEndedNotice(receipt);
   }
 });
 
-test('dedicated request form is public, private-by-default, and captures authorization', async () => {
-  const form = await readFile(
-    path.join(repositoryRoot, '.github/ISSUE_TEMPLATE/request-a-run.yml'),
-    'utf8',
+test('public run-request form has been removed', async () => {
+  await assert.rejects(
+    access(path.join(repositoryRoot, '.github/ISSUE_TEMPLATE/request-a-run.yml')),
+    (error) => error.code === 'ENOENT',
   );
-  assert.match(form, /^name: Request a run$/m);
-  assert.match(form, /^labels:\s*\["run-request"\]$/m);
-  assert.match(form, /This issue is public/);
-  assert.match(form, /Do not include secrets/);
-  for (const id of [
-    'pr_url',
-    'repository',
-    'relationship',
-    'requested_checks',
-    'private_by_default',
-    'publish_later',
-    'preferred_contact',
-    'consent',
-  ]) {
-    assert.match(form, new RegExp(`^- type: [^\\n]+\\n  id: ${id}$`, 'm'), id);
-  }
-  assert.match(form, /options:\n      - Maintainer\n      - Authorized organization member\n      - Other/);
-  assert.match(form, /id: private_by_default[\s\S]*?options:\n      - "Yes"\n      - "No"[\s\S]*?default: 0/);
-  assert.match(form, /Nothing is published without my additional approval/);
-  assert.match(form, /id: consent[\s\S]*?required: true/);
 });
 
-test('future signed-bundle releases carry the restrained private-run footer', async () => {
+test('future signed-bundle releases do not invite run requests', async () => {
   const workflow = await readFile(
     path.join(repositoryRoot, '.github/workflows/attest-bundle.yml'),
     'utf8',
   );
-  assert.match(workflow, /Maintain an open-source project\? Request a private run for a PR already in your queue at oss@northset\.ai\./);
-  assert.match(workflow, /Nothing is published without your approval\./);
-  assert.doesNotMatch(workflow, /run the proof/i);
+  assert.doesNotMatch(workflow, /Maintain an open-source project\? Request a private run/);
 });
 
 test('private email requests have an equivalent consent-evidence procedure without public copying', async () => {

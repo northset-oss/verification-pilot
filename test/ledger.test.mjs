@@ -689,7 +689,8 @@ test('render creates a permanent printable receipt for every committed mission a
   );
   const masthead = homepage.match(/<header class="mast">[\s\S]*?<\/header>/)?.[0];
   assert.ok(masthead);
-  assert.ok(masthead.indexOf('request-a-run.yml') < masthead.indexOf('mailto:oss@northset.ai'));
+  assert.doesNotMatch(masthead, /request-a-run|run request|private request/i);
+  assert.match(homepage, /<h2 id="pilot-ended-title">This pilot has ended<\/h2>/);
   const externalGallery = homepage.match(/<section class="gallery"[\s\S]*?<\/section>/)?.[0];
   assert.ok(externalGallery);
   const externalReceipts = build.index.missions
@@ -759,15 +760,11 @@ test('render creates a permanent printable receipt for every committed mission a
       assert.match(page, /Expected output includes <code>Verification succeeded!<\/code>/);
     }
     assert.doesNotMatch(page, /CI state|upstream CI (?:agreed|disagreed)|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt|receipt discrepancy/i);
-    const requestBox = page.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
-    assert.ok(requestBox);
-    assert.ok(requestBox.indexOf('request-a-run.yml') < requestBox.indexOf('mailto:oss@northset.ai'));
-    assert.match(requestBox, /href="https:\/\/github\.com\/northset-oss\/verification-pilot\/issues\/new\?template=request-a-run\.yml">Open a public request<\/a>/);
-    assert.match(requestBox, /href="mailto:oss@northset\.ai\?/);
-    assert.match(requestBox, /<code>northset-verify<\/code>/);
-    assert.match(requestBox, /href="https:\/\/northset-oss\.github\.io\/verification-pilot\/receipts\/M-004\/">See a sample private check receipt<\/a>/);
+    const notice = page.match(/<section class="pilot-ended"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(notice);
+    assert.match(notice, /<h2 id="pilot-ended-title">This pilot has ended<\/h2>/);
+    assert.doesNotMatch(page, /request-a-run|private run|private request|public request|northset-verify|FOR MAINTAINERS|Maintain [A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\?/i);
     const repository = new URL(build.index.missions.find((mission) => mission.mission_id === missionId).receipt.target_repo).pathname.replace(/^\//, '');
-    assert.match(page, new RegExp(`Maintain ${repository.replace('/', '\\/')}\\?`));
     if (publication.state !== 'prepared') {
       assert.match(page, new RegExp(`All Northset work in ${repository.replace('/', '\\/')} →`));
     }
@@ -936,9 +933,10 @@ test('render creates a permanent printable receipt for every committed mission a
     assert.match(repositoryPage, /← Receipt ledger/);
     for (const receipt of receipts) assert.match(repositoryPage, new RegExp(`Receipt ${receipt.mission_id}`));
     assert.doesNotMatch(repositoryPage, /upstream CI|conclusive runs|agreed with (?:this|the) receipt|disagreed with (?:this|the) receipt/i);
-    const repositoryRequest = repositoryPage.match(/<section class="request-run"[\s\S]*?<\/section>/)?.[0];
-    assert.ok(repositoryRequest);
-    assert.ok(repositoryRequest.indexOf('request-a-run.yml') < repositoryRequest.indexOf('mailto:oss@northset.ai'));
+    const notice = repositoryPage.match(/<section class="pilot-ended"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(notice);
+    assert.match(notice, /<h2 id="pilot-ended-title">This pilot has ended<\/h2>/);
+    assert.doesNotMatch(repositoryPage, /request-a-run|private run|private request|public request|northset-verify|FOR MAINTAINERS|Maintain [A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\?/i);
   }
 
   const allowedHosts = collectHttpHosts(JSON.parse(await readFile(indexPath, 'utf8')));
