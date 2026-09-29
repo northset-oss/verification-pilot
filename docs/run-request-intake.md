@@ -1,5 +1,7 @@
 # Run-request intake
 
+> **Historical.** This pilot ended on July 28, 2026. Northset no longer takes run requests; this page is kept as the record of how the pilot worked.
+
 This procedure turns an inbound request into scoped consent to run repository-declared checks. It
 does not grant permission to change the pull request, publish a run record, or act on other pull
 requests.

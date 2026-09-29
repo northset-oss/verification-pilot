@@ -1,5 +1,7 @@
 # Northset OSS Run Records — Maintainer Respect Policy
 
+> **Historical.** This pilot ended on July 28, 2026. This policy is kept as the record of the terms the pilot ran under.
+
 This is our public promise about how we behave in and around your project. It's short on
 purpose, and we intend to be held to it. Some of it is enforced by our tooling; the rest is a
 commitment we make and you can check us on. We say which is which.

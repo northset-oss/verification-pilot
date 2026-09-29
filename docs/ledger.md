@@ -1,5 +1,7 @@
 # Public mission ledger
 
+> **Historical.** This pilot ended on July 28, 2026. Northset no longer takes run requests; this page is kept as the record of how the pilot worked.
+
 Build the machine-readable ledger from mission directories:
 
 ```sh
